@@ -4,11 +4,26 @@ Neubau von fc-treptow.de als statische Astro-Seite. Sechs Sprachen (Deutsch als 
 Türkisch, Arabisch, Spanisch, Französisch), gepflegt wird nur Deutsch. Spielplan und Tabellen kommen
 automatisch von fussball.de. Kein Tracking, keine Cookies, keine Fremdskripte auf den öffentlichen Seiten.
 
-Live: https://fc-treptow-site.vercel.app
+## Umgebungen
+
+| Was | Adresse |
+|---|---|
+| Live-Seite | https://fct-website-refresh.vercel.app |
+| Redaktion (CMS) | https://fct-website-refresh.vercel.app/admin |
+| Vorschau je Pull Request | Vercel kommentiert den Link automatisch im Pull Request |
+| Quellcode | https://github.com/fc-treptow/website-refresh |
+| Lokal | http://localhost:4321 (Redaktion lokal: http://localhost:4321/admin/index.html) |
+
+Das Vercel-Projekt und das GitHub-Repository gehören vollständig der Vereinsorganisation `fc-treptow`.
+Jeder Push auf `main` (auch aus dem CMS) geht nach etwa zwei Minuten live.
+
+Die ältere Adresse **fc-treptow-site.vercel.app** war die Version aus dem früheren GitHub-Repository.
+Sie ist nicht mehr maßgeblich, wird aus diesem Repository nicht mehr aktualisiert und sollte gelöscht
+oder auf die neue Adresse umgeleitet werden.
 
 ## Für die Redaktion (ohne Technik)
 
-Die Inhalte werden unter **https://fc-treptow-site.vercel.app/admin** gepflegt. Anmeldung mit E-Mail
+Die Inhalte werden unter **https://fct-website-refresh.vercel.app/admin** gepflegt. Anmeldung mit E-Mail
 und Passwort. Was gespeichert wird, ist nach etwa zwei Minuten online.
 
 Dort gibt es diese Bereiche:
@@ -41,11 +56,10 @@ Anmeldung über [DecapBridge](https://decapbridge.com) (kostenlos bis 10 Persone
    **bei DecapBridge hinterlegt, nicht im Repository** (nie in `config.yml` eintragen, das Repository
    ist öffentlich). Er läuft ab und muss dann erneuert und bei DecapBridge ersetzt werden
    (github.com/settings/tokens, Fine-grained, nur `fc-treptow`, Contents + Pull requests Read/Write).
-2. In DecapBridge die Redaktion per E-Mail einladen. Sie bekommt einen Link und setzt ein Passwort.
-3. In Vercel das Projekt mit dem GitHub-Repository verbinden (Project Settings → Git). Das ging per
-   CLI nicht, weil das Vercel-Konto keinen Schreibzugriff auf das Repository hat; im Dashboard mit
-   dem Konto verbinden, dem das Repository gehört. Ohne diesen Schritt baut Vercel nach CMS-Änderungen
-   nicht automatisch neu.
+2. Erledigt: Redaktion per E-Mail in DecapBridge eingeladen. Neue Mitglieder dort einladen; sie
+   bekommen einen Link und setzen ein Passwort.
+3. Erledigt: Vercel-Projekt `fct-website-refresh` ist mit diesem GitHub-Repository verbunden und baut
+   nach jeder Änderung (auch aus dem CMS) automatisch neu.
 
 Lokal testen: `npx decap-server` in einem zweiten Terminal, dann http://localhost:4321/admin/index.html
 öffnen (nutzt `local_backend: true`, keine Anmeldung nötig).
@@ -110,17 +124,26 @@ in `src/lib/instagram.ts`. Bilder werden beim Build heruntergeladen und selbst a
 
 ## Offene Punkte vor dem Livegang
 
-1. Redaktion bei DecapBridge einladen (siehe oben).
-2. Vercel mit dem GitHub-Repository verbinden (siehe oben).
-3. Datenschutzerklärung vom Vorstand prüfen lassen. Offene Annahmen sind unten in der Datei
+1. Datenschutzerklärung vom Vorstand prüfen lassen. Offene Annahmen sind unten in der Datei
    `src/legal/datenschutz.md` nicht markiert, deshalb hier: kein Datenschutzbeauftragter benannt;
    AV-Vertrag mit Vercel muss im Vercel-Konto akzeptiert sein; E-Mail-Anbieter ist als
    Auftragsverarbeiter beschrieben; Löschfristen (Probetraining 6 Monate) müssen gelebt werden.
-4. Instagram: Die Seite verlinkt @fc.treptow (das Konto, das die alte Seite verlinkt). Es gibt auch
-   @fctreptow mit mehr Followern; klären, welches offiziell ist.
-5. Fanshop-Auswahl (Preise, Artikel) alle paar Monate mit dem Shop abgleichen (Stand September 2026).
-7. Die drei News-Beiträge stammen von der alten Seite (Vorstandswahl 2025, Gedenkturnier 2025, 30 Jahre 2024). Neue Beiträge über das CMS.
-6. `SITE_URL` in Vercel setzen, sobald die eigene Domain umzieht.
+2. Alte Adresse fc-treptow-site.vercel.app löschen oder auf die neue umleiten (siehe Umgebungen).
+3. `SITE_URL` in Vercel setzen, sobald die eigene Domain (fc-treptow.de) umzieht. Bis dahin gilt
+   https://fct-website-refresh.vercel.app (Vorgabe in `astro.config.mjs`).
+
+Laufend:
+
+- Fanshop-Auswahl (Preise, Artikel) alle paar Monate mit dem Shop abgleichen (Stand September 2026).
+
+Erledigt:
+
+- Redaktion bei DecapBridge eingeladen.
+- Vercel mit dem GitHub-Repository verbunden.
+- Instagram: offizielles Konto ist **@fc.treptow** (https://www.instagram.com/fc.treptow/), so in
+  `src/data/club.ts` hinterlegt. @fctreptow ist nicht das Vereinskonto.
+- Die drei News-Beiträge der alten Seite (Vorstandswahl 2025, Gedenkturnier 2025, 30 Jahre 2024)
+  sind übernommen. Neue Beiträge kommen über das CMS.
 
 ## Bekannte Einschränkungen
 
