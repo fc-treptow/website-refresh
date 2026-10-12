@@ -37,7 +37,9 @@ Die Redaktion ist Decap CMS. Damit sich die Redaktion **ohne GitHub-Konto** anme
 Anmeldung über [DecapBridge](https://decapbridge.com) (kostenlos bis 10 Personen):
 
 1. Erledigt (25.09.2026): Seite "FC Treptow" bei DecapBridge, PKCE-Login, Werte stehen in
-   `public/admin/config.yml`. Der GitHub-Token dort läuft ab und muss dann erneuert werden
+   `public/admin/config.yml`. Der GitHub-Token, mit dem DecapBridge ins Repository schreibt, ist
+   **bei DecapBridge hinterlegt, nicht im Repository** (nie in `config.yml` eintragen, das Repository
+   ist öffentlich). Er läuft ab und muss dann erneuert und bei DecapBridge ersetzt werden
    (github.com/settings/tokens, Fine-grained, nur `fc-treptow`, Contents + Pull requests Read/Write).
 2. In DecapBridge die Redaktion per E-Mail einladen. Sie bekommt einen Link und setzt ein Passwort.
 3. In Vercel das Projekt mit dem GitHub-Repository verbinden (Project Settings → Git). Das ging per
@@ -56,7 +58,11 @@ npm run dev        # http://localhost:4321
 npm run build      # holt dabei Spielplan und Tabellen von fussball.de
 ```
 
-`SKIP_FIXTURES=1 npm run build` baut ohne fussball.de (offline).
+`SKIP_FIXTURES=1 npm run build` baut ohne fussball.de (offline). `npm run check` prüft Typen und
+fehlende Übersetzungsschlüssel. Beides läuft automatisch in GitHub Actions bei jedem Pull Request und
+jedem Push auf `main` (`.github/workflows/check.yml`).
+
+Regeln für KI-Assistenten (Claude & Co.) stehen in `AGENTS.md` (`CLAUDE.md` ist ein Link darauf).
 
 ## Wie die Seite aufgebaut ist
 
@@ -65,7 +71,7 @@ npm run build      # holt dabei Spielplan und Tabellen von fussball.de
     mit demselben Dateinamen. Fehlt eine, wird Deutsch gezeigt.
 - `src/i18n/` – alle festen Oberflächentexte in sechs Sprachen. `ui.ts` (Navigation, Startseite),
   `pages.ts` (Unterseiten), `fixtures.ts` (Spielplan/Tabelle). Deutsch ist die Typvorlage: fehlt in
-  einer Sprache ein Schlüssel, bricht der Build.
+  einer Sprache ein Schlüssel, meldet `npm run check` einen Fehler (der Build allein prüft das nicht).
 - `src/data/club.ts` – Stammdaten (Adresse, E-Mails, Telefon, Beiträge, IBAN, Social Links).
 - `src/legal/datenschutz.md` – Datenschutzerklärung (Deutsch, rechtlich bindend).
 - `src/lib/fussballde.mjs` – liest nächste Spiele und Tabelle von fussball.de (kein Widget, kein

@@ -1,0 +1,34 @@
+# Prüft jede Änderung, bevor sie live geht: Typprüfung (inkl. fehlender Übersetzungsschlüssel)
+# und ein Build ohne fussball.de. Läuft bei Pull Requests und bei jedem Push auf main,
+# also auch nach Änderungen aus dem CMS.
+name: Prüfen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typprüfung
+        run: npm run check
+      - name: Build (ohne fussball.de)
+        run: npm run build
+        env:
+          SKIP_FIXTURES: "1"
