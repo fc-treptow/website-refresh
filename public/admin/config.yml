@@ -43,7 +43,7 @@ local_backend: true
 locale: de
 site_url: https://fct-website-refresh.vercel.app
 display_url: https://fct-website-refresh.vercel.app
-logo_url: /images/crest.jpg
+logo_url: /images/crest.png
 
 # Fotos landen hier
 media_folder: public/images/uploads
