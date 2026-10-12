@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   // Öffentliche Adresse, wird für hreflang, Canonical und Sitemap gebraucht.
   // Nach dem Umzug auf die eigene Domain SITE_URL in Vercel setzen.
-  site: process.env.SITE_URL ?? 'https://fc-treptow-site.vercel.app',
+  site: process.env.SITE_URL ?? 'https://fct-website-refresh.vercel.app',
   i18n: {
     defaultLocale: 'de',
     locales: ['de', 'en', 'tr', 'ar', 'es', 'fr'],
