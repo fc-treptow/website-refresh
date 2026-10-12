@@ -34,11 +34,6 @@ auth:
   last_name_claim: last_name
   avatar_url_claim: avatar_url
 
-# Better Decap + Bridge logo (optional)
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
-
-# Add site links in Decap CMS (optional)
-site_url: https://fct-website-refresh.vercel.app
 
 # Lokal (npx decap-server) ohne Anmeldung; in Produktion wird dieser Wert ignoriert,
 # solange kein Server auf localhost:8081 antwortet.
@@ -46,8 +41,8 @@ local_backend: true
 
 # Deutsche Oberfläche
 locale: de
-site_url: https://fc-treptow-site.vercel.app
-display_url: https://fc-treptow-site.vercel.app
+site_url: https://fct-website-refresh.vercel.app
+display_url: https://fct-website-refresh.vercel.app
 logo_url: /images/crest.jpg
 
 # Fotos landen hier
