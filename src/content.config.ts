@@ -25,7 +25,9 @@ const news = defineCollection({
 });
 
 export const weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'] as const;
-const time = z.string().regex(/^\d{1,2}[:.]\d{2}$/, 'Uhrzeit bitte als 19:30 eintragen.');
+// Gleiche Regel wie im CMS (public/admin/config.yml): Stunden 0–23, Minuten 00–59.
+// Der Punkt als Trenner (19.30) bleibt für ältere Einträge erlaubt.
+const time = z.string().regex(/^([01]?\d|2[0-3])[:.][0-5]\d$/, 'Uhrzeit bitte als 19:30 eintragen.');
 
 // Mannschaften: alle Angaben stehen in der deutschen Datei (src/content/teams/de).
 const teams = defineCollection({
