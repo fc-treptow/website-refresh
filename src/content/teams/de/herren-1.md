@@ -14,18 +14,16 @@ staff:
   - name: Daniel Bresche
     role: coach
     phone: 01575 2443232
-  - name: Richard Kissi
-    role: assistant
 contact: kontakt@fc-treptow.de
 image: /images/uploads/whatsapp-image-2026-08-30-at-15.40.27.jpeg
 imageFocus: 50
 gallery:
+  - src: /images/uploads/whatsapp-image-2026-09-21-at-17.46.16.jpeg
+    alt: Mannschaftsfoto im September 2026
   - src: /images/team-h1-2026-08.jpg
     alt: Mannschaftsfoto im August 2026
   - src: /images/team-h1.jpg
-    alt: Die Erste auf dem Kunstrasen
-  - src: /images/uploads/whatsapp-image-2026-09-21-at-17.46.16.jpeg
-    alt: Mannschaftsfoto im September 2026
+    alt: Mannschaftsfoto Anfang 2026
 fussballDeTeamId: 011MI9JOE8000000VTVG0001VTR8C1K7
 ---
 
