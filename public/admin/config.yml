@@ -90,8 +90,8 @@ collections:
         summary: '{{fields.day}}, {{fields.from}} bis {{fields.to}}'
         fields:
           - { name: day, label: Tag, widget: select, options: [Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag] }
-          - { name: from, label: Von, widget: string, hint: 'z. B. 19:30', pattern: ['^\\d{1,2}:\\d{2}$', 'Bitte als Uhrzeit schreiben, z. B. 19:30'] }
-          - { name: to, label: Bis, widget: string, hint: 'z. B. 21:00', pattern: ['^\\d{1,2}:\\d{2}$', 'Bitte als Uhrzeit schreiben, z. B. 21:00'] }
+          - { name: from, label: Von, widget: string, hint: 'z. B. 19:30', pattern: ['^([01]?[0-9]|2[0-3]):[0-5][0-9]$', 'Bitte als Uhrzeit schreiben, z. B. 19:30'] }
+          - { name: to, label: Bis, widget: string, hint: 'z. B. 21:00', pattern: ['^([01]?[0-9]|2[0-3]):[0-5][0-9]$', 'Bitte als Uhrzeit schreiben, z. B. 21:00'] }
       - name: staff
         label: Trainer und Ansprechpersonen
         label_singular: Person
