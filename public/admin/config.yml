@@ -130,14 +130,14 @@ collections:
       - { name: name, label: Name, widget: string }
       - { name: role, label: Amt, widget: select, options: [{ label: Vorsitzende/r, value: chair }, { label: 2. Vorsitzende/r, value: viceChair }, { label: Schatzmeister/in, value: treasurer }, { label: Schiedsrichterobmann/-frau, value: refereeLead }, { label: Beisitzer/in, value: assessor }, { label: Kontrollrat, value: controlBoard }, { label: Sonstiges, value: other }] }
       - { name: roleLabel, label: 'Bezeichnung (nur bei "Sonstiges")', widget: string, required: false, hint: 'z. B. Sportwart' }
-      - { name: email, label: E-Mail, widget: string, required: false }
+      - { name: email, label: E-Mail, widget: string, required: false, hint: 'Beim Schiedsrichterobmann geht der Knopf "Beim Obmann melden" auf der Schiedsrichter-Seite an diese Adresse.' }
       - { name: phone, label: Telefon, widget: string, required: false }
       - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 99, hint: '1 steht oben.' }
 
   - name: schiedsrichter
     label: Schiedsrichter
     label_singular: Schiedsrichter/in
-    description: 'Das Schiedsrichter-Team auf der Seite /schiedsrichter. Den Obmann pflegst du unter Vorstand (Amt "Schiedsrichterobmann/-frau").'
+    description: 'Das Schiedsrichter-Team auf der Seite /schiedsrichter. Den Obmann und seine E-Mail-Adresse für den Knopf "Beim Obmann melden" pflegst du unter Vorstand (Amt "Schiedsrichterobmann/-frau").'
     folder: src/content/schiedsrichter
     create: true
     slug: '{{name}}'
