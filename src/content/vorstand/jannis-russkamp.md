@@ -1,6 +1,6 @@
 ---
-name: "Jannis Rußkamp"
+name: Jannis Rußkamp
 role: chair
-email: "russkamp.fctreptow@gmail.com"
+email: jannis@fc-treptow.de
 order: 1
 ---
