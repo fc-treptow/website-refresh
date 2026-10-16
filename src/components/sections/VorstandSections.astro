@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import Icon from '../Icon.astro';
-import { defaultLocale, type Locale } from '../../i18n/languages';
+import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
 
@@ -14,6 +14,8 @@ const others = all.filter((m) => !['chair', 'viceChair', 'treasurer'].includes(m
 const roleLabel = (m: (typeof all)[number]) => (m.role === 'other' ? (m.roleLabel ?? '') : t.roles[m.role as keyof typeof t.roles]);
 // Weitere Ämter nach Rolle gruppieren, Reihenfolge wie im CMS
 const groups = [...new Set(others.map(roleLabel))].map((label) => ({ label, names: others.filter((m) => roleLabel(m) === label) }));
+// Beim Schiedsrichterobmann auf die Schiedsrichter-Seite verweisen
+const isRefereeGroup = (g: (typeof groups)[number]) => g.names.some((m) => m.role === 'refereeLead');
 const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`;
 ---
 <PageHeader title={t.h1} intro={t.intro} />
@@ -39,7 +41,12 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
         {groups.map((g) => (
           <div class="grid gap-2 border-b border-line py-5 sm:grid-cols-[14rem_1fr]">
             <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft sm:pt-1">{g.label}</dt>
-            <dd class="text-lg font-semibold">{g.names.map((m) => m.name).join(', ')}</dd>
+            <dd class="text-lg font-semibold">
+              {g.names.map((m) => m.name).join(', ')}
+              {isRefereeGroup(g) && (
+                <a href={l(lang, '/schiedsrichter')} class="mt-1 flex min-h-11 w-max items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">{t.refereeLink} <Icon name="arrow" size={16} /></a>
+              )}
+            </dd>
           </div>
         ))}
       </dl>

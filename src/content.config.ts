@@ -91,6 +91,16 @@ const vorstand = defineCollection({
   }),
 });
 
+// Schiedsrichterinnen und Schiedsrichter des Vereins (Seite /schiedsrichter).
+// Der Obmann kommt aus dem Vorstand (Rolle refereeLead), hier steht nur das Team.
+const schiedsrichter = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/schiedsrichter' }),
+  schema: z.object({
+    name: z.string(),
+    order: z.number().default(99),
+  }),
+});
+
 const gedenken = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/gedenken' }),
   schema: z.object({
@@ -131,4 +141,4 @@ const downloads = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, gedenken, shop, downloads };
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads };
