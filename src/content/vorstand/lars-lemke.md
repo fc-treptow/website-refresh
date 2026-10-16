@@ -1,6 +1,6 @@
 ---
-name: "Lars Lemke"
+name: Lars Lemke
 role: viceChair
-email: "fc.treptow.lemke@gmail.com"
+email: lars@fc-treptow.de
 order: 2
 ---
