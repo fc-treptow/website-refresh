@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sections from '../../components/sections/SchiedsrichterSections.astro';
+import { pageT } from '../../i18n/pages';
+
+const t = pageT('schiedsrichter', 'ar');
+---
+<Base title={t.metaTitle} description={'metaDesc' in t ? t.metaDesc : undefined}>
+  <Sections />
+</Base>

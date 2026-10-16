@@ -48,6 +48,16 @@ const fees = [
             <dd class="display nums shrink-0 text-5xl">{f.amount} €<span class="ms-1 font-sans text-sm font-normal normal-case tracking-normal text-ink-soft">{t.proMonat}</span></dd>
           </div>
         ))}
+        <div class="flex items-baseline justify-between gap-6 border-b border-line py-6">
+          <div>
+            <dt class="text-lg font-semibold">{t.schiri}</dt>
+            <dd class="mt-1 max-w-md text-sm leading-relaxed text-ink-soft">
+              {t.schiriDetail}
+              <a href={l(lang, '/schiedsrichter')} class="ms-1 inline-flex items-center gap-1 font-semibold text-club hover:text-club-deep">{t.schiriLink} <Icon name="arrow" size={14} /></a>
+            </dd>
+          </div>
+          <dd class="display nums shrink-0 text-5xl">0 €<span class="ms-1 font-sans text-sm font-normal normal-case tracking-normal text-ink-soft">{t.proMonat}</span></dd>
+        </div>
       </dl>
       <p class="mt-6 max-w-xl text-sm leading-relaxed text-ink-soft">{t.aufnahme}</p>
     </div>
