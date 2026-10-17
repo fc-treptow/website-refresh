@@ -37,6 +37,7 @@ Dort gibt es diese Bereiche:
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
+| Einstellungen | Link zum Mitgliedsantrag in easyVerein (Seite Mitgliedschaft). Nur ändern, wenn sich die Adresse ändert. |
 
 Faustregeln:
 

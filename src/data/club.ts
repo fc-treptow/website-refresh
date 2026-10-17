@@ -14,8 +14,6 @@ export const club = {
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Willi-S%C3%A4nger-Sportanlage+K%C3%B6penicker+Landstra%C3%9Fe+186+12437+Berlin',
   },
-  // Öffentlicher Mitgliedsantrag in easyVerein (Vereinskürzel FC230TE)
-  applicationUrl: 'https://easyverein.com/public/FC230TE/applicationform/',
   shopUrl: 'https://fc-treptow-fanshop.myspreadshop.de',
   fussballDeClubUrl: 'https://www.fussball.de/verein/fc-treptow-berlin/-/id/00ES8GNCAC00009OVV0AG08LVUPGND5I',
   // Nur Konten, die der Verein selbst verlinkt bzw. als offiziell ausweist. TikTok gibt es nicht.

@@ -6,13 +6,17 @@ import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { useTranslations } from '../../i18n/ui';
 import { club } from '../../data/club';
+import { getEntry } from 'astro:content';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('mitgliedschaft', lang);
 const ui = useTranslations(lang);
 // Schritt 3 führt zum Mitgliedsantrag in easyVerein (extern, neuer Tab). Kein Einbetten,
-// damit auf unserer Seite keine Fremdinhalte geladen werden.
-const stepLinks = [l(lang, '/probetraining'), undefined, club.applicationUrl];
+// damit auf unserer Seite keine Fremdinhalte geladen werden. Die Adresse pflegt die
+// Redaktion im CMS unter Einstellungen > Links.
+const links = await getEntry('einstellungen', 'links');
+if (!links) throw new Error('src/content/einstellungen/links.yml fehlt');
+const stepLinks = [l(lang, '/probetraining'), undefined, links.data.applicationUrl];
 const fees = [
   { label: t.aktive, detail: t.aktiveDetail, amount: club.fees.regular },
   { label: t.ermaessigt, detail: t.ermaessigtDetail, amount: club.fees.reduced },

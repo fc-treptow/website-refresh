@@ -210,3 +210,19 @@ collections:
       - { name: image, label: Foto, widget: image, required: false }
       - { name: body, label: Nachruf, widget: markdown, buttons: [bold, italic], editor_components: [], modes: [rich_text] }
       - { name: signature, label: Unterschrift, widget: string, default: 'Der Vorstand des FC Treptow e. V.' }
+
+  - name: einstellungen
+    label: Einstellungen
+    description: 'Links zu externen Diensten. Nur ändern, wenn sich die Adresse wirklich geändert hat.'
+    editor: { preview: false }
+    files:
+      - name: links
+        label: Links
+        file: src/content/einstellungen/links.yml
+        format: yml
+        fields:
+          - name: applicationUrl
+            label: Mitgliedsantrag (easyVerein)
+            hint: 'Adresse des öffentlichen Antragsformulars, verlinkt auf der Seite Mitgliedschaft. In easyVerein unter Mitgliedsantrag zu finden, beginnt mit https://'
+            widget: string
+            pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
