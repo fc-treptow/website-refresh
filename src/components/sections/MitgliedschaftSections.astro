@@ -10,7 +10,9 @@ import { club } from '../../data/club';
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('mitgliedschaft', lang);
 const ui = useTranslations(lang);
-const stepLinks = ['/probetraining', undefined, '/anmeldung'];
+// Schritt 3 führt zum Mitgliedsantrag in easyVerein (extern, neuer Tab). Kein Einbetten,
+// damit auf unserer Seite keine Fremdinhalte geladen werden.
+const stepLinks = [l(lang, '/probetraining'), undefined, club.applicationUrl];
 const fees = [
   { label: t.aktive, detail: t.aktiveDetail, amount: club.fees.regular },
   { label: t.ermaessigt, detail: t.ermaessigtDetail, amount: club.fees.reduced },
@@ -27,7 +29,9 @@ const fees = [
         <h2 class="mt-5 text-xl font-bold">{s.title}</h2>
         <p class="mt-2 flex-1 leading-relaxed text-ink-soft">{s.text}</p>
         {s.linkLabel && stepLinks[i] && (
-          <a href={l(lang, stepLinks[i]!)} class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="arrow" size={16} /></a>
+          stepLinks[i]!.startsWith('http')
+            ? <a href={stepLinks[i]} rel="noopener" target="_blank" class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="external" size={16} /></a>
+            : <a href={stepLinks[i]} class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="arrow" size={16} /></a>
         )}
       </li>
     ))}
