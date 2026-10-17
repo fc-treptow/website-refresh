@@ -28,6 +28,10 @@ Status mit `astro dev status`, Logs mit `astro dev logs`).
   Redaktion im CMS. Übersetzungen liegen unter `news/<lang>/` bzw. `teams/<lang>/` mit
   **demselben Dateinamen**; fehlt eine, wird Deutsch gezeigt. Deutsche Inhalte nicht ohne
   ausdrücklichen Auftrag umschreiben, sie gehören der Redaktion.
+- Diese Übersetzungen erzeugt der Workflow `.github/workflows/translate.yml` mit DeepL
+  (`scripts/translate-content.mjs`). Der Schlüssel `quelle` im Frontmatter hält pro Feld den
+  Fingerabdruck des deutschen Textes; nach einer Übersetzung von Hand
+  `node scripts/translate-content.mjs --fingerprints-only` laufen lassen, damit sie als aktuell gilt.
 - Feste Oberflächentexte stehen in `src/i18n/` (`ui.ts`, `pages.ts`, `fixtures.ts`). Deutsch ist
   die Typvorlage: Jeder neue Schlüssel muss in **allen sechs Sprachen** angelegt werden, sonst
   schlägt `npm run check` fehl (der Build allein prüft keine Typen).

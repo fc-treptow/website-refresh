@@ -1,0 +1,77 @@
+# Übersetzt Mannschaften und News automatisch mit DeepL (scripts/translate-content.mjs).
+#
+# Läuft, sobald im CMS ein deutscher Eintrag gespeichert wird (Push auf main unter
+# src/content/teams/de oder src/content/news/de), und schreibt die Übersetzungen als eigenen
+# Commit zurück. Vercel baut danach automatisch neu; nach ein, zwei Minuten sind alle Sprachen online.
+#
+# Voraussetzung: DeepL-API-Schlüssel als Repository-Secret DEEPL_API_KEY
+# (GitHub → Settings → Secrets and variables → Actions). Ohne Schlüssel läuft der Workflow durch,
+# übersetzt aber nichts und meldet eine Warnung.
+#
+# Von Hand starten (Actions → Übersetzen → Run workflow): übersetzt alles Fehlende oder Veraltete,
+# mit "Alles neu übersetzen" auch alles andere.
+name: Übersetzen
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/content/teams/de/**
+      - src/content/news/de/**
+      - scripts/translate-content.mjs
+      - .github/workflows/translate.yml
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Alles neu übersetzen (überschreibt auch von Hand verbesserte Übersetzungen)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Mehrere Speicherungen kurz hintereinander nacheinander abarbeiten, nicht abbrechen
+concurrency:
+  group: translate
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Übersetzen
+        run: node scripts/translate-content.mjs ${{ inputs.force && '--force' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+      - name: Übersetzungen speichern
+        run: |
+          git add src/content/teams src/content/news
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          eintraege=$(git diff --cached --name-only | sed -E 's#.*/([^/]+)\.md#\1#' | sort -u | paste -sd ', ')
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -F - <<EOF
+          Übersetzungen aktualisiert: $eintraege
+
+          Automatisch mit DeepL aus dem deutschen Text übersetzt.
+
+          $(cat "$RUNNER_TEMP/bericht.txt")
+          EOF
+          # Falls zwischendurch jemand im CMS gespeichert hat: auf den neuesten Stand setzen
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
