@@ -10,7 +10,7 @@ export const pages = {
       steps: [
         { title: 'Probetraining vereinbaren', text: 'Kurz das Formular ausfüllen oder einfach dienstags oder donnerstags vorbeikommen. Das Probetraining ist kostenlos.', linkLabel: 'Zum Probetraining' },
         { title: 'Kicken und kennenlernen', text: 'Du trainierst mit dem Team, das zu dir passt. Danach entscheidet ihr gemeinsam, ob es passt.' },
-        { title: 'Anmeldung abschließen', text: 'Den Mitgliedsantrag stellst du online über easyVerein, unsere Vereinsverwaltung. Den Antrag auf Spielberechtigung unterschreibst du anschließend.', linkLabel: 'Zum Mitgliedsantrag' },
+        { title: 'Anmeldung abschließen', text: 'Den Mitgliedsantrag stellst du online. Den Antrag auf Spielberechtigung unterschreibst du anschließend.', linkLabel: 'Zum Mitgliedsantrag', linkNote: 'Formular in easyVerein, unserer Mitgliederverwaltung ({host}). Öffnet in neuem Tab.' },
       ],
       beitraege: 'Beiträge', aktive: 'Aktive Mitglieder', aktiveDetail: '180 € im Jahr, bei Jahreszahlung 165 €',
       ermaessigt: 'Ermäßigt', ermaessigtDetail: 'Azubis, Studierende, Erwerbslose, Freizeitsport und Jugend. 120 € im Jahr, bei Jahreszahlung 110 €',
@@ -24,7 +24,7 @@ export const pages = {
       steps: [
         { title: 'Arrange a trial session', text: 'Fill in the short form or just come along on a Tuesday or Thursday. Trial training is free.', linkLabel: 'To trial training' },
         { title: 'Play and get to know us', text: 'You train with the team that suits you. Afterwards you decide together whether it’s a good fit.' },
-        { title: 'Complete registration', text: 'Submit your membership application online via easyVerein, our club management system. You then sign the playing-eligibility form.', linkLabel: 'To the application' },
+        { title: 'Complete registration', text: 'Submit your membership application online. You then sign the playing-eligibility form.', linkLabel: 'To the application', linkNote: 'Form in easyVerein, our membership admin tool ({host}). Opens in a new tab.' },
       ],
       beitraege: 'Fees', aktive: 'Active members', aktiveDetail: '€180 per year, €165 if paid annually',
       ermaessigt: 'Reduced rate', ermaessigtDetail: 'Apprentices, students, unemployed, leisure sport and youth. €120 per year, €110 if paid annually',
@@ -38,7 +38,7 @@ export const pages = {
       steps: [
         { title: 'Deneme antrenmanı ayarla', text: 'Kısa formu doldur ya da salı veya perşembe günü uğra. Deneme antrenmanı ücretsizdir.', linkLabel: 'Deneme antrenmanına git' },
         { title: 'Oyna ve tanış', text: 'Sana uygun takımla antrenman yaparsın. Ardından birlikte uyup uymadığına karar verirsiniz.' },
-        { title: 'Kaydı tamamla', text: 'Üyelik başvurunu kulüp yönetim sistemimiz easyVerein üzerinden online yaparsın. Ardından oyuncu lisansı başvurusunu imzalarsın.', linkLabel: 'Üyelik başvurusuna git' },
+        { title: 'Kaydı tamamla', text: 'Üyelik başvurunu online yaparsın. Ardından oyuncu lisansı başvurusunu imzalarsın.', linkLabel: 'Üyelik başvurusuna git', linkNote: 'Form, üye yönetim sistemimiz easyVerein’de ({host}). Yeni sekmede açılır.' },
       ],
       beitraege: 'Aidatlar', aktive: 'Aktif üyeler', aktiveDetail: 'Yılda 180 €, yıllık ödemede 165 €',
       ermaessigt: 'İndirimli', ermaessigtDetail: 'Çıraklar, öğrenciler, işsizler, hobi sporcuları ve gençler. Yılda 120 €, yıllık ödemede 110 €',
@@ -52,7 +52,7 @@ export const pages = {
       steps: [
         { title: 'حدد موعد تدريب تجريبي', text: 'املأ النموذج القصير أو تعال يوم الثلاثاء أو الخميس. التدريب التجريبي مجاني.', linkLabel: 'إلى التدريب التجريبي' },
         { title: 'العب وتعرّف علينا', text: 'تتدرب مع الفريق الذي يناسبك. بعد ذلك تقرران معًا ما إذا كان مناسبًا.' },
-        { title: 'أكمل التسجيل', text: 'تقدّم طلب العضوية عبر الإنترنت من خلال easyVerein، نظام إدارة النادي. بعد ذلك توقّع على طلب أهلية اللعب.', linkLabel: 'إلى طلب العضوية' },
+        { title: 'أكمل التسجيل', text: 'تقدّم طلب العضوية عبر الإنترنت. بعد ذلك توقّع على طلب أهلية اللعب.', linkLabel: 'إلى طلب العضوية', linkNote: 'النموذج على easyVerein، نظام إدارة الأعضاء لدينا ({host}). يُفتح في علامة تبويب جديدة.' },
       ],
       beitraege: 'الرسوم', aktive: 'الأعضاء النشطون', aktiveDetail: '180 يورو سنويًا، أو 165 يورو عند الدفع السنوي',
       ermaessigt: 'رسوم مخفضة', ermaessigtDetail: 'المتدربون والطلاب والعاطلون عن العمل والرياضة الترفيهية والشباب. 120 يورو سنويًا، أو 110 يورو عند الدفع السنوي',
@@ -66,7 +66,7 @@ export const pages = {
       steps: [
         { title: 'Concierta un entrenamiento de prueba', text: 'Rellena el breve formulario o simplemente ven un martes o jueves. El entrenamiento de prueba es gratuito.', linkLabel: 'Ir al entrenamiento de prueba' },
         { title: 'Juega y conócenos', text: 'Entrenas con el equipo que mejor te encaje. Después decidís juntos si encajas.' },
-        { title: 'Completa la inscripción', text: 'Envías la solicitud de socio online a través de easyVerein, nuestro sistema de gestión del club. Después firmas la solicitud de ficha.', linkLabel: 'Ir a la solicitud' },
+        { title: 'Completa la inscripción', text: 'Envías la solicitud de socio online. Después firmas la solicitud de ficha.', linkLabel: 'Ir a la solicitud', linkNote: 'Formulario en easyVerein, nuestra herramienta de gestión de socios ({host}). Se abre en una pestaña nueva.' },
       ],
       beitraege: 'Cuotas', aktive: 'Socios activos', aktiveDetail: '180 € al año, 165 € con pago anual',
       ermaessigt: 'Tarifa reducida', ermaessigtDetail: 'Aprendices, estudiantes, desempleados, deporte de ocio y juventud. 120 € al año, 110 € con pago anual',
@@ -80,7 +80,7 @@ export const pages = {
       steps: [
         { title: 'Organiser une séance d’essai', text: 'Remplissez le court formulaire ou venez simplement un mardi ou un jeudi. La séance d’essai est gratuite.', linkLabel: 'Vers la séance d’essai' },
         { title: 'Jouer et faire connaissance', text: 'Vous vous entraînez avec l’équipe qui vous convient. Ensuite, vous décidez ensemble si cela colle.' },
-        { title: 'Finaliser l’inscription', text: 'Vous déposez votre demande d’adhésion en ligne via easyVerein, notre logiciel de gestion du club. Vous signez ensuite la demande de qualification.', linkLabel: 'Vers la demande d’adhésion' },
+        { title: 'Finaliser l’inscription', text: 'Vous déposez votre demande d’adhésion en ligne. Vous signez ensuite la demande de qualification.', linkLabel: 'Vers la demande d’adhésion', linkNote: 'Formulaire sur easyVerein, notre outil de gestion des membres ({host}). S’ouvre dans un nouvel onglet.' },
       ],
       beitraege: 'Cotisations', aktive: 'Membres actifs', aktiveDetail: '180 € par an, 165 € en paiement annuel',
       ermaessigt: 'Tarif réduit', ermaessigtDetail: 'Apprentis, étudiants, demandeurs d’emploi, sport loisir et jeunesse. 120 € par an, 110 € en paiement annuel',

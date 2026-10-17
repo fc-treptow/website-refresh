@@ -17,6 +17,9 @@ const ui = useTranslations(lang);
 const links = await getEntry('einstellungen', 'links');
 if (!links) throw new Error('src/content/einstellungen/links.yml fehlt');
 const stepLinks = [l(lang, '/probetraining'), undefined, links.data.applicationUrl];
+// Externe Links nennen ihr Ziel unter dem Link (Dienst, Domain, neuer Tab), damit klar ist,
+// wohin man geht. Die Domain kommt aus der gepflegten Adresse, {host} im Text wird ersetzt.
+const host = new URL(links.data.applicationUrl).hostname.replace(/^www\./, '');
 const fees = [
   { label: t.aktive, detail: t.aktiveDetail, amount: club.fees.regular },
   { label: t.ermaessigt, detail: t.ermaessigtDetail, amount: club.fees.reduced },
@@ -34,7 +37,13 @@ const fees = [
         <p class="mt-2 flex-1 leading-relaxed text-ink-soft">{s.text}</p>
         {s.linkLabel && stepLinks[i] && (
           stepLinks[i]!.startsWith('http')
-            ? <a href={stepLinks[i]} rel="noopener" target="_blank" class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="external" size={16} /></a>
+            ? <>
+                <a href={stepLinks[i]} rel="noopener" target="_blank" aria-describedby={s.linkNote && `step-${i}-note`} class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="external" size={16} /></a>
+                {s.linkNote && (() => {
+                  const [before, after] = s.linkNote.split('{host}');
+                  return <p id={`step-${i}-note`} class="mt-1 max-w-xs text-sm leading-relaxed text-ink-soft">{before}<bdi class="font-medium text-ink">{host}</bdi>{after}</p>;
+                })()}
+              </>
             : <a href={stepLinks[i]} class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="arrow" size={16} /></a>
         )}
       </li>
