@@ -53,7 +53,7 @@ const moreLinks = [
 ];
 
 // Mitgliederbereich in easyVerein: externer Link, Ziel steht dabei (Dienst, Domain, neuer Tab).
-const { memberAreaUrl } = await getLinks();
+const { memberAreaUrl, appIosUrl, appAndroidUrl } = await getLinks();
 const memberNote = splitHost(t.memberAreaNote);
 const memberHost = hostOf(memberAreaUrl);
 const memberNoteText = `${memberNote.before}${memberHost}${memberNote.after}`;
@@ -261,7 +261,7 @@ const socials = [
         </button>
       </div>
       <ul class="px-5">
-        <li class="border-b border-line">
+        <li>
           <a href={memberAreaUrl} rel="noopener" target="_blank" aria-describedby="more-member-note" class="flex min-h-14 items-center justify-between gap-4 py-2 text-base font-medium">
             <span>
               {t.memberAreaLong}
@@ -269,6 +269,10 @@ const socials = [
             </span>
             <Icon name="external" size={18} class="shrink-0 text-ink-soft" />
           </a>
+        </li>
+        <li class="flex gap-5 border-b border-line py-3 text-sm font-semibold">
+          <a href={appIosUrl} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-1.5 text-ink-soft hover:text-ink">{t.appIos} <Icon name="external" size={13} /><span class="sr-only"> ({t.newTab})</span></a>
+          <a href={appAndroidUrl} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-1.5 text-ink-soft hover:text-ink">{t.appAndroid} <Icon name="external" size={13} /><span class="sr-only"> ({t.newTab})</span></a>
         </li>
         {moreLinks.map((item) => (
           <li class="border-b border-line">

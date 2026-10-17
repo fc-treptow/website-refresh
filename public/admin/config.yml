@@ -231,3 +231,11 @@ collections:
             hint: 'Login-Seite für Mitglieder, verlinkt in Kopfzeile, Menü, Fußzeile und auf der Seite Mitgliedschaft. Beginnt mit https://'
             widget: string
             pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
+          - name: appIosUrl
+            label: easyVerein-App für iPhone (App Store)
+            widget: string
+            pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
+          - name: appAndroidUrl
+            label: easyVerein-App für Android (Google Play)
+            widget: string
+            pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
