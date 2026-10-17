@@ -154,6 +154,16 @@ html[lang="ar"] .font-serif {
 .hero-slide[data-active="true"] {
   opacity: 1;
 }
+/* Pfeile erscheinen beim Darüberfahren; auf Touch-Geräten (kein Hover) stehen sie immer */
+@media (hover: hover) {
+  .hero-arrow {
+    opacity: 0;
+  }
+  .hero-photo:hover .hero-arrow,
+  .hero-arrow:focus-visible {
+    opacity: 1;
+  }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -204,7 +214,7 @@ html[lang="ar"] .font-serif {
     animation: settle 1.4s var(--ease-soft) both;
   }
   .hero-slide {
-    transition: opacity 1.2s var(--ease-soft);
+    transition: opacity 0.9s var(--ease-soft);
   }
 
   @keyframes rise {

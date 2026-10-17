@@ -85,7 +85,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
     </div>
     <!-- Karussell mit dem Mannschaftsfoto jeder Mannschaft aus dem CMS. Ohne JavaScript steht das erste Foto. -->
     <figure class="lg:col-span-6" data-hero-carousel aria-roledescription="carousel" aria-label={t.heroCarouselLabel}>
-      <div class="hero-photo relative aspect-[16/10] overflow-hidden rounded-sm bg-ink">
+      <div class="hero-photo group relative aspect-[16/10] overflow-hidden rounded-sm bg-ink">
         {heroSlides.map((s, i) => (
           <a
             href={s.href}
@@ -103,6 +103,16 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
             )}
           </a>
         ))}
+        {heroSlides.length > 1 && (
+          <>
+            <button type="button" data-hero-step="-1" aria-label={t.heroPrev} class="hero-arrow absolute start-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
+              <span class="rotate-180"><Icon name="arrow" size={18} /></span>
+            </button>
+            <button type="button" data-hero-step="1" aria-label={t.heroNext} class="hero-arrow absolute end-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
+              <span><Icon name="arrow" size={18} /></span>
+            </button>
+          </>
+        )}
       </div>
       <figcaption class="mt-3 flex min-h-11 items-center justify-between gap-4 text-xs text-ink-soft">
         <span aria-live="off" data-hero-captions>
@@ -125,17 +135,6 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
                 <span class="border-b-2 border-transparent leading-none [[aria-current=true]>&]:border-club">{numerals[i] ?? i + 1}</span>
               </button>
             ))}
-            <button
-              type="button"
-              data-hero-toggle
-              data-label-pause={t.heroPause}
-              data-label-play={t.heroPlay}
-              aria-label={t.heroPause}
-              class="ms-1 grid size-11 place-items-center rounded-full text-ink ring-1 ring-line transition-colors hover:ring-ink"
-            >
-              <span data-icon-pause><Icon name="pause" size={16} /></span>
-              <span data-icon-play hidden><Icon name="resume" size={16} /></span>
-            </button>
           </span>
         )}
       </figcaption>
