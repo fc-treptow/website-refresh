@@ -9,6 +9,7 @@ training:
 image: "/images/team-h2.jpg"
 imageFocus: 50
 fussballDeTeamId: "011MIBU5TS000000VTVG0001VTR8C1K7"
+website: "https://riverplateberlin.com/"
 staff:
   - { name: "Matias Bidegorry", role: manager, phone: "+49 163 8688970" }
 gallery:

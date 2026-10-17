@@ -114,6 +114,8 @@ collections:
         fields:
           - { name: src, label: Foto, widget: image }
           - { name: alt, label: Bildunterschrift, widget: string }
+      - { name: crest, label: Eigenes Wappen, widget: image, required: false, hint: 'Nur für Mannschaften mit eigener Identität (z. B. River Plate). Quadratisch, PNG mit transparentem Hintergrund. Leer lassen, dann gilt das Vereinswappen.' }
+      - { name: website, label: Eigene Website, widget: string, required: false, pattern: ['^https://', 'Bitte die vollständige Adresse mit https:// eintragen.'], hint: 'z. B. https://riverplateberlin.com/. Wird auf der Mannschaftsseite verlinkt.' }
       - { name: fussballDeTeamId, label: fussball.de Team-ID, widget: string, required: false, pattern: ['^[0-9A-Z]{32}$', 'Die Team-ID hat genau 32 Zeichen (Ziffern und Großbuchstaben).'], hint: 'Nur einmal nötig und meist schon ausgefüllt. Leer lassen bei der Freizeitmannschaft.' }
       - { name: body, label: Beschreibung, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
 

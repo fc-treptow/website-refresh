@@ -53,6 +53,14 @@ const teams = defineCollection({
       .optional()
       .or(z.literal('').transform(() => undefined)),
     staff: list(z.object({ name: z.string(), role: z.enum(['coach', 'assistant', 'manager']), phone: z.string().nullish() })),
+    // Eigene Identität einer Mannschaft (z. B. River Plate): eigenes Wappen und eigene Website.
+    // Beides freiwillig. Das Wappen liegt selbst auf unserem Server, nie fremd eingebunden.
+    crest: z.string().nullish(),
+    website: z
+      .url()
+      .startsWith('https://')
+      .nullish()
+      .or(z.literal('').transform(() => undefined)),
   }),
 });
 

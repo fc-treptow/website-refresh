@@ -21,7 +21,10 @@ const teams = await getTeams(lang);
           </div>
           <div class="mt-5 flex items-start justify-between gap-4">
             <div class="min-w-0">
-              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{team.data.shortName}</p>
+              <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-club">
+                {team.data.crest && <img src={team.data.crest} alt="" width="24" height="24" loading="lazy" class="h-6 w-6 object-contain" />}
+                {team.data.shortName}
+              </p>
               <h2 class="display mt-1.5 text-4xl sm:text-5xl">{team.data.name}</h2>
               <p class="mt-2 font-semibold">{leagueLabel(team.data.league, lang)}</p>
               <p class="mt-1 text-sm text-ink-soft">{t.trainingLabel}: {team.data.training.map((s) => trainingLabel(s, lang)).join(', ')}</p>

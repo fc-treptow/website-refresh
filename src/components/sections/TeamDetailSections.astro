@@ -28,7 +28,22 @@ const f = fixtures.teams[team.slug];
 const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`;
 ---
 <PageHeader title={d.name} kicker={t.back} kickerHref={l(lang, '/mannschaften')}>
-  <p class="mt-4 text-lg font-semibold">{leagueLabel(d.league, lang)}</p>
+  {/* Mannschaften mit eigener Identität zeigen ihr Wappen und verlinken ihre eigene Website. */}
+  <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-5">
+    {d.crest && (
+      <img src={d.crest} alt={`${t.crest} ${d.name}`} width="96" height="96" class="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24" />
+    )}
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+      <p class="text-lg font-semibold">{leagueLabel(d.league, lang)}</p>
+      {d.website && (
+        <a href={d.website} rel="noopener" target="_blank" class="group inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-[15px] font-semibold ring-1 ring-ink transition-colors duration-200 hover:bg-ink hover:text-paper">
+          {t.ownSite}
+          <span class="text-ink-soft group-hover:text-paper" dir="ltr">· {new URL(d.website).host.replace(/^www\./, '')}</span>
+          <Icon name="external" size={16} />
+        </a>
+      )}
+    </div>
+  </div>
 </PageHeader>
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
