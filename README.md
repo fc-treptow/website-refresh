@@ -31,7 +31,7 @@ Dort gibt es diese Bereiche:
 | Bereich | Was man dort macht |
 |---|---|
 | Neuigkeiten | Beiträge schreiben, mit Foto. Erscheinen auf der Startseite und unter News. |
-| Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. |
+| Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. |
 | Vorstand | Namen, Ämter und Kontaktdaten. |
 | Partner und Sponsoren | Logo, Name, Link. |
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |

@@ -147,6 +147,14 @@ html[lang="ar"] .font-serif {
   display: none;
 }
 
+/* Auftakt-Karussell: nur das aktive Foto ist sichtbar */
+.hero-slide {
+  opacity: 0;
+}
+.hero-slide[data-active="true"] {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -194,6 +202,9 @@ html[lang="ar"] .font-serif {
 
   .hero-photo {
     animation: settle 1.4s var(--ease-soft) both;
+  }
+  .hero-slide {
+    transition: opacity 1.2s var(--ease-soft);
   }
 
   @keyframes rise {
