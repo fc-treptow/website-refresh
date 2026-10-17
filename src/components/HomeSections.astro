@@ -12,6 +12,7 @@ import { getInstagramPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
 import { gameRow, leagueTable, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
+import { readFileSync } from 'node:fs';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(lang);
@@ -34,6 +35,27 @@ const nextGames = Object.entries(fixtures.teams)
   .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
 
 const numerals = ['I', 'II', 'III', 'F'];
+
+// Auftakt-Karussell: das Mannschaftsfoto aus dem CMS, verkleinert von scripts/gen-hero.mjs.
+// Fehlt die verkleinerte Fassung (Skript nicht gelaufen oder Foto gerade getauscht), nimmt es das Original.
+type HeroManifest = Record<string, { image: string; files: Record<string, string> }>;
+let heroManifest: HeroManifest = {};
+try {
+  heroManifest = JSON.parse(readFileSync(`${process.cwd()}/public/images/hero/manifest.json`, 'utf8'));
+} catch {}
+const heroSizes = '(min-width: 1024px) 50vw, 100vw';
+const heroSlides = teams.map((tm) => {
+  const resized = heroManifest[tm.slug]?.image === tm.data.image ? heroManifest[tm.slug].files : null;
+  return {
+    name: tm.data.name,
+    shortName: tm.data.shortName,
+    league: leagueLabel(tm.data.league, lang),
+    href: l(lang, `/mannschaften/${tm.slug}`),
+    focus: tm.data.imageFocus,
+    src: resized?.['1600'] ?? tm.data.image,
+    srcset: resized ? Object.entries(resized).map(([w, f]) => `${f} ${w}w`).join(', ') : undefined,
+  };
+});
 const chronik = [
   { year: '1925', img: '/images/chronik-1925.jpg', label: 'Werksverein Bewag' },
   { year: '1932', img: '/images/chronik-1932.jpg', label: 'SV Bewag Berlin' },
@@ -61,13 +83,61 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         <a href={l(lang, '/mannschaften')} class="inline-flex min-h-12 items-center gap-2 text-[15px] font-semibold underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:decoration-ink">{t.allTeams}</a>
       </div>
     </div>
-    <figure class="lg:col-span-6">
-      <div class="hero-photo overflow-hidden rounded-sm bg-ink">
-        <img src="/images/team-h1.jpg" alt={teams[0]?.data.name ?? 'FC Treptow I'} width="1536" height="864" fetchpriority="high" class="aspect-[16/10] w-full object-cover" />
+    <!-- Karussell mit dem Mannschaftsfoto jeder Mannschaft aus dem CMS. Ohne JavaScript steht das erste Foto. -->
+    <figure class="lg:col-span-6" data-hero-carousel aria-roledescription="carousel" aria-label={t.heroCarouselLabel}>
+      <div class="hero-photo relative aspect-[16/10] overflow-hidden rounded-sm bg-ink">
+        {heroSlides.map((s, i) => (
+          <a
+            href={s.href}
+            class="hero-slide absolute inset-0 block"
+            data-hero-slide
+            data-active={i === 0 ? 'true' : 'false'}
+            aria-roledescription="slide"
+            aria-label={`${i + 1} / ${heroSlides.length}: ${s.name}`}
+            inert={i !== 0}
+          >
+            {i === 0 ? (
+              <img src={s.src} srcset={s.srcset} sizes={heroSizes} alt={s.name} width="1600" height="1000" fetchpriority="high" class="h-full w-full object-cover" style={`object-position: 50% ${s.focus}%`} />
+            ) : (
+              <img data-src={s.src} data-srcset={s.srcset} sizes={heroSizes} alt={s.name} width="1600" height="1000" decoding="async" class="h-full w-full object-cover" style={`object-position: 50% ${s.focus}%`} />
+            )}
+          </a>
+        ))}
       </div>
-      <figcaption class="mt-3 flex items-center justify-between gap-4 text-xs text-ink-soft">
-        <span>{t.heroCaption}</span>
-        <span>{club.ground.name}</span>
+      <figcaption class="mt-3 flex min-h-11 items-center justify-between gap-4 text-xs text-ink-soft">
+        <span aria-live="off" data-hero-captions>
+          {heroSlides.map((s, i) => (
+            <span data-hero-caption hidden={i !== 0}>
+              <span class="font-semibold text-ink">{s.shortName}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">{s.league}</span>
+            </span>
+          ))}
+        </span>
+        {heroSlides.length > 1 && (
+          <span class="flex shrink-0 items-center gap-1" data-hero-controls hidden>
+            {heroSlides.map((s, i) => (
+              <button
+                type="button"
+                data-hero-dot={i}
+                aria-label={s.shortName}
+                aria-current={i === 0 ? 'true' : 'false'}
+                class="nums display grid h-11 min-w-8 place-items-center sm:min-w-9 px-1 text-lg text-ink-soft transition-colors hover:text-ink aria-[current=true]:text-club"
+              >
+                <span class="border-b-2 border-transparent leading-none [[aria-current=true]>&]:border-club">{numerals[i] ?? i + 1}</span>
+              </button>
+            ))}
+            <button
+              type="button"
+              data-hero-toggle
+              data-label-pause={t.heroPause}
+              data-label-play={t.heroPlay}
+              aria-label={t.heroPause}
+              class="ms-1 grid size-11 place-items-center rounded-full text-ink ring-1 ring-line transition-colors hover:ring-ink"
+            >
+              <span data-icon-pause><Icon name="pause" size={16} /></span>
+              <span data-icon-play hidden><Icon name="resume" size={16} /></span>
+            </button>
+          </span>
+        )}
       </figcaption>
     </figure>
   </div>
@@ -309,4 +379,5 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 <script>
   import '../scripts/fixturesLive';
   import '../scripts/tabs';
+  import '../scripts/heroCarousel';
 </script>
