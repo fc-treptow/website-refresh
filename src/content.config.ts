@@ -150,6 +150,9 @@ const einstellungen = defineCollection({
     applicationUrl: z.string().url().startsWith('https://'),
     // Login-Seite des Mitgliederbereichs in easyVerein (Kopfzeile, Mehr-Menü, Fußzeile, Mitgliedschaft)
     memberAreaUrl: z.string().url().startsWith('https://'),
+    // easyVerein-App in den Stores, verlinkt neben dem Mitgliederbereich
+    appIosUrl: z.string().url().startsWith('https://'),
+    appAndroidUrl: z.string().url().startsWith('https://'),
   }),
 });
 

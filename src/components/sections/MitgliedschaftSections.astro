@@ -14,7 +14,7 @@ const ui = useTranslations(lang);
 // Schritt 3 führt zum Mitgliedsantrag in easyVerein (extern, neuer Tab). Kein Einbetten,
 // damit auf unserer Seite keine Fremdinhalte geladen werden. Die Adresse pflegt die
 // Redaktion im CMS unter Einstellungen > Links.
-const { applicationUrl, memberAreaUrl } = await getLinks();
+const { applicationUrl, memberAreaUrl, appIosUrl, appAndroidUrl } = await getLinks();
 const stepLinks = [l(lang, '/probetraining'), undefined, applicationUrl];
 // Externe Links nennen ihr Ziel unter dem Link (Dienst, Domain, neuer Tab), damit klar ist,
 // wohin man geht. Die Domain kommt aus der gepflegten Adresse, {host} im Text wird ersetzt.
@@ -95,6 +95,10 @@ const fees = [
         <p class="leading-relaxed text-paper/70">{t.memberHint}</p>
         <a href={memberAreaUrl} rel="noopener" target="_blank" aria-describedby="member-note" class="mt-2 inline-flex min-h-11 items-center gap-2 font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{ui.memberAreaLong} <Icon name="external" size={14} /></a>
         <p id="member-note" class="mt-1 text-xs leading-relaxed text-paper/50">{memberNote.before}<bdi>{hostOf(memberAreaUrl)}</bdi>{memberNote.after}</p>
+        <p class="mt-3 flex flex-wrap gap-x-5 font-semibold">
+          <a href={appIosUrl} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-1.5 text-paper/80 hover:text-paper">{ui.appIos} <Icon name="external" size={13} /><span class="sr-only"> ({ui.newTab})</span></a>
+          <a href={appAndroidUrl} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-1.5 text-paper/80 hover:text-paper">{ui.appAndroid} <Icon name="external" size={13} /><span class="sr-only"> ({ui.newTab})</span></a>
+        </p>
       </div>
       <p class="mt-6 text-sm leading-relaxed text-paper/70">{t.formsHint} <a href={l(lang, '/downloads')} class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.downloadsLabel}</a>.</p>
     </aside>
