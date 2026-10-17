@@ -1,10 +1,8 @@
 ---
-import Base from '../../layouts/Base.astro';
-import Sections from '../../components/sections/AnmeldungSections.astro';
-import { pageT } from '../../i18n/pages';
+// Die frühere Code-geschützte Anmeldung ist durch den Mitgliedsantrag in easyVerein ersetzt.
+// Alte Links und QR-Codes führen direkt dorthin (Adresse im CMS unter Einstellungen > Links).
+import { getLinks } from '../../lib/links';
 
-const t = pageT('anmeldung', 'ar');
+const { applicationUrl } = await getLinks();
+return Astro.redirect(applicationUrl, 301);
 ---
-<Base title={t.metaTitle} description={'metaDesc' in t ? t.metaDesc : undefined}>
-  <Sections />
-</Base>

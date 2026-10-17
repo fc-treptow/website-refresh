@@ -4,6 +4,7 @@ import Icon from '../components/Icon.astro';
 import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/ui';
 import { club } from '../data/club';
+import { getLinks, hostOf, splitHost } from '../lib/links';
 
 interface Props {
   title: string;
@@ -50,6 +51,12 @@ const moreLinks = [
   { href: '/downloads', label: t.footerDownloads },
   { href: '/in-gedenken', label: t.footerGedenken },
 ];
+
+// Mitgliederbereich in easyVerein: externer Link, Ziel steht dabei (Dienst, Domain, neuer Tab).
+const { memberAreaUrl } = await getLinks();
+const memberNote = splitHost(t.memberAreaNote);
+const memberHost = hostOf(memberAreaUrl);
+const memberNoteText = `${memberNote.before}${memberHost}${memberNote.after}`;
 
 const socials = [
   { href: club.social.instagram, label: 'Instagram', icon: 'instagram' as const },
@@ -134,6 +141,11 @@ const socials = [
               ))}
             </div>
           </div>
+          <a href={memberAreaUrl} rel="noopener" target="_blank" title={memberNoteText} class="hidden h-10 items-center gap-1.5 rounded-full px-3 text-sm font-semibold text-ink-soft transition-colors duration-200 hover:bg-paper-deep hover:text-ink lg:inline-flex">
+            {t.memberArea}
+            <Icon name="external" size={14} />
+            <span class="sr-only">{memberNoteText}</span>
+          </a>
           <a href={l(lang, '/mitgliedschaft')} class="hidden h-10 items-center rounded-full bg-club px-5 text-sm font-semibold text-white transition-[background-color,transform] duration-200 ease-(--ease-club) hover:bg-club-deep active:scale-[0.97] lg:inline-flex">
             {t.joinCta}
           </a>
@@ -176,7 +188,7 @@ const socials = [
                 <li><a href={l(lang, '/mitgliedschaft')} class="text-paper/80 transition-colors hover:text-paper">{t.nav.mitgliedschaft}</a></li>
                 <li><a href={l(lang, '/probetraining')} class="text-paper/80 transition-colors hover:text-paper">{t.footerProbetraining}</a></li>
                 <li><a href={l(lang, '/schiedsrichter')} class="text-paper/80 transition-colors hover:text-paper">{t.footerSchiedsrichter}</a></li>
-                <li><a href={l(lang, '/anmeldung')} class="text-paper/80 transition-colors hover:text-paper">{t.footerAnmeldung}</a></li>
+                <li><a href={memberAreaUrl} rel="noopener" target="_blank" title={memberNoteText} class="inline-flex items-center gap-1.5 text-paper/80 transition-colors hover:text-paper">{t.memberAreaLong} <Icon name="external" size={13} /><span class="sr-only">{memberNoteText}</span></a></li>
                 <li><a href={l(lang, '/downloads')} class="text-paper/80 transition-colors hover:text-paper">{t.footerDownloads}</a></li>
               </ul>
             </div>
@@ -249,6 +261,15 @@ const socials = [
         </button>
       </div>
       <ul class="px-5">
+        <li class="border-b border-line">
+          <a href={memberAreaUrl} rel="noopener" target="_blank" aria-describedby="more-member-note" class="flex min-h-14 items-center justify-between gap-4 py-2 text-base font-medium">
+            <span>
+              {t.memberAreaLong}
+              <span id="more-member-note" class="mt-0.5 block text-sm font-normal text-ink-soft">{memberNote.before}<bdi>{memberHost}</bdi>{memberNote.after}</span>
+            </span>
+            <Icon name="external" size={18} class="shrink-0 text-ink-soft" />
+          </a>
+        </li>
         {moreLinks.map((item) => (
           <li class="border-b border-line">
             <a href={l(lang, item.href)} class="flex min-h-14 items-center justify-between text-base font-medium">

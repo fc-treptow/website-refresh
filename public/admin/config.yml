@@ -226,3 +226,8 @@ collections:
             hint: 'Adresse des öffentlichen Antragsformulars, verlinkt auf der Seite Mitgliedschaft. In easyVerein unter Mitgliedsantrag zu finden, beginnt mit https://'
             widget: string
             pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
+          - name: memberAreaUrl
+            label: Mitgliederbereich (easyVerein)
+            hint: 'Login-Seite für Mitglieder, verlinkt in Kopfzeile, Menü, Fußzeile und auf der Seite Mitgliedschaft. Beginnt mit https://'
+            widget: string
+            pattern: ['^https://\S+$', 'Bitte eine vollständige Adresse eingeben, die mit https:// beginnt.']
