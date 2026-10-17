@@ -43,8 +43,9 @@ Faustregeln:
 
 - Immer auf **Veröffentlichen** klicken, sonst bleibt es ein Entwurf.
 - Fotos im Querformat, nicht größer als etwa 2 MB.
-- Nur auf Deutsch schreiben. Die anderen Sprachen zeigen automatisch den deutschen Text, bis jemand
-  eine Übersetzung nachträgt (dafür ist Technik nötig, siehe unten).
+- Nur auf Deutsch schreiben. Mannschaften und News werden nach dem Speichern automatisch in alle
+  anderen Sprachen übersetzt (DeepL, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
+  alle Sprachen online.
 - Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de.
 
 ## Redaktion einrichten (einmalig, technisch)
@@ -100,6 +101,30 @@ Ein Akzent (Vereinsrot), nur für Handlungen. Haarlinien statt Karten. Big Shoul
 und Zahlen, Archivo für Text, Source Serif nur für die Chronik, IBM Plex Sans Arabic für Arabisch.
 Auf dem Handy eine untere Leiste mit fünf Zielen, "Mehr" öffnet ein Bottom Sheet mit allem anderen und
 der Sprachwahl.
+
+## Übersetzungen
+
+Mannschaften (`src/content/teams/de`) und News (`src/content/news/de`) werden automatisch übersetzt:
+Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
+Er schickt die geänderten Texte an DeepL, schreibt Englisch, Türkisch, Arabisch, Spanisch und
+Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.
+
+- Übersetzt werden nur Texte: bei Mannschaften Kurzname, Bildunterschriften und Beschreibung, bei
+  News Überschrift, Kurztext und Text. Namen, Liga, Zeiten, Links und Fotos kommen immer aus dem
+  Deutschen. Gelöschte deutsche Einträge verlieren auch ihre Übersetzungen.
+- Jede Übersetzungsdatei merkt sich unter `quelle` pro Feld einen Fingerabdruck des deutschen
+  Textes. Neu übersetzt wird ein Feld nur, wenn sich das Deutsche geändert hat. Eine Übersetzung,
+  die man auf GitHub von Hand verbessert, bleibt also stehen, bis sich das deutsche Original dieses
+  Feldes ändert.
+- Einrichtung (einmalig): kostenloses Konto bei DeepL (API Free, 500.000 Zeichen im Monat, reicht
+  für den Verein bei Weitem), API-Schlüssel kopieren und in GitHub unter Settings → Secrets and
+  variables → Actions → New repository secret als `DEEPL_API_KEY` speichern. Ohne Schlüssel läuft
+  der Workflow durch und übersetzt nichts.
+- Alles auf einmal nachholen: Actions → Übersetzen → Run workflow. Mit "Alles neu übersetzen"
+  werden auch von Hand verbesserte Übersetzungen überschrieben.
+- Lokal: `DEEPL_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
+  würde; `--fingerprints-only` merkt sich den aktuellen Stand als passend, ohne zu übersetzen).
+- An DeepL gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
 
 ## Formulare
 
