@@ -4,9 +4,13 @@ import Icon from '../Icon.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
+import { useTranslations } from '../../i18n/ui';
+import { getLinks } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('probetraining', lang);
+const ui = useTranslations(lang);
+const { applicationUrl } = await getLinks();
 const field = 'min-h-12 w-full rounded-sm border border-ink/25 bg-card px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-soft/60 focus:border-ink focus:ring-2 focus:ring-club/25';
 const label = 'text-sm font-semibold';
 ---
@@ -67,7 +71,7 @@ const label = 'text-sm font-semibold';
             <span class="display nums text-2xl text-paper/50">{i + 1}</span>
             <span class="leading-relaxed text-paper/85">
               {item}
-              {i === t.sideItems.length - 1 && <> <a href={l(lang, '/anmeldung')} class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.regLinkLabel}</a>.</>}
+              {i === t.sideItems.length - 1 && <> <a href={applicationUrl} rel="noopener" target="_blank" class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.regLinkLabel}<Icon name="external" size={13} class="ms-1 inline align-[-1px]" /><span class="sr-only"> ({ui.newTab})</span></a>.</>}
             </span>
           </li>
         ))}

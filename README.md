@@ -37,7 +37,7 @@ Dort gibt es diese Bereiche:
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
-| Einstellungen | Link zum Mitgliedsantrag in easyVerein (Seite Mitgliedschaft). Nur ändern, wenn sich die Adresse ändert. |
+| Einstellungen | Links zu easyVerein: Mitgliedsantrag und Mitgliederbereich. Nur ändern, wenn sich eine Adresse ändert. |
 
 Faustregeln:
 
@@ -103,12 +103,14 @@ der Sprachwahl.
 
 ## Formulare
 
-Probetraining und Anmeldung öffnen das E-Mail-Programm mit fertiger Nachricht an
+Das Probetraining öffnet das E-Mail-Programm mit fertiger Nachricht an
 kontakt@fc-treptow.de. Es fließen keine Daten über einen Server. Wer lieber einen Formulardienst
 will, setzt `PUBLIC_FORM_ENDPOINT` (dann ist ein AV-Vertrag mit dem Anbieter nötig).
 
-Freischalt-Code für die Anmeldung: `TREPTOW1925`, änderbar in
-`src/components/sections/AnmeldungSections.astro`.
+Mitgliedsantrag und Mitgliederbereich laufen über easyVerein und sind nur verlinkt (neuer Tab, mit
+Hinweis auf easyVerein und die Domain), nicht eingebettet. Beide Adressen pflegt die Redaktion im CMS
+unter **Einstellungen › Links**. Die frühere Anmeldung mit Freischalt-Code gibt es nicht mehr;
+`/anmeldung` leitet auf den Mitgliedsantrag weiter.
 
 ## Fanshop
 
@@ -148,8 +150,6 @@ Erledigt:
 
 ## Bekannte Einschränkungen
 
-- Der Freischalt-Code der Anmeldung steht im Browser-Code. Er hält Neugierige ab, ist aber keine
-  echte Zugangssperre.
 - Ergebnisse vergangener Spiele werden nicht gezeigt: fussball.de verschleiert Tore mit einer
   Spezialschrift. Der Link "Alles auf fussball.de" führt hin.
 - Kein Dark Mode, bewusst.

@@ -6,7 +6,7 @@ import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { useTranslations } from '../../i18n/ui';
 import { club } from '../../data/club';
-import { getEntry } from 'astro:content';
+import { getLinks, hostOf, splitHost } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('mitgliedschaft', lang);
@@ -14,12 +14,12 @@ const ui = useTranslations(lang);
 // Schritt 3 führt zum Mitgliedsantrag in easyVerein (extern, neuer Tab). Kein Einbetten,
 // damit auf unserer Seite keine Fremdinhalte geladen werden. Die Adresse pflegt die
 // Redaktion im CMS unter Einstellungen > Links.
-const links = await getEntry('einstellungen', 'links');
-if (!links) throw new Error('src/content/einstellungen/links.yml fehlt');
-const stepLinks = [l(lang, '/probetraining'), undefined, links.data.applicationUrl];
+const { applicationUrl, memberAreaUrl } = await getLinks();
+const stepLinks = [l(lang, '/probetraining'), undefined, applicationUrl];
 // Externe Links nennen ihr Ziel unter dem Link (Dienst, Domain, neuer Tab), damit klar ist,
 // wohin man geht. Die Domain kommt aus der gepflegten Adresse, {host} im Text wird ersetzt.
-const host = new URL(links.data.applicationUrl).hostname.replace(/^www\./, '');
+const host = hostOf(applicationUrl);
+const memberNote = splitHost(ui.memberAreaNote);
 const fees = [
   { label: t.aktive, detail: t.aktiveDetail, amount: club.fees.regular },
   { label: t.ermaessigt, detail: t.ermaessigtDetail, amount: club.fees.reduced },
@@ -40,7 +40,7 @@ const fees = [
             ? <>
                 <a href={stepLinks[i]} rel="noopener" target="_blank" aria-describedby={s.linkNote && `step-${i}-note`} class="mt-5 inline-flex min-h-11 w-max items-center gap-2 font-semibold text-club hover:text-club-deep">{s.linkLabel} <Icon name="external" size={16} /></a>
                 {s.linkNote && (() => {
-                  const [before, after] = s.linkNote.split('{host}');
+                  const { before, after } = splitHost(s.linkNote);
                   return <p id={`step-${i}-note`} class="mt-1 max-w-xs text-sm leading-relaxed text-ink-soft">{before}<bdi class="font-medium text-ink">{host}</bdi>{after}</p>;
                 })()}
               </>
@@ -91,7 +91,12 @@ const fees = [
           <dd class="nums mt-0.5 select-all font-mono text-base font-medium tracking-wide" dir="ltr">{club.iban}</dd>
         </div>
       </dl>
-      <p class="mt-8 text-sm leading-relaxed text-paper/70">{t.formsHint} <a href={l(lang, '/downloads')} class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.downloadsLabel}</a>.</p>
+      <div class="mt-8 border-t border-paper/15 pt-6 text-sm">
+        <p class="leading-relaxed text-paper/70">{t.memberHint}</p>
+        <a href={memberAreaUrl} rel="noopener" target="_blank" aria-describedby="member-note" class="mt-2 inline-flex min-h-11 items-center gap-2 font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{ui.memberAreaLong} <Icon name="external" size={14} /></a>
+        <p id="member-note" class="mt-1 text-xs leading-relaxed text-paper/50">{memberNote.before}<bdi>{hostOf(memberAreaUrl)}</bdi>{memberNote.after}</p>
+      </div>
+      <p class="mt-6 text-sm leading-relaxed text-paper/70">{t.formsHint} <a href={l(lang, '/downloads')} class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.downloadsLabel}</a>.</p>
     </aside>
   </div>
   <div class="reveal mt-16 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink pt-10">

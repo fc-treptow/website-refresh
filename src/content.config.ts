@@ -148,6 +148,8 @@ const einstellungen = defineCollection({
   schema: z.object({
     // Öffentlicher Mitgliedsantrag in easyVerein, verlinkt auf /mitgliedschaft (Schritt 3)
     applicationUrl: z.string().url().startsWith('https://'),
+    // Login-Seite des Mitgliederbereichs in easyVerein (Kopfzeile, Mehr-Menü, Fußzeile, Mitgliedschaft)
+    memberAreaUrl: z.string().url().startsWith('https://'),
   }),
 });
 
