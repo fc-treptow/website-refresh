@@ -141,4 +141,14 @@ const downloads = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads };
+// Einzelne Einstellungen, die die Redaktion im CMS unter "Einstellungen" pflegt.
+// Eine Datei pro Bereich; "links" hält Adressen zu externen Diensten.
+const einstellungen = defineCollection({
+  loader: glob({ pattern: '*.yml', base: './src/content/einstellungen' }),
+  schema: z.object({
+    // Öffentlicher Mitgliedsantrag in easyVerein, verlinkt auf /mitgliedschaft (Schritt 3)
+    applicationUrl: z.string().url().startsWith('https://'),
+  }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads, einstellungen };
