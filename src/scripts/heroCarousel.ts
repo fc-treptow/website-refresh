@@ -1,23 +1,25 @@
-// Auftakt-Karussell auf der Startseite: blendet die Mannschaftsfotos langsam über.
+// Auftakt-Karussell auf der Startseite: blendet die Mannschaftsfotos über.
+// - Pfeile links und rechts im Foto, auf dem Handy auch Wischen.
 // - Hält an, solange Maus oder Tastaturfokus im Karussell ist und wenn der Tab im Hintergrund liegt.
-// - Pause-Knopf (WCAG 2.2.2). Wer eine Mannschaft anwählt, übernimmt: der Wechsel stoppt.
+// - Wer selbst weiterschaltet (Pfeil, Wischen, I/II/III/F), übernimmt: der automatische Wechsel stoppt.
 // - Bei "Bewegung reduzieren" startet nichts von selbst.
 // - Die Fotos 2 bis n laden erst nach dem Seitenaufbau, damit das erste Foto schnell steht.
-const INTERVAL = 6500;
+const INTERVAL = 4000;
 
 const root = document.querySelector<HTMLElement>('[data-hero-carousel]');
 const slides = root ? [...root.querySelectorAll<HTMLElement>('[data-hero-slide]')] : [];
 
 if (root && slides.length > 1) {
+  const photo = root.querySelector<HTMLElement>('.hero-photo');
   const captions = [...root.querySelectorAll<HTMLElement>('[data-hero-caption]')];
   const live = root.querySelector<HTMLElement>('[data-hero-captions]');
-  const controls = root.querySelector<HTMLElement>('[data-hero-controls]');
   const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-hero-dot]')];
-  const toggle = root.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+  const steps = [...root.querySelectorAll<HTMLButtonElement>('[data-hero-step]')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const rtl = document.documentElement.dir === 'rtl';
 
   let current = 0;
-  let stopped = reduced.matches; // vom Besucher angehalten (oder reduzierte Bewegung)
+  let stopped = reduced.matches; // vom Besucher übernommen (oder reduzierte Bewegung)
   let held = false; // vorübergehend angehalten (Maus, Fokus, Tab im Hintergrund)
   let timer: number | undefined;
 
@@ -47,30 +49,31 @@ if (root && slides.length > 1) {
     if (!stopped && !held) timer = window.setTimeout(() => (show(current + 1), schedule()), INTERVAL);
   };
 
-  const render = () => {
-    if (toggle) {
-      toggle.setAttribute('aria-label', (stopped ? toggle.dataset.labelPlay : toggle.dataset.labelPause) ?? '');
-      toggle.querySelector<HTMLElement>('[data-icon-pause]')!.hidden = stopped;
-      toggle.querySelector<HTMLElement>('[data-icon-play]')!.hidden = !stopped;
-    }
-    // Läuft der Wechsel, nicht jede Mannschaft vorlesen; angehalten schon.
-    live?.setAttribute('aria-live', stopped ? 'polite' : 'off');
+  // Der Besucher schaltet selbst: Wechsel stoppen, neue Mannschaft vorlesen
+  const take = (i: number) => {
+    loadImages();
+    stopped = true;
+    live?.setAttribute('aria-live', 'polite');
+    show(i);
     schedule();
   };
 
-  dots.forEach((d, n) =>
-    d.addEventListener('click', () => {
-      loadImages();
-      stopped = true;
-      show(n);
-      render();
-    }),
-  );
-  toggle?.addEventListener('click', () => {
-    loadImages();
-    stopped = !stopped;
-    if (!stopped) show(current + 1);
-    render();
+  dots.forEach((d, n) => d.addEventListener('click', () => take(n)));
+  steps.forEach((b) => b.addEventListener('click', () => take(current + Number(b.dataset.heroStep))));
+
+  // Wischen auf dem Handy (horizontal, mindestens 40 px)
+  let startX = 0;
+  let startY = 0;
+  photo?.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  photo?.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+    const forward = dx < 0 !== rtl;
+    take(current + (forward ? 1 : -1));
   });
 
   const hold = (on: boolean) => {
@@ -86,7 +89,7 @@ if (root && slides.length > 1) {
   document.addEventListener('visibilitychange', () => hold(document.hidden));
   reduced.addEventListener('change', () => {
     stopped = reduced.matches;
-    render();
+    schedule();
   });
 
   // Bei reduzierter Bewegung erst laden, wenn jemand weiterschaltet
@@ -94,6 +97,7 @@ if (root && slides.length > 1) {
     if (document.readyState === 'complete') loadImages();
     else addEventListener('load', loadImages, { once: true });
   }
-  controls?.removeAttribute('hidden');
-  render();
+  root.querySelector('[data-hero-controls]')?.removeAttribute('hidden');
+  steps.forEach((b) => (b.hidden = false));
+  schedule();
 }
