@@ -84,14 +84,14 @@ const sponsors = defineCollection({
   }),
 });
 
-export const boardRoles = ['chair', 'viceChair', 'treasurer', 'refereeLead', 'assessor', 'controlBoard', 'other'] as const;
+export const boardRoles = ['chair', 'viceChair', 'treasurer', 'secretary', 'sportsLead', 'youthLead', 'refereeLead', 'assessor', 'controlBoard', 'other'] as const;
 
 const vorstand = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/vorstand' }),
   schema: z.object({
     name: z.string(),
     role: z.enum(boardRoles),
-    // Nur für Rolle "Sonstiges": eigene Bezeichnung
+    // Eigene Bezeichnung, ersetzt die Amtsbezeichnung (z. B. für Ämter außerhalb des Vorstands)
     roleLabel: z.string().nullish(),
     email: z.string().nullish(),
     phone: z.string().nullish(),
@@ -152,7 +152,7 @@ const downloads = defineCollection({
 // Einzelne Einstellungen, die die Redaktion im CMS unter "Einstellungen" pflegt.
 // Eine Datei pro Bereich; "links" hält Adressen zu externen Diensten.
 const einstellungen = defineCollection({
-  loader: glob({ pattern: '*.yml', base: './src/content/einstellungen' }),
+  loader: glob({ pattern: 'links.yml', base: './src/content/einstellungen' }),
   schema: z.object({
     // Öffentlicher Mitgliedsantrag in easyVerein, verlinkt auf /mitgliedschaft (Schritt 3)
     applicationUrl: z.string().url().startsWith('https://'),
@@ -164,4 +164,13 @@ const einstellungen = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads, einstellungen };
+// Kontaktadressen, die die Redaktion selbst pflegt (Einstellungen > Kontakt im CMS).
+const kontakt = defineCollection({
+  loader: glob({ pattern: 'kontakt.yml', base: './src/content/einstellungen' }),
+  schema: z.object({
+    // Gemeinsame Adresse aller Mitglieder des Kontrollrats, steht auf der Seite /vorstand
+    controlBoardEmail: z.email(),
+  }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads, einstellungen, kontakt };

@@ -5,17 +5,25 @@ import Icon from '../Icon.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
+import { getContacts } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('vorstand', lang);
 const all = (await getCollection('vorstand')).map((e) => e.data).sort((a, b) => a.order - b.order);
 const executive = all.filter((m) => ['chair', 'viceChair', 'treasurer'].includes(m.role));
 const others = all.filter((m) => !['chair', 'viceChair', 'treasurer'].includes(m.role));
-const roleLabel = (m: (typeof all)[number]) => (m.role === 'other' ? (m.roleLabel ?? '') : t.roles[m.role as keyof typeof t.roles]);
-// Weitere Ämter nach Rolle gruppieren, Reihenfolge wie im CMS
+const { controlBoardEmail } = await getContacts();
+// Eine eigene Bezeichnung aus dem CMS hat Vorrang vor der übersetzten Amtsbezeichnung
+const roleLabel = (m: (typeof all)[number]) =>
+  m.roleLabel?.trim() || (m.role === 'other' ? '' : t.roles[m.role as keyof typeof t.roles]);
+// Weitere Ämter nach Bezeichnung gruppieren, Reihenfolge wie im CMS
 const groups = [...new Set(others.map(roleLabel))].map((label) => ({ label, names: others.filter((m) => roleLabel(m) === label) }));
 // Beim Schiedsrichterobmann auf die Schiedsrichter-Seite verweisen
 const isRefereeGroup = (g: (typeof groups)[number]) => g.names.some((m) => m.role === 'refereeLead');
+// Der Kontrollrat ist gemeinsam erreichbar; einzelne Adressen seiner Mitglieder erscheinen nicht
+const isControlBoardGroup = (g: (typeof groups)[number]) => g.names.every((m) => m.role === 'controlBoard');
+const contactOf = (m: (typeof all)[number]) => (m.role === 'controlBoard' ? {} : { email: m.email, phone: m.phone });
+const hasContacts = (g: (typeof groups)[number]) => g.names.some((m) => contactOf(m).email || contactOf(m).phone);
 const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`;
 ---
 <PageHeader title={t.h1} intro={t.intro} />
@@ -42,7 +50,22 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
           <div class="grid gap-2 border-b border-line py-5 sm:grid-cols-[14rem_1fr]">
             <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft sm:pt-1">{g.label}</dt>
             <dd class="text-lg font-semibold">
-              {g.names.map((m) => m.name).join(', ')}
+              {hasContacts(g) ? (
+                <ul class="grid gap-3">
+                  {g.names.map((m) => (
+                    <li>
+                      {m.name}
+                      {contactOf(m).email && <a href={`mailto:${m.email}`} class="flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{m.email}</a>}
+                      {contactOf(m).phone && <a href={telHref(m.phone!)} class="nums flex min-h-11 w-max items-center gap-2 text-sm font-normal text-ink-soft hover:text-ink"><Icon name="phone" size={16} />{m.phone}</a>}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                g.names.map((m) => m.name).join(', ')
+              )}
+              {isControlBoardGroup(g) && (
+                <a href={`mailto:${controlBoardEmail}`} class="mt-1 flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{controlBoardEmail}</a>
+              )}
               {isRefereeGroup(g) && (
                 <a href={l(lang, '/schiedsrichter')} class="mt-1 flex min-h-11 w-max items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">{t.refereeLink} <Icon name="arrow" size={16} /></a>
               )}

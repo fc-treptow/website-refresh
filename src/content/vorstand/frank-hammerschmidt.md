@@ -1,7 +1,6 @@
 ---
 name: Frank Hammerschmidt
-role: assessor
-roleLabel: Sportwart
+role: sportsLead
 email: frank@fc-treptow.de
 order: 21
 ---
