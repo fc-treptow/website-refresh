@@ -1,0 +1,29 @@
+# Vorübergehend: Probelauf der Übersetzung mit echtem Schlüssel, ohne etwas zu speichern.
+name: Übersetzen (Probelauf)
+on:
+  push:
+    branches: [automatische-uebersetzung]
+    paths: [.github/workflows/translate-probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Übersetzen (ohne Commit)
+        run: node scripts/translate-content.mjs
+        env:
+          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+          AI_GATEWAY_MODEL: ${{ vars.AI_GATEWAY_MODEL }}
+      - name: Ergebnis zeigen
+        run: |
+          git status --short
+          for l in en tr ar es fr; do echo "===== $l"; cat src/content/news/$l/neuer-vorstand-2025.md; done
+          echo "===== en 30 Jahre"; cat src/content/news/en/30-jahre-fc-treptow.md
