@@ -44,7 +44,7 @@ Faustregeln:
 - Immer auf **Veröffentlichen** klicken, sonst bleibt es ein Entwurf.
 - Fotos im Querformat, nicht größer als etwa 2 MB.
 - Nur auf Deutsch schreiben. Mannschaften und News werden nach dem Speichern automatisch in alle
-  anderen Sprachen übersetzt (DeepL, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
+  anderen Sprachen übersetzt (Vercel AI Gateway, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
   alle Sprachen online.
 - Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de.
 
@@ -106,7 +106,7 @@ der Sprachwahl.
 
 Mannschaften (`src/content/teams/de`) und News (`src/content/news/de`) werden automatisch übersetzt:
 Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
-Er schickt die geänderten Texte an DeepL, schreibt Englisch, Türkisch, Arabisch, Spanisch und
+Er schickt die geänderten Texte über das Vercel AI Gateway an ein KI-Modell, schreibt Englisch, Türkisch, Arabisch, Spanisch und
 Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.
 
 - Übersetzt werden nur Texte: bei Mannschaften Kurzname, Bildunterschriften und Beschreibung, bei
@@ -116,15 +116,21 @@ Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. V
   Textes. Neu übersetzt wird ein Feld nur, wenn sich das Deutsche geändert hat. Eine Übersetzung,
   die man auf GitHub von Hand verbessert, bleibt also stehen, bis sich das deutsche Original dieses
   Feldes ändert.
-- Einrichtung (einmalig): kostenloses Konto bei DeepL (API Free, 500.000 Zeichen im Monat, reicht
-  für den Verein bei Weitem), API-Schlüssel kopieren und in GitHub unter Settings → Secrets and
-  variables → Actions → New repository secret als `DEEPL_API_KEY` speichern. Ohne Schlüssel läuft
-  der Workflow durch und übersetzt nichts.
+- Einrichtung (einmalig): im Vercel-Dashboard unter **AI Gateway** → **API Keys** einen Schlüssel
+  anlegen und in GitHub unter Settings → Secrets and variables → Actions → New repository secret
+  als `AI_GATEWAY_API_KEY` speichern. Das kostenlose Monatsguthaben des AI Gateway reicht für den
+  Verein bei Weitem. Ohne Schlüssel läuft der Workflow durch und übersetzt nichts.
+- Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste (Claude Haiku,
+  sonst Gemini Flash oder GPT mini). Ein bestimmtes Modell legt man als Repository-Variable
+  `AI_GATEWAY_MODEL` fest (gleiche Seite, Reiter "Variables"), z. B. `anthropic/claude-haiku-4.5`.
+- Jede Übersetzung wird geprüft: gleiche Felder, gleich viele Bildunterschriften, alle Links und
+  E-Mail-Adressen unverändert. Sonst wird neu angefragt bzw. der Workflow schlägt fehl, statt
+  etwas Kaputtes zu speichern.
 - Alles auf einmal nachholen: Actions → Übersetzen → Run workflow. Mit "Alles neu übersetzen"
   werden auch von Hand verbesserte Übersetzungen überschrieben.
-- Lokal: `DEEPL_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
+- Lokal: `AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
   würde; `--fingerprints-only` merkt sich den aktuellen Stand als passend, ohne zu übersetzen).
-- An DeepL gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
+- An das AI Gateway gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
 
 ## Formulare
 
