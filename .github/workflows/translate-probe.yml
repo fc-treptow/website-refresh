@@ -1,4 +1,4 @@
-# Vorübergehend (2): Probelauf der Übersetzung mit der Gemini API, ohne etwas zu speichern.
+# Vorübergehend (3): Probelauf der Übersetzung mit der Gemini API, ohne etwas zu speichern.
 name: Übersetzen (Probelauf)
 on:
   push:

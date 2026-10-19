@@ -124,8 +124,8 @@ Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. V
   Workflow das bis dahin Übersetzte und meldet eine Warnung. Der Rest kommt beim nächsten Speichern
   oder per Hand: Actions → Übersetzen → Run workflow.
 - Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste
-  (`gemini-flash-latest`, sonst ältere Flash-Versionen). Ein bestimmtes Modell legt man als
-  Repository-Variable `TRANSLATE_MODEL` fest (Settings → Secrets and variables → Actions, Reiter
+  (`gemini-3.8-flash`, sonst `gemini-flash-latest` oder ältere Flash-Versionen). Ein bestimmtes
+  Modell legt man als Repository-Variable `TRANSLATE_MODEL` fest (Settings → Secrets and variables → Actions, Reiter
   "Variables").
 - Jede Übersetzung wird geprüft: gleiche Felder, gleich viele Bildunterschriften, alle Links und
   E-Mail-Adressen unverändert. Sonst wird neu angefragt bzw. der Workflow schlägt fehl, statt
