@@ -33,6 +33,10 @@
 
   --radius-sm: 4px;
 
+  /* Abstand oben und unten pro Abschnitt (py-section, pt-section, pb-section).
+     Ein Wert für die ganze Seite: 56px auf dem Handy, wächst bis 80px auf großen Bildschirmen. */
+  --spacing-section: clamp(3.5rem, 2.25rem + 3.5vw, 5rem);
+
   --ease-club: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 }

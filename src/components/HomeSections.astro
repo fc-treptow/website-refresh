@@ -69,7 +69,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 ---
 
 <!-- 1. Auftakt: große Schrift links, echtes Mannschaftsfoto als Dokument rechts -->
-<section class="mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 sm:pt-14 lg:px-8 lg:pb-28 lg:pt-20">
+<section class="mx-auto max-w-7xl px-4 pb-section pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
   <div class="grid items-end gap-10 lg:grid-cols-12 lg:gap-12">
     <div class="hero-in lg:col-span-6">
       <p class="flex items-center gap-2 text-sm font-medium text-ink-soft">
@@ -141,7 +141,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
     </figure>
   </div>
 
-  <dl class="mt-14 grid grid-cols-1 border-t border-ink sm:grid-cols-3 lg:mt-20">
+  <dl class="mt-10 grid grid-cols-1 border-t border-ink sm:grid-cols-3 lg:mt-14">
     <div class="flex items-baseline justify-between gap-4 border-b border-line py-4 sm:block sm:border-b-0 sm:border-e sm:py-5 sm:pe-6">
       <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.factTraining}</dt>
       <dd class="text-end text-base font-semibold sm:mt-2 sm:text-start sm:text-lg">{t.factTrainingValue}</dd>
@@ -159,7 +159,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 2. Nächste Spiele, live von fussball.de -->
 <section class="bg-card">
-  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-section sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
     <div class="reveal lg:col-span-4">
       <h2 class="display text-5xl sm:text-6xl">{t.fixturesHeading}</h2>
       <p class="mt-5 max-w-sm leading-relaxed text-ink-soft">{t.fixturesText}</p>
@@ -208,7 +208,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 </section>
 
 <!-- 3. Mannschaften als Index, nicht als Kachelwand -->
-<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+<section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
   <div class="reveal flex items-end justify-between gap-6">
     <h2 class="display text-5xl sm:text-6xl">{t.teamsHeading}</h2>
     <a href={l(lang, '/mannschaften')} class="hidden min-h-11 items-center gap-2 text-sm font-semibold text-club hover:text-club-deep sm:inline-flex">{t.allTeams} <Icon name="arrow" size={16} /></a>
@@ -216,7 +216,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
   <ol class="stagger mt-10 border-t border-ink">
     {teams.map((team, i) => (
       <li class="border-b border-line">
-        <a href={l(lang, `/mannschaften/${team.slug}`)} class="group grid grid-cols-[4rem_1fr_auto] items-center gap-4 py-4 sm:grid-cols-[5rem_1fr_1fr_auto] sm:gap-6 sm:py-6">
+        <a href={l(lang, `/mannschaften/${team.slug}`)} class="group grid grid-cols-[4rem_1fr_auto] items-center gap-4 py-3 sm:grid-cols-[4.5rem_1fr_1fr_auto] sm:gap-6 sm:py-4">
           <span class="overflow-hidden rounded-sm bg-ink">
             <img src={team.data.image} alt="" width="160" height="160" loading="lazy" class="aspect-square w-full object-cover transition-transform duration-500 ease-(--ease-club) group-hover:scale-105" style={`object-position: 50% ${team.data.imageFocus}%`} />
           </span>
@@ -240,7 +240,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 4. Das eine rote Band: Mitspielen -->
 <section class="bg-club text-white">
-  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-28">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-section sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
     <div class="reveal lg:col-span-6">
       <h2 class="display text-[clamp(3.25rem,9vw,6.5rem)]">{t.joinHeading}</h2>
       <p class="mt-6 max-w-md text-lg leading-relaxed text-white/85">{t.joinText}</p>
@@ -262,7 +262,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 5. News: ein Aufmacher, der Rest als Liste -->
 {lead && (
-  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+  <section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
     <div class="reveal flex items-end justify-between gap-6">
       <h2 class="display text-5xl sm:text-6xl">{t.newsHeading}</h2>
       <a href={l(lang, '/news')} class="inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold text-club hover:text-club-deep">{t.allNews} <Icon name="arrow" size={16} /></a>
@@ -295,7 +295,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 6. Chronik: 1925 als Zahl, die Wappen als Dokumente -->
 <section class="border-y border-line bg-card">
-  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+  <div class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
     <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <p class="reveal display nums text-[clamp(6rem,22vw,15rem)] leading-[0.8] text-club lg:col-span-6" aria-hidden="true">1925</p>
       <div class="reveal self-end lg:col-span-6">
@@ -317,7 +317,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 </section>
 
 <!-- 7. Fanshop -->
-<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+<section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
   <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
     <div class="reveal lg:col-span-4">
       <h2 class="display text-5xl sm:text-6xl">{t.shopHeading}</h2>
@@ -333,7 +333,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 8. Instagram, nur wenn echte Beiträge da sind -->
 {socialIsLive && (
-  <section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-7xl px-4 pb-section sm:px-6 lg:px-8">
     <div class="reveal flex items-end justify-between gap-6 border-t border-ink pt-6">
       <h2 class="display text-3xl">Instagram</h2>
       <a href={club.social.instagram} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-club">@fc.treptow <Icon name="external" size={16} /></a>
