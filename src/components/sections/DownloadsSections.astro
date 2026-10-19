@@ -41,7 +41,7 @@ const known: Record<string, [string, string]> = {
     const items = files.filter((f) => f.group === group);
     if (items.length === 0) return null;
     return (
-      <div class="reveal grid gap-6 pb-14 lg:grid-cols-12 lg:gap-12">
+      <div class="reveal grid gap-6 pb-10 lg:grid-cols-12 lg:gap-12">
         <h2 class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft lg:col-span-4 lg:pt-6">{groupLabel[group]}</h2>
         <ul class="border-t border-ink lg:col-span-8">
           {items.map((f) => {

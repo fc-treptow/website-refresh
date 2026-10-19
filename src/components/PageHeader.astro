@@ -8,8 +8,8 @@ interface Props {
 }
 const { title, intro, kicker, kickerHref } = Astro.props;
 ---
-<header class="mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 sm:pt-14 lg:px-8 lg:pb-14 lg:pt-20">
-  <div class="hero-in border-b border-ink pb-10 lg:pb-14">
+<header class="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pb-10 lg:pt-14">
+  <div class="hero-in border-b border-ink pb-8 lg:pb-10">
     {kicker && (
       kickerHref ? (
         <a href={kickerHref} class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-ink">
