@@ -1,0 +1,16 @@
+---
+// E-Mail-Link, der nicht im Klartext im HTML steht (siehe src/lib/email.ts).
+// Inhalt des Slots erscheint vor der Adresse, z. B. ein Icon. Mit label wird statt der Adresse
+// dieser Text gezeigt.
+import { emailAttrs, emailDisplay } from '../lib/email';
+
+interface Props {
+  address: string;
+  subject?: string;
+  label?: string;
+  class?: string;
+  [key: `data-${string}`]: string | boolean | undefined;
+}
+const { address, subject, label, class: className, ...rest } = Astro.props;
+---
+<a {...rest} {...emailAttrs(address, subject)} class={className}><slot />{label ?? <span data-email-text>{emailDisplay(address)}</span>}</a>

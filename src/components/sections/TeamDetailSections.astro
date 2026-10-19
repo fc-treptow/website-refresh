@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import Icon from '../Icon.astro';
+import Email from '../Email.astro';
 import CtaButton from '../CtaButton.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
@@ -81,7 +82,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
         ))}
         <div class="border-b border-line py-5">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.kontakt}</dt>
-          <dd class="mt-1"><a href={`mailto:${d.contact}`} class="inline-flex min-h-11 items-center gap-2 break-all text-club hover:text-club-deep"><Icon name="mail" size={16} />{d.contact}</a></dd>
+          <dd class="mt-1"><Email address={d.contact} class="inline-flex min-h-11 items-center gap-2 break-all text-club hover:text-club-deep"><Icon name="mail" size={16} /></Email></dd>
         </div>
       </dl>
       <CtaButton href={l(lang, '/probetraining')} class="mt-8">{ui.trialCta}</CtaButton>

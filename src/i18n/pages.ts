@@ -248,7 +248,7 @@ export const pages = {
   downloads: {
     de: {
       metaTitle: 'Downloads', metaDesc: 'Formulare und Vereinsdokumente des FC Treptow e.V. als PDF.',
-      h1: 'Downloads', intro: 'Formulare für die Anmeldung und die Ordnungen des Vereins. Ausgefüllte Formulare bitte unterschrieben beim Training abgeben oder an kontakt@fc-treptow.de schicken.',
+      h1: 'Downloads', intro: 'Formulare für die Anmeldung und die Ordnungen des Vereins. Ausgefüllte Formulare bitte unterschrieben beim Training abgeben oder an {email} schicken.',
       groups: { join: 'Für neue Mitglieder', bfv: 'Spielberechtigung (Berliner Fußball-Verband)', club: 'Ordnungen des Vereins' },
       pages: 'Seiten', page: 'Seite',
       files: {
@@ -265,7 +265,7 @@ export const pages = {
     },
     en: {
       metaTitle: 'Downloads', metaDesc: 'Forms and club documents of FC Treptow e.V. as PDF.',
-      h1: 'Downloads', intro: 'Registration forms and the club’s rules. Please hand in completed, signed forms at training or send them to kontakt@fc-treptow.de.',
+      h1: 'Downloads', intro: 'Registration forms and the club’s rules. Please hand in completed, signed forms at training or send them to {email}.',
       groups: { join: 'For new members', bfv: 'Playing eligibility (Berlin Football Association)', club: 'Club rules' },
       pages: 'pages', page: 'page',
       files: {
@@ -282,7 +282,7 @@ export const pages = {
     },
     tr: {
       metaTitle: 'İndirilenler', metaDesc: 'FC Treptow e.V. formları ve kulüp belgeleri PDF olarak.',
-      h1: 'İndirilenler', intro: 'Kayıt formları ve kulüp yönetmelikleri. Doldurulmuş ve imzalanmış formları antrenmanda teslim et ya da kontakt@fc-treptow.de adresine gönder.',
+      h1: 'İndirilenler', intro: 'Kayıt formları ve kulüp yönetmelikleri. Doldurulmuş ve imzalanmış formları antrenmanda teslim et ya da {email} adresine gönder.',
       groups: { join: 'Yeni üyeler için', bfv: 'Oyun hakkı (Berlin Futbol Federasyonu)', club: 'Kulüp yönetmelikleri' },
       pages: 'sayfa', page: 'sayfa',
       files: {
@@ -299,7 +299,7 @@ export const pages = {
     },
     ar: {
       metaTitle: 'التنزيلات', metaDesc: 'نماذج ووثائق نادي إف سي تريبتاو بصيغة PDF.',
-      h1: 'التنزيلات', intro: 'نماذج التسجيل ولوائح النادي. يرجى تسليم النماذج المعبأة والموقعة في التدريب أو إرسالها إلى kontakt@fc-treptow.de.',
+      h1: 'التنزيلات', intro: 'نماذج التسجيل ولوائح النادي. يرجى تسليم النماذج المعبأة والموقعة في التدريب أو إرسالها إلى {email}.',
       groups: { join: 'للأعضاء الجدد', bfv: 'أهلية اللعب (اتحاد برلين لكرة القدم)', club: 'لوائح النادي' },
       pages: 'صفحات', page: 'صفحة',
       files: {
@@ -316,7 +316,7 @@ export const pages = {
     },
     es: {
       metaTitle: 'Descargas', metaDesc: 'Formularios y documentos del FC Treptow e.V. en PDF.',
-      h1: 'Descargas', intro: 'Formularios de inscripción y reglamentos del club. Entrega los formularios rellenados y firmados en el entrenamiento o envíalos a kontakt@fc-treptow.de.',
+      h1: 'Descargas', intro: 'Formularios de inscripción y reglamentos del club. Entrega los formularios rellenados y firmados en el entrenamiento o envíalos a {email}.',
       groups: { join: 'Para nuevos socios', bfv: 'Ficha federativa (Federación de Fútbol de Berlín)', club: 'Reglamentos del club' },
       pages: 'páginas', page: 'página',
       files: {
@@ -333,7 +333,7 @@ export const pages = {
     },
     fr: {
       metaTitle: 'Téléchargements', metaDesc: 'Formulaires et documents du FC Treptow e.V. en PDF.',
-      h1: 'Téléchargements', intro: 'Formulaires d’inscription et règlements du club. Merci de remettre les formulaires remplis et signés à l’entraînement ou de les envoyer à kontakt@fc-treptow.de.',
+      h1: 'Téléchargements', intro: 'Formulaires d’inscription et règlements du club. Merci de remettre les formulaires remplis et signés à l’entraînement ou de les envoyer à {email}.',
       groups: { join: 'Pour les nouveaux membres', bfv: 'Licence (Fédération de football de Berlin)', club: 'Règlements du club' },
       pages: 'pages', page: 'page',
       files: {
@@ -392,7 +392,7 @@ export const pages = {
       team: 'Wunsch-Team', teamOptions: ['Egal, Hauptsache kicken', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'Kurz zu dir', experienceHint: '(Position, letzte Station, Erfahrung)',
       errorMsg: 'Bitte fülle Name, Alter und E-Mail aus.', submit: 'Anfrage senden',
-      sending: 'Wird gesendet …', sendFailed: 'Das hat nicht geklappt. Bitte schreib uns direkt an kontakt@fc-treptow.de.',
+      sending: 'Wird gesendet …', sendFailed: 'Das hat nicht geklappt. Bitte schreib uns direkt an {email}.',
       successTitle: 'Anfrage ist raus', successText: 'Danke! Wir melden uns per E-Mail mit einem Termin. Bring zum Probetraining einfach Sportsachen und Schienbeinschoner mit.',
       sideTitle: 'So läuft es ab',
       sideItems: [
@@ -410,7 +410,7 @@ export const pages = {
       team: 'Preferred team', teamOptions: ['No preference, just want to play', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'A little about you', experienceHint: '(position, last club, experience)',
       errorMsg: 'Please fill in your name, age and email.', submit: 'Send request',
-      sending: 'Sending …', sendFailed: 'That did not work. Please email us directly at kontakt@fc-treptow.de.',
+      sending: 'Sending …', sendFailed: 'That did not work. Please email us directly at {email}.',
       successTitle: 'Request sent', successText: 'Thanks! We’ll email you with a date. Just bring sports gear and shin guards to your trial session.',
       sideTitle: 'How it works',
       sideItems: [
@@ -428,7 +428,7 @@ export const pages = {
       team: 'Tercih edilen takım', teamOptions: ['Fark etmez, sadece oynamak istiyorum', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'Kendinden kısaca bahset', experienceHint: '(mevki, son kulüp, deneyim)',
       errorMsg: 'Lütfen adını, yaşını ve e-postanı gir.', submit: 'İsteği gönder',
-      sending: 'Gönderiliyor …', sendFailed: 'Bu işe yaramadı. Lütfen doğrudan kontakt@fc-treptow.de adresine yaz.',
+      sending: 'Gönderiliyor …', sendFailed: 'Bu işe yaramadı. Lütfen doğrudan {email} adresine yaz.',
       successTitle: 'İstek gönderildi', successText: 'Teşekkürler! Sana e-posta ile bir tarih bildireceğiz. Deneme antrenmanına spor kıyafeti ve tekmelik getirmen yeterli.',
       sideTitle: 'Nasıl işliyor',
       sideItems: [
@@ -446,7 +446,7 @@ export const pages = {
       team: 'الفريق المفضل', teamOptions: ['لا يهم، أريد اللعب فقط', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'نبذة عنك', experienceHint: '(المركز، آخر نادٍ، الخبرة)',
       errorMsg: 'يرجى إدخال الاسم والعمر والبريد الإلكتروني.', submit: 'إرسال الطلب',
-      sending: 'جارٍ الإرسال …', sendFailed: 'لم تنجح العملية. يرجى مراسلتنا مباشرة على kontakt@fc-treptow.de.',
+      sending: 'جارٍ الإرسال …', sendFailed: 'لم تنجح العملية. يرجى مراسلتنا مباشرة على {email}.',
       successTitle: 'تم إرسال الطلب', successText: 'شكرًا لك! سنراسلك عبر البريد الإلكتروني بموعد. فقط أحضر ملابس رياضية وواقيات ساق إلى التدريب التجريبي.',
       sideTitle: 'كيف تسير العملية',
       sideItems: [
@@ -464,7 +464,7 @@ export const pages = {
       team: 'Equipo preferido', teamOptions: ['Da igual, solo quiero jugar', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'Cuéntanos brevemente sobre ti', experienceHint: '(posición, último club, experiencia)',
       errorMsg: 'Por favor, completa tu nombre, edad y correo electrónico.', submit: 'Enviar solicitud',
-      sending: 'Enviando …', sendFailed: 'No ha funcionado. Escríbenos directamente a kontakt@fc-treptow.de.',
+      sending: 'Enviando …', sendFailed: 'No ha funcionado. Escríbenos directamente a {email}.',
       successTitle: 'Solicitud enviada', successText: '¡Gracias! Te escribiremos por correo con una fecha. Solo trae ropa deportiva y espinilleras al entrenamiento de prueba.',
       sideTitle: 'Cómo funciona',
       sideItems: [
@@ -482,7 +482,7 @@ export const pages = {
       team: 'Équipe souhaitée', teamOptions: ['Peu importe, je veux juste jouer', 'FC Treptow I (Kreisliga B)', 'FC Treptow II River Plate (Kreisliga B)', 'FC Treptow III (Kreisliga C)', 'Freizeit Kickers'],
       experience: 'Un mot sur vous', experienceHint: '(poste, dernier club, expérience)',
       errorMsg: 'Merci de renseigner votre nom, âge et e-mail.', submit: 'Envoyer la demande',
-      sending: 'Envoi en cours …', sendFailed: 'Cela n’a pas fonctionné. Écrivez-nous directement à kontakt@fc-treptow.de.',
+      sending: 'Envoi en cours …', sendFailed: 'Cela n’a pas fonctionné. Écrivez-nous directement à {email}.',
       successTitle: 'Demande envoyée', successText: 'Merci ! Nous vous recontactons par e-mail avec une date. Apportez simplement une tenue de sport et des protège-tibias à la séance d’essai.',
       sideTitle: 'Comment ça se passe',
       sideItems: [

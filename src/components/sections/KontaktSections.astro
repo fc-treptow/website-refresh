@@ -2,6 +2,7 @@
 import PageHeader from '../PageHeader.astro';
 import CtaButton from '../CtaButton.astro';
 import Icon from '../Icon.astro';
+import Email from '../Email.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
@@ -17,7 +18,7 @@ const t = pageT('kontakt', lang);
       <dl class="border-t border-ink">
         <div class="border-b border-line py-6">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.email}</dt>
-          <dd class="mt-1"><a href={`mailto:${club.email}`} class="inline-flex min-h-11 items-center text-xl font-semibold text-club hover:text-club-deep">{club.email}</a></dd>
+          <dd class="mt-1"><Email address={club.email} class="inline-flex min-h-11 items-center text-xl font-semibold text-club hover:text-club-deep" /></dd>
         </div>
         <div class="border-b border-line py-6">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.telefon}</dt>

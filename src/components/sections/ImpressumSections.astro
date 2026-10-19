@@ -1,5 +1,6 @@
 ---
 import PageHeader from '../PageHeader.astro';
+import Email from '../Email.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
@@ -23,8 +24,8 @@ const t = pageT('impressum', lang);
       <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft sm:pt-1">{t.contactLabel}</dt>
       <dd class="text-lg leading-relaxed">
         {t.phoneLabel}: <a href={club.phoneHref} class="nums" dir="ltr">{club.phone}</a><br />
-        {t.emailLabel}: <a href={`mailto:${club.boardEmail}`} class="text-club hover:text-club-deep">{club.boardEmail}</a><br />
-        <a href={`mailto:${club.email}`} class="text-club hover:text-club-deep">{club.email}</a>
+        {t.emailLabel}: <Email address={club.boardEmail} class="text-club hover:text-club-deep" /><br />
+        <Email address={club.email} class="text-club hover:text-club-deep" />
       </dd>
     </div>
     <div class="grid gap-2 border-b border-line py-6 sm:grid-cols-[16rem_1fr]">

@@ -1,14 +1,20 @@
 ---
 // Primäre Handlung: Pille mit eingesetztem Pfeil. Eine Form für die ganze Seite.
 import Icon from './Icon.astro';
+import { emailAttrs } from '../lib/email';
 
+// Statt href kann email gesetzt werden: dann wird daraus ein geschützter mailto-Link
+// (siehe src/lib/email.ts), optional mit Betreff.
 interface Props {
-  href: string;
+  href?: string;
+  email?: string;
+  subject?: string;
   variant?: 'club' | 'light' | 'ink';
   external?: boolean;
   class?: string;
 }
-const { href, variant = 'club', external = false, class: className = '' } = Astro.props;
+const { href, email, subject, variant = 'club', external = false, class: className = '' } = Astro.props;
+const link = email ? emailAttrs(email, subject) : { href };
 const styles = {
   club: 'bg-club text-white hover:bg-club-deep',
   light: 'bg-paper text-ink hover:bg-white',
@@ -21,7 +27,7 @@ const dot = {
 };
 ---
 <a
-  href={href}
+  {...link}
   {...(external ? { rel: 'noopener', target: '_blank' } : {})}
   class={`group inline-flex min-h-12 items-center gap-3 rounded-full py-1.5 ps-6 pe-1.5 text-[15px] font-semibold transition-[background-color,transform] duration-200 ease-(--ease-club) active:scale-[0.97] ${styles[variant]} ${className}`}
 >
