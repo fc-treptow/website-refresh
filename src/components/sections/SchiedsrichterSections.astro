@@ -53,7 +53,7 @@ const team = (await getCollection('schiedsrichter')).map((e) => e.data).sort((a,
       </li>
     ))}
   </ul>
-  <div class="reveal mt-16 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink pt-10">
+  <div class="reveal mt-12 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink pt-10">
     <CtaButton email={leadEmail} subject={t.mailSubject}>{t.cta}</CtaButton>
     <p class="text-sm leading-relaxed text-ink-soft">
       {t.notMemberYet} <a href={l(lang, '/mitgliedschaft')} class="font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 hover:decoration-ink">{t.membershipLink}</a>

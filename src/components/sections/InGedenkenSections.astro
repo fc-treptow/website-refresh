@@ -9,7 +9,7 @@ const entries = (await getCollection('gedenken')).sort((a, b) => b.data.died.val
 const people = await Promise.all(entries.map(async (e) => ({ ...e.data, Content: (await render(e)).Content })));
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
 ---
-<section class="mx-auto max-w-3xl px-4 pb-10 pt-14 text-center sm:px-6 lg:pt-24">
+<section class="mx-auto max-w-3xl px-4 pb-8 pt-8 text-center sm:px-6 sm:pt-10 lg:pt-14">
   <div class="hero-in">
     <img src="/images/crest.png" alt="" width="64" height="64" class="mx-auto h-16 w-16 object-contain grayscale" />
     <h1 class="display mt-8 text-[clamp(3rem,9vw,5.5rem)]">{t.h1}</h1>
@@ -21,7 +21,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: '2-digit', mon
 
 <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
   {people.map((p) => (
-    <article class="reveal grid gap-8 border-t border-ink py-14 md:grid-cols-[16rem_1fr] md:gap-12">
+    <article class="reveal grid gap-8 border-t border-ink py-10 md:grid-cols-[16rem_1fr] md:gap-12">
       {p.image && (
         <div class="overflow-hidden rounded-sm bg-ink md:sticky md:top-28 md:self-start">
           <img src={p.image} alt={p.name} loading="lazy" class="aspect-[3/4] w-full object-cover grayscale" />

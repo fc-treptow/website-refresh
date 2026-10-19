@@ -20,9 +20,9 @@ const others = (await getCollection('shop'))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 ---
-<section class="mx-auto max-w-7xl px-4 pb-8 pt-10 sm:px-6 sm:pt-14 lg:px-8 lg:pt-20">
+<section class="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
   <a href={l(lang, '/shop')} class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-ink"><span class="rtl:rotate-180" aria-hidden="true">←</span>{t.back}</a>
-  <div class="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-16">
+  <div class="mt-6 grid gap-10 lg:grid-cols-12 lg:gap-12">
     <!-- Bilder: Hauptbild groß, weitere Ansichten als Reihe darunter -->
     <div class="lg:col-span-7">
       <div class="rounded-[10px] bg-paper-deep p-1.5 ring-1 ring-line">
