@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// Übersetzt die deutschen Inhalte (Mannschaften und News) mit der Gemini API von Google in alle
-// anderen Sprachen der Seite. Die kostenlose Stufe braucht nur einen API-Schlüssel aus Google AI
-// Studio (aistudio.google.com), keine Zahlungsdaten. Er liegt in GitHub als Secret GEMINI_API_KEY.
+// Übersetzt die deutschen Inhalte (Mannschaften und News) über das Vercel AI Gateway in alle
+// anderen Sprachen der Seite. Den Schlüssel gibt es im Vercel-Dashboard unter AI Gateway → API Keys,
+// er liegt in GitHub als Secret AI_GATEWAY_API_KEY.
 //
 // Läuft automatisch in GitHub Actions (.github/workflows/translate.yml), sobald im CMS eine
 // deutsche Mannschaft oder Neuigkeit gespeichert wird. Lokal:
 //
-//   GEMINI_API_KEY=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
-//   GEMINI_API_KEY=… node scripts/translate-content.mjs --force   # alles neu übersetzen
+//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs       # nur Geändertes übersetzen
+//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs --force   # alles neu übersetzen
 //   node scripts/translate-content.mjs --fingerprints-only            # nichts übersetzen, nur den
 //                                                                     # aktuellen Stand als "passt" merken
 //   node scripts/translate-content.mjs --dry-run                      # nur anzeigen, was passieren würde
@@ -21,12 +21,12 @@
 // Modell: über die Repository-Variable TRANSLATE_MODEL wählbar (GitHub → Settings → Secrets and
 // variables → Actions → Variables). Ohne Angabe werden die Modelle in "defaultModels" der Reihe
 // nach versucht, bis eines verfügbar ist.
-// Kostenlos gelten Limits (Stand Oktober 2026 etwa 10 Anfragen pro Minute und gut 1.000 am Tag
-// für die Flash-Modelle). Ein Aufruf übersetzt einen Eintrag in eine Sprache, ein gespeicherter
-// Eintrag braucht also fünf Anfragen.
+// Ein Aufruf übersetzt einen Eintrag in eine Sprache, ein gespeicherter Eintrag braucht also fünf
+// Anfragen. Mit einem kleinen Modell kostet das Bruchteile eines Cents und liegt weit innerhalb des
+// monatlichen Freiguthabens des AI Gateway. Ein Budget im AI Gateway begrenzt die Kosten zusätzlich.
 //
-// An Google gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
-// Besuchern. In der kostenlosen Stufe darf Google diese Texte zur Verbesserung seiner Dienste nutzen.
+// An das AI Gateway gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
+// Besuchern.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -45,7 +45,7 @@ const languages = {
   fr: 'French',
 };
 
-const defaultModels = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.7-flash', 'gemini-3.5-flash'];
+const defaultModels = ['anthropic/claude-haiku-4.5', 'anthropic/claude-haiku-5.5', 'google/gemini-3.8-flash', 'openai/gpt-4.1-mini'];
 
 // Was pro Sammlung übersetzt (fields) und was unverändert übernommen wird (copy).
 // Der Text unter dem Frontmatter (body) wird immer übersetzt.
@@ -81,14 +81,14 @@ const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
 const fingerprintsOnly = args.has('--fingerprints-only');
-const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt Gemini
-const apiKey = process.env.GEMINI_API_KEY?.trim();
+const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt AI Gateway
+const apiKey = process.env.AI_GATEWAY_API_KEY?.trim();
 // Nur für Tests gegen einen lokalen Server änderbar
-const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://generativelanguage.googleapis.com/v1beta';
+const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://ai-gateway.vercel.sh/v1';
 const models = process.env.TRANSLATE_MODEL?.trim() ? [process.env.TRANSLATE_MODEL.trim()] : defaultModels;
 
 if (!apiKey && !mock && !fingerprintsOnly && !dryRun) {
-  console.log('::warning::GEMINI_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel aus Google AI Studio in GitHub unter Settings → Secrets and variables → Actions als GEMINI_API_KEY hinterlegen.');
+  console.log('::warning::AI_GATEWAY_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel aus dem Vercel-Dashboard (AI Gateway → API Keys) in GitHub unter Settings → Secrets and variables → Actions als AI_GATEWAY_API_KEY hinterlegen.');
   process.exit(0);
 }
 
@@ -110,7 +110,7 @@ function writeEntry(file, fm, body) {
 const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
-// ---------- Gemini API ----------
+// ---------- Vercel AI Gateway (OpenAI-kompatible Schnittstelle) ----------
 
 function prompt(lang) {
   const terms = Object.entries(glossary[lang] ?? {}).map(([de, tr]) => `"${de}" → "${tr}"`).join(', ');
@@ -132,33 +132,33 @@ function prompt(lang) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let workingModel = null;
 
-// Kostenlos sind nur wenige Anfragen pro Minute erlaubt, deshalb kurz Abstand halten
+// Kurz Abstand zwischen den Anfragen halten (Ratenlimit im kostenlosen Kontingent)
 let lastCall = 0;
-const gap = mock || process.env.TRANSLATE_BASE_URL ? 0 : 7000;
+const gap = mock || process.env.TRANSLATE_BASE_URL ? 0 : 1000;
 
 async function chat(model, lang, input) {
   for (let attempt = 0; ; attempt++) {
     await sleep(Math.max(0, lastCall + gap - Date.now()));
     lastCall = Date.now();
-    const res = await fetch(`${baseUrl}/models/${encodeURIComponent(model)}:generateContent`, {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
-      headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: prompt(lang) }] },
-        contents: [{ role: 'user', parts: [{ text: JSON.stringify(input, null, 2) }] }],
-        generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+        model,
+        temperature: 0.2,
+        messages: [
+          { role: 'system', content: prompt(lang) },
+          { role: 'user', content: JSON.stringify(input, null, 2) },
+        ],
       }),
     });
     if (res.ok) {
       const text = await res.text();
-      let data;
       try {
-        data = JSON.parse(text);
+        return JSON.parse(text).choices?.[0]?.message?.content ?? '';
       } catch {
-        throw new Error(`Unerwartete Antwort der Gemini API (${model}): ${text.slice(0, 300)}`);
+        throw new Error(`Unerwartete Antwort des AI Gateway (${model}): ${text.slice(0, 300)}`);
       }
-      // Gedanken-Teile (bei Modellen mit "Thinking") nicht mitnehmen
-      return (data.candidates?.[0]?.content?.parts ?? []).filter((p) => !p.thought).map((p) => p.text ?? '').join('');
     }
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       const wait = Number(res.headers.get('retry-after'));
@@ -167,11 +167,11 @@ async function chat(model, lang, input) {
       await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 5000 * 2 ** attempt);
       continue;
     }
-    const err = new Error(`Gemini API antwortet mit ${res.status} (${model}): ${(await res.text()).replace(/\s+/g, ' ').slice(0, 500)}`);
+    const err = new Error(`AI Gateway antwortet mit ${res.status} (${model}): ${(await res.text()).replace(/\s+/g, ' ').slice(0, 500)}`);
     err.status = res.status;
     throw err;
   }
-  const err = new Error(`Tageslimit der Gemini API erreicht (${model}). Der nächste Lauf holt das Fehlende nach (Actions → Übersetzen → Run workflow).`);
+  const err = new Error(`Limit des AI Gateway erreicht (${model}). Der nächste Lauf holt das Fehlende nach (Actions → Übersetzen → Run workflow).`);
   err.status = 429;
   throw err;
 }
@@ -240,7 +240,8 @@ async function translate(input, lang) {
   }
   if (tried.length > 1) lastError.message += ` (versucht: ${tried.join(', ')})`;
   if (lastError?.status === 401) lastError.message += ' (Schlüssel ungültig?)';
-  if (lastError?.status === 403) lastError.message += ' (Schlüssel ungültig oder Gemini API für das Google-Projekt nicht freigeschaltet?)';
+  if (lastError?.status === 402) lastError.message += ' (Budget oder Guthaben im AI Gateway aufgebraucht)';
+  if (lastError?.status === 403) lastError.message += ' (im Vercel-Dashboard unter AI Gateway Zahlungsmittel bzw. Freiguthaben prüfen)';
   throw lastError;
 }
 

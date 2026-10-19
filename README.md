@@ -44,7 +44,7 @@ Faustregeln:
 - Immer auf **Veröffentlichen** klicken, sonst bleibt es ein Entwurf.
 - Fotos im Querformat, nicht größer als etwa 2 MB.
 - Nur auf Deutsch schreiben. Mannschaften und News werden nach dem Speichern automatisch in alle
-  anderen Sprachen übersetzt (Gemini API, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
+  anderen Sprachen übersetzt (Vercel AI Gateway, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
   alle Sprachen online.
 - Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de.
 
@@ -106,7 +106,7 @@ der Sprachwahl.
 
 Mannschaften (`src/content/teams/de`) und News (`src/content/news/de`) werden automatisch übersetzt:
 Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
-Er schickt die geänderten Texte an die Gemini API von Google, schreibt Englisch, Türkisch, Arabisch, Spanisch und
+Er schickt die geänderten Texte über das Vercel AI Gateway an ein KI-Modell, schreibt Englisch, Türkisch, Arabisch, Spanisch und
 Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.
 
 - Übersetzt werden nur Texte: bei Mannschaften Kurzname, Bildunterschriften und Beschreibung, bei
@@ -116,26 +116,26 @@ Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. V
   Textes. Neu übersetzt wird ein Feld nur, wenn sich das Deutsche geändert hat. Eine Übersetzung,
   die man auf GitHub von Hand verbessert, bleibt also stehen, bis sich das deutsche Original dieses
   Feldes ändert.
-- Einrichtung (erledigt 19.10.2026): API-Schlüssel aus [Google AI Studio](https://aistudio.google.com)
-  ("Get API key", kostenlose Stufe ohne Zahlungsdaten) als Repository-Secret `GEMINI_API_KEY`.
+- Einrichtung (erledigt 19.10.2026): Im Vercel-Dashboard unter **AI Gateway** eine Karte
+  hinterlegt (Vercel schaltet das monatliche Freiguthaben erst damit frei), unter **API Keys**
+  einen Schlüssel angelegt und in GitHub als Repository-Secret `AI_GATEWAY_API_KEY` gespeichert.
   Ohne Schlüssel läuft der Workflow durch und übersetzt nichts.
-- Kostenlos gelten Limits (Stand Oktober 2026 etwa 10 Anfragen pro Minute und gut 1.000 am Tag; ein
-  gespeicherter Eintrag braucht fünf, eine pro Sprache). Wird das Tageslimit erreicht, speichert der
-  Workflow das bis dahin Übersetzte und meldet eine Warnung. Der Rest kommt beim nächsten Speichern
-  oder per Hand: Actions → Übersetzen → Run workflow.
-- Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste
-  (`gemini-3.8-flash`, sonst `gemini-flash-latest` oder ältere Flash-Versionen). Ein bestimmtes
-  Modell legt man als Repository-Variable `TRANSLATE_MODEL` fest (Settings → Secrets and variables → Actions, Reiter
-  "Variables").
+- Kosten: Ein gespeicherter Eintrag braucht fünf Anfragen (eine pro Sprache) und kostet mit einem
+  kleinen Modell Bruchteile eines Cents; das liegt weit innerhalb des Freiguthabens. Zur Sicherheit
+  im AI Gateway unter **Budgets** ein Monatsbudget setzen, dann wird nie mehr abgebucht.
+- Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste (Claude Haiku,
+  sonst Gemini Flash oder GPT mini). Ein bestimmtes Modell legt man als Repository-Variable
+  `TRANSLATE_MODEL` fest (Settings → Secrets and variables → Actions, Reiter "Variables"),
+  z. B. `anthropic/claude-haiku-4.5`.
 - Jede Übersetzung wird geprüft: gleiche Felder, gleich viele Bildunterschriften, alle Links und
   E-Mail-Adressen unverändert. Sonst wird neu angefragt bzw. der Workflow schlägt fehl, statt
   etwas Kaputtes zu speichern.
 - Alles auf einmal nachholen: Actions → Übersetzen → Run workflow. Mit "Alles neu übersetzen"
   werden auch von Hand verbesserte Übersetzungen überschrieben.
-- Lokal: `GEMINI_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
+- Lokal: `AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
   würde; `--fingerprints-only` merkt sich den aktuellen Stand als passend, ohne zu übersetzen).
-- An Google gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
-  In der kostenlosen Stufe darf Google diese Texte zur Verbesserung seiner Dienste nutzen.
+- An das AI Gateway gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und
+  Besuchern.
 
 ## Formulare
 

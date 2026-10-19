@@ -1,13 +1,14 @@
-# Übersetzt Mannschaften und News automatisch mit der Gemini API (scripts/translate-content.mjs).
+# Übersetzt Mannschaften und News automatisch über das Vercel AI Gateway
+# (scripts/translate-content.mjs).
 #
 # Läuft, sobald im CMS ein deutscher Eintrag gespeichert wird (Push auf main unter
 # src/content/teams/de oder src/content/news/de), und schreibt die Übersetzungen als eigenen
 # Commit zurück. Vercel baut danach automatisch neu; nach ein, zwei Minuten sind alle Sprachen online.
 #
-# Voraussetzung: API-Schlüssel aus Google AI Studio (kostenlos, ohne Zahlungsdaten) als
-# Repository-Secret GEMINI_API_KEY. Ohne Schlüssel läuft der Workflow durch und übersetzt nichts.
-# Die kostenlose Stufe hat ein Tageslimit; wird es erreicht, speichert der Workflow das bis dahin
-# Übersetzte und der nächste Lauf holt den Rest nach.
+# Voraussetzung: API-Schlüssel aus dem Vercel-Dashboard (AI Gateway → API Keys) als
+# Repository-Secret AI_GATEWAY_API_KEY. Ohne Schlüssel läuft der Workflow durch und übersetzt nichts.
+# Wird ein Limit erreicht, speichert der Workflow das bis dahin Übersetzte und der nächste Lauf
+# holt den Rest nach.
 # Optional: Repository-Variable TRANSLATE_MODEL, um ein bestimmtes Modell festzulegen.
 #
 # Von Hand starten (Actions → Übersetzen → Run workflow): übersetzt alles Fehlende oder Veraltete,
@@ -53,7 +54,7 @@ jobs:
       - name: Übersetzen
         run: node scripts/translate-content.mjs ${{ inputs.force && '--force' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
           TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
       - name: Übersetzungen speichern
         run: |
@@ -68,7 +69,7 @@ jobs:
           git commit -q -F - <<EOF
           Übersetzungen aktualisiert: $eintraege
 
-          Automatisch mit der Gemini API aus dem deutschen Text übersetzt.
+          Automatisch über das Vercel AI Gateway aus dem deutschen Text übersetzt.
 
           $(cat "$RUNNER_TEMP/bericht.txt")
           EOF
