@@ -1,14 +1,13 @@
-# Übersetzt Mannschaften und News automatisch über das Vercel AI Gateway
-# (scripts/translate-content.mjs).
+# Übersetzt Mannschaften und News automatisch mit GitHub Models (scripts/translate-content.mjs).
 #
 # Läuft, sobald im CMS ein deutscher Eintrag gespeichert wird (Push auf main unter
 # src/content/teams/de oder src/content/news/de), und schreibt die Übersetzungen als eigenen
 # Commit zurück. Vercel baut danach automatisch neu; nach ein, zwei Minuten sind alle Sprachen online.
 #
-# Voraussetzung: API-Schlüssel aus dem Vercel-Dashboard (AI Gateway → API Keys) als
-# Repository-Secret AI_GATEWAY_API_KEY (GitHub → Settings → Secrets and variables → Actions).
-# Ohne Schlüssel läuft der Workflow durch, übersetzt aber nichts und meldet eine Warnung.
-# Optional: Repository-Variable AI_GATEWAY_MODEL, um ein bestimmtes Modell festzulegen.
+# Kein eigener Schlüssel nötig: GitHub Models nutzt das automatische GITHUB_TOKEN dieses Laufs
+# (Berechtigung models: read unten). Kostenlos, mit Tageslimit; wird es erreicht, speichert der
+# Workflow das bis dahin Übersetzte und der nächste Lauf holt den Rest nach.
+# Optional: Repository-Variable TRANSLATE_MODEL, um ein bestimmtes Modell festzulegen.
 #
 # Von Hand starten (Actions → Übersetzen → Run workflow): übersetzt alles Fehlende oder Veraltete,
 # mit "Alles neu übersetzen" auch alles andere.
@@ -31,6 +30,7 @@ on:
 
 permissions:
   contents: write
+  models: read
 
 # Mehrere Speicherungen kurz hintereinander nacheinander abarbeiten, nicht abbrechen
 concurrency:
@@ -53,8 +53,8 @@ jobs:
       - name: Übersetzen
         run: node scripts/translate-content.mjs ${{ inputs.force && '--force' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
         env:
-          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
-          AI_GATEWAY_MODEL: ${{ vars.AI_GATEWAY_MODEL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
       - name: Übersetzungen speichern
         run: |
           git add src/content/teams src/content/news
@@ -68,7 +68,7 @@ jobs:
           git commit -q -F - <<EOF
           Übersetzungen aktualisiert: $eintraege
 
-          Automatisch über das Vercel AI Gateway aus dem deutschen Text übersetzt.
+          Automatisch mit GitHub Models aus dem deutschen Text übersetzt.
 
           $(cat "$RUNNER_TEMP/bericht.txt")
           EOF
