@@ -1,8 +1,10 @@
 ---
-title: "30 Jahre FC Treptow"
+title: 30 Jahre FC Treptow
 date: 2024-06-15
-teaser: "Am 19. Mai 1994 wurde der FC Treptow gegründet. Zum Saisonabschluss haben wir das Jubiläum mit Turnier und Ehrungen gefeiert."
 tag: Verein
+teaser: Am 19. Mai 1994 wurde der FC Treptow gegründet. Zum Saisonabschluss
+  haben wir das Jubiläum mit Turnier und Ehrungen gefeiert.
+image: /images/uploads/1020151-1920w.webp
 ---
 
 Der Saisonabschluss 2023/24 wurde am 15. Juni 2024 mit einer Feier zum 30-jährigen Jubiläum des FC Treptow gekrönt (gegründet am 19. Mai 1994). Es war ein Tag voller Höhepunkte: ein packendes Fußballturnier und die Ehrung unserer treuesten Mitglieder.
