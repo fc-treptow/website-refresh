@@ -1,12 +1,14 @@
-# Übersetzt Mannschaften und News automatisch mit DeepL (scripts/translate-content.mjs).
+# Übersetzt Mannschaften und News automatisch über das Vercel AI Gateway
+# (scripts/translate-content.mjs).
 #
 # Läuft, sobald im CMS ein deutscher Eintrag gespeichert wird (Push auf main unter
 # src/content/teams/de oder src/content/news/de), und schreibt die Übersetzungen als eigenen
 # Commit zurück. Vercel baut danach automatisch neu; nach ein, zwei Minuten sind alle Sprachen online.
 #
-# Voraussetzung: DeepL-API-Schlüssel als Repository-Secret DEEPL_API_KEY
-# (GitHub → Settings → Secrets and variables → Actions). Ohne Schlüssel läuft der Workflow durch,
-# übersetzt aber nichts und meldet eine Warnung.
+# Voraussetzung: API-Schlüssel aus dem Vercel-Dashboard (AI Gateway → API Keys) als
+# Repository-Secret AI_GATEWAY_API_KEY (GitHub → Settings → Secrets and variables → Actions).
+# Ohne Schlüssel läuft der Workflow durch, übersetzt aber nichts und meldet eine Warnung.
+# Optional: Repository-Variable AI_GATEWAY_MODEL, um ein bestimmtes Modell festzulegen.
 #
 # Von Hand starten (Actions → Übersetzen → Run workflow): übersetzt alles Fehlende oder Veraltete,
 # mit "Alles neu übersetzen" auch alles andere.
@@ -51,7 +53,8 @@ jobs:
       - name: Übersetzen
         run: node scripts/translate-content.mjs ${{ inputs.force && '--force' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
         env:
-          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+          AI_GATEWAY_API_KEY: ${{ secrets.AI_GATEWAY_API_KEY }}
+          AI_GATEWAY_MODEL: ${{ vars.AI_GATEWAY_MODEL }}
       - name: Übersetzungen speichern
         run: |
           git add src/content/teams src/content/news
@@ -65,7 +68,7 @@ jobs:
           git commit -q -F - <<EOF
           Übersetzungen aktualisiert: $eintraege
 
-          Automatisch mit DeepL aus dem deutschen Text übersetzt.
+          Automatisch über das Vercel AI Gateway aus dem deutschen Text übersetzt.
 
           $(cat "$RUNNER_TEMP/bericht.txt")
           EOF

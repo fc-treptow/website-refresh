@@ -1,14 +1,15 @@
 #!/usr/bin/env node
-// Übersetzt die deutschen Inhalte (Mannschaften und News) mit DeepL in alle anderen Sprachen.
+// Übersetzt die deutschen Inhalte (Mannschaften und News) über das Vercel AI Gateway in alle
+// anderen Sprachen der Seite.
 //
 // Läuft automatisch in GitHub Actions (.github/workflows/translate.yml), sobald im CMS eine
 // deutsche Mannschaft oder Neuigkeit gespeichert wird. Lokal:
 //
-//   DEEPL_API_KEY=… node scripts/translate-content.mjs            # nur Geändertes übersetzen
-//   DEEPL_API_KEY=… node scripts/translate-content.mjs --force    # alles neu übersetzen
-//   node scripts/translate-content.mjs --fingerprints-only        # nichts übersetzen, nur den
-//                                                                 # aktuellen Stand als "passt" merken
-//   node scripts/translate-content.mjs --dry-run                  # nur anzeigen, was passieren würde
+//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
+//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs --force   # alles neu übersetzen
+//   node scripts/translate-content.mjs --fingerprints-only            # nichts übersetzen, nur den
+//                                                                     # aktuellen Stand als "passt" merken
+//   node scripts/translate-content.mjs --dry-run                      # nur anzeigen, was passieren würde
 //
 // Wie entschieden wird, was neu übersetzt wird:
 // Jede Übersetzungsdatei merkt sich unter "quelle" pro Feld einen Fingerabdruck des deutschen
@@ -16,7 +17,12 @@
 // Text seitdem geändert hat. Wer eine Übersetzung von Hand verbessert, verliert die Verbesserung
 // also erst, wenn sich das deutsche Original dieses Feldes ändert.
 //
-// An DeepL gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und Besuchern.
+// Modell: über die Repository-Variable AI_GATEWAY_MODEL wählbar (GitHub → Settings → Secrets and
+// variables → Actions → Variables). Ohne Angabe werden die Modelle in "defaultModels" der Reihe
+// nach versucht, bis eines verfügbar ist (im kostenlosen Kontingent sind nicht alle freigeschaltet).
+//
+// An das AI Gateway gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
+// Besuchern.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -27,8 +33,15 @@ import { parse, stringify } from 'yaml';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const contentDir = join(root, 'src/content');
 
-// Sprache der Seite → Zielsprache bei DeepL. Englisch britisch, wie im Rest der Seite.
-const targets = { en: 'EN-GB', tr: 'TR', ar: 'AR', es: 'ES', fr: 'FR' };
+const languages = {
+  en: 'British English',
+  tr: 'Turkish',
+  ar: 'Modern Standard Arabic',
+  es: 'Spanish',
+  fr: 'French',
+};
+
+const defaultModels = ['anthropic/claude-haiku-4.5', 'anthropic/claude-haiku-5.5', 'google/gemini-2.5-flash', 'openai/gpt-4.1-mini'];
 
 // Was pro Sammlung übersetzt (fields) und was unverändert übernommen wird (copy).
 // Der Text unter dem Frontmatter (body) wird immer übersetzt.
@@ -51,20 +64,27 @@ const collections = [
   },
 ];
 
-const context =
-  'Website of FC Treptow, an amateur football club in Berlin, Germany. Informal tone, addressing readers as "du". ' +
-  'Keep proper names unchanged: league names such as "Kreisliga B", team names such as "River Plate", ' +
-  'the ground "Willi-Sänger-Sportanlage", street names and people. "Herren I/II/III" are the club\'s men\'s teams.';
+// Feste Übersetzungen, damit die Seite einheitlich bleibt (wie in src/i18n/ verwendet)
+const glossary = {
+  en: { 'Herren I': "Men's I", 'Herren II': "Men's II", 'Herren III': "Men's III", Freizeit: 'Recreational' },
+  tr: { 'Herren I': 'Erkekler I', 'Herren II': 'Erkekler II', 'Herren III': 'Erkekler III' },
+  ar: { 'Herren I': 'الرجال الأول', 'Herren II': 'الرجال الثاني', 'Herren III': 'الرجال الثالث' },
+  es: { 'Herren I': 'Masculino I', 'Herren II': 'Masculino II', 'Herren III': 'Masculino III' },
+  fr: { 'Herren I': 'Hommes I', 'Herren II': 'Hommes II', 'Herren III': 'Hommes III' },
+};
 
 const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
 const fingerprintsOnly = args.has('--fingerprints-only');
-const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[EN-GB] Text" statt DeepL
-const apiKey = process.env.DEEPL_API_KEY?.trim();
+const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt AI Gateway
+const apiKey = process.env.AI_GATEWAY_API_KEY?.trim();
+// Nur für Tests gegen einen lokalen Server änderbar
+const baseUrl = process.env.AI_GATEWAY_BASE_URL?.trim() || 'https://ai-gateway.vercel.sh/v1';
+const models = process.env.AI_GATEWAY_MODEL?.trim() ? [process.env.AI_GATEWAY_MODEL.trim()] : defaultModels;
 
 if (!apiKey && !mock && !fingerprintsOnly && !dryRun) {
-  console.log('::warning::DEEPL_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel in GitHub unter Settings → Secrets and variables → Actions als DEEPL_API_KEY hinterlegen.');
+  console.log('::warning::AI_GATEWAY_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel in GitHub unter Settings → Secrets and variables → Actions als AI_GATEWAY_API_KEY hinterlegen.');
   process.exit(0);
 }
 
@@ -86,117 +106,120 @@ function writeEntry(file, fm, body) {
 const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
-// ---------- Markdown so verpacken, dass DeepL nur den Text anfasst ----------
-// Listenzeichen und Überschriften-Rauten bleiben außen vor, Links, Bilder, Adressen und
-// Formatierung werden zu XML-Tags, die DeepL unverändert zurückgibt.
+// ---------- AI Gateway ----------
 
-const escapeXml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const unescapeXml = (s) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
-
-function toXml(text) {
-  // Bilder, Adressen und Link-Ziele werden gemerkt und durch Platzhalter ersetzt
-  const originals = [];
-  const ph = (orig) => `\u0000${originals.push(orig) - 1}\u0000`;
-  let s = text
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, (m) => ph(m))
-    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, url) => `\u0001${originals.push(url) - 1}\u0002${label}\u0003`)
-    .replace(/(?:https?:\/\/|www\.)[^\s)>\]]+|[\w.+-]+@[\w-]+\.[\w.-]+/g, (m) => ph(m));
-  s = escapeXml(s)
-    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-    .replace(/(?<![*\w])\*(?!\s)(.+?)(?<!\s)\*(?![*\w])/g, '<i>$1</i>')
-    .replace(/(?<![_\w])_(?!\s)(.+?)(?<!\s)_(?![_\w])/g, '<i>$1</i>')
-    .replace(/\u0000(\d+)\u0000/g, '<x i="$1"/>')
-    .replace(/\u0001(\d+)\u0002/g, '<a i="$1">')
-    .replace(/\u0003/g, '</a>');
-  return { xml: s, originals };
+function prompt(lang) {
+  const terms = Object.entries(glossary[lang] ?? {}).map(([de, tr]) => `"${de}" → "${tr}"`).join(', ');
+  return [
+    `You translate website texts of FC Treptow, an amateur football club in Berlin, from German into ${languages[lang]}.`,
+    'You receive a JSON object. Return a JSON object with exactly the same keys and the same structure (arrays keep their length and order), with every value translated. Return only the JSON, no explanations, no code fences.',
+    'Rules:',
+    '- Natural, friendly, informal tone, as a neighbourhood club talks to its members and new players. Where the language distinguishes, use the informal form of address.',
+    '- Keep Markdown exactly: headings, lists, bold, italics, line breaks, links. Translate link labels, never change URLs, e-mail addresses, phone numbers or image paths.',
+    '- Keep proper names unchanged: people, the club name "FC Treptow", team names such as "River Plate" or "Freizeit Kickers", league names such as "Kreisliga B", the ground "Willi-Sänger-Sportanlage", streets and places.',
+    '- Keep dates, times and numbers correct; you may adapt their format to the target language.',
+    '- Do not add, drop or summarise content.',
+    terms ? `- Fixed terms: ${terms}.` : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
 }
 
-function fromXml(xml, originals) {
-  const s = xml
-    .replace(/<x i="(\d+)"\s*\/>|<x i="(\d+)"\s*><\/x>/g, (_, a, b) => `\u0000${a ?? b}\u0000`)
-    .replace(/<a i="(\d+)">([\s\S]*?)<\/a>/g, (_, i, label) => `\u0001${label}\u0002${i}\u0003`)
-    .replace(/<\/?b>/g, '**')
-    .replace(/<\/?i>/g, '*');
-  return unescapeXml(s)
-    .replace(/\u0000(\d+)\u0000/g, (_, i) => originals[Number(i)])
-    .replace(/\u0001([\s\S]*?)\u0002(\d+)\u0003/g, (_, label, i) => `[${label}](${originals[Number(i)]})`);
-}
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let workingModel = null;
 
-// Zerlegt einen Markdown-Text in übersetzbare Stücke (eine Zeile = ein Stück) und setzt ihn
-// nach der Übersetzung wieder zusammen. Leere Zeilen, Code und reine Platzhalter bleiben.
-function splitMarkdown(md) {
-  const lines = md.split('\n');
-  const parts = [];
-  let inCode = false;
-  for (const line of lines) {
-    if (/^\s*```/.test(line)) inCode = !inCode;
-    const m = line.match(/^(\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)]\s+|>\s*)*)(.*)$/);
-    const prefix = m[1];
-    const text = m[2];
-    // Nur Zeilen mit echtem Text übersetzen (eine Zeile, die nur ein Bild ist, bleibt wie sie ist)
-    const plain = toXml(text).xml.replace(/<[^>]+>/g, '');
-    if (inCode || /^\s*```/.test(line) || !/\p{L}/u.test(plain)) parts.push({ fixed: line });
-    else parts.push({ prefix, text });
+async function chat(model, lang, input) {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        temperature: 0.2,
+        messages: [
+          { role: 'system', content: prompt(lang) },
+          { role: 'user', content: JSON.stringify(input, null, 2) },
+        ],
+      }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content ?? '';
+    }
+    if ((res.status === 429 || res.status >= 500) && attempt < 4) {
+      const wait = Number(res.headers.get('retry-after'));
+      await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 2000 * 2 ** attempt);
+      continue;
+    }
+    const err = new Error(`AI Gateway antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
+    err.status = res.status;
+    throw err;
   }
-  return parts;
 }
 
-// ---------- DeepL ----------
+// Alle Adressen, die in der Übersetzung unverändert wieder vorkommen müssen
+const keepers = (s) => (s.match(/(?:https?:\/\/|mailto:|www\.)[^\s)>\]"]+|[\w.+-]+@[\w-]+\.[\w.-]+|\/images\/[^\s)"]+/g) ?? []);
 
-async function deepl(texts, target) {
-  if (texts.length === 0) return [];
-  if (mock) return texts.map((t) => `[${target}] ${t}`);
-  const endpoint = apiKey.endsWith(':fx') ? 'https://api-free.deepl.com/v2/translate' : 'https://api.deepl.com/v2/translate';
-  const out = [];
-  for (let i = 0; i < texts.length; i += 50) {
-    const chunk = texts.slice(i, i + 50);
-    for (let attempt = 1; ; attempt++) {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { Authorization: `DeepL-Auth-Key ${apiKey}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: chunk,
-          source_lang: 'DE',
-          target_lang: target,
-          tag_handling: 'xml',
-          ignore_tags: ['x'],
-          formality: 'prefer_less',
-          context,
-        }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        out.push(...data.translations.map((t) => t.text));
-        break;
-      }
-      if ((res.status === 429 || res.status >= 500) && attempt < 4) {
-        await new Promise((r) => setTimeout(r, 2000 * attempt));
-        continue;
-      }
-      const hint = res.status === 403 ? ' (Schlüssel ungültig?)' : res.status === 456 ? ' (Monatskontingent bei DeepL aufgebraucht)' : '';
-      throw new Error(`DeepL antwortet mit ${res.status}${hint}: ${await res.text()}`);
+function check(input, out) {
+  if (!out || typeof out !== 'object') return 'keine JSON-Antwort';
+  for (const [key, value] of Object.entries(input)) {
+    const got = out[key];
+    if (Array.isArray(value)) {
+      if (!Array.isArray(got) || got.length !== value.length) return `${key}: Liste hat nicht die gleiche Länge`;
+      if (got.some((g, i) => value[i] && (typeof g !== 'string' || !g.trim()))) return `${key}: leerer Eintrag`;
+    } else if (typeof got !== 'string' || !got.trim()) return `${key}: fehlt`;
+    const text = Array.isArray(got) ? got.join('\n') : got;
+    for (const k of keepers(Array.isArray(value) ? value.join('\n') : value)) {
+      if (!text.includes(k)) return `${key}: "${k}" fehlt in der Übersetzung`;
     }
   }
-  return out;
+  return null;
 }
 
-// Übersetzt einen Feldwert: Text, Liste von Texten oder Markdown (body).
-async function translateValue(value, target, { markdown = false } = {}) {
-  if (Array.isArray(value)) {
-    const packed = value.map((v) => toXml(v ?? ''));
-    const res = await deepl(packed.map((p) => p.xml), target);
-    return res.map((r, i) => (value[i] ? fromXml(r, packed[i].originals) : ''));
+function parseJson(text) {
+  const s = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+  try {
+    return JSON.parse(s);
+  } catch {
+    const m = s.match(/\{[\s\S]*\}/);
+    try {
+      return m ? JSON.parse(m[0]) : null;
+    } catch {
+      return null;
+    }
   }
-  if (!markdown) {
-    const p = toXml(value);
-    const [r] = await deepl([p.xml], target);
-    return fromXml(r, p.originals);
+}
+
+// Übersetzt alle Felder eines Eintrags für eine Sprache in einem Aufruf.
+async function translate(input, lang) {
+  if (mock) {
+    const tag = (s) => (s ? `[${lang}] ${s}` : s);
+    return Object.fromEntries(Object.entries(input).map(([k, v]) => [k, Array.isArray(v) ? v.map(tag) : tag(v)]));
   }
-  const parts = splitMarkdown(value);
-  const todo = parts.filter((p) => !('fixed' in p)).map((p) => ({ part: p, ...toXml(p.text) }));
-  const res = await deepl(todo.map((t) => t.xml), target);
-  todo.forEach((t, i) => (t.part.out = fromXml(res[i], t.originals)));
-  return parts.map((p) => ('fixed' in p ? p.fixed : p.prefix + p.out)).join('\n');
+  const candidates = workingModel ? [workingModel] : models;
+  let lastError;
+  for (const model of candidates) {
+    try {
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        const out = parseJson(await chat(model, lang, input));
+        const problem = check(input, out);
+        if (!problem) {
+          workingModel = model;
+          return out;
+        }
+        lastError = new Error(`Übersetzung unbrauchbar (${model}, ${lang}): ${problem}`);
+      }
+    } catch (e) {
+      lastError = e;
+      // Modell nicht vorhanden oder nicht im kostenlosen Kontingent: nächstes versuchen
+      if (!workingModel && [400, 402, 403, 404].includes(e.status)) continue;
+      throw e;
+    }
+    if (workingModel) break;
+  }
+  if (lastError?.status === 401) lastError.message += ' (Schlüssel ungültig?)';
+  if (lastError?.status === 402) lastError.message += ' (Guthaben oder Budget im AI Gateway aufgebraucht)';
+  throw lastError;
 }
 
 // ---------- Ablauf ----------
@@ -213,7 +236,7 @@ for (const col of collections) {
     const source = Object.fromEntries(Object.entries(col.fields).map(([k, get]) => [k, get(de.fm)]));
     source.body = de.body;
 
-    for (const [lang, target] of Object.entries(targets)) {
+    for (const lang of Object.keys(languages)) {
       const path = join(contentDir, col.dir, lang, file);
       const exists = existsSync(path);
       const tr = exists ? readEntry(path) : { fm: {}, body: '' };
@@ -221,12 +244,13 @@ for (const col of collections) {
       const current = { ...tr.fm, body: tr.body };
       delete current.quelle;
       const changed = [];
+      const todo = {};
 
       for (const [field, value] of Object.entries(source)) {
         const fp = fingerprint(value);
         if (isEmpty(value)) {
-          if (field in current && field !== 'body') delete current[field];
           if (field === 'body') current.body = '';
+          else delete current[field];
           if (quelle[field]) changed.push(field);
           delete quelle[field];
           continue;
@@ -239,7 +263,7 @@ for (const col of collections) {
           }
           continue;
         }
-        let needs = force || !has || (quelle[field] && quelle[field] !== fp);
+        const needs = force || !has || (quelle[field] && quelle[field] !== fp);
         if (!needs && !quelle[field]) {
           // Ältere oder von Hand angelegte Übersetzung ohne Fingerabdruck: gilt als passend.
           quelle[field] = fp;
@@ -248,9 +272,14 @@ for (const col of collections) {
         }
         if (!needs) continue;
         changed.push(field);
-        if (!dryRun) {
-          current[field] = await translateValue(value, target, { markdown: field === 'body' });
-          quelle[field] = fp;
+        todo[field] = value;
+      }
+
+      if (Object.keys(todo).length && !dryRun) {
+        const out = await translate(todo, lang);
+        for (const field of Object.keys(todo)) {
+          current[field] = Array.isArray(todo[field]) ? out[field].map((s) => s.trim()) : out[field].trim();
+          quelle[field] = fingerprint(source[field]);
         }
       }
 
@@ -274,7 +303,7 @@ for (const col of collections) {
   }
 
   // Übersetzungen, deren deutscher Eintrag gelöscht wurde, ebenfalls entfernen
-  for (const lang of Object.keys(targets)) {
+  for (const lang of Object.keys(languages)) {
     const dir = join(contentDir, col.dir, lang);
     if (!existsSync(dir)) continue;
     for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
@@ -285,4 +314,5 @@ for (const col of collections) {
   }
 }
 
+if (workingModel) console.log(`Modell: ${workingModel}`);
 console.log(report.length ? report.join('\n') : 'Alle Übersetzungen sind aktuell.');
