@@ -224,95 +224,103 @@ async function translate(input, lang) {
 
 // ---------- Ablauf ----------
 
-const report = [];
+async function main() {
+  const report = [];
 
-for (const col of collections) {
-  const deDir = join(contentDir, col.dir, 'de');
-  if (!existsSync(deDir)) continue;
-  const slugs = readdirSync(deDir).filter((f) => f.endsWith('.md'));
+  for (const col of collections) {
+    const deDir = join(contentDir, col.dir, 'de');
+    if (!existsSync(deDir)) continue;
+    const slugs = readdirSync(deDir).filter((f) => f.endsWith('.md'));
 
-  for (const file of slugs) {
-    const de = readEntry(join(deDir, file));
-    const source = Object.fromEntries(Object.entries(col.fields).map(([k, get]) => [k, get(de.fm)]));
-    source.body = de.body;
+    for (const file of slugs) {
+      const de = readEntry(join(deDir, file));
+      const source = Object.fromEntries(Object.entries(col.fields).map(([k, get]) => [k, get(de.fm)]));
+      source.body = de.body;
 
-    for (const lang of Object.keys(languages)) {
-      const path = join(contentDir, col.dir, lang, file);
-      const exists = existsSync(path);
-      const tr = exists ? readEntry(path) : { fm: {}, body: '' };
-      const quelle = { ...(tr.fm.quelle ?? {}) };
-      const current = { ...tr.fm, body: tr.body };
-      delete current.quelle;
-      const changed = [];
-      const todo = {};
+      for (const lang of Object.keys(languages)) {
+        const path = join(contentDir, col.dir, lang, file);
+        const exists = existsSync(path);
+        const tr = exists ? readEntry(path) : { fm: {}, body: '' };
+        const quelle = { ...(tr.fm.quelle ?? {}) };
+        const current = { ...tr.fm, body: tr.body };
+        delete current.quelle;
+        const changed = [];
+        const todo = {};
 
-      for (const [field, value] of Object.entries(source)) {
-        const fp = fingerprint(value);
-        if (isEmpty(value)) {
-          if (field === 'body') current.body = '';
-          else delete current[field];
-          if (quelle[field]) changed.push(field);
-          delete quelle[field];
-          continue;
-        }
-        const has = !isEmpty(current[field]);
-        if (fingerprintsOnly) {
-          if (has && quelle[field] !== fp) {
+        for (const [field, value] of Object.entries(source)) {
+          const fp = fingerprint(value);
+          if (isEmpty(value)) {
+            if (field === 'body') current.body = '';
+            else delete current[field];
+            if (quelle[field]) changed.push(field);
+            delete quelle[field];
+            continue;
+          }
+          const has = !isEmpty(current[field]);
+          if (fingerprintsOnly) {
+            if (has && quelle[field] !== fp) {
+              quelle[field] = fp;
+              changed.push(`${field} (gemerkt)`);
+            }
+            continue;
+          }
+          const needs = force || !has || (quelle[field] && quelle[field] !== fp);
+          if (!needs && !quelle[field]) {
+            // Ältere oder von Hand angelegte Übersetzung ohne Fingerabdruck: gilt als passend.
             quelle[field] = fp;
             changed.push(`${field} (gemerkt)`);
+            continue;
           }
-          continue;
+          if (!needs) continue;
+          changed.push(field);
+          todo[field] = value;
         }
-        const needs = force || !has || (quelle[field] && quelle[field] !== fp);
-        if (!needs && !quelle[field]) {
-          // Ältere oder von Hand angelegte Übersetzung ohne Fingerabdruck: gilt als passend.
-          quelle[field] = fp;
-          changed.push(`${field} (gemerkt)`);
-          continue;
-        }
-        if (!needs) continue;
-        changed.push(field);
-        todo[field] = value;
-      }
 
-      if (Object.keys(todo).length && !dryRun) {
-        const out = await translate(todo, lang);
-        for (const field of Object.keys(todo)) {
-          current[field] = Array.isArray(todo[field]) ? out[field].map((s) => s.trim()) : out[field].trim();
-          quelle[field] = fingerprint(source[field]);
-        }
-      }
-
-      if (!fingerprintsOnly) {
-        for (const key of col.copy) {
-          if (JSON.stringify(current[key]) !== JSON.stringify(de.fm[key])) {
-            if (de.fm[key] === undefined) delete current[key];
-            else current[key] = de.fm[key];
-            if (exists) changed.push(key);
+        if (Object.keys(todo).length && !dryRun) {
+          const out = await translate(todo, lang);
+          for (const field of Object.keys(todo)) {
+            current[field] = Array.isArray(todo[field]) ? out[field].map((s) => s.trim()) : out[field].trim();
+            quelle[field] = fingerprint(source[field]);
           }
         }
-      }
 
-      if (changed.length === 0) continue;
-      report.push(`${col.dir}/${lang}/${file}: ${changed.join(', ')}`);
-      if (dryRun) continue;
-      const { body, ...fm } = current;
-      // Reihenfolge: übersetzte Felder, kopierte Felder, Fingerabdrücke zuletzt
-      writeEntry(path, { ...fm, quelle }, body);
+        if (!fingerprintsOnly) {
+          for (const key of col.copy) {
+            if (JSON.stringify(current[key]) !== JSON.stringify(de.fm[key])) {
+              if (de.fm[key] === undefined) delete current[key];
+              else current[key] = de.fm[key];
+              if (exists) changed.push(key);
+            }
+          }
+        }
+
+        if (changed.length === 0) continue;
+        report.push(`${col.dir}/${lang}/${file}: ${changed.join(', ')}`);
+        if (dryRun) continue;
+        const { body, ...fm } = current;
+        // Reihenfolge: übersetzte Felder, kopierte Felder, Fingerabdrücke zuletzt
+        writeEntry(path, { ...fm, quelle }, body);
+      }
+    }
+
+    // Übersetzungen, deren deutscher Eintrag gelöscht wurde, ebenfalls entfernen
+    for (const lang of Object.keys(languages)) {
+      const dir = join(contentDir, col.dir, lang);
+      if (!existsSync(dir)) continue;
+      for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
+        if (slugs.includes(file)) continue;
+        report.push(`${col.dir}/${lang}/${file}: entfernt (deutscher Eintrag gelöscht)`);
+        if (!dryRun) rmSync(join(dir, file));
+      }
     }
   }
 
-  // Übersetzungen, deren deutscher Eintrag gelöscht wurde, ebenfalls entfernen
-  for (const lang of Object.keys(languages)) {
-    const dir = join(contentDir, col.dir, lang);
-    if (!existsSync(dir)) continue;
-    for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
-      if (slugs.includes(file)) continue;
-      report.push(`${col.dir}/${lang}/${file}: entfernt (deutscher Eintrag gelöscht)`);
-      if (!dryRun) rmSync(join(dir, file));
-    }
-  }
+  if (workingModel) console.log(`Modell: ${workingModel}`);
+  console.log(report.length ? report.join('\n') : 'Alle Übersetzungen sind aktuell.');
 }
 
-if (workingModel) console.log(`Modell: ${workingModel}`);
-console.log(report.length ? report.join('\n') : 'Alle Übersetzungen sind aktuell.');
+// Fehler als Hinweis in GitHub Actions anzeigen, damit man ihn ohne Log-Suche sieht
+main().catch((e) => {
+  console.log(`::error::Übersetzung fehlgeschlagen: ${e.message}`);
+  process.exit(1);
+});
