@@ -130,8 +130,8 @@ collections:
     sortable_fields: [order, name]
     fields:
       - { name: name, label: Name, widget: string }
-      - { name: role, label: Amt, widget: select, options: [{ label: Vorsitzende/r, value: chair }, { label: 2. Vorsitzende/r, value: viceChair }, { label: Schatzmeister/in, value: treasurer }, { label: Schiedsrichterobmann/-frau, value: refereeLead }, { label: Beisitzer/in, value: assessor }, { label: Kontrollrat, value: controlBoard }, { label: Sonstiges, value: other }] }
-      - { name: roleLabel, label: 'Bezeichnung (nur bei "Sonstiges")', widget: string, required: false, hint: 'z. B. Sportwart' }
+      - { name: role, label: Amt, widget: select, options: [{ label: Vorsitzende/r, value: chair }, { label: 2. Vorsitzende/r, value: viceChair }, { label: Schatzmeister/in, value: treasurer }, { label: Schriftführer/in, value: secretary }, { label: Sportwart/in, value: sportsLead }, { label: Jugendwart/in, value: youthLead }, { label: Schiedsrichterobmann/-frau, value: refereeLead }, { label: Beisitzer/in, value: assessor }, { label: Kontrollrat, value: controlBoard }, { label: Sonstiges, value: other }] }
+      - { name: roleLabel, label: 'Eigene Bezeichnung', widget: string, required: false, hint: 'Ersetzt die Amtsbezeichnung auf der Seite. Bei "Sonstiges" Pflicht, z. B. Platzwart oder Ehrenpräsident. Wird nicht übersetzt.' }
       - { name: email, label: E-Mail, widget: string, required: false, hint: 'Beim Schiedsrichterobmann geht der Knopf "Beim Obmann melden" auf der Schiedsrichter-Seite an diese Adresse.' }
       - { name: phone, label: Telefon, widget: string, required: false }
       - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 99, hint: '1 steht oben.' }
@@ -215,9 +215,19 @@ collections:
 
   - name: einstellungen
     label: Einstellungen
-    description: 'Links zu externen Diensten. Nur ändern, wenn sich die Adresse wirklich geändert hat.'
+    description: 'Kontaktadressen und Links zu externen Diensten. Nur ändern, wenn sich eine Adresse wirklich geändert hat.'
     editor: { preview: false }
     files:
+      - name: kontakt
+        label: Kontakt
+        file: src/content/einstellungen/kontakt.yml
+        format: yml
+        fields:
+          - name: controlBoardEmail
+            label: E-Mail des Kontrollrats
+            hint: 'Gemeinsame Adresse, unter der alle Mitglieder des Kontrollrats erreichbar sind. Steht auf der Seite Vorstand beim Kontrollrat.'
+            widget: string
+            pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Bitte eine gültige E-Mail-Adresse eingeben.']
       - name: links
         label: Links
         file: src/content/einstellungen/links.yml

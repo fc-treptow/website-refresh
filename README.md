@@ -37,7 +37,7 @@ Dort gibt es diese Bereiche:
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
-| Einstellungen | Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich eine Adresse ändert. |
+| Einstellungen | Kontakt: E-Mail des Kontrollrats. Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich eine Adresse ändert. |
 
 Faustregeln:
 

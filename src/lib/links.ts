@@ -17,3 +17,11 @@ export const splitHost = (text: string) => {
   const [before, after = ''] = text.split('{host}');
   return { before, after };
 };
+
+// Kontaktadressen, gepflegt im CMS unter Einstellungen > Kontakt
+// (src/content/einstellungen/kontakt.yml).
+export async function getContacts() {
+  const entry = await getEntry('kontakt', 'kontakt');
+  if (!entry) throw new Error('src/content/einstellungen/kontakt.yml fehlt');
+  return entry.data;
+}
