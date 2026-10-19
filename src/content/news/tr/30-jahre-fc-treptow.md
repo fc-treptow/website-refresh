@@ -3,6 +3,7 @@ title: FC Treptow 30 Yaşında
 teaser: FC Treptow, 19 Mayıs 1994'te kuruldu. Sezon sonunda bu yıldönümünü turnuva ve onur törenleriyle kutladık.
 date: 2024-06-15
 tag: Verein
+image: /images/uploads/1020151-1920w.webp
 quelle:
   title: 2830e6e26475
   teaser: a17d6e895e94

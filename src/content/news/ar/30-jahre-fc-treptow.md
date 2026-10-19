@@ -3,6 +3,7 @@ title: 30 سنة على تأسيس FC Treptow
 teaser: في 19 مايو 1994 تأسس نادي FC Treptow. في ختام الموسم احتفلنا بالذكرى مع بطولة وتكريمات.
 date: 2024-06-15
 tag: Verein
+image: /images/uploads/1020151-1920w.webp
 quelle:
   title: 2830e6e26475
   teaser: a17d6e895e94

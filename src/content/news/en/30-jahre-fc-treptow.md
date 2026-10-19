@@ -3,6 +3,7 @@ title: 30 Years of FC Treptow
 teaser: FC Treptow was founded on 19 May 1994. We celebrated the anniversary with a tournament and awards at the end of the season.
 date: 2024-06-15
 tag: Verein
+image: /images/uploads/1020151-1920w.webp
 quelle:
   title: 2830e6e26475
   teaser: a17d6e895e94
