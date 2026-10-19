@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import CtaButton from '../CtaButton.astro';
 import Icon from '../Icon.astro';
+import Email from '../Email.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
@@ -14,7 +15,6 @@ const t = pageT('schiedsrichter', lang);
 const lead = (await getCollection('vorstand')).map((e) => e.data).find((m) => m.role === 'refereeLead');
 const leadEmail = lead?.email ?? club.email;
 const team = (await getCollection('schiedsrichter')).map((e) => e.data).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, 'de'));
-const applyHref = `mailto:${leadEmail}?subject=${encodeURIComponent(t.mailSubject)}`;
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
@@ -24,7 +24,7 @@ const applyHref = `mailto:${leadEmail}?subject=${encodeURIComponent(t.mailSubjec
       <div class="lg:col-span-4">
         <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{t.leadLabel}</p>
         <p class="display mt-3 text-4xl">{lead.name}</p>
-        <a href={`mailto:${leadEmail}`} class="mt-4 inline-flex min-h-11 items-center gap-2 break-all text-sm text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{leadEmail}</a>
+        <Email address={leadEmail} class="mt-4 inline-flex min-h-11 items-center gap-2 break-all text-sm text-ink-soft hover:text-ink"><Icon name="mail" size={16} /></Email>
       </div>
     )}
     {team.length > 0 && (
@@ -54,7 +54,7 @@ const applyHref = `mailto:${leadEmail}?subject=${encodeURIComponent(t.mailSubjec
     ))}
   </ul>
   <div class="reveal mt-16 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-ink pt-10">
-    <CtaButton href={applyHref}>{t.cta}</CtaButton>
+    <CtaButton email={leadEmail} subject={t.mailSubject}>{t.cta}</CtaButton>
     <p class="text-sm leading-relaxed text-ink-soft">
       {t.notMemberYet} <a href={l(lang, '/mitgliedschaft')} class="font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 hover:decoration-ink">{t.membershipLink}</a>
     </p>

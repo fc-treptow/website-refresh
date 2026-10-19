@@ -10,7 +10,10 @@
 // wird das Formular per fetch dorthin geschickt und die E-Mail entfällt.
 // Wichtig: Ein solcher Dienst braucht dann einen Auftragsverarbeitungsvertrag.
 
-const CONTACT_EMAIL = 'kontakt@fc-treptow.de';
+import { decodeEmail } from './email';
+
+// Die Zieladresse steht kodiert im data-to des Formulars (siehe src/lib/email.ts), damit sie
+// weder im HTML noch im ausgelieferten Skript im Klartext steht.
 
 export type SubmitResult = { kind: 'sent' } | { kind: 'mail-client'; href: string };
 
@@ -46,7 +49,7 @@ export async function submitForm(form: HTMLFormElement, subject: string): Promis
 
   // Kein Endpunkt konfiguriert: vorausgefüllte E-Mail an das Vereinspostfach öffnen.
   const body = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
-  const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const href = `mailto:${decodeEmail(form.dataset.to ?? '')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = href;
   return { kind: 'mail-client', href };
 }

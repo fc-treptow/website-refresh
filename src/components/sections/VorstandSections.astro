@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import Icon from '../Icon.astro';
+import Email from '../Email.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
@@ -34,7 +35,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
       <li class="bg-paper py-8 md:px-8 md:first:ps-0">
         <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{roleLabel(m)}</p>
         <p class="display mt-3 text-4xl">{m.name}</p>
-        {m.email && <a href={`mailto:${m.email}`} class="mt-4 inline-flex min-h-11 items-center gap-2 break-all text-sm text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{m.email}</a>}
+        {m.email && <Email address={m.email} class="mt-4 inline-flex min-h-11 items-center gap-2 break-all text-sm text-ink-soft hover:text-ink"><Icon name="mail" size={16} /></Email>}
         {m.phone && <a href={telHref(m.phone)} class="nums flex min-h-11 items-center gap-2 text-sm text-ink-soft hover:text-ink"><Icon name="phone" size={16} />{m.phone}</a>}
       </li>
     ))}
@@ -55,7 +56,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
                   {g.names.map((m) => (
                     <li>
                       {m.name}
-                      {contactOf(m).email && <a href={`mailto:${m.email}`} class="flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{m.email}</a>}
+                      {contactOf(m).email && <Email address={m.email!} class="flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} /></Email>}
                       {contactOf(m).phone && <a href={telHref(m.phone!)} class="nums flex min-h-11 w-max items-center gap-2 text-sm font-normal text-ink-soft hover:text-ink"><Icon name="phone" size={16} />{m.phone}</a>}
                     </li>
                   ))}
@@ -64,7 +65,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
                 g.names.map((m) => m.name).join(', ')
               )}
               {isControlBoardGroup(g) && (
-                <a href={`mailto:${controlBoardEmail}`} class="mt-1 flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} />{controlBoardEmail}</a>
+                <Email address={controlBoardEmail} class="mt-1 flex min-h-11 w-max max-w-full items-center gap-2 break-all text-sm font-normal text-ink-soft hover:text-ink"><Icon name="mail" size={16} /></Email>
               )}
               {isRefereeGroup(g) && (
                 <a href={l(lang, '/schiedsrichter')} class="mt-1 flex min-h-11 w-max items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">{t.refereeLink} <Icon name="arrow" size={16} /></a>
@@ -82,7 +83,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
     <p class="font-serif text-xl leading-relaxed lg:col-span-7">{t.thanks}</p>
     <div class="lg:col-span-5">
       <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.general}</p>
-      <a href={`mailto:${club.boardEmail}`} class="mt-2 inline-flex min-h-11 items-center text-lg font-semibold text-club hover:text-club-deep">{club.boardEmail}</a>
+      <Email address={club.boardEmail} class="mt-2 inline-flex min-h-11 items-center text-lg font-semibold text-club hover:text-club-deep" />
     </div>
   </div>
 </section>
