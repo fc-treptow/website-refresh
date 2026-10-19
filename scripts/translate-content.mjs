@@ -45,7 +45,7 @@ const languages = {
   fr: 'French',
 };
 
-const defaultModels = ['gemini-flash-latest', 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-2.5-flash'];
+const defaultModels = ['gemini-3.8-flash', 'gemini-flash-latest', 'gemini-3.7-flash', 'gemini-3.5-flash'];
 
 // Was pro Sammlung übersetzt (fields) und was unverändert übernommen wird (copy).
 // Der Text unter dem Frontmatter (body) wird immer übersetzt.
@@ -84,7 +84,7 @@ const fingerprintsOnly = args.has('--fingerprints-only');
 const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt Gemini
 const apiKey = process.env.GEMINI_API_KEY?.trim();
 // Nur für Tests gegen einen lokalen Server änderbar
-const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://generativelanguage.googleapis.com/v1beta/openai';
+const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://generativelanguage.googleapis.com/v1beta';
 const models = process.env.TRANSLATE_MODEL?.trim() ? [process.env.TRANSLATE_MODEL.trim()] : defaultModels;
 
 if (!apiKey && !mock && !fingerprintsOnly && !dryRun) {
@@ -110,7 +110,7 @@ function writeEntry(file, fm, body) {
 const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
-// ---------- Gemini API (OpenAI-kompatible Schnittstelle) ----------
+// ---------- Gemini API ----------
 
 function prompt(lang) {
   const terms = Object.entries(glossary[lang] ?? {}).map(([de, tr]) => `"${de}" → "${tr}"`).join(', ');
@@ -140,25 +140,25 @@ async function chat(model, lang, input) {
   for (let attempt = 0; ; attempt++) {
     await sleep(Math.max(0, lastCall + gap - Date.now()));
     lastCall = Date.now();
-    const res = await fetch(`${baseUrl}/chat/completions`, {
+    const res = await fetch(`${baseUrl}/models/${encodeURIComponent(model)}:generateContent`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model,
-        temperature: 0.2,
-        messages: [
-          { role: 'system', content: prompt(lang) },
-          { role: 'user', content: JSON.stringify(input, null, 2) },
-        ],
+        systemInstruction: { parts: [{ text: prompt(lang) }] },
+        contents: [{ role: 'user', parts: [{ text: JSON.stringify(input, null, 2) }] }],
+        generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
       }),
     });
     if (res.ok) {
       const text = await res.text();
+      let data;
       try {
-        return JSON.parse(text).choices?.[0]?.message?.content ?? '';
+        data = JSON.parse(text);
       } catch {
         throw new Error(`Unerwartete Antwort der Gemini API (${model}): ${text.slice(0, 300)}`);
       }
+      // Gedanken-Teile (bei Modellen mit "Thinking") nicht mitnehmen
+      return (data.candidates?.[0]?.content?.parts ?? []).filter((p) => !p.thought).map((p) => p.text ?? '').join('');
     }
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       const wait = Number(res.headers.get('retry-after'));
@@ -217,6 +217,7 @@ async function translate(input, lang) {
   }
   const candidates = workingModel ? [workingModel] : models;
   let lastError;
+  const tried = [];
   for (const model of candidates) {
     try {
       for (let attempt = 1; attempt <= 2; attempt++) {
@@ -230,12 +231,14 @@ async function translate(input, lang) {
       }
     } catch (e) {
       lastError = e;
+      tried.push(`${model}: ${e.status ?? ''}`);
       // Modell nicht vorhanden oder nicht im kostenlosen Kontingent: nächstes versuchen
       if (!workingModel && [400, 402, 403, 404].includes(e.status)) continue;
       throw e;
     }
     if (workingModel) break;
   }
+  if (tried.length > 1) lastError.message += ` (versucht: ${tried.join(', ')})`;
   if (lastError?.status === 401) lastError.message += ' (Schlüssel ungültig?)';
   if (lastError?.status === 403) lastError.message += ' (Schlüssel ungültig oder Gemini API für das Google-Projekt nicht freigeschaltet?)';
   throw lastError;
