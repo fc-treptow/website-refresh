@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-// Übersetzt die deutschen Inhalte (Mannschaften und News) über das Vercel AI Gateway in alle
-// anderen Sprachen der Seite.
+// Übersetzt die deutschen Inhalte (Mannschaften und News) mit GitHub Models in alle anderen
+// Sprachen der Seite. GitHub Models ist im Repository ohne eigenen Schlüssel und ohne Zahlungsdaten
+// nutzbar: In GitHub Actions reicht das automatische GITHUB_TOKEN mit der Berechtigung models: read.
 //
 // Läuft automatisch in GitHub Actions (.github/workflows/translate.yml), sobald im CMS eine
 // deutsche Mannschaft oder Neuigkeit gespeichert wird. Lokal:
 //
-//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
-//   AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs --force   # alles neu übersetzen
+//   GITHUB_TOKEN=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
+//   GITHUB_TOKEN=… node scripts/translate-content.mjs --force   # alles neu übersetzen
+//   (lokal: ein persönlicher GitHub-Token mit der Berechtigung "Models: read")
 //   node scripts/translate-content.mjs --fingerprints-only            # nichts übersetzen, nur den
 //                                                                     # aktuellen Stand als "passt" merken
 //   node scripts/translate-content.mjs --dry-run                      # nur anzeigen, was passieren würde
@@ -17,11 +19,13 @@
 // Text seitdem geändert hat. Wer eine Übersetzung von Hand verbessert, verliert die Verbesserung
 // also erst, wenn sich das deutsche Original dieses Feldes ändert.
 //
-// Modell: über die Repository-Variable AI_GATEWAY_MODEL wählbar (GitHub → Settings → Secrets and
+// Modell: über die Repository-Variable TRANSLATE_MODEL wählbar (GitHub → Settings → Secrets and
 // variables → Actions → Variables). Ohne Angabe werden die Modelle in "defaultModels" der Reihe
-// nach versucht, bis eines verfügbar ist (im kostenlosen Kontingent sind nicht alle freigeschaltet).
+// nach versucht, bis eines verfügbar ist.
+// Kostenlos gelten Tageslimits (Stand 2026: 150 Anfragen am Tag für kleine Modelle). Ein Aufruf
+// übersetzt einen Eintrag in eine Sprache, ein gespeicherter Eintrag braucht also fünf Anfragen.
 //
-// An das AI Gateway gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
+// An GitHub Models gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
 // Besuchern.
 
 import { createHash } from 'node:crypto';
@@ -41,7 +45,7 @@ const languages = {
   fr: 'French',
 };
 
-const defaultModels = ['anthropic/claude-haiku-4.5', 'anthropic/claude-haiku-5.5', 'google/gemini-2.5-flash', 'openai/gpt-4.1-mini'];
+const defaultModels = ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'openai/gpt-4.1', 'openai/gpt-4o'];
 
 // Was pro Sammlung übersetzt (fields) und was unverändert übernommen wird (copy).
 // Der Text unter dem Frontmatter (body) wird immer übersetzt.
@@ -77,14 +81,14 @@ const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
 const fingerprintsOnly = args.has('--fingerprints-only');
-const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt AI Gateway
-const apiKey = process.env.AI_GATEWAY_API_KEY?.trim();
+const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt GitHub Models
+const apiKey = process.env.GITHUB_TOKEN?.trim();
 // Nur für Tests gegen einen lokalen Server änderbar
-const baseUrl = process.env.AI_GATEWAY_BASE_URL?.trim() || 'https://ai-gateway.vercel.sh/v1';
-const models = process.env.AI_GATEWAY_MODEL?.trim() ? [process.env.AI_GATEWAY_MODEL.trim()] : defaultModels;
+const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://models.github.ai/inference';
+const models = process.env.TRANSLATE_MODEL?.trim() ? [process.env.TRANSLATE_MODEL.trim()] : defaultModels;
 
 if (!apiKey && !mock && !fingerprintsOnly && !dryRun) {
-  console.log('::warning::AI_GATEWAY_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel in GitHub unter Settings → Secrets and variables → Actions als AI_GATEWAY_API_KEY hinterlegen.');
+  console.log('::warning::GITHUB_TOKEN fehlt. Es wird nichts übersetzt. Im Workflow muss permissions: models: read gesetzt sein.');
   process.exit(0);
 }
 
@@ -106,7 +110,7 @@ function writeEntry(file, fm, body) {
 const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
-// ---------- AI Gateway ----------
+// ---------- GitHub Models ----------
 
 function prompt(lang) {
   const terms = Object.entries(glossary[lang] ?? {}).map(([de, tr]) => `"${de}" → "${tr}"`).join(', ');
@@ -128,8 +132,14 @@ function prompt(lang) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let workingModel = null;
 
+// Kostenlos sind nur wenige Anfragen pro Minute erlaubt, deshalb kurz Abstand halten
+let lastCall = 0;
+const gap = mock || process.env.TRANSLATE_BASE_URL ? 0 : 4500;
+
 async function chat(model, lang, input) {
   for (let attempt = 0; ; attempt++) {
+    await sleep(Math.max(0, lastCall + gap - Date.now()));
+    lastCall = Date.now();
     const res = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
@@ -148,13 +158,18 @@ async function chat(model, lang, input) {
     }
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       const wait = Number(res.headers.get('retry-after'));
-      await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 2000 * 2 ** attempt);
+      // Längere Wartezeiten (Tageslimit erreicht) nicht absitzen, sondern abbrechen
+      if (Number.isFinite(wait) && wait > 120) break;
+      await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 5000 * 2 ** attempt);
       continue;
     }
-    const err = new Error(`AI Gateway antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
+    const err = new Error(`GitHub Models antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
     err.status = res.status;
     throw err;
   }
+  const err = new Error(`Tageslimit von GitHub Models erreicht (${model}). Der nächste Lauf holt das Fehlende nach (Actions → Übersetzen → Run workflow).`);
+  err.status = 429;
+  throw err;
 }
 
 // Alle Adressen, die in der Übersetzung unverändert wieder vorkommen müssen
@@ -217,8 +232,8 @@ async function translate(input, lang) {
     }
     if (workingModel) break;
   }
-  if (lastError?.status === 401) lastError.message += ' (Schlüssel ungültig?)';
-  if (lastError?.status === 402) lastError.message += ' (Guthaben oder Budget im AI Gateway aufgebraucht)';
+  if (lastError?.status === 401) lastError.message += ' (fehlt im Workflow permissions: models: read?)';
+  if (lastError?.status === 403) lastError.message += ' (GitHub Models für die Organisation fc-treptow freigeben: Organisation → Settings → Models)';
   throw lastError;
 }
 
@@ -226,8 +241,9 @@ async function translate(input, lang) {
 
 async function main() {
   const report = [];
+  let limitReached = false;
 
-  for (const col of collections) {
+  outer: for (const col of collections) {
     const deDir = join(contentDir, col.dir, 'de');
     if (!existsSync(deDir)) continue;
     const slugs = readdirSync(deDir).filter((f) => f.endsWith('.md'));
@@ -277,7 +293,16 @@ async function main() {
         }
 
         if (Object.keys(todo).length && !dryRun) {
-          const out = await translate(todo, lang);
+          let out;
+          try {
+            out = await translate(todo, lang);
+          } catch (e) {
+            // Limit erreicht: bisher Übersetztes behalten, den Rest beim nächsten Lauf nachholen
+            if (e.status !== 429) throw e;
+            console.log(`::warning::${e.message}`);
+            limitReached = true;
+            break outer;
+          }
           for (const field of Object.keys(todo)) {
             current[field] = Array.isArray(todo[field]) ? out[field].map((s) => s.trim()) : out[field].trim();
             quelle[field] = fingerprint(source[field]);

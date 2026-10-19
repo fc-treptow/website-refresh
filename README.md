@@ -44,7 +44,7 @@ Faustregeln:
 - Immer auf **Veröffentlichen** klicken, sonst bleibt es ein Entwurf.
 - Fotos im Querformat, nicht größer als etwa 2 MB.
 - Nur auf Deutsch schreiben. Mannschaften und News werden nach dem Speichern automatisch in alle
-  anderen Sprachen übersetzt (Vercel AI Gateway, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
+  anderen Sprachen übersetzt (GitHub Models, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
   alle Sprachen online.
 - Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de.
 
@@ -106,7 +106,7 @@ der Sprachwahl.
 
 Mannschaften (`src/content/teams/de`) und News (`src/content/news/de`) werden automatisch übersetzt:
 Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
-Er schickt die geänderten Texte über das Vercel AI Gateway an ein KI-Modell, schreibt Englisch, Türkisch, Arabisch, Spanisch und
+Er schickt die geänderten Texte an ein KI-Modell von GitHub Models, schreibt Englisch, Türkisch, Arabisch, Spanisch und
 Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.
 
 - Übersetzt werden nur Texte: bei Mannschaften Kurzname, Bildunterschriften und Beschreibung, bei
@@ -116,21 +116,24 @@ Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. V
   Textes. Neu übersetzt wird ein Feld nur, wenn sich das Deutsche geändert hat. Eine Übersetzung,
   die man auf GitHub von Hand verbessert, bleibt also stehen, bis sich das deutsche Original dieses
   Feldes ändert.
-- Einrichtung (einmalig): im Vercel-Dashboard unter **AI Gateway** → **API Keys** einen Schlüssel
-  anlegen und in GitHub unter Settings → Secrets and variables → Actions → New repository secret
-  als `AI_GATEWAY_API_KEY` speichern. Das kostenlose Monatsguthaben des AI Gateway reicht für den
-  Verein bei Weitem. Ohne Schlüssel läuft der Workflow durch und übersetzt nichts.
-- Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste (Claude Haiku,
-  sonst Gemini Flash oder GPT mini). Ein bestimmtes Modell legt man als Repository-Variable
-  `AI_GATEWAY_MODEL` fest (gleiche Seite, Reiter "Variables"), z. B. `anthropic/claude-haiku-4.5`.
+- Einrichtung: keine. GitHub Models läuft über das automatische Zugangstoken des Workflows, ohne
+  eigenen Schlüssel und ohne Zahlungsdaten. Meldet der Workflow einen Fehler 403, muss eine
+  Admin-Person in der Organisation `fc-treptow` unter Settings → Models GitHub Models erlauben.
+- Kostenlos gilt ein Tageslimit (Stand 2026 etwa 150 Anfragen am Tag; ein gespeicherter Eintrag
+  braucht fünf, eine pro Sprache). Wird es erreicht, speichert der Workflow das bis dahin
+  Übersetzte und meldet eine Warnung. Der Rest kommt beim nächsten Speichern oder per Hand:
+  Actions → Übersetzen → Run workflow.
+- Modell: Ohne weitere Angabe nimmt das Skript das erste verfügbare aus seiner Liste (GPT-4.1 mini,
+  sonst GPT-4o mini usw.). Ein bestimmtes Modell legt man als Repository-Variable
+  `TRANSLATE_MODEL` fest (Settings → Secrets and variables → Actions, Reiter "Variables").
 - Jede Übersetzung wird geprüft: gleiche Felder, gleich viele Bildunterschriften, alle Links und
   E-Mail-Adressen unverändert. Sonst wird neu angefragt bzw. der Workflow schlägt fehl, statt
   etwas Kaputtes zu speichern.
 - Alles auf einmal nachholen: Actions → Übersetzen → Run workflow. Mit "Alles neu übersetzen"
   werden auch von Hand verbesserte Übersetzungen überschrieben.
-- Lokal: `AI_GATEWAY_API_KEY=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
+- Lokal: `GITHUB_TOKEN=… node scripts/translate-content.mjs` (`--dry-run` zeigt nur, was passieren
   würde; `--fingerprints-only` merkt sich den aktuellen Stand als passend, ohne zu übersetzen).
-- An das AI Gateway gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
+- An GitHub Models gehen nur öffentliche Texte der Seite, keine Daten von Besucherinnen und Besuchern.
 
 ## Formulare
 
