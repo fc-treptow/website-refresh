@@ -167,7 +167,7 @@ async function chat(model, lang, input) {
       await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 5000 * 2 ** attempt);
       continue;
     }
-    const err = new Error(`Gemini API antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
+    const err = new Error(`Gemini API antwortet mit ${res.status} (${model}): ${(await res.text()).replace(/\s+/g, ' ').slice(0, 500)}`);
     err.status = res.status;
     throw err;
   }
