@@ -55,7 +55,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
   </figure>
 </section>
 
-<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+<section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
   <div class="grid gap-14 lg:grid-cols-12 lg:gap-12">
     <!-- Steckbrief -->
     <div class="lg:col-span-4">
@@ -122,7 +122,7 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
 
 {d.gallery.length > 0 && (
   <section class="border-t border-line bg-card">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
       <div class="reveal flex items-end justify-between gap-4">
         <h2 class="display text-4xl sm:text-5xl">{t.fotos}</h2>
         {d.gallery.length > 1 && (

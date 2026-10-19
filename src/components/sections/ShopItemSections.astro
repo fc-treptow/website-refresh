@@ -81,7 +81,7 @@ const others = (await getCollection('shop'))
 </section>
 
 {others.length > 0 && (
-  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+  <section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
     <h2 class="display text-4xl sm:text-5xl">{t.more}</h2>
     <ul class="stagger mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">
       {others.map((o) => (
