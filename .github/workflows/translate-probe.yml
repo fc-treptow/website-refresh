@@ -1,4 +1,4 @@
-# Vorübergehend: Probelauf der Übersetzung mit echtem Schlüssel, ohne etwas zu speichern.
+# Vorübergehend (2): Probelauf der Übersetzung mit echtem Schlüssel, ohne etwas zu speichern.
 name: Übersetzen (Probelauf)
 on:
   push:
