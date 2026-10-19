@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-// Übersetzt die deutschen Inhalte (Mannschaften und News) mit GitHub Models in alle anderen
-// Sprachen der Seite. GitHub Models ist im Repository ohne eigenen Schlüssel und ohne Zahlungsdaten
-// nutzbar: In GitHub Actions reicht das automatische GITHUB_TOKEN mit der Berechtigung models: read.
+// Übersetzt die deutschen Inhalte (Mannschaften und News) mit der Gemini API von Google in alle
+// anderen Sprachen der Seite. Die kostenlose Stufe braucht nur einen API-Schlüssel aus Google AI
+// Studio (aistudio.google.com), keine Zahlungsdaten. Er liegt in GitHub als Secret GEMINI_API_KEY.
 //
 // Läuft automatisch in GitHub Actions (.github/workflows/translate.yml), sobald im CMS eine
 // deutsche Mannschaft oder Neuigkeit gespeichert wird. Lokal:
 //
-//   GITHUB_TOKEN=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
-//   GITHUB_TOKEN=… node scripts/translate-content.mjs --force   # alles neu übersetzen
-//   (lokal: ein persönlicher GitHub-Token mit der Berechtigung "Models: read")
+//   GEMINI_API_KEY=… node scripts/translate-content.mjs           # nur Geändertes übersetzen
+//   GEMINI_API_KEY=… node scripts/translate-content.mjs --force   # alles neu übersetzen
 //   node scripts/translate-content.mjs --fingerprints-only            # nichts übersetzen, nur den
 //                                                                     # aktuellen Stand als "passt" merken
 //   node scripts/translate-content.mjs --dry-run                      # nur anzeigen, was passieren würde
@@ -22,11 +21,12 @@
 // Modell: über die Repository-Variable TRANSLATE_MODEL wählbar (GitHub → Settings → Secrets and
 // variables → Actions → Variables). Ohne Angabe werden die Modelle in "defaultModels" der Reihe
 // nach versucht, bis eines verfügbar ist.
-// Kostenlos gelten Tageslimits (Stand 2026: 150 Anfragen am Tag für kleine Modelle). Ein Aufruf
-// übersetzt einen Eintrag in eine Sprache, ein gespeicherter Eintrag braucht also fünf Anfragen.
+// Kostenlos gelten Limits (Stand Oktober 2026 etwa 10 Anfragen pro Minute und gut 1.000 am Tag
+// für die Flash-Modelle). Ein Aufruf übersetzt einen Eintrag in eine Sprache, ein gespeicherter
+// Eintrag braucht also fünf Anfragen.
 //
-// An GitHub Models gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
-// Besuchern.
+// An Google gehen nur die öffentlichen Texte der Seite, keine Daten von Besucherinnen und
+// Besuchern. In der kostenlosen Stufe darf Google diese Texte zur Verbesserung seiner Dienste nutzen.
 
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -45,7 +45,7 @@ const languages = {
   fr: 'French',
 };
 
-const defaultModels = ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'openai/gpt-4.1', 'openai/gpt-4o'];
+const defaultModels = ['gemini-flash-latest', 'gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-2.5-flash'];
 
 // Was pro Sammlung übersetzt (fields) und was unverändert übernommen wird (copy).
 // Der Text unter dem Frontmatter (body) wird immer übersetzt.
@@ -81,14 +81,14 @@ const args = new Set(process.argv.slice(2));
 const force = args.has('--force');
 const dryRun = args.has('--dry-run');
 const fingerprintsOnly = args.has('--fingerprints-only');
-const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt GitHub Models
-const apiKey = process.env.GITHUB_TOKEN?.trim();
+const mock = process.env.TRANSLATE_MOCK === '1'; // nur für Tests: "[en] Text" statt Gemini
+const apiKey = process.env.GEMINI_API_KEY?.trim();
 // Nur für Tests gegen einen lokalen Server änderbar
-const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://models.github.ai/inference';
+const baseUrl = process.env.TRANSLATE_BASE_URL?.trim() || 'https://generativelanguage.googleapis.com/v1beta/openai';
 const models = process.env.TRANSLATE_MODEL?.trim() ? [process.env.TRANSLATE_MODEL.trim()] : defaultModels;
 
 if (!apiKey && !mock && !fingerprintsOnly && !dryRun) {
-  console.log('::warning::GITHUB_TOKEN fehlt. Es wird nichts übersetzt. Im Workflow muss permissions: models: read gesetzt sein.');
+  console.log('::warning::GEMINI_API_KEY fehlt. Es wird nichts übersetzt. Den Schlüssel aus Google AI Studio in GitHub unter Settings → Secrets and variables → Actions als GEMINI_API_KEY hinterlegen.');
   process.exit(0);
 }
 
@@ -110,7 +110,7 @@ function writeEntry(file, fm, body) {
 const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
-// ---------- GitHub Models ----------
+// ---------- Gemini API (OpenAI-kompatible Schnittstelle) ----------
 
 function prompt(lang) {
   const terms = Object.entries(glossary[lang] ?? {}).map(([de, tr]) => `"${de}" → "${tr}"`).join(', ');
@@ -134,7 +134,7 @@ let workingModel = null;
 
 // Kostenlos sind nur wenige Anfragen pro Minute erlaubt, deshalb kurz Abstand halten
 let lastCall = 0;
-const gap = mock || process.env.TRANSLATE_BASE_URL ? 0 : 4500;
+const gap = mock || process.env.TRANSLATE_BASE_URL ? 0 : 7000;
 
 async function chat(model, lang, input) {
   for (let attempt = 0; ; attempt++) {
@@ -153,8 +153,12 @@ async function chat(model, lang, input) {
       }),
     });
     if (res.ok) {
-      const data = await res.json();
-      return data.choices?.[0]?.message?.content ?? '';
+      const text = await res.text();
+      try {
+        return JSON.parse(text).choices?.[0]?.message?.content ?? '';
+      } catch {
+        throw new Error(`Unerwartete Antwort der Gemini API (${model}): ${text.slice(0, 300)}`);
+      }
     }
     if ((res.status === 429 || res.status >= 500) && attempt < 4) {
       const wait = Number(res.headers.get('retry-after'));
@@ -163,11 +167,11 @@ async function chat(model, lang, input) {
       await sleep(Number.isFinite(wait) && wait > 0 ? wait * 1000 : 5000 * 2 ** attempt);
       continue;
     }
-    const err = new Error(`GitHub Models antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
+    const err = new Error(`Gemini API antwortet mit ${res.status} (${model}): ${(await res.text()).slice(0, 500)}`);
     err.status = res.status;
     throw err;
   }
-  const err = new Error(`Tageslimit von GitHub Models erreicht (${model}). Der nächste Lauf holt das Fehlende nach (Actions → Übersetzen → Run workflow).`);
+  const err = new Error(`Tageslimit der Gemini API erreicht (${model}). Der nächste Lauf holt das Fehlende nach (Actions → Übersetzen → Run workflow).`);
   err.status = 429;
   throw err;
 }
@@ -232,8 +236,8 @@ async function translate(input, lang) {
     }
     if (workingModel) break;
   }
-  if (lastError?.status === 401) lastError.message += ' (fehlt im Workflow permissions: models: read?)';
-  if (lastError?.status === 403) lastError.message += ' (GitHub Models für die Organisation fc-treptow freigeben: Organisation → Settings → Models)';
+  if (lastError?.status === 401) lastError.message += ' (Schlüssel ungültig?)';
+  if (lastError?.status === 403) lastError.message += ' (Schlüssel ungültig oder Gemini API für das Google-Projekt nicht freigeschaltet?)';
   throw lastError;
 }
 

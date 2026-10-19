@@ -1,0 +1,32 @@
+# Vorübergehend: Probelauf der Übersetzung mit der Gemini API, ohne etwas zu speichern.
+name: Übersetzen (Probelauf)
+on:
+  push:
+    branches: [automatische-uebersetzung]
+    paths: [.github/workflows/translate-probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Übersetzen (ohne Commit)
+        run: node scripts/translate-content.mjs
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
+      - name: Ergebnis als Hinweis ausgeben
+        if: always()
+        run: |
+          for f in news/en/neuer-vorstand-2025 news/ar/neuer-vorstand-2025 news/tr/30-jahre-fc-treptow news/fr/gedenkturnier-wolfgang-doebler news/es/30-jahre-fc-treptow; do
+            [ -f src/content/$f.md ] || continue
+            body=$(head -c 3500 src/content/$f.md | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
+            echo "::notice title=$f::$body"
+          done
