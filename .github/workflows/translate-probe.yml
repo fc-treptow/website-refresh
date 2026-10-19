@@ -1,4 +1,4 @@
-# Vorübergehend: Probelauf der Übersetzung mit der Gemini API, ohne etwas zu speichern.
+# Vorübergehend (2): Probelauf der Übersetzung mit der Gemini API, ohne etwas zu speichern.
 name: Übersetzen (Probelauf)
 on:
   push:
@@ -17,6 +17,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Verfügbare Modelle
+        run: |
+          curl -s "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=$GEMINI_API_KEY" > m.json
+          names=$(node -e "const j=require('./m.json'); console.log(j.models ? j.models.filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')).map(m=>m.name.replace('models/','')).join(', ') : JSON.stringify(j).slice(0,800))")
+          echo "::notice title=Modelle::$names"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       - name: Übersetzen (ohne Commit)
         run: node scripts/translate-content.mjs
         env:
