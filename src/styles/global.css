@@ -27,8 +27,8 @@
   --color-card: #fbf9f4;
   --color-ink: #16181d;
   --color-ink-soft: #585d67;
-  --color-club: #bf2e27;
-  --color-club-deep: #9c231d;
+  --color-club: #d9181b; /* Wappenrot #dd191c, minimal abgedunkelt für Kontrast 4,5:1 auf Papier */
+  --color-club-deep: #b51417;
   --color-line: rgb(22 24 29 / 0.14);
 
   --radius-sm: 4px;
