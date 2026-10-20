@@ -41,3 +41,6 @@ export function l(locale: Locale, path: string) {
 }
 
 export const bcp47: Record<Locale, string> = { de: 'de-DE', en: 'en-GB', tr: 'tr-TR', ar: 'ar-EG', es: 'es-ES', fr: 'fr-FR' };
+
+// Open Graph erwartet Sprache_Land (de_DE), nicht nur die Sprache. Facebook kennt für Arabisch nur ar_AR.
+export const ogLocale: Record<Locale, string> = { de: 'de_DE', en: 'en_GB', tr: 'tr_TR', ar: 'ar_AR', es: 'es_ES', fr: 'fr_FR' };

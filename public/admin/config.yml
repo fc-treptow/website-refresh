@@ -67,7 +67,8 @@ collections:
       - { name: date, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true }
       - { name: tag, label: Rubrik, widget: select, options: [Verein, Herren I, Herren II, Herren III, Freizeit, Goldenes Ticket], default: Verein }
       - { name: teaser, label: Kurztext, widget: text, hint: '1 bis 2 Sätze. Erscheint in der Übersicht unter der Überschrift.' }
-      - { name: image, label: Foto, widget: image, required: false, hint: 'Querformat sieht am besten aus.' }
+      - { name: image, label: Foto, widget: image, required: false, hint: 'Querformat sieht am besten aus. Beim Teilen (WhatsApp, Facebook) wird das Foto auf ein breites Format zugeschnitten.' }
+      - { name: imageAlt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist auf dem Foto zu sehen? Ein kurzer Satz, z. B. "Die Herren I jubeln nach dem Abpfiff". Hilft blinden Menschen und erscheint beim Teilen.' }
       - { name: body, label: Text, widget: markdown, buttons: [bold, italic, link, heading-two, bulleted-list, numbered-list], editor_components: [image], modes: [rich_text] }
 
   - name: teams

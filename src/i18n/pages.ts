@@ -522,12 +522,12 @@ export const pages = {
   },
 
   newsDetail: {
-    de: { back: '← Alle News' },
-    en: { back: '← All news' },
-    tr: { back: '← Tüm haberler' },
-    ar: { back: '→ جميع الأخبار' },
-    es: { back: '← Todas las noticias' },
-    fr: { back: '← Toutes les actualités' },
+    de: { back: '← Alle News', shareLabel: 'Teilen', shareNative: 'Teilen …', copyLink: 'Link kopieren', copied: 'Link kopiert' },
+    en: { back: '← All news', shareLabel: 'Share', shareNative: 'Share …', copyLink: 'Copy link', copied: 'Link copied' },
+    tr: { back: '← Tüm haberler', shareLabel: 'Paylaş', shareNative: 'Paylaş …', copyLink: 'Bağlantıyı kopyala', copied: 'Bağlantı kopyalandı' },
+    ar: { back: '→ جميع الأخبار', shareLabel: 'مشاركة', shareNative: 'مشاركة …', copyLink: 'نسخ الرابط', copied: 'تم نسخ الرابط' },
+    es: { back: '← Todas las noticias', shareLabel: 'Compartir', shareNative: 'Compartir …', copyLink: 'Copiar enlace', copied: 'Enlace copiado' },
+    fr: { back: '← Toutes les actualités', shareLabel: 'Partager', shareNative: 'Partager …', copyLink: 'Copier le lien', copied: 'Lien copié' },
   },
 
   impressum: {

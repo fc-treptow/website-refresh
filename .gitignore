@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # erzeugt von scripts/gen-hero.mjs
 public/images/hero/
+
+# erzeugt von scripts/gen-og.mjs
+public/images/og/

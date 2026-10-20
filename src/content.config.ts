@@ -20,6 +20,8 @@ const news = defineCollection({
     date: z.coerce.date(),
     teaser: z.string(),
     image: z.string().optional(),
+    // Bildbeschreibung für Screenreader und die Vorschau beim Teilen (og:image:alt), freiwillig
+    imageAlt: z.string().nullish(),
     tag: z.string().default('Verein'),
   }),
 });

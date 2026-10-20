@@ -63,7 +63,7 @@ const collections = [
   },
   {
     dir: 'news',
-    fields: { title: (fm) => fm.title, teaser: (fm) => fm.teaser },
+    fields: { title: (fm) => fm.title, teaser: (fm) => fm.teaser, imageAlt: (fm) => fm.imageAlt },
     copy: ['date', 'tag', 'image'],
   },
 ];
