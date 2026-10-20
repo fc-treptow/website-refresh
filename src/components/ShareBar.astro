@@ -1,11 +1,13 @@
 ---
-// Teilen-Leiste unter dem Kurztext eines News-Beitrags.
+// "Teilen" in der Zeile mit Rubrik und Datum eines News-Beitrags.
+// - Kann der Browser das Teilen-Menü des Geräts öffnen (Web Share API: Handys, Safari, Chrome
+//   und Edge am Rechner), öffnet ein Tipp genau dieses Menü. Darin stehen alle installierten
+//   Apps, also auch WhatsApp, Instagram, Signal, Telegram.
+// - Sonst (vor allem Firefox am Rechner) klappt ein kleines Menü mit WhatsApp, Facebook und
+//   "Link kopieren" auf. Es ist ein <details>-Element und funktioniert auch ohne JavaScript;
+//   nur "Link kopieren" braucht JavaScript und erscheint erst dann.
 // Datenschutz: nur einfache Links und Browser-Funktionen. Kein Skript von WhatsApp oder Meta,
 // keine Zähler, keine Cookies. Facebook und WhatsApp erfahren erst etwas, wenn jemand klickt.
-// - "Teilen …" öffnet das Teilen-Menü des Geräts (Web Share API). Darüber erreicht man auf dem
-//   Handy auch Instagram, Signal, Telegram usw. Nur sichtbar, wenn der Browser es kann.
-// - WhatsApp und Facebook sind normale Links, funktionieren also auch ohne JavaScript.
-// - "Link kopieren" für alles andere, z. B. den Link-Sticker in einer Instagram-Story.
 import Icon from './Icon.astro';
 import { defaultLocale, type Locale } from '../i18n/languages';
 import { pageT } from '../i18n/pages';
@@ -25,69 +27,93 @@ const url = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', site).href;
 const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`;
 const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
-const pill =
-  'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-ink ring-1 ring-line transition-[background-color,transform] duration-200 ease-(--ease-club) hover:bg-paper-deep active:scale-[0.97]';
+const item = 'flex min-h-11 w-full items-center gap-3 rounded-sm px-3 text-sm text-ink-soft transition-colors duration-150 hover:bg-paper hover:text-ink';
 ---
-<div data-share data-title={title} data-url={url} role="group" aria-labelledby="share-label" class="mt-8 flex flex-wrap items-center gap-2 border-t border-line pt-5">
-  <p id="share-label" class="me-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.shareLabel}</p>
-  <button type="button" data-share-native hidden class={pill}>
+<details data-share data-title={title} data-url={url} class="relative shrink-0">
+  <summary class="-my-3 -me-3 flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-full px-3 text-sm font-semibold text-ink-soft transition-colors duration-200 hover:bg-paper-deep hover:text-ink [&::-webkit-details-marker]:hidden">
     <Icon name="share" size={18} />
-    {t.shareNative}
-  </button>
-  <a href={whatsapp} rel="noopener" target="_blank" class={pill}>
-    <Icon name="whatsapp" size={18} />
-    WhatsApp<span class="sr-only"> ({ui.newTab})</span>
-  </a>
-  <a href={facebook} rel="noopener" target="_blank" class={pill}>
-    <Icon name="facebook" size={18} />
-    Facebook<span class="sr-only"> ({ui.newTab})</span>
-  </a>
-  <button type="button" data-share-copy hidden class={pill}>
-    <Icon name="link" size={18} />
-    <span data-share-copy-text>{t.copyLink}</span>
-  </button>
+    {t.shareLabel}
+  </summary>
+  <ul class="absolute end-0 top-full z-30 mt-3 w-52 rounded-sm bg-card p-1.5 shadow-[0_24px_48px_-24px_rgba(22,24,29,0.35)] ring-1 ring-line">
+    <li>
+      <a href={whatsapp} rel="noopener" target="_blank" class={item}>
+        <Icon name="whatsapp" size={18} />
+        WhatsApp<span class="sr-only"> ({ui.newTab})</span>
+      </a>
+    </li>
+    <li>
+      <a href={facebook} rel="noopener" target="_blank" class={item}>
+        <Icon name="facebook" size={18} />
+        Facebook<span class="sr-only"> ({ui.newTab})</span>
+      </a>
+    </li>
+    <li data-share-copy-item hidden>
+      <button type="button" data-share-copy class={item}>
+        <Icon name="link" size={18} />
+        <span data-share-copy-text>{t.copyLink}</span>
+      </button>
+    </li>
+  </ul>
   <span data-share-status role="status" class="sr-only"></span>
   <template data-share-copied>{t.copied}</template>
-</div>
+</details>
 
 <script>
-  for (const bar of document.querySelectorAll<HTMLElement>('[data-share]')) {
-    const { title = document.title, url = location.href } = bar.dataset;
-    const native = bar.querySelector<HTMLButtonElement>('[data-share-native]');
-    const copy = bar.querySelector<HTMLButtonElement>('[data-share-copy]');
-    const copyText = bar.querySelector('[data-share-copy-text]');
-    const status = bar.querySelector('[data-share-status]');
-    const copiedLabel = bar.querySelector('template[data-share-copied]')?.innerHTML ?? '';
+  for (const menu of document.querySelectorAll<HTMLDetailsElement>('details[data-share]')) {
+    const { title = document.title, url = location.href } = menu.dataset;
+    const summary = menu.querySelector('summary');
 
-    if (native && typeof navigator.share === 'function' && navigator.canShare?.({ title, url }) !== false) {
-      native.hidden = false;
-      native.addEventListener('click', async () => {
+    // Teilen-Menü des Geräts statt des eigenen Menüs, wo vorhanden
+    if (summary && typeof navigator.share === 'function' && navigator.canShare?.({ title, url }) !== false) {
+      summary.setAttribute('role', 'button');
+      summary.addEventListener('click', async (e) => {
+        e.preventDefault();
         try {
           await navigator.share({ title, url });
         } catch {
           // Abgebrochen oder nicht erlaubt: nichts zu tun
         }
       });
+      continue;
     }
 
-    if (copy && copyText && navigator.clipboard) {
-      copy.hidden = false;
-      const original = copyText.textContent;
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      copy.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(url);
-        } catch {
-          return;
-        }
-        copyText.textContent = copiedLabel;
-        if (status) status.textContent = copiedLabel;
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          copyText.textContent = original;
-          if (status) status.textContent = '';
-        }, 2500);
-      });
-    }
+    // Eigenes Menü: schließen bei Klick daneben, Escape und nach einer Auswahl
+    const close = () => menu.removeAttribute('open');
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target as Node)) close();
+    });
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.open) {
+        close();
+        summary?.focus();
+      }
+    });
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+
+    const copyItem = menu.querySelector<HTMLElement>('[data-share-copy-item]');
+    const copy = menu.querySelector<HTMLButtonElement>('[data-share-copy]');
+    const copyText = menu.querySelector('[data-share-copy-text]');
+    const status = menu.querySelector('[data-share-status]');
+    const copiedLabel = menu.querySelector('template[data-share-copied]')?.innerHTML ?? '';
+    if (!copyItem || !copy || !copyText || !navigator.clipboard) continue;
+
+    copyItem.hidden = false;
+    const original = copyText.textContent;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        return;
+      }
+      copyText.textContent = copiedLabel;
+      if (status) status.textContent = copiedLabel;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        copyText.textContent = original;
+        if (status) status.textContent = '';
+        close();
+      }, 1500);
+    });
   }
 </script>
