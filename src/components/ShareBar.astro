@@ -1,0 +1,93 @@
+---
+// Teilen-Leiste unter dem Kurztext eines News-Beitrags.
+// Datenschutz: nur einfache Links und Browser-Funktionen. Kein Skript von WhatsApp oder Meta,
+// keine Zähler, keine Cookies. Facebook und WhatsApp erfahren erst etwas, wenn jemand klickt.
+// - "Teilen …" öffnet das Teilen-Menü des Geräts (Web Share API). Darüber erreicht man auf dem
+//   Handy auch Instagram, Signal, Telegram usw. Nur sichtbar, wenn der Browser es kann.
+// - WhatsApp und Facebook sind normale Links, funktionieren also auch ohne JavaScript.
+// - "Link kopieren" für alles andere, z. B. den Link-Sticker in einer Instagram-Story.
+import Icon from './Icon.astro';
+import { defaultLocale, type Locale } from '../i18n/languages';
+import { pageT } from '../i18n/pages';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const t = pageT('newsDetail', lang);
+const ui = useTranslations(lang);
+
+// Dieselbe Adresse wie og:url und canonical in Base.astro
+const site = Astro.site ?? new URL(Astro.url.origin);
+const url = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', site).href;
+const whatsapp = `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`;
+const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+
+const pill =
+  'inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm font-semibold text-ink ring-1 ring-line transition-[background-color,transform] duration-200 ease-(--ease-club) hover:bg-paper-deep active:scale-[0.97]';
+---
+<div data-share data-title={title} data-url={url} role="group" aria-labelledby="share-label" class="mt-8 flex flex-wrap items-center gap-2 border-t border-line pt-5">
+  <p id="share-label" class="me-2 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.shareLabel}</p>
+  <button type="button" data-share-native hidden class={pill}>
+    <Icon name="share" size={18} />
+    {t.shareNative}
+  </button>
+  <a href={whatsapp} rel="noopener" target="_blank" class={pill}>
+    <Icon name="whatsapp" size={18} />
+    WhatsApp<span class="sr-only"> ({ui.newTab})</span>
+  </a>
+  <a href={facebook} rel="noopener" target="_blank" class={pill}>
+    <Icon name="facebook" size={18} />
+    Facebook<span class="sr-only"> ({ui.newTab})</span>
+  </a>
+  <button type="button" data-share-copy hidden class={pill}>
+    <Icon name="link" size={18} />
+    <span data-share-copy-text>{t.copyLink}</span>
+  </button>
+  <span data-share-status role="status" class="sr-only"></span>
+  <template data-share-copied>{t.copied}</template>
+</div>
+
+<script>
+  for (const bar of document.querySelectorAll<HTMLElement>('[data-share]')) {
+    const { title = document.title, url = location.href } = bar.dataset;
+    const native = bar.querySelector<HTMLButtonElement>('[data-share-native]');
+    const copy = bar.querySelector<HTMLButtonElement>('[data-share-copy]');
+    const copyText = bar.querySelector('[data-share-copy-text]');
+    const status = bar.querySelector('[data-share-status]');
+    const copiedLabel = bar.querySelector('template[data-share-copied]')?.innerHTML ?? '';
+
+    if (native && typeof navigator.share === 'function' && navigator.canShare?.({ title, url }) !== false) {
+      native.hidden = false;
+      native.addEventListener('click', async () => {
+        try {
+          await navigator.share({ title, url });
+        } catch {
+          // Abgebrochen oder nicht erlaubt: nichts zu tun
+        }
+      });
+    }
+
+    if (copy && copyText && navigator.clipboard) {
+      copy.hidden = false;
+      const original = copyText.textContent;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      copy.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          return;
+        }
+        copyText.textContent = copiedLabel;
+        if (status) status.textContent = copiedLabel;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          copyText.textContent = original;
+          if (status) status.textContent = '';
+        }, 2500);
+      });
+    }
+  }
+</script>

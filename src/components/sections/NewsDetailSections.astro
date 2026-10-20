@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import ShareBar from '../ShareBar.astro';
 import { defaultLocale, bcp47, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import type { LocalizedNews } from '../../i18n/content';
@@ -19,10 +20,11 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
     <p class="mt-6 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{post.data.tag}</span> · <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time></p>
     <h1 class="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-balance sm:text-5xl">{post.data.title}</h1>
     <p class="mt-5 text-xl leading-relaxed text-ink-soft">{post.data.teaser}</p>
+    <ShareBar title={post.data.title} />
   </div>
   {post.data.image && (
     <div class="mx-auto mt-10 max-w-5xl overflow-hidden rounded-sm bg-ink">
-      <img src={post.data.image} alt="" class="aspect-[16/9] w-full object-cover" fetchpriority="high" />
+      <img src={post.data.image} alt={post.data.imageAlt ?? ''} class="aspect-[16/9] w-full object-cover" fetchpriority="high" />
     </div>
   )}
   <div lang={post.isFallback ? 'de' : undefined} class="prose-club mx-auto mt-10 max-w-3xl text-lg leading-relaxed">

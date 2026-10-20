@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
+import { readFileSync } from 'node:fs';
 import Icon from '../components/Icon.astro';
 import Email from '../components/Email.astro';
-import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, type Locale } from '../i18n/languages';
+import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, ogLocale, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/ui';
 import { club } from '../data/club';
 import { getLinks, hostOf, splitHost } from '../lib/links';
@@ -11,17 +12,33 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /** Beschreibung des Vorschaubilds (og:image:alt) */
+  imageAlt?: string;
   noindex?: boolean;
+  /** News-Beiträge sind "article", alles andere "website" */
+  type?: 'website' | 'article';
+  /** Nur bei type="article": Datum und Rubrik des Beitrags */
+  published?: Date;
+  section?: string;
 }
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(lang);
-const { title, description = t.footerTagline, image = '/images/team-h1.jpg', noindex = false } = Astro.props;
+const { title, description = t.footerTagline, image = '/images/team-h1.jpg', imageAlt, noindex = false, type = 'website', published, section } = Astro.props;
 const dir = isRtl(lang) ? 'rtl' : 'ltr';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const bare = path.replace(new RegExp(`^/(${locales.filter((x) => x !== defaultLocale).join('|')})(?=/|$)`), '') || '/';
 const site = Astro.site ?? new URL(Astro.url.origin);
 const abs = (p: string) => new URL(p, site).href;
+
+// Vorschaubild für geteilte Links: die verkleinerte JPEG-Fassung aus scripts/gen-og.mjs,
+// sonst (Skript nicht gelaufen, Umwandlung fehlgeschlagen) das Originalfoto.
+let ogManifest: Record<string, { src: string; width: number; height: number }> = {};
+try {
+  ogManifest = JSON.parse(readFileSync(`${process.cwd()}/public/images/og/manifest.json`, 'utf8'));
+} catch {}
+const og = ogManifest[image.startsWith('/') ? image : `/${image}`];
+const ogImage = abs(og?.src ?? image);
 
 const isActive = (href: string) => (href === '/' ? bare === '/' : bare === href || bare.startsWith(`${href}/`));
 
@@ -83,13 +100,26 @@ const socials = [
         <link rel="alternate" hreflang="x-default" href={abs(localizedPath(path, defaultLocale))} />
       </>
     )}
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content="FC Treptow e.V." />
+    <meta property="og:url" content={abs(path)} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={abs(image)} />
-    <meta property="og:locale" content={lang} />
+    <meta property="og:image" content={ogImage} />
+    {og && (
+      <>
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content={String(og.width)} />
+        <meta property="og:image:height" content={String(og.height)} />
+      </>
+    )}
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    <meta property="og:locale" content={ogLocale[lang]} />
+    {locales.filter((x) => x !== lang).map((locale) => <meta property="og:locale:alternate" content={ogLocale[locale]} />)}
+    {type === 'article' && published && <meta property="article:published_time" content={published.toISOString().slice(0, 10)} />}
+    {type === 'article' && section && <meta property="article:section" content={section} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
     <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
   </head>
   <body class="grain flex min-h-[100dvh] flex-col">
