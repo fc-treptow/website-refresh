@@ -7,6 +7,7 @@ import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, ogLocal
 import { useTranslations } from '../i18n/ui';
 import { club } from '../data/club';
 import { getLinks, hostOf, splitHost } from '../lib/links';
+import { defaultImage } from '../lib/defaultImage.mjs';
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ interface Props {
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(lang);
-const { title, description = t.footerTagline, image = '/images/team-h1.jpg', imageAlt, noindex = false, type = 'website', published, section } = Astro.props;
+const { title, description = t.footerTagline, image = defaultImage(), imageAlt, noindex = false, type = 'website', published, section } = Astro.props;
 const dir = isRtl(lang) ? 'rtl' : 'ltr';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const bare = path.replace(new RegExp(`^/(${locales.filter((x) => x !== defaultLocale).join('|')})(?=/|$)`), '') || '/';

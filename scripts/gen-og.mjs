@@ -9,12 +9,13 @@
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import sharp from 'sharp';
+import { defaultImage as currentDefault } from '../src/lib/defaultImage.mjs';
 
 const out = 'public/images/og';
 const width = 1200;
 const height = 630;
-// Standardbild für Seiten ohne eigenes Foto, muss zu Base.astro passen
-const defaultImage = '/images/team-h1.jpg';
+// Standardbild für Seiten ohne eigenes Foto: aktuelles Foto der 1. Herren (wie in Base.astro)
+const defaultImage = currentDefault();
 
 // Fotos werden auf das Format zugeschnitten. Produktbilder im Shop dagegen ganz gezeigt,
 // auf Papierfarbe (--color-paper), damit nichts vom Artikel abgeschnitten wird.
