@@ -103,7 +103,7 @@ collections:
           - { name: name, label: Name, widget: string }
           - { name: role, label: Aufgabe, widget: select, options: [{ label: Trainer, value: coach }, { label: Co-Trainer, value: assistant }, { label: Teammanager, value: manager }] }
           - { name: phone, label: Telefon, widget: string, required: false, hint: 'Freiwillig. Wird auf der Seite anklickbar angezeigt.' }
-      - { name: contact, label: Kontakt-E-Mail, widget: string, default: kontakt@fc-treptow.de }
+      - { name: contact, label: Kontakt-E-Mail, widget: string, default: kontakt@fc-treptow.de, pattern: ['^[^\s@]+@[^\s@]+\.[^\s@]+$', 'Bitte eine gültige E-Mail-Adresse eintragen.'], hint: 'Steht öffentlich auf der Mannschaftsseite. Probetraining-Anfragen für dieses Team gehen zusätzlich an diese Adresse (kontakt@ bekommt sie immer). Am besten eine Teamadresse wie herren1@fc-treptow.de statt einer privaten.' }
       - { name: image, label: Mannschaftsfoto, widget: image, hint: 'Querformat, alle gut zu sehen.' }
       - { name: imageFocus, label: Bildausschnitt, widget: number, value_type: int, default: 50, min: 0, max: 100, hint: 'Nur ändern, wenn auf dem Foto Köpfe abgeschnitten sind. Kleinere Zahl zeigt mehr vom oberen Rand.' }
       - name: gallery

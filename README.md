@@ -139,9 +139,50 @@ Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. V
 
 ## Formulare
 
-Das Probetraining öffnet das E-Mail-Programm mit fertiger Nachricht an
-kontakt@fc-treptow.de. Es fließen keine Daten über einen Server. Wer lieber einen Formulardienst
-will, setzt `PUBLIC_FORM_ENDPOINT` (dann ist ein AV-Vertrag mit dem Anbieter nötig).
+### Probetraining (Betriebshandbuch)
+
+Das Formular unter /probetraining schickt die Anfrage an die Vercel-Funktion
+`api/probetraining.mjs`. Die verschickt zwei E-Mails über das Google-Workspace-Konto
+**noreply@fc-treptow.de** (Absendername „FC Treptow Probetraining“):
+
+1. **An den Verein:** immer an kontakt@, zusätzlich an die **Kontakt-E-Mail der Wunsch-Mannschaft**
+   (CMS › Mannschaften › Kontakt-E-Mail). Steht dort kontakt@ oder nichts, geht sie nur an kontakt@.
+   „Antworten“ geht direkt an die Spielerin oder den Spieler. Mit Telefonnummer steht ein
+   WhatsApp-Link in der Mail.
+2. **Eingangsbestätigung** an die angegebene Adresse, in der Sprache der Seite. Antworten darauf
+   landen bei kontakt@.
+
+Gespeichert wird nichts auf der Website. Alle Anfragen sammeln sich bei kontakt@ unter dem
+Gmail-Label **Probetraining** (Filter: von noreply@, Betreff „Probetraining:“). Den Stand pflegt man
+mit den Unter-Labels Neu, Kontaktiert, Termin, Mitglied, Abgesagt.
+
+**Trainer wechselt:** im CMS bei der Mannschaft die Kontakt-E-Mail ändern, fertig. Am besten eine
+Teamadresse (Google-Gruppe wie herren1@), dann ändert man nur die Mitglieder der Gruppe.
+
+**Spam-Schutz:** ALTCHA (Open Source, läuft auf unserem Server, keine Cookies, kein Fremdskript;
+`api/altcha.mjs`, `src/lib/altcha.mjs`), ein für Menschen unsichtbares Feld, eine Mindestzeit von
+drei Sekunden, nur Anfragen von der eigenen Seite, keine Links im Freitext.
+
+**Einstellungen in Vercel** (Project › Settings › Environment Variables, danach neu deployen):
+
+| Variable | Wert |
+| --- | --- |
+| `SMTP_USER` | noreply@fc-treptow.de |
+| `SMTP_PASS` | App-Passwort von noreply@ (myaccount.google.com/apppasswords) |
+| `ALTCHA_HMAC_KEY` | lange Zufallszeichenkette, z. B. aus `openssl rand -hex 32` |
+| `MAIL_TO` | optional, Standard kontakt@fc-treptow.de |
+| `SMTP_HOST` | optional, Standard smtp.gmail.com |
+| `ALTCHA_DIFFICULTY` | optional, Standard 5000; höher, wenn trotzdem Spam ankommt |
+
+**Wenn keine Anfragen mehr ankommen:** In Vercel unter Logs nach `probetraining:` suchen (dort steht
+nur der Fehler, nie Formularinhalte). Häufigster Grund: Das Passwort von noreply@ wurde geändert.
+Dann widerruft Google das App-Passwort. Neues App-Passwort erzeugen und `SMTP_PASS` ersetzen.
+
+**Monatlich** (Kalendertermin für zwei Personen): eine Testanfrage über das Formular schicken und
+bei kontakt@ suchen nach `label:probetraining older_than:6m -label:probetraining-mitglied`, Treffer
+löschen (Löschfrist aus der Datenschutzerklärung).
+
+**Lokal testen:** `MAIL_DRY_RUN=1` setzt den Versand aus und gibt die Mails in der Konsole aus.
 
 Mitgliedsantrag und Mitgliederbereich laufen über easyVerein und sind nur verlinkt (neuer Tab, mit
 Hinweis auf easyVerein und die Domain), nicht eingebettet. Beide Adressen pflegt die Redaktion im CMS
