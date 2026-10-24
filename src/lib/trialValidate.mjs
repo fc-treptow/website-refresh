@@ -5,7 +5,6 @@
 
 export const locales = ['de', 'en', 'tr', 'ar', 'es', 'fr'];
 export const contactWays = ['email', 'phone', 'whatsapp'];
-export const weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
 export const limits = { name: 80, email: 120, phone: 20, experience: 1000 };
 
@@ -19,7 +18,7 @@ const str = (v) => (typeof v === 'string' ? v.trim() : '');
 
 /**
  * @typedef {{ name: string, age: number, email: string, phone: string, contactWay: string,
- *   team: string, days: string[], experience: string, lang: string }} TrialRequest
+ *   team: string, experience: string, lang: string }} TrialRequest
  */
 
 /**
@@ -48,8 +47,6 @@ export function validateTrial(body, teams) {
   const team = str(body.team);
   if (team && !Object.hasOwn(teams, team)) return { ok: false, field: 'team' };
 
-  const days = Array.isArray(body.days) ? body.days.filter((d) => weekdays.includes(d)) : [];
-
   const experience = str(body.experience);
   if (experience.length > limits.experience || linkPattern.test(experience)) return { ok: false, field: 'experience' };
 
@@ -57,7 +54,7 @@ export function validateTrial(body, teams) {
 
   const lang = locales.includes(str(body.lang)) ? str(body.lang) : 'de';
 
-  return { ok: true, data: { name, age, email, phone, contactWay, team, days: [...new Set(days)], experience, lang } };
+  return { ok: true, data: { name, age, email, phone, contactWay, team, experience, lang } };
 }
 
 /**

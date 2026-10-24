@@ -114,7 +114,7 @@ Auf unserer Website können Sie über ein Formular ein kostenloses Probetraining
 - E-Mail-Adresse,
 - Telefonnummer (freiwillig; erforderlich, wenn Sie einen Anruf oder WhatsApp als Kontaktweg wählen),
 - gewünschter Kontaktweg,
-- gewünschte Mannschaft und Trainingstage,
+- gewünschte Mannschaft,
 - Ihre freiwilligen Angaben zu Position, bisherigem Verein und Erfahrung sowie
 - die Sprache der Seite, auf der Sie das Formular abgeschickt haben.
 

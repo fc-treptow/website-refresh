@@ -7,8 +7,8 @@ import { club } from '../../data/club';
 import { encodeEmail } from '../../lib/email';
 import { useTranslations } from '../../i18n/ui';
 import { getLinks } from '../../lib/links';
-import { getTeams, leagueLabel, dayName } from '../../i18n/content';
-import { limits, weekdays } from '../../lib/trialValidate.mjs';
+import { getTeams, leagueLabel } from '../../i18n/content';
+import { limits } from '../../lib/trialValidate.mjs';
 
 // Die Anfrage geht an die Vercel-Funktion api/probetraining.mjs, die per E-Mail an den Verein
 // und die Wunsch-Mannschaft weiterleitet. Spam-Schutz: ALTCHA (api/altcha.mjs), ein verstecktes
@@ -19,8 +19,6 @@ const t = pageT('probetraining', lang);
 const ui = useTranslations(lang);
 const { applicationUrl } = await getLinks();
 const teams = await getTeams(lang);
-// Nur Tage anbieten, an denen mindestens eine Mannschaft trainiert
-const trainingDays = (weekdays as Array<(typeof teams)[number]['data']['training'][number]['day']>).filter((d) => teams.some((team) => team.data.training.some((s) => s.day === d)));
 const [privacyBefore, privacyAfter] = t.privacy.split('{link}');
 
 const field = 'min-h-12 w-full rounded-sm border border-ink/25 bg-card px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-soft/60 focus:border-ink focus:ring-2 focus:ring-club/25 aria-invalid:border-club';
@@ -70,14 +68,6 @@ const box = 'h-5 w-5 shrink-0 accent-club';
           </select>
         </div>
 
-        {trainingDays.length > 0 && (
-          <fieldset class="flex flex-col gap-2 sm:col-span-2">
-            <legend class={`${label} mb-2`}>{t.days} <span class="font-normal text-ink-soft">{t.optional}</span></legend>
-            <div class="flex flex-wrap gap-x-6">
-              {trainingDays.map((d) => <label class={choice}><input type="checkbox" name="days" value={d} class={box} />{dayName(d, lang)}</label>)}
-            </div>
-          </fieldset>
-        )}
 
         <div class="flex flex-col gap-2 sm:col-span-2">
           <label for="experience" class={label}>{t.experience} <span class="font-normal text-ink-soft">{t.experienceHint}</span></label>
@@ -211,7 +201,6 @@ const box = 'h-5 w-5 shrink-0 accent-club';
         phone: data.get('phone'),
         contactWay: data.get('contactWay'),
         team: data.get('team'),
-        days: data.getAll('days'),
         experience: data.get('experience'),
         privacy: data.get('privacy') === 'on',
         website: data.get('website'),

@@ -42,7 +42,6 @@ export function clubMail(r, team) {
     `Telefon: ${r.phone || '–'}`,
     `Bevorzugter Kontaktweg: ${contactWayNames[/** @type {keyof typeof contactWayNames} */ (r.contactWay)]}`,
     `Wunsch-Team: ${team ? team.name : 'egal, Hauptsache kicken'}`,
-    `Kann an: ${r.days.length ? r.days.join(', ') : '–'}`,
     `Sprache der Seite: ${languageNames[/** @type {keyof typeof languageNames} */ (r.lang)]}`,
     '',
     'Kurz zur Person:',
@@ -73,7 +72,6 @@ const confirmTexts = {
     times: 'Trainingszeiten von {team}:',
     anyTeam: 'Wir schauen gemeinsam, welche Mannschaft zu dir passt.',
     under18: 'Hinweis: Wir haben nur Herrenmannschaften (ab 18 Jahren). Wir melden uns trotzdem bei dir.',
-    bring: 'Zum Probetraining brauchst du nur Sportsachen und Schienbeinschoner.',
     more: 'Mehr zur Mannschaft und zum Platz:',
     reply: 'Fragen? Antworte einfach auf diese E-Mail.',
     regards: 'Sportliche Grüße\nFC Treptow e.V.',
@@ -86,7 +84,6 @@ const confirmTexts = {
     times: 'Training times of {team}:',
     anyTeam: 'We will figure out together which team suits you.',
     under18: 'Please note: we only have men’s teams (18 and over). We will still get back to you.',
-    bring: 'For the trial session you only need sports gear and shin guards.',
     more: 'More about the team and the ground:',
     reply: 'Questions? Just reply to this email.',
     regards: 'Best regards\nFC Treptow e.V.',
@@ -99,7 +96,6 @@ const confirmTexts = {
     times: '{team} antrenman saatleri:',
     anyTeam: 'Hangi takımın sana uygun olduğuna birlikte bakacağız.',
     under18: 'Not: Sadece erkek takımlarımız var (18 yaş ve üstü). Yine de sana dönüş yapacağız.',
-    bring: 'Deneme antrenmanı için sadece spor kıyafeti ve tekmelik yeterli.',
     more: 'Takım ve saha hakkında daha fazlası:',
     reply: 'Sorun mu var? Bu e-postayı yanıtlaman yeterli.',
     regards: 'Sportif selamlar\nFC Treptow e.V.',
@@ -112,7 +108,6 @@ const confirmTexts = {
     times: 'مواعيد تدريب {team}:',
     anyTeam: 'سنرى معًا أي فريق يناسبك.',
     under18: 'ملاحظة: لدينا فرق رجال فقط (من 18 عامًا). سنتواصل معك على أي حال.',
-    bring: 'كل ما تحتاجه للتدريب التجريبي هو ملابس رياضية وواقيات ساق.',
     more: 'المزيد عن الفريق والملعب:',
     reply: 'لديك أسئلة؟ فقط رُد على هذه الرسالة.',
     regards: 'مع أطيب التحيات الرياضية\nFC Treptow e.V.',
@@ -125,7 +120,6 @@ const confirmTexts = {
     times: 'Horarios de entrenamiento de {team}:',
     anyTeam: 'Veremos juntos qué equipo encaja contigo.',
     under18: 'Ten en cuenta que solo tenemos equipos masculinos (a partir de 18 años). Aun así te contactaremos.',
-    bring: 'Para el entrenamiento de prueba solo necesitas ropa deportiva y espinilleras.',
     more: 'Más sobre el equipo y el campo:',
     reply: '¿Preguntas? Responde a este correo.',
     regards: 'Saludos deportivos\nFC Treptow e.V.',
@@ -138,7 +132,6 @@ const confirmTexts = {
     times: 'Horaires d’entraînement de {team} :',
     anyTeam: 'Nous verrons ensemble quelle équipe vous correspond.',
     under18: 'À noter : nous n’avons que des équipes masculines (18 ans et plus). Nous vous recontacterons quand même.',
-    bring: 'Pour la séance d’essai, il vous faut seulement une tenue de sport et des protège-tibias.',
     more: 'En savoir plus sur l’équipe et le terrain :',
     reply: 'Des questions ? Répondez simplement à cet e-mail.',
     regards: 'Sportivement\nFC Treptow e.V.',
@@ -166,7 +159,6 @@ export function confirmMail(r, team, teamSlug, origin) {
     lines.push(t.anyTeam, '');
   }
   if (r.age < 18) lines.push(t.under18, '');
-  lines.push(t.bring, '');
   lines.push(t.more, team ? `${origin}${prefix}/mannschaften/${teamSlug}` : `${origin}${prefix}/mannschaften`, '');
   lines.push(t.reply, '', t.regards, '', '--', t.footer);
   return { subject: t.subject, text: lines.join('\n') };
