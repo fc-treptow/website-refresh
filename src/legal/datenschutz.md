@@ -8,7 +8,7 @@ Unsere Website ist bewusst datensparsam gebaut:
 - Es werden keine Informationen in Ihrem Browser gespeichert (auch kein Local Storage). Einzige Ausnahme: der Fanshop, und nur nachdem Sie ihn selbst per Klick geöffnet haben (Abschnitt 9).
 - Schriftarten werden von unserem eigenen Server ausgeliefert, nicht von Google Fonts.
 - Auf den öffentlichen Seiten sind keine Skripte, Videos, Karten oder Social-Media-Plugins von Drittanbietern eingebunden. Der Fanshop lädt erst nach Ihrem Klick (Abschnitt 9).
-- Unsere Formulare übertragen keine Daten an einen Server. Sie öffnen lediglich Ihr eigenes E-Mail-Programm.
+- Das Formular für das Probetraining speichert keine Daten auf der Website. Ihre Angaben werden nur per E-Mail an unser Vereinspostfach weitergeleitet (Abschnitt 10).
 
 Ihre Daten werden vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung behandelt.
 
@@ -101,29 +101,30 @@ Der Shop ist auf der Seite "Fanshop" unserer Website eingebettet. Er wird **erst
 Sobald Sie den Shop öffnen, lädt Ihr Browser Inhalte von Servern von Spreadshirt. Dabei werden technisch notwendige Daten wie Ihre IP-Adresse, Browsertyp und Uhrzeit an Spreadshirt übertragen. Der Shop speichert außerdem Ihren Warenkorb im lokalen Speicher Ihres Browsers und kann eigene Cookies setzen, für die Spreadshirt gegebenenfalls eine eigene Einwilligung einholt. Rechtsgrundlage für das Laden des Shops ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Wenn Sie die Seite verlassen, ist der Shop beim nächsten Besuch wieder deaktiviert, bis Sie erneut klicken.
 
 Bestellungen schließen Sie direkt mit Spreadshirt ab. Für die Verarbeitung Ihrer Daten beim Einkauf, zum Beispiel Bestell-, Liefer- und Zahlungsdaten, ist Spreadshirt verantwortlich. Es gilt die [Datenschutzerklärung von Spreadshirt](https://www.spreadshirt.de/datenschutz).
-## 10. Formulare für Probetraining, Mitgliedschaft und Kontakt
+## 10. Formular für das Probetraining
 
-Auf unserer Website finden Sie Formulare, um ein Probetraining anzufragen, sich nach einem Probetraining als Mitglied anzumelden oder uns eine Nachricht zu schreiben.
+Auf unserer Website können Sie über ein Formular ein kostenloses Probetraining anfragen.
 
-**So funktionieren die Formulare:** Ihre Eingaben werden nicht an unseren Server oder an Dritte gesendet und von der Website nicht gespeichert. Beim Absenden öffnet sich Ihr eigenes E-Mail-Programm mit einer vorausgefüllten E-Mail an [kontakt@fc-treptow.de](mailto:kontakt@fc-treptow.de). Sie können die E-Mail vor dem Versand prüfen, ändern oder verwerfen. Erst wenn Sie die E-Mail selbst abschicken, erhalten wir Ihre Daten. Der Versand läuft dabei über Ihren eigenen E-Mail-Anbieter.
+**So funktioniert das Formular:** Beim Absenden werden Ihre Angaben verschlüsselt (HTTPS) an eine Funktion auf unserem Server bei Vercel (Abschnitt 5) übertragen. Diese prüft die Angaben und leitet sie per E-Mail an unser Vereinspostfach kontakt@fc-treptow.de weiter. Haben Sie eine Wunsch-Mannschaft gewählt, geht die E-Mail zusätzlich an die für diese Mannschaft angegebene Kontaktadresse. Außerdem senden wir Ihnen eine automatische Eingangsbestätigung an die angegebene E-Mail-Adresse. Die Website selbst speichert Ihre Angaben nicht; in den Server-Protokollen werden keine Formularinhalte festgehalten.
 
-**Verarbeitete Daten:** Je nach Formular sind dies
+**Verarbeitete Daten:**
 
 - Name,
-- Alter bzw. Geburtsdatum,
+- Alter,
 - E-Mail-Adresse,
-- Telefonnummer (freiwillig),
-- Anschrift (bei der Mitgliedsanmeldung),
-- gewünschte Mannschaft,
-- bisheriger Verein,
-- gewählter Beitragstarif sowie
-- der Inhalt Ihrer Nachricht.
+- Telefonnummer (freiwillig; erforderlich, wenn Sie einen Anruf oder WhatsApp als Kontaktweg wählen),
+- gewünschter Kontaktweg,
+- gewünschte Mannschaft und Trainingstage,
+- Ihre freiwilligen Angaben zu Position, bisherigem Verein und Erfahrung sowie
+- die Sprache der Seite, auf der Sie das Formular abgeschickt haben.
 
-**Zwecke und Rechtsgrundlage:** Wir verarbeiten die Daten, um Ihre Anfrage zum Probetraining zu bearbeiten und einen Termin abzustimmen, um Ihre Mitgliedschaft vorzubereiten und um allgemeine Anfragen zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen bzw. Mitgliedschaft im Verein). Bei allgemeinen Anfragen ohne Bezug zu einer Mitgliedschaft ist Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Beantwortung Ihres Anliegens.
+**Zwecke und Rechtsgrundlage:** Wir verarbeiten die Daten, um Ihre Anfrage zu bearbeiten, Sie zu kontaktieren und einen Termin für das Probetraining abzustimmen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen im Hinblick auf eine Mitgliedschaft im Verein).
 
-**Empfänger:** Ihre E-Mail geht bei unserem E-Mail-Anbieter ein, der sie in unserem Auftrag als Auftragsverarbeiter (Art. 28 DSGVO) speichert. Innerhalb des Vereins erhalten nur die Personen Zugriff, die für die Bearbeitung zuständig sind, zum Beispiel Vorstand, Geschäftsstelle und die zuständigen Trainerinnen und Trainer.
+**Schutz vor Missbrauch:** Um automatisierte Massen-Anfragen (Spam) abzuwehren, löst Ihr Browser beim Aufruf der Seite im Hintergrund eine kleine Rechenaufgabe (ALTCHA). Die Aufgabe wird von unserem eigenen Server ausgegeben und geprüft; dabei werden keine Cookies gesetzt und keine Daten an Dritte übermittelt. Zusätzlich prüfen wir, ob das Formular ungewöhnlich schnell ausgefüllt wurde. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im Schutz unserer Website und unseres Postfachs vor Missbrauch.
 
-**Speicherdauer:** Anfragen zum Probetraining löschen wir nach sechs Monaten, wenn daraus keine Mitgliedschaft entsteht. Allgemeine Anfragen löschen wir, sobald sie abschließend bearbeitet sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Zur Speicherdauer bei einer Mitgliedschaft siehe Abschnitt 12.
+**Empfänger:** Unsere E-Mail-Postfächer betreiben wir bei Google Workspace (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland), das die E-Mails in unserem Auftrag als Auftragsverarbeiter (Art. 28 DSGVO) versendet und speichert. Mit Google haben wir einen Vertrag zur Auftragsverarbeitung geschlossen. Innerhalb des Vereins erhalten nur die Personen Zugriff, die für die Bearbeitung zuständig sind, zum Beispiel Vorstand und die Trainerinnen und Trainer der gewählten Mannschaft. Wählen Sie WhatsApp als Kontaktweg, melden wir uns über WhatsApp (WhatsApp Ireland Limited); dafür gelten die Datenschutzbestimmungen von WhatsApp. Wir nutzen WhatsApp nur, wenn Sie diesen Kontaktweg selbst gewählt haben.
+
+**Speicherdauer:** Anfragen zum Probetraining löschen wir nach sechs Monaten, wenn daraus keine Mitgliedschaft entsteht. Das gilt auch für Kopien in den Postfächern der Trainerinnen und Trainer. Zur Speicherdauer bei einer Mitgliedschaft siehe Abschnitt 12.
 
 ## 11. Kontakt per E-Mail oder Telefon
 
@@ -149,7 +150,7 @@ Beim Öffnen von /admin lädt der Browser das Programm des Decap CMS vom Dienst 
 
 Personenbezogene Daten geben wir nur weiter, wenn dies zur Erfüllung eines Vertrags erforderlich ist, eine gesetzliche Pflicht besteht, ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO vorliegt oder Sie eingewilligt haben. Dienstleister, die in unserem Auftrag Daten verarbeiten, setzen wir nur auf Grundlage eines Vertrags zur Auftragsverarbeitung nach Art. 28 DSGVO ein. Eine Weitergabe zu Werbezwecken oder ein Verkauf von Daten findet nicht statt.
 
-Eine Übermittlung in ein Land außerhalb der EU bzw. des EWR findet im Rahmen des Hostings bei Vercel statt (siehe Abschnitt 5). Sie ist durch die Zertifizierung von Vercel nach dem EU-US Data Privacy Framework sowie ergänzend durch die EU-Standardvertragsklauseln abgesichert.
+Eine Übermittlung in ein Land außerhalb der EU bzw. des EWR findet im Rahmen des Hostings bei Vercel statt (siehe Abschnitt 5) und kann beim E-Mail-Dienst Google Workspace (Abschnitt 10) nicht ausgeschlossen werden. Beide Anbieter sind nach dem EU-US Data Privacy Framework zertifiziert; ergänzend gelten die EU-Standardvertragsklauseln.
 
 ## 15. Speicherdauer
 
@@ -159,7 +160,7 @@ Soweit in dieser Datenschutzerklärung keine speziellere Speicherdauer genannt i
 
 Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung von Inhalten eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers mit „https://“ beginnt und ein Schloss-Symbol angezeigt wird. Bei aktivierter Verschlüsselung können die Daten, die Sie an uns übermitteln, nicht von Dritten mitgelesen werden.
 
-Darüber hinaus treffen wir angemessene technische und organisatorische Maßnahmen, um Ihre Daten vor Verlust, Veränderung und unbefugtem Zugriff zu schützen, und erheben nur die Daten, die für den jeweiligen Zweck erforderlich sind. Bitte beachten Sie, dass die Sicherheit von E-Mails, die Sie über Ihr eigenes E-Mail-Programm versenden, auch von Ihrem E-Mail-Anbieter abhängt.
+Darüber hinaus treffen wir angemessene technische und organisatorische Maßnahmen, um Ihre Daten vor Verlust, Veränderung und unbefugtem Zugriff zu schützen, und erheben nur die Daten, die für den jeweiligen Zweck erforderlich sind.
 
 ## 17. Ihre Rechte
 
