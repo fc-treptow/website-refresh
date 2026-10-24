@@ -42,7 +42,9 @@ const teams = defineCollection({
     order: z.number(),
     training: list(z.object({ day: z.enum(weekdays), from: time, to: time })),
     ground: z.string().default('Willi-Sänger-Sportanlage, Köpenicker Landstraße 186, 12437 Berlin'),
-    contact: z.string().default('kontakt@fc-treptow.de'),
+    // Steht auf der Mannschaftsseite; Probetraining-Anfragen für das Team gehen zusätzlich hierhin
+    // (scripts/gen-teams.mjs -> api/probetraining.mjs).
+    contact: z.email().default('kontakt@fc-treptow.de'),
     image: z.string(),
     // Bildausschnitt: 0 = oberer Bildrand, 100 = unterer Bildrand
     imageFocus: z.number().min(0).max(100).default(50),

@@ -1,55 +1,28 @@
-// Formularversand ohne Fremddienst.
-//
-// Hintergrund: Die Anmeldung erhebt personenbezogene Daten (Name, Geburtsdatum,
-// Anschrift). Der datenschutzrechtlich einfachste Weg für einen kleinen Verein ist,
-// diese Daten direkt an das eigene Postfach zu schicken, ohne einen Auftragsverarbeiter
-// dazwischen. Deshalb ist der Standardweg eine vorausgefüllte E-Mail.
-//
-// Sobald der Verein einen Formulardienst nutzen möchte (z. B. Formspree oder
-// Web3Forms), genügt es, PUBLIC_FORM_ENDPOINT als Umgebungsvariable zu setzen. Dann
-// wird das Formular per fetch dorthin geschickt und die E-Mail entfällt.
-// Wichtig: Ein solcher Dienst braucht dann einen Auftragsverarbeitungsvertrag.
+// Formularversand an eine eigene Vercel-Funktion (z. B. api/probetraining.mjs).
+// Die Funktion prüft alles noch einmal und verschickt die E-Mails über das Vereinskonto
+// noreply@. Es läuft kein Fremddienst dazwischen.
 
-import { decodeEmail } from './email';
-
-// Die Zieladresse steht kodiert im data-to des Formulars (siehe src/lib/email.ts), damit sie
-// weder im HTML noch im ausgelieferten Skript im Klartext steht.
-
-export type SubmitResult = { kind: 'sent' } | { kind: 'mail-client'; href: string };
-
-function collect(form: HTMLFormElement): Array<[string, string]> {
-  const data = new FormData(form);
-  const rows: Array<[string, string]> = [];
-  for (const [key, value] of data.entries()) {
-    if (typeof value === 'string' && value.trim() !== '') {
-      const el = form.elements.namedItem(key);
-      const id = el instanceof Element ? el.id : '';
-      const label = id ? form.querySelector(`label[for="${CSS.escape(id)}"]`)?.textContent?.trim() : undefined;
-      rows.push([label || key, value.trim()]);
-    }
+export class FormError extends Error {
+  constructor(
+    readonly code: string,
+    readonly field?: string,
+  ) {
+    super(`Formularversand fehlgeschlagen: ${code}`);
   }
-  return rows;
 }
 
-export async function submitForm(form: HTMLFormElement, subject: string): Promise<SubmitResult> {
-  const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT;
-  const rows = collect(form);
-
-  if (endpoint) {
-    const payload: Record<string, string> = { _subject: subject };
-    for (const [key, value] of rows) payload[key] = value;
-    const res = await fetch(endpoint, {
+export async function postForm(url: string, payload: Record<string, unknown>): Promise<void> {
+  let res: Response;
+  try {
+    res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(`Formularversand fehlgeschlagen: ${res.status}`);
-    return { kind: 'sent' };
+  } catch {
+    throw new FormError('network');
   }
-
-  // Kein Endpunkt konfiguriert: vorausgefüllte E-Mail an das Vereinspostfach öffnen.
-  const body = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
-  const href = `mailto:${decodeEmail(form.dataset.to ?? '')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = href;
-  return { kind: 'mail-client', href };
+  if (res.ok) return;
+  const body = (await res.json().catch(() => ({}))) as { error?: string; field?: string };
+  throw new FormError(body.error ?? `http_${res.status}`, body.field);
 }

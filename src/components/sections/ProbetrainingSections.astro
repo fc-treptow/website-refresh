@@ -4,51 +4,100 @@ import Icon from '../Icon.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
-import { emailAttrs, encodeEmail } from '../../lib/email';
+import { encodeEmail } from '../../lib/email';
 import { useTranslations } from '../../i18n/ui';
 import { getLinks } from '../../lib/links';
+import { getTeams, leagueLabel, dayName } from '../../i18n/content';
+import { limits, weekdays } from '../../lib/trialValidate.mjs';
+
+// Die Anfrage geht an die Vercel-Funktion api/probetraining.mjs, die per E-Mail an den Verein
+// und die Wunsch-Mannschaft weiterleitet. Spam-Schutz: ALTCHA (api/altcha.mjs), ein verstecktes
+// Feld und eine Mindestzeit. Siehe README, Abschnitt "Formulare".
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('probetraining', lang);
 const ui = useTranslations(lang);
 const { applicationUrl } = await getLinks();
-const field = 'min-h-12 w-full rounded-sm border border-ink/25 bg-card px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-soft/60 focus:border-ink focus:ring-2 focus:ring-club/25';
+const teams = await getTeams(lang);
+// Nur Tage anbieten, an denen mindestens eine Mannschaft trainiert
+const trainingDays = (weekdays as Array<(typeof teams)[number]['data']['training'][number]['day']>).filter((d) => teams.some((team) => team.data.training.some((s) => s.day === d)));
+const [privacyBefore, privacyAfter] = t.privacy.split('{link}');
+
+const field = 'min-h-12 w-full rounded-sm border border-ink/25 bg-card px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-soft/60 focus:border-ink focus:ring-2 focus:ring-club/25 aria-invalid:border-club';
 const label = 'text-sm font-semibold';
+const choice = 'flex min-h-11 cursor-pointer items-center gap-3 text-base';
+const box = 'h-5 w-5 shrink-0 accent-club';
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
     <div class="lg:col-span-7">
-      <form id="trial-form" class="grid gap-6 sm:grid-cols-2" novalidate data-to={encodeEmail(club.email)}>
+      <form id="trial-form" class="grid gap-6 sm:grid-cols-2" novalidate data-to={encodeEmail(club.email)} data-lang={lang}>
         <div class="flex flex-col gap-2">
           <label for="name" class={label}>{t.name}</label>
-          <input id="name" name="name" type="text" autocomplete="name" required class={field} />
+          <input id="name" name="name" type="text" autocomplete="name" required minlength="2" maxlength={limits.name} class={field} />
         </div>
         <div class="flex flex-col gap-2">
           <label for="age" class={label}>{t.age}</label>
-          <input id="age" name="age" type="number" inputmode="numeric" min="14" max="99" required class={field} />
+          <input id="age" name="age" type="number" inputmode="numeric" min="1" max="99" required aria-describedby="age-hint" class={field} />
+          <p id="age-hint" class="hidden text-sm text-ink-soft" aria-live="polite">{t.under18Hint}</p>
         </div>
         <div class="flex flex-col gap-2">
           <label for="email" class={label}>{t.email}</label>
-          <input id="email" name="email" type="email" autocomplete="email" required class={field} />
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength={limits.email} class={field} />
         </div>
         <div class="flex flex-col gap-2">
-          <label for="phone" class={label}>{t.phone} <span class="font-normal text-ink-soft">{t.optional}</span></label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" class={field} />
+          <label for="phone" class={label}>{t.phone} <span id="phone-optional" class="font-normal text-ink-soft">{t.optional}</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength={limits.phone} pattern="\+?[0-9 \(\)\/\-]{6,20}" aria-describedby="phone-hint" class={field} />
+          <p id="phone-hint" class="hidden text-sm text-ink-soft">{t.phoneNeeded}</p>
         </div>
+
+        <fieldset class="flex flex-col gap-2 sm:col-span-2">
+          <legend class={`${label} mb-2`}>{t.contactWay}</legend>
+          <div class="flex flex-wrap gap-x-6">
+            <label class={choice}><input type="radio" name="contactWay" value="email" checked class={box} />{t.contactEmail}</label>
+            <label class={choice}><input type="radio" name="contactWay" value="phone" class={box} />{t.contactPhone}</label>
+            <label class={choice}><input type="radio" name="contactWay" value="whatsapp" class={box} />{t.contactWhatsapp}</label>
+          </div>
+        </fieldset>
+
         <div class="flex flex-col gap-2 sm:col-span-2">
           <label for="team" class={label}>{t.team}</label>
           <select id="team" name="team" class={field}>
-            {t.teamOptions.map((o: string) => <option>{o}</option>)}
+            <option value="">{t.teamAny}</option>
+            {teams.map((team) => <option value={team.slug}>{team.data.name} ({leagueLabel(team.data.league, lang).split(',')[0]})</option>)}
           </select>
         </div>
+
+        {trainingDays.length > 0 && (
+          <fieldset class="flex flex-col gap-2 sm:col-span-2">
+            <legend class={`${label} mb-2`}>{t.days} <span class="font-normal text-ink-soft">{t.optional}</span></legend>
+            <div class="flex flex-wrap gap-x-6">
+              {trainingDays.map((d) => <label class={choice}><input type="checkbox" name="days" value={d} class={box} />{dayName(d, lang)}</label>)}
+            </div>
+          </fieldset>
+        )}
+
         <div class="flex flex-col gap-2 sm:col-span-2">
           <label for="experience" class={label}>{t.experience} <span class="font-normal text-ink-soft">{t.experienceHint}</span></label>
-          <textarea id="experience" name="experience" rows="4" class={field}></textarea>
+          <textarea id="experience" name="experience" rows="4" maxlength={limits.experience} class={field}></textarea>
         </div>
+
+        <label class={`${choice} sm:col-span-2`}>
+          <input id="privacy" type="checkbox" name="privacy" required class={box} />
+          <span>{privacyBefore}<a href={l(lang, '/datenschutz')} target="_blank" class="font-semibold text-club underline underline-offset-4">{t.privacyLink}</a>{privacyAfter}</span>
+        </label>
+
+        <!-- Für Menschen unsichtbar, Bots füllen es aus -->
+        <div class="absolute -start-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
         <div class="sm:col-span-2">
-          <p id="trial-error" class="mb-4 hidden text-sm font-semibold text-club" role="alert" data-validation={t.errorMsg} data-failure={t.sendFailed}>{t.errorMsg}</p>
+          <altcha-widget challenge="/api/altcha" auto="onload" display="invisible" name="altcha" language={lang}></altcha-widget>
+          <p id="trial-error" class="mb-4 hidden text-sm font-semibold text-club" role="alert" data-validation={t.errorMsg} data-failure={t.sendFailed} data-phone={t.phoneNeeded} data-links={t.noLinks}>{t.errorMsg}</p>
           <button id="trial-submit" type="submit" data-sending={t.sending} class="group inline-flex min-h-12 items-center gap-3 rounded-full bg-club py-1.5 ps-6 pe-1.5 text-[15px] font-semibold text-white transition-[background-color,transform] duration-200 ease-(--ease-club) hover:bg-club-deep active:scale-[0.97] disabled:opacity-60">
             <span data-label>{t.submit}</span>
             <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 ease-(--ease-club) group-hover:translate-x-0.5"><Icon name="arrow" size={18} /></span>
@@ -58,9 +107,8 @@ const label = 'text-sm font-semibold';
 
       <div id="trial-done" class="hidden border-y border-ink py-10" role="status" tabindex="-1">
         <span class="flex h-12 w-12 items-center justify-center rounded-full bg-club text-white"><Icon name="check" size={22} /></span>
-        <h2 class="display mt-6 text-4xl" data-sent={t.successTitle} data-mail={t.mailTitle}>{t.successTitle}</h2>
-        <p class="mt-3 max-w-md text-lg leading-relaxed text-ink-soft" data-sent={t.successText} data-mail={t.mailText}>{t.successText}</p>
-        <p data-mail-only class="mt-6 hidden text-sm text-ink-soft">{t.mailFallback} <a data-mail-link {...emailAttrs(club.email)} class="font-semibold text-club underline underline-offset-4">{t.mailAgain}</a></p>
+        <h2 class="display mt-6 text-4xl">{t.successTitle}</h2>
+        <p class="mt-3 max-w-md text-lg leading-relaxed text-ink-soft">{t.successText}</p>
       </div>
     </div>
 
@@ -82,8 +130,10 @@ const label = 'text-sm font-semibold';
 </section>
 
 <script>
-  import { submitForm } from '../../lib/submitForm';
-  import { showDone } from '../../lib/formDone';
+  // ALTCHA-Widget selbst ausgeliefert (npm-Paket, kein Fremdskript). Es holt beim Laden eine
+  // Aufgabe von /api/altcha und löst sie im Hintergrund.
+  import 'altcha';
+  import { postForm, FormError } from '../../lib/submitForm';
   import { decodeEmail } from '../../lib/email';
 
   const form = document.getElementById('trial-form') as HTMLFormElement | null;
@@ -91,24 +141,96 @@ const label = 'text-sm font-semibold';
   const btn = document.getElementById('trial-submit') as HTMLButtonElement | null;
   const btnLabel = btn?.querySelector('[data-label]');
   const labelText = btnLabel?.textContent ?? '';
+  const age = document.getElementById('age') as HTMLInputElement | null;
+  const phone = document.getElementById('phone') as HTMLInputElement | null;
+  const widget = form?.querySelector('altcha-widget') as (HTMLElement & { verify?: () => void }) | null;
+
+  // Unter 18: Hinweis zeigen, aber nicht blockieren
+  age?.addEventListener('input', () => {
+    const n = Number(age.value);
+    document.getElementById('age-hint')?.classList.toggle('hidden', !(age.value && n > 0 && n < 18));
+  });
+
+  // Telefon ist Pflicht, wenn Anruf oder WhatsApp gewünscht ist
+  form?.querySelectorAll<HTMLInputElement>('input[name="contactWay"]').forEach((radio) =>
+    radio.addEventListener('change', () => {
+      const needsPhone = radio.value !== 'email';
+      if (phone) phone.required = needsPhone;
+      document.getElementById('phone-optional')?.classList.toggle('hidden', needsPhone);
+      document.getElementById('phone-hint')?.classList.toggle('hidden', !needsPhone);
+    }),
+  );
+
+  // Markierung entfernen, sobald jemand das Feld korrigiert
+  form?.addEventListener('input', (e) => (e.target as HTMLElement).removeAttribute('aria-invalid'));
+  form?.addEventListener('change', (e) => (e.target as HTMLElement).removeAttribute('aria-invalid'));
+
+  // Läuft die Aufgabe ab (Formular lange offen), gleich eine neue lösen
+  widget?.addEventListener('expired', () => widget.verify?.());
+
+  /** Wartet, bis das Widget seine Lösung ins versteckte Feld geschrieben hat. */
+  function altchaPayload(): Promise<string> {
+    const read = () => (form?.querySelector('input[name="altcha"]') as HTMLInputElement | null)?.value ?? '';
+    if (read()) return Promise.resolve(read());
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(read()), 30_000);
+      widget?.addEventListener('verified', () => { clearTimeout(timer); resolve(read()); }, { once: true });
+      widget?.verify?.();
+    });
+  }
+
+  function showError(text: string, fieldId?: string) {
+    if (!err) return;
+    err.textContent = text;
+    err.classList.remove('hidden');
+    const el = fieldId ? (document.getElementById(fieldId) as HTMLElement | null) : null;
+    if (el) { el.setAttribute('aria-invalid', 'true'); el.focus(); }
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) {
-      err!.textContent = err!.dataset.validation ?? '';
-      err?.classList.remove('hidden');
-      (form.querySelector(':invalid') as HTMLElement | null)?.focus();
+    form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+    // Eigene Felder prüfen; das ALTCHA-Widget hat eigene Eingaben und wartet unten auf seine Lösung
+    const invalids = [...form.querySelectorAll<HTMLElement>('input:invalid, select:invalid, textarea:invalid')].filter((el) => !el.closest('altcha-widget'));
+    const invalid = invalids[0];
+    if (invalid) {
+      invalids.forEach((el) => el.setAttribute('aria-invalid', 'true'));
+      showError(invalid === phone && phone?.required && !phone.value ? err!.dataset.phone ?? '' : err!.dataset.validation ?? '', invalid.id);
       return;
     }
     err?.classList.add('hidden');
     if (btn) btn.disabled = true;
     if (btnLabel) btnLabel.textContent = btn?.dataset.sending ?? labelText;
+
+    const data = new FormData(form);
     try {
-      const result = await submitForm(form, 'Probetraining-Anfrage');
-      showDone(form, document.getElementById('trial-done'), result);
-    } catch {
-      err!.textContent = (err!.dataset.failure ?? '').replace('{email}', decodeEmail(form.dataset.to ?? ''));
-      err?.classList.remove('hidden');
+      await postForm('/api/probetraining', {
+        name: data.get('name'),
+        age: Number(data.get('age')),
+        email: data.get('email'),
+        phone: data.get('phone'),
+        contactWay: data.get('contactWay'),
+        team: data.get('team'),
+        days: data.getAll('days'),
+        experience: data.get('experience'),
+        privacy: data.get('privacy') === 'on',
+        website: data.get('website'),
+        lang: form.dataset.lang,
+        altcha: await altchaPayload(),
+      });
+      const done = document.getElementById('trial-done');
+      form.classList.add('hidden');
+      done?.classList.remove('hidden');
+      done?.focus();
+    } catch (error) {
+      if (error instanceof FormError && error.code === 'validation') {
+        const text = error.field === 'experience' ? err!.dataset.links : error.field === 'phone' ? err!.dataset.phone : err!.dataset.validation;
+        showError(text ?? '', error.field);
+      } else {
+        showError((err!.dataset.failure ?? '').replace('{email}', decodeEmail(form.dataset.to ?? '')));
+        // Für den nächsten Versuch eine frische Aufgabe lösen
+        widget?.verify?.();
+      }
     } finally {
       if (btn) btn.disabled = false;
       if (btnLabel) btnLabel.textContent = labelText;
