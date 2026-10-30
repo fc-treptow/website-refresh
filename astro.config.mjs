@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
 import { emailHastPlugin } from './src/lib/markdownEmail.ts';
 
@@ -17,6 +18,17 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // sitemap-index.xml für Suchmaschinen, mit hreflang je Sprache. Die Redaktion (/admin) und
+  // die Anmeldeweiterleitung gehören nicht hinein.
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/(admin|anmeldung)\/?$/.test(new URL(page).pathname.replace(/^\/(en|tr|ar|es|fr)(?=\/)/, '')),
+      i18n: {
+        defaultLocale: 'de',
+        locales: { de: 'de', en: 'en', tr: 'tr', ar: 'ar', es: 'es', fr: 'fr' },
+      },
+    }),
+  ],
   markdown: {
     // mailto-Links in Markdown nicht im Klartext ausliefern (siehe src/lib/email.ts)
     processor: satteri({ hastPlugins: [emailHastPlugin] }),

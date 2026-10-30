@@ -1,0 +1,705 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/beitragsordnung",
+      "destination": "/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/Mannschaften/Herren1",
+      "destination": "/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/mannschaften/herren1",
+      "destination": "/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/Mannschaften/kopie-2-herren",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/mannschaften/kopie-2-herren",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/freizeit-kickers",
+      "destination": "/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/7er-herren-II/team2/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/7er-herren-ii/team2/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/dokumente",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/satzung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/antrag-bfv-spielberechtigung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/antrag-zweitspielrecht-bfv",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/foto-einverstandniserklarung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/verein/über_uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/verein/%C3%BCber_uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/verein/uber-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/verein/über-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/ehrenamt",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/anfahrt",
+      "destination": "/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/datenschutzbestimmungen",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/dsgvo",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/medien",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/bilderarchiv/Verein",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/bilderarchiv/verein",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/leer",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/machen-sie-das-beste-aus-der-jahreszeit-indem-sie-diese-einfachen-richtlinien-befolgen",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/halten-sie-den-kontakt-mit-website-besuchern-und-vertiefen-sie-die-bindung-mit-ihren-lesern",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/tipps-zum-verfassen-hervorragender-beitraege-die-den-traffic-ihrer-website-erhoehen",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/beitragsordnung",
+      "destination": "/en/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/vorstand",
+      "destination": "/en/vorstand",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/mannschaften",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/mannschaften/herren1",
+      "destination": "/en/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/mannschaften/kopie-2-herren",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/freizeit-kickers",
+      "destination": "/en/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/7er-herren-ii/team2/fc-treptow",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/dokumente",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/satzung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/antrag-bfv-spielberechtigung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/antrag-zweitspielrecht-bfv",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/foto-einverstandniserklarung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/verein/über_uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/verein/%c3%bcber_uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/verein/uber-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/verein/über-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/ehrenamt",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/anfahrt",
+      "destination": "/en/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/datenschutzbestimmungen",
+      "destination": "/en/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/dsgvo",
+      "destination": "/en/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/medien",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/bilderarchiv/verein",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/leer",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/machen-sie-das-beste-aus-der-jahreszeit-indem-sie-diese-einfachen-richtlinien-befolgen",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/halten-sie-den-kontakt-mit-website-besuchern-und-vertiefen-sie-die-bindung-mit-ihren-lesern",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/tipps-zum-verfassen-hervorragender-beitraege-die-den-traffic-ihrer-website-erhoehen",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/news",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/kontakt",
+      "destination": "/en/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/mitgliedschaft",
+      "destination": "/en/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/probetraining",
+      "destination": "/en/probetraining",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/schiedsrichter",
+      "destination": "/en/schiedsrichter",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/sponsoren",
+      "destination": "/en/sponsoren",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/vereinschronik",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/in-gedenken",
+      "destination": "/en/in-gedenken",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/:path*",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/beitragsordnung",
+      "destination": "/en/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/vorstand",
+      "destination": "/en/vorstand",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/mannschaften",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/mannschaften/herren1",
+      "destination": "/en/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/mannschaften/kopie-2-herren",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/freizeit-kickers",
+      "destination": "/en/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/7er-herren-ii/team2/fc-treptow",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/dokumente",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/satzung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/antrag-bfv-spielberechtigung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/antrag-zweitspielrecht-bfv",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/foto-einverstandniserklarung",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/verein/über_uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/verein/%c3%bcber_uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/verein/uber-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/verein/über-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/ehrenamt",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/anfahrt",
+      "destination": "/en/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/datenschutzbestimmungen",
+      "destination": "/en/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/dsgvo",
+      "destination": "/en/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/medien",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/bilderarchiv/verein",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/leer",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/machen-sie-das-beste-aus-der-jahreszeit-indem-sie-diese-einfachen-richtlinien-befolgen",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/halten-sie-den-kontakt-mit-website-besuchern-und-vertiefen-sie-die-bindung-mit-ihren-lesern",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/tipps-zum-verfassen-hervorragender-beitraege-die-den-traffic-ihrer-website-erhoehen",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/news",
+      "destination": "/en/news",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/kontakt",
+      "destination": "/en/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/mitgliedschaft",
+      "destination": "/en/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/probetraining",
+      "destination": "/en/probetraining",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/schiedsrichter",
+      "destination": "/en/schiedsrichter",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/sponsoren",
+      "destination": "/en/sponsoren",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/vereinschronik",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/in-gedenken",
+      "destination": "/en/in-gedenken",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/:path*",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/beitragsordnung",
+      "destination": "/es/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/vorstand",
+      "destination": "/es/vorstand",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/mannschaften",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/mannschaften/herren1",
+      "destination": "/es/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/mannschaften/kopie-2-herren",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/freizeit-kickers",
+      "destination": "/es/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/7er-herren-ii/team2/fc-treptow",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/dokumente",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/satzung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/antrag-bfv-spielberechtigung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/antrag-zweitspielrecht-bfv",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/foto-einverstandniserklarung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/verein/über_uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/verein/%c3%bcber_uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/verein/uber-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/verein/über-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/ehrenamt",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/anfahrt",
+      "destination": "/es/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/datenschutzbestimmungen",
+      "destination": "/es/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/dsgvo",
+      "destination": "/es/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/medien",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/bilderarchiv/verein",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/leer",
+      "destination": "/es",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/machen-sie-das-beste-aus-der-jahreszeit-indem-sie-diese-einfachen-richtlinien-befolgen",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/halten-sie-den-kontakt-mit-website-besuchern-und-vertiefen-sie-die-bindung-mit-ihren-lesern",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/tipps-zum-verfassen-hervorragender-beitraege-die-den-traffic-ihrer-website-erhoehen",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/news",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/kontakt",
+      "destination": "/es/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/mitgliedschaft",
+      "destination": "/es/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/probetraining",
+      "destination": "/es/probetraining",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/schiedsrichter",
+      "destination": "/es/schiedsrichter",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/sponsoren",
+      "destination": "/es/sponsoren",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/vereinschronik",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/in-gedenken",
+      "destination": "/es/in-gedenken",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar",
+      "destination": "/es",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/:path*",
+      "destination": "/es",
+      "permanent": true
+    }
+  ]
+}
