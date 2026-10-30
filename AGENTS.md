@@ -6,6 +6,17 @@ Statische Astro-Seite für den FC Treptow e.V., gehostet auf Vercel, Inhalte üb
 (Anmeldung via DecapBridge). Die README.md erklärt Redaktion, Einrichtung und offene Punkte;
 diese Datei sind die Regeln, die beim Ändern von Code und Inhalten gelten.
 
+## Arbeitsweise: immer per Pull Request
+
+Jeder Push auf `main` geht nach etwa zwei Minuten live. Deshalb:
+
+- Nie direkt auf `main` pushen. Jede Änderung auf einem eigenen Branch, dann ein Pull Request.
+- Ein Pull Request pro Anliegen, mit kurzer Beschreibung auf Deutsch: was, warum, was zu prüfen ist.
+- Vercel kommentiert im Pull Request einen Vorschau-Link. Änderungen an der Darstellung dort
+  ansehen, nicht nur im Code.
+- Zusammenführen erst, wenn die Prüfung in GitHub Actions grün ist. KI-Assistenten führen
+  Pull Requests nicht selbst zusammen.
+
 ## Prüfen, bevor etwas fertig ist
 
 ```bash
@@ -64,7 +75,8 @@ Die Regeln stehen oben in `src/styles/global.css` und gelten verbindlich:
 
 - Ein Akzent, Vereinsrot (`--color-club`), nur für Handlungen, aktive Zustände und das rote Band
   "Mitspielen". Keine anderen roten Flächen.
-- Handlungen sind Pillen (`rounded-full`), Flächen 4px (`rounded-sm`).
+- Handlungen sind Pillen (`rounded-full`), Flächen 4px (`rounded-sm`). Einzige Ausnahme: der
+  Produktrahmen im Fanshop (siehe `global.css`).
 - Haarlinien (`--color-line`) statt Karten.
 - Big Shoulders für Überschriften und Zahlen, Archivo für Text, Source Serif nur in der Chronik,
   IBM Plex Sans Arabic für Arabisch.
@@ -74,7 +86,8 @@ Die Regeln stehen oben in `src/styles/global.css` und gelten verbindlich:
 ## Sonstiges
 
 - `api/_teams.mjs` wird von `scripts/gen-teams.mjs` erzeugt (läuft vor `dev` und `build`). Nicht
-  von Hand ändern.
+  von Hand ändern. Ebenso `public/images/hero/` und `public/images/og/` (erzeugt von
+  `scripts/gen-hero.mjs` und `scripts/gen-og.mjs`, nicht im Repository).
 - Commits vom CMS haben die Form `Create/Update/Delete … via DecapBridge`. Nicht umschreiben oder
   squashen, sie dokumentieren, wer was geändert hat.
 - Keine Zugangsdaten ins Repository. Der GitHub-Token für DecapBridge liegt bei DecapBridge, nicht
