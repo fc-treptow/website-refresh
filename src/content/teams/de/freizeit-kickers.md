@@ -14,4 +14,4 @@ imageFocus: 40
 
 Wir sind eine Hobbymannschaft, die sich einmal in der Woche zum Kicken trifft. Keine Lust mehr auf anstrengende Trainingsübungen und das Wochenende lieber ohne Ligaspiele verbringen? Dann bist du bei uns genau richtig.
 
-Gespielt wird dienstags von 18:00 bis 19:30 Uhr auf dem Kunstrasen der Willi-Sänger-Sportanlage.
+Gespielt wird dienstags von 18:00 bis 19:30 Uhr auf dem Kunstrasen der Willi-Sänger-Sportanlage. Eine Auswahl gibt es bei uns nicht. Melde dich vor dem ersten Mal nur kurz beim Teamleiter.

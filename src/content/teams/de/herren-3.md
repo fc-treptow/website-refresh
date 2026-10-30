@@ -14,4 +14,4 @@ staff:
   - { name: "Philipp von der Mark", role: manager }
 ---
 
-Unsere Dritte verbindet Wettkampf mit Spaß am Spiel. Neuzugänge sind jederzeit willkommen, einfach zum Probetraining vorbeikommen.
+Unsere Dritte verbindet Wettkampf mit Spaß am Spiel. Lust mitzuspielen? Frag ein Probetraining an.
