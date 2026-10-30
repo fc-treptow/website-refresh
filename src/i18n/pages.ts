@@ -528,12 +528,12 @@ export const pages = {
   },
 
   newsDetail: {
-    de: { back: '← Alle News', shareLabel: 'Teilen', copyLink: 'Link kopieren', copied: 'Link kopiert' },
-    en: { back: '← All news', shareLabel: 'Share', copyLink: 'Copy link', copied: 'Link copied' },
-    tr: { back: '← Tüm haberler', shareLabel: 'Paylaş', copyLink: 'Bağlantıyı kopyala', copied: 'Bağlantı kopyalandı' },
-    ar: { back: '→ جميع الأخبار', shareLabel: 'مشاركة', copyLink: 'نسخ الرابط', copied: 'تم نسخ الرابط' },
-    es: { back: '← Todas las noticias', shareLabel: 'Compartir', copyLink: 'Copiar enlace', copied: 'Enlace copiado' },
-    fr: { back: '← Toutes les actualités', shareLabel: 'Partager', copyLink: 'Copier le lien', copied: 'Lien copié' },
+    de: { back: '← Alle News', shareLabel: 'Teilen', copyLink: 'Link kopieren', copied: 'Link kopiert', photos: 'Fotos', photoCount: '{n} Fotos', photoOf: 'Foto {i} von {n}', openPhoto: 'Foto groß anzeigen', closePhoto: 'Schließen', prevPhoto: 'Vorheriges Foto', nextPhoto: 'Nächstes Foto' },
+    en: { back: '← All news', shareLabel: 'Share', copyLink: 'Copy link', copied: 'Link copied', photos: 'Photos', photoCount: '{n} photos', photoOf: 'Photo {i} of {n}', openPhoto: 'Show photo full size', closePhoto: 'Close', prevPhoto: 'Previous photo', nextPhoto: 'Next photo' },
+    tr: { back: '← Tüm haberler', shareLabel: 'Paylaş', copyLink: 'Bağlantıyı kopyala', copied: 'Bağlantı kopyalandı', photos: 'Fotoğraflar', photoCount: '{n} fotoğraf', photoOf: 'Fotoğraf {i} / {n}', openPhoto: 'Fotoğrafı büyük göster', closePhoto: 'Kapat', prevPhoto: 'Önceki fotoğraf', nextPhoto: 'Sonraki fotoğraf' },
+    ar: { back: '→ جميع الأخبار', shareLabel: 'مشاركة', copyLink: 'نسخ الرابط', copied: 'تم نسخ الرابط', photos: 'الصور', photoCount: '{n} صور', photoOf: 'الصورة {i} من {n}', openPhoto: 'عرض الصورة بالحجم الكامل', closePhoto: 'إغلاق', prevPhoto: 'الصورة السابقة', nextPhoto: 'الصورة التالية' },
+    es: { back: '← Todas las noticias', shareLabel: 'Compartir', copyLink: 'Copiar enlace', copied: 'Enlace copiado', photos: 'Fotos', photoCount: '{n} fotos', photoOf: 'Foto {i} de {n}', openPhoto: 'Ver foto en grande', closePhoto: 'Cerrar', prevPhoto: 'Foto anterior', nextPhoto: 'Foto siguiente' },
+    fr: { back: '← Toutes les actualités', shareLabel: 'Partager', copyLink: 'Copier le lien', copied: 'Lien copié', photos: 'Photos', photoCount: '{n} photos', photoOf: 'Photo {i} sur {n}', openPhoto: 'Afficher la photo en grand', closePhoto: 'Fermer', prevPhoto: 'Photo précédente', nextPhoto: 'Photo suivante' },
   },
 
   impressum: {

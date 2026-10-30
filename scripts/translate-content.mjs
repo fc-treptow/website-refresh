@@ -63,7 +63,14 @@ const collections = [
   },
   {
     dir: 'news',
-    fields: { title: (fm) => fm.title, teaser: (fm) => fm.teaser, imageAlt: (fm) => fm.imageAlt },
+    fields: {
+      title: (fm) => fm.title,
+      teaser: (fm) => fm.teaser,
+      imageAlt: (fm) => fm.imageAlt,
+      // Fotogalerie: nur die Texte, die Fotos selbst kommen immer aus der deutschen Datei
+      galleryAlt: (fm) => (fm.gallery ?? []).map((g) => g?.alt ?? ''),
+      galleryCaption: (fm) => (fm.gallery ?? []).map((g) => g?.caption ?? ''),
+    },
     copy: ['date', 'tag', 'image'],
   },
 ];
@@ -107,7 +114,8 @@ function writeEntry(file, fm, body) {
   writeFileSync(file, `---\n${yaml}\n---\n${body ? `\n${body}\n` : ''}`);
 }
 
-const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex').slice(0, 12);
+// value ?? null: leere Felder (z. B. fehlende Bildbeschreibung) ergeben sonst undefined und brechen ab
+const fingerprint = (value) => createHash('sha256').update(JSON.stringify(value ?? null)).digest('hex').slice(0, 12);
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && (v.length === 0 || v.every((x) => !x)));
 
 // ---------- Vercel AI Gateway (OpenAI-kompatible Schnittstelle) ----------

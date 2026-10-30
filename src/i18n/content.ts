@@ -18,7 +18,14 @@ export async function getNews(lang: Locale): Promise<LocalizedNews[]> {
     .map((de) => {
       const slug = slugOf(de.id);
       const local = lang === defaultLocale ? null : all.find((e) => e.id === `${lang}/${slug}`);
-      return { ...(local ?? de), slug, isFallback: lang !== defaultLocale && !local };
+      const entry = local ?? de;
+      // Galerie: Fotos immer aus dem deutschen Eintrag, Texte aus der Übersetzung, falls vorhanden
+      const gallery = de.data.gallery.map((g, i) => ({
+        ...g,
+        alt: local?.data.galleryAlt?.[i] || g.alt,
+        caption: local?.data.galleryCaption?.[i] || g.caption,
+      }));
+      return { ...entry, data: { ...entry.data, gallery }, slug, isFallback: lang !== defaultLocale && !local };
     })
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }

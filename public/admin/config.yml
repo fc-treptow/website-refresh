@@ -59,7 +59,9 @@ collections:
     description: 'Beiträge für die Startseite und die News-Seite. Neueste zuerst.'
     folder: src/content/news/de
     create: true
-    slug: '{{slug}}'
+    # Jahr und Monat vorn: Titel wie "Neuer Vorstand gewählt" wiederholen sich, die Dateinamen nicht.
+    # Bestehende Beiträge behalten ihren Namen (und damit ihre Adresse).
+    slug: '{{year}}-{{month}}-{{slug}}'
     sortable_fields: [date, title]
     summary: '{{title}}'
     fields:
@@ -69,6 +71,19 @@ collections:
       - { name: teaser, label: Kurztext, widget: text, hint: '1 bis 2 Sätze. Erscheint in der Übersicht unter der Überschrift.' }
       - { name: image, label: Foto, widget: image, required: false, hint: 'Querformat sieht am besten aus. Beim Teilen (WhatsApp, Facebook) wird das Foto auf ein breites Format zugeschnitten.' }
       - { name: imageAlt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist auf dem Foto zu sehen? Ein kurzer Satz, z. B. "Die Herren I jubeln nach dem Abpfiff". Hilft blinden Menschen und erscheint beim Teilen.' }
+      - name: gallery
+        label: Fotogalerie
+        label_singular: Foto
+        widget: list
+        required: false
+        collapsed: true
+        max: 24
+        summary: '{{fields.caption}}'
+        hint: 'Freiwillig, z. B. für einen Rückblick auf ein Turnier. Erscheint unter dem Text, ein Tipp vergrößert das Foto. Das Foto oben (Titelfoto) bleibt das Bild für Übersicht und Teilen. Reihenfolge per Ziehen ändern. Bitte nur Fotos, mit denen die Abgebildeten einverstanden sind.'
+        fields:
+          - { name: src, label: Foto, widget: image, hint: 'Nicht größer als etwa 2 MB. Die Seite verkleinert das Foto selbst.' }
+          - { name: caption, label: Bildunterschrift, widget: string, required: false, hint: 'Steht unter dem Foto, z. B. "Die 3. Herren vor dem Anpfiff"' }
+          - { name: alt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist zu sehen? Hilft blinden Menschen. Leer lassen, wenn die Bildunterschrift das schon sagt.' }
       - { name: body, label: Text, widget: markdown, buttons: [bold, italic, link, heading-two, bulleted-list, numbered-list], editor_components: [image], modes: [rich_text] }
 
   - name: teams

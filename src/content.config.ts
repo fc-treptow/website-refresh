@@ -23,6 +23,13 @@ const news = defineCollection({
     // Bildbeschreibung für Screenreader und die Vorschau beim Teilen (og:image:alt), freiwillig
     imageAlt: z.string().nullish(),
     tag: z.string().default('Verein'),
+    // Fotogalerie unter dem Text, freiwillig (z. B. Rückblick auf ein Turnier). Das Titelfoto
+    // (image) bleibt das eine Bild für Übersicht, Startseite und Vorschau beim Teilen.
+    gallery: list(z.object({ src: z.string(), alt: z.string().nullish(), caption: z.string().nullish() })),
+    // Nur in Übersetzungen (news/<sprache>/): Bildbeschreibungen und Bildunterschriften der
+    // Galerie in derselben Reihenfolge. Die Fotos selbst kommen immer aus dem deutschen Eintrag.
+    galleryAlt: z.array(z.string().nullish()).optional(),
+    galleryCaption: z.array(z.string().nullish()).optional(),
   }),
 });
 
