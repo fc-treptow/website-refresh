@@ -3,11 +3,24 @@ title: بطولة تذكارية لوولفغانغ دوبلر
 teaser: اختتم موسم 2024/25 ببطولة تذكارية تكريماً لرئيسنا الفخري. الكأس كانت من نصيب الفريق الأول.
 date: 2025-06-28
 tag: Verein
-image: /images/team-h1.jpg
+image: /images/uploads/archiv/2025-gedenkturnier-pokalsieger.webp
+imageAlt: الرجال الأول يحتفلون بالكأس
+galleryCaption:
+  - الكأس
+  - دقيقة حداد
+  - الرجال الأول
+  - الرجال الثالث
+  - قدامى الأربعينيات
+  - Freizeitkickers
+  - اللاعبون السابقون
+  - أبطال الكأس الرجال الأول FC Treptow
+  - احتفال النصر
 quelle:
   title: 5dc4491035ab
   teaser: ee33a8bcb945
   body: 23a5dd717c3c
+  imageAlt: cf14e5c4010d
+  galleryCaption: f5a88d46c639
 ---
 
 في 28 يونيو 2025، اختتمنا موسم 2024/25 في ملعب النادي. هذا العام كان الحدث مكرسًا لبطولة تذكارية خاصة تكريمًا لوولفغانغ دوبلر، الذي توفي في 19 ديسمبر 2024.

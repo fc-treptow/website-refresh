@@ -4,10 +4,15 @@ teaser: El 19 de mayo de 1994 se fundó el FC Treptow. Para cerrar la temporada 
 date: 2024-06-15
 tag: Verein
 image: /images/uploads/1020151-1920w.webp
+imageAlt: Los miembros homenajeados en el campo
+galleryCaption:
+  - El torneo aniversario el 15 de junio de 2024
 quelle:
   title: 2830e6e26475
   teaser: a17d6e895e94
   body: 280652a9c3c1
+  imageAlt: 5e179544cf12
+  galleryCaption: 5f5499278ca2
 ---
 
 El cierre de la temporada 2023/24 se coronó el 15 de junio de 2024 con una fiesta por el 30º aniversario del FC Treptow (fundado el 19 de mayo de 1994). Fue un día lleno de momentos destacados: un emocionante torneo de fútbol y el homenaje a nuestros miembros más fieles.

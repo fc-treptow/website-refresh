@@ -4,10 +4,15 @@ teaser: FC Treptow, 19 Mayıs 1994'te kuruldu. Sezon sonunda bu yıldönümünü
 date: 2024-06-15
 tag: Verein
 image: /images/uploads/1020151-1920w.webp
+imageAlt: Sahadaki onurlandırılan üyeler
+galleryCaption:
+  - 15 Haziran 2024'teki yıldönümü turnuvası
 quelle:
   title: 2830e6e26475
   teaser: a17d6e895e94
   body: 280652a9c3c1
+  imageAlt: 5e179544cf12
+  galleryCaption: 5f5499278ca2
 ---
 
 2023/24 sezonunun kapanışı, 15 Haziran 2024'te FC Treptow'nun 30. yıldönümü kutlamasıyla taçlandı (19 Mayıs 1994'te kuruldu). Dolu dolu bir gündü: heyecanlı bir futbol turnuvası ve en sadık üyelerimizin onurlandırılması.

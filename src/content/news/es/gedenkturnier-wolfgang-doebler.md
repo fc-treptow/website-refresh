@@ -3,11 +3,24 @@ title: Torneo conmemorativo por Wolfgang Döbler
 teaser: El cierre de la temporada 2024/25 estuvo marcado por un torneo conmemorativo en honor a nuestro presidente honorario. El trofeo lo ganó el Masculino I.
 date: 2025-06-28
 tag: Verein
-image: /images/team-h1.jpg
+image: /images/uploads/archiv/2025-gedenkturnier-pokalsieger.webp
+imageAlt: El Masculino I celebra con el trofeo
+galleryCaption:
+  - El trofeo
+  - Minuto de silencio
+  - Masculino I
+  - Masculino III
+  - Antiguos de los 40
+  - Freizeitkickers
+  - Jugadores antiguos
+  - Campeones de copa Masculino I FC Treptow
+  - Fiesta de la victoria
 quelle:
   title: 5dc4491035ab
   teaser: ee33a8bcb945
   body: 23a5dd717c3c
+  imageAlt: cf14e5c4010d
+  galleryCaption: f5a88d46c639
 ---
 
 El 28 de junio de 2025 despedimos la temporada 2024/25 en nuestro terreno del club. Este año, el evento estuvo dedicado a un torneo conmemorativo especial en honor a Wolfgang Döbler, quien falleció el 19 de diciembre de 2024.
