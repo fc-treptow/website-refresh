@@ -69,11 +69,14 @@ const chronik = [
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
-<!-- 1. Auftakt als Plakat: Mannschaftsfoto über die volle Breite, Leitsatz groß darüber -->
+<!-- 1. Auftakt als Plakat: Mannschaftsfoto über die volle Breite, der Leitsatz steht darunter
+     und ragt nur in den Rasen hinein, damit keine Gesichter verdeckt werden -->
 <section class="pb-section">
   <!-- Karussell mit dem Mannschaftsfoto jeder Mannschaft aus dem CMS. Ohne JavaScript steht das erste Foto. -->
-  <div class="relative isolate h-[min(calc(100svh-8rem),44rem)] min-h-[32rem] overflow-hidden bg-ink text-paper lg:h-[min(calc(100svh-4.5rem),56rem)] lg:min-h-[38rem]" data-hero-carousel role="region" aria-roledescription="carousel" aria-label={t.heroCarouselLabel}>
-    <div class="hero-photo absolute inset-0">
+  <div class="bg-ink text-paper" data-hero-carousel role="region" aria-roledescription="carousel" aria-label={t.heroCarouselLabel}>
+    <!-- Handy und Tablet: Querformat, damit links und rechts niemand abgeschnitten wird.
+         Desktop: so hoch, dass Foto und Leitsatz zusammen auf den ersten Bildschirm passen. -->
+    <div class="hero-photo relative aspect-[3/2] overflow-hidden sm:aspect-[16/9] lg:aspect-auto lg:h-[min(calc(100svh-4.5rem-15rem),46rem)] lg:min-h-[24rem]">
       {heroSlides.map((s, i) => (
         <a
           href={s.href}
@@ -91,33 +94,37 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
           )}
         </a>
       ))}
-      <!-- Abdunklung unten, damit der Leitsatz auf jedem Foto lesbar bleibt -->
-      <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(22_24_29/0.35)_0%,rgb(22_24_29/0)_22%,rgb(22_24_29/0)_35%,rgb(22_24_29/0.55)_65%,rgb(22_24_29/0.9)_100%)]" aria-hidden="true"></div>
+      <!-- Nur der untere Rand wird dunkel, dort läuft der Leitsatz ins Foto -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(180deg,rgb(22_24_29/0)_0%,rgb(22_24_29/0.85)_100%)]" aria-hidden="true"></div>
       {heroSlides.length > 1 && (
         <>
-          <button type="button" data-hero-step="-1" aria-label={t.heroPrev} class="hero-arrow absolute start-3 top-1/3 z-10 grid size-11 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
+          <button type="button" data-hero-step="-1" aria-label={t.heroPrev} class="hero-arrow absolute start-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
             <span class="rotate-180"><Icon name="arrow" size={18} /></span>
           </button>
-          <button type="button" data-hero-step="1" aria-label={t.heroNext} class="hero-arrow absolute end-3 top-1/3 z-10 grid size-11 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
+          <button type="button" data-hero-step="1" aria-label={t.heroNext} class="hero-arrow absolute end-3 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper/90 text-ink shadow-sm transition hover:bg-paper" hidden>
             <span><Icon name="arrow" size={18} /></span>
           </button>
         </>
       )}
     </div>
 
-    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10">
-      <div class="mx-auto grid max-w-7xl items-end gap-6 px-4 pb-6 sm:px-6 sm:pb-8 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:pb-12">
-        <div class="hero-in lg:col-span-9">
-          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-paper/80">{club.legalName}</p>
-          <h1 class="display mt-4 text-[clamp(3rem,8vw,8.5rem)] [text-shadow:0_2px_24px_rgb(0_0_0/0.25)] [html[lang=ar]_&]:text-[clamp(2.5rem,5.5vw,5.5rem)] [html[lang=ar]_&]:leading-[1.15]">{t.heroTitle.split(/(?<=\.)\s+/).map((line) => <span class="block">{line}</span>)}</h1>
-          <div class="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-6 gap-y-4 lg:mt-8">
-            <CtaButton href={l(lang, '/mitgliedschaft')}>{t.joinCta}</CtaButton>
-            <p class="max-w-md text-base leading-relaxed text-paper/90 sm:text-[17px]">{t.heroText}</p>
-          </div>
+    <div class="hero-in relative z-10 mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8 lg:pb-10">
+      <h1 class="display -mt-[0.42em] text-[clamp(3rem,7vw,7rem)] lg:text-[min(6.4vw,6.25rem)] [html[lang=ar]_&]:-mt-[0.6em] [html[lang=ar]_&]:text-[clamp(2.25rem,4.5vw,4.5rem)] [html[lang=ar]_&]:leading-[1.2]">{t.heroTitle.split(/(?<=\.)\s+/).map((line, i) => <>{i > 0 && ' '}<span class="block lg:inline">{line}</span></>)}</h1>
+      <div class="mt-6 flex flex-col gap-6 lg:mt-8 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+          <CtaButton href={l(lang, '/mitgliedschaft')}>{t.joinCta}</CtaButton>
+          <p class="max-w-md text-base leading-relaxed text-paper/85 sm:text-[17px]">{t.heroText}</p>
         </div>
-        <div class="pointer-events-auto flex items-center justify-between gap-4 text-xs text-paper/85 lg:col-span-3 lg:flex-col lg:items-end">
+        <div class="flex items-center justify-between gap-4 text-xs text-paper/85 lg:justify-end lg:gap-6">
+          <span aria-live="off" data-hero-captions>
+            {heroSlides.map((s, i) => (
+              <a href={s.href} data-hero-caption hidden={i !== 0} class="hover:text-paper">
+                <span class="font-semibold text-paper">{s.shortName}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">{s.league}</span>
+              </a>
+            ))}
+          </span>
           {heroSlides.length > 1 && (
-            <span class="order-2 flex shrink-0 items-center gap-1 lg:order-1" data-hero-controls hidden>
+            <span class="flex shrink-0 items-center gap-1" data-hero-controls hidden>
               {heroSlides.map((s, i) => (
                 <button
                   type="button"
@@ -131,13 +138,6 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
               ))}
             </span>
           )}
-          <span class="order-1 lg:order-2 lg:text-end" aria-live="off" data-hero-captions>
-            {heroSlides.map((s, i) => (
-              <a href={s.href} data-hero-caption hidden={i !== 0} class="hover:text-paper">
-                <span class="font-semibold text-paper">{s.shortName}</span><span class="hidden sm:inline"> · </span><span class="block sm:inline">{s.league}</span>
-              </a>
-            ))}
-          </span>
         </div>
       </div>
     </div>
