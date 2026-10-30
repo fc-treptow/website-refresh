@@ -2,7 +2,7 @@
 shortName: Masculino III
 quelle:
   shortName: d4a8d2ae7390
-  body: c6008a1b8829
+  body: 6e003b0e13d2
 ---
 
-Nuestro tercer equipo combina espíritu competitivo con el disfrute del juego. Los nuevos jugadores son siempre bienvenidos, basta con venir a un entrenamiento de prueba.
+Nuestro Masculino III combina la competición con la diversión del juego. ¿Te apetece jugar? Pide una prueba de entrenamiento.

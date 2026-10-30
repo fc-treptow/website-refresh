@@ -2,9 +2,9 @@
 shortName: Hobi
 quelle:
   shortName: b765a00ae8eb
-  body: 8f558f118131
+  body: df19467e80e7
 ---
 
-Haftada bir kez maç yapmak için buluşan bir hobi takımıyız. Yorucu antrenmanlardan sıkıldın ve hafta sonlarını lig maçları olmadan geçirmek mi istiyorsun? O zaman tam yerindesin.
+Biz haftada bir kez toplanıp futbol oynayan bir hobi takımıyız. Yorucu antrenmanlardan sıkıldın ve hafta sonunu lig maçları olmadan geçirmek mi istiyorsun? O zaman tam da doğru yerdesin.
 
-Salı günleri 18:00–19:30 arası Willi-Sänger Spor Tesisi’nin suni çim sahasında oynuyoruz.
+Maçlarımız salı günleri 18:00 ile 19:30 arasında Willi-Sänger-Sportanlage'nin sentetik çim sahasında oynanıyor. Bizde seçme yok. İlk kez gelmeden önce sadece takım kaptanına kısaca haber ver.

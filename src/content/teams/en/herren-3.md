@@ -2,7 +2,7 @@
 shortName: Men's III
 quelle:
   shortName: d4a8d2ae7390
-  body: c6008a1b8829
+  body: 6e003b0e13d2
 ---
 
-Our third team combines competitive spirit with the joy of the game. New players are always welcome, just come along to a trial session.
+Our Men's III team combines competition with fun on the pitch. Fancy joining in? Ask about a trial training session.
