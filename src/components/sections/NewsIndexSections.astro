@@ -10,28 +10,73 @@ const t = pageT('newsIndex', lang);
 const td = pageT('newsDetail', lang);
 const news = await getNews(lang);
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Rubriken in der Reihenfolge ihrer Häufigkeit; Filter nur, wenn es mehr als eine gibt
+const counts = new Map<string, number>();
+for (const n of news) counts.set(n.data.tag, (counts.get(n.data.tag) ?? 0) + 1);
+const tags = [...counts.keys()].sort((a, b) => counts.get(b)! - counts.get(a)! || a.localeCompare(b));
+
+// Nach Jahren gruppiert, neueste zuerst
+const years = [...new Set(news.map((n) => n.data.date.getFullYear()))];
+const pill = 'inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold ring-1 ring-line transition-colors hover:ring-ink aria-pressed:bg-club aria-pressed:text-white aria-pressed:ring-club';
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <ol class="border-t border-ink">
-    {news.map((n) => (
-      <li class="reveal border-b border-line">
-        <a href={l(lang, `/news/${n.slug}`)} class="group grid gap-5 py-8 sm:grid-cols-[14rem_1fr] sm:gap-8 lg:grid-cols-[18rem_1fr_10rem]">
-          {n.data.image ? (
-            <div class="overflow-hidden rounded-sm bg-ink">
-              <img {...thumbAttrs(n.data.image)} sizes="(min-width: 64rem) 18rem, (min-width: 40rem) 14rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
-            </div>
-          ) : <div class="hidden sm:block" />}
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{n.data.tag}</p>
-            <h2 class="mt-2 text-2xl font-bold leading-snug tracking-tight text-balance group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4 sm:text-3xl">{n.data.title}</h2>
-            <p class="mt-3 max-w-2xl leading-relaxed text-ink-soft">{n.data.teaser}</p>
-            {n.data.gallery.length > 0 && <p class="mt-3 text-sm font-medium text-ink-soft">{td.photoCount.replace('{n}', String(n.data.gallery.length))}</p>}
-          </div>
-          <p class="text-sm text-ink-soft lg:text-end"><time datetime={n.data.date.toISOString().slice(0, 10)}>{fmt(n.data.date)}</time></p>
-        </a>
-      </li>
-    ))}
-  </ol>
+  {tags.length > 1 && (
+    <div class="mb-8 flex flex-wrap items-center gap-2" role="group" aria-label={t.filterLabel} data-news-filter hidden>
+      <button type="button" class={pill} data-filter="" aria-pressed="true">{t.filterAll}</button>
+      {tags.map((tag) => <button type="button" class={pill} data-filter={tag} aria-pressed="false">{tag}</button>)}
+    </div>
+  )}
+  {years.map((year) => (
+    <div data-news-year>
+      <h2 class="display nums mt-10 text-3xl text-ink-soft first:mt-0 sm:text-4xl">{year}</h2>
+      <ol class="mt-4 border-t border-ink">
+        {news.filter((n) => n.data.date.getFullYear() === year).map((n) => (
+          <li class="reveal border-b border-line" data-tag={n.data.tag}>
+            <a href={l(lang, `/news/${n.slug}`)} class="group grid gap-5 py-8 sm:grid-cols-[14rem_1fr] sm:gap-8 lg:grid-cols-[18rem_1fr_10rem]">
+              {n.data.image ? (
+                <div class="overflow-hidden rounded-sm bg-ink">
+                  <img {...thumbAttrs(n.data.image)} sizes="(min-width: 64rem) 18rem, (min-width: 40rem) 14rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
+                </div>
+              ) : <div class="hidden sm:block" />}
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{n.data.tag}</p>
+                <h3 class="mt-2 text-2xl font-bold leading-snug tracking-tight text-balance group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4 sm:text-3xl">{n.data.title}</h3>
+                <p class="mt-3 max-w-2xl leading-relaxed text-ink-soft">{n.data.teaser}</p>
+                {n.data.gallery.length > 0 && <p class="mt-3 text-sm font-medium text-ink-soft">{td.photoCount.replace('{n}', String(n.data.gallery.length))}</p>}
+              </div>
+              <p class="text-sm text-ink-soft lg:text-end"><time datetime={n.data.date.toISOString().slice(0, 10)}>{fmt(n.data.date)}</time></p>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  ))}
 </section>
+
+<script>
+  // Rubrikfilter: blendet Beiträge anderer Rubriken aus. Ohne JavaScript bleibt alles sichtbar
+  // und die Knöpfe erscheinen gar nicht.
+  const bar = document.querySelector<HTMLElement>('[data-news-filter]');
+  if (bar) {
+    bar.hidden = false;
+    const buttons = [...bar.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const tag = b.dataset.filter ?? '';
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        document.querySelectorAll<HTMLElement>('[data-news-year]').forEach((year) => {
+          let visible = 0;
+          year.querySelectorAll<HTMLElement>('li[data-tag]').forEach((li) => {
+            const show = !tag || li.dataset.tag === tag;
+            li.hidden = !show;
+            if (show) visible++;
+          });
+          year.hidden = visible === 0;
+        });
+      }),
+    );
+  }
+</script>

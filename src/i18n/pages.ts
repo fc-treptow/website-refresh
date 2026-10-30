@@ -519,12 +519,12 @@ export const pages = {
   },
 
   newsIndex: {
-    de: { metaTitle: 'News', metaDesc: 'Neuigkeiten vom FC Treptow e.V.', h1: 'News', intro: 'Spielberichte, Vereinsleben und alles, was den Club bewegt.' },
-    en: { metaTitle: 'News', metaDesc: 'News from FC Treptow e.V.', h1: 'News', intro: 'Match reports, club life and everything moving the club.' },
-    tr: { metaTitle: 'Haberler', metaDesc: 'FC Treptow e.V.’den haberler.', h1: 'Haberler', intro: 'Maç raporları, kulüp hayatı ve kulübü hareketlendiren her şey.' },
-    ar: { metaTitle: 'الأخبار', metaDesc: 'أخبار من نادي إف سي تريبتاو.', h1: 'الأخبار', intro: 'تقارير المباريات، حياة النادي، وكل ما يحرك النادي.' },
-    es: { metaTitle: 'Noticias', metaDesc: 'Noticias del FC Treptow e.V.', h1: 'Noticias', intro: 'Crónicas de partidos, vida del club y todo lo que mueve al club.' },
-    fr: { metaTitle: 'Actualités', metaDesc: 'Actualités du FC Treptow e.V.', h1: 'Actualités', intro: 'Comptes rendus de matchs, vie du club et tout ce qui anime le club.' },
+    de: { metaTitle: 'News', metaDesc: 'Neuigkeiten vom FC Treptow e.V.', h1: 'News', intro: 'Spielberichte, Vereinsleben und alles, was den Club bewegt.', filterLabel: 'Nach Rubrik filtern', filterAll: 'Alle' },
+    en: { metaTitle: 'News', metaDesc: 'News from FC Treptow e.V.', h1: 'News', intro: 'Match reports, club life and everything moving the club.', filterLabel: 'Filter by category', filterAll: 'All' },
+    tr: { metaTitle: 'Haberler', metaDesc: 'FC Treptow e.V.’den haberler.', h1: 'Haberler', intro: 'Maç raporları, kulüp hayatı ve kulübü hareketlendiren her şey.', filterLabel: 'Kategoriye göre filtrele', filterAll: 'Tümü' },
+    ar: { metaTitle: 'الأخبار', metaDesc: 'أخبار من نادي إف سي تريبتاو.', h1: 'الأخبار', intro: 'تقارير المباريات، حياة النادي، وكل ما يحرك النادي.', filterLabel: 'تصفية حسب الفئة', filterAll: 'الكل' },
+    es: { metaTitle: 'Noticias', metaDesc: 'Noticias del FC Treptow e.V.', h1: 'Noticias', intro: 'Crónicas de partidos, vida del club y todo lo que mueve al club.', filterLabel: 'Filtrar por categoría', filterAll: 'Todas' },
+    fr: { metaTitle: 'Actualités', metaDesc: 'Actualités du FC Treptow e.V.', h1: 'Actualités', intro: 'Comptes rendus de matchs, vie du club et tout ce qui anime le club.', filterLabel: 'Filtrer par rubrique', filterAll: 'Toutes' },
   },
 
   newsDetail: {

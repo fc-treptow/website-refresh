@@ -17,8 +17,24 @@ const t = pageT('newsDetail', lang);
 const cover = post.data.image ? newsImage(post.data.image) : null;
 const photos = post.data.gallery.map((g) => ({ ...g, img: newsImage(g.src) }));
 const n = photos.length;
+// Strukturierte Daten für Suchmaschinen (schema.org NewsArticle)
+const site = Astro.site ?? new URL(Astro.url.origin);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: post.data.title,
+  description: post.data.teaser,
+  datePublished: post.data.date.toISOString().slice(0, 10),
+  inLanguage: lang,
+  mainEntityOfPage: new URL(Astro.url.pathname, site).href,
+  image: [post.data.image, ...post.data.gallery.map((g) => g.src)]
+    .filter((src): src is string => Boolean(src))
+    .map((src) => new URL(newsImage(src).full, site).href),
+  publisher: { '@type': 'SportsOrganization', name: 'FC Treptow e.V.', url: site.href },
+};
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 ---
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 <article class="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
   <div class="mx-auto max-w-3xl">
     <a href={l(lang, '/news')} class="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-ink-soft transition-colors hover:text-ink">{t.back}</a>
