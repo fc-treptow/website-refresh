@@ -7,7 +7,7 @@ training:
   - { day: Dienstag, from: "18:00", to: "19:30" }
   - { day: Donnerstag, from: "18:00", to: "19:30" }
 image: "/images/team-h3.jpg"
-imageFocus: 65
+imageFocus: 56
 fussballDeTeamId: "01OMGSGV0S000000VV0AG811VTVBGE70"
 staff:
   - { name: "Opeyemi Ebenezer Ajimati", role: coach, phone: "0176 32303721" }
