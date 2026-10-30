@@ -6,12 +6,11 @@ galleryAlt:
   - 2026 başında takım fotoğrafı
   - 2021/22 sezonu başında takım fotoğrafı
   - 2020/21 sezonu başında takım fotoğrafı
-  - 2019/20 sezonu başında takım fotoğrafı
   - 2018/19 sezonu başında takım fotoğrafı
   - 2015/16 sezonu başında takım fotoğrafı
 quelle:
   shortName: b315bc8bb001
-  galleryAlt: 197c84553680
+  galleryAlt: 613ab393795f
   body: edf3c6baf8e9
 ---
 

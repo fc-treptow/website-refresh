@@ -6,12 +6,11 @@ galleryAlt:
   - Photo d'équipe début 2026
   - Photo d'équipe début saison 2021/22
   - Photo d'équipe début saison 2020/21
-  - Photo d'équipe début saison 2019/20
   - Photo d'équipe début saison 2018/19
   - Photo d'équipe début saison 2015/16
 quelle:
   shortName: b315bc8bb001
-  galleryAlt: 197c84553680
+  galleryAlt: 613ab393795f
   body: edf3c6baf8e9
 ---
 
