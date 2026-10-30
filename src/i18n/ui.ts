@@ -27,7 +27,7 @@ const de = {
   moreTitle: 'Alles vom FC Treptow',
   external: 'öffnet externe Seite',
 
-  heroTitle: 'Fußball in Treptow. Seit 1925.',
+  heroTitle: 'Gewachsen im Kiez. Offen für alle.',
   heroText: 'Drei Herrenteams, eine Freizeitmannschaft und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, kommt einfach zum Training.',
   heroCarouselLabel: 'Mannschaftsfotos',
   heroPrev: 'Vorherige Mannschaft',
@@ -118,7 +118,7 @@ const en: UI = {
   moreTitle: 'Everything FC Treptow',
   external: 'opens external site',
 
-  heroTitle: 'Football in Treptow. Since 1925.',
+  heroTitle: 'Rooted in the neighbourhood. Open to all.',
   heroText: 'Three men’s teams, a recreational side and a clubhouse on Köpenicker Landstraße. If you want to play, just come to training.',
   heroCarouselLabel: 'Team photos',
   heroPrev: 'Previous team',
@@ -207,7 +207,7 @@ const tr: UI = {
   moreTitle: 'FC Treptow hakkında her şey',
   external: 'harici siteyi açar',
 
-  heroTitle: 'Treptow’da futbol. 1925’ten beri.',
+  heroTitle: 'Mahallede büyüdük. Herkese açığız.',
   heroText: 'Üç erkek takımı, bir hobi takımı ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen antrenmana gelsin, yeter.',
   heroCarouselLabel: 'Takım fotoğrafları',
   heroPrev: 'Önceki takım',
@@ -296,7 +296,7 @@ const ar: UI = {
   moreTitle: 'كل ما يخص إف سي تريبتاو',
   external: 'يفتح موقعًا خارجيًا',
 
-  heroTitle: 'كرة القدم في تريبتاو. منذ 1925.',
+  heroTitle: 'نشأنا في الحي. مفتوحون للجميع.',
   heroText: 'ثلاثة فرق رجال وفريق ترفيهي ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يأتي إلى التدريب فقط.',
   heroCarouselLabel: 'صور الفرق',
   heroPrev: 'الفريق السابق',
@@ -385,7 +385,7 @@ const es: UI = {
   moreTitle: 'Todo sobre el FC Treptow',
   external: 'abre un sitio externo',
 
-  heroTitle: 'Fútbol en Treptow. Desde 1925.',
+  heroTitle: 'Crecimos en el barrio. Abiertos a todos.',
   heroText: 'Tres equipos masculinos, un equipo recreativo y una sede en la Köpenicker Landstraße. Si quieres jugar, ven al entrenamiento.',
   heroCarouselLabel: 'Fotos de los equipos',
   heroPrev: 'Equipo anterior',
@@ -474,7 +474,7 @@ const fr: UI = {
   moreTitle: 'Tout le FC Treptow',
   external: 'ouvre un site externe',
 
-  heroTitle: 'Le football à Treptow. Depuis 1925.',
+  heroTitle: 'Né dans le quartier. Ouvert à tous.',
   heroText: 'Trois équipes masculines, une équipe loisir et un club-house sur la Köpenicker Landstraße. Pour jouer, il suffit de venir à l’entraînement.',
   heroCarouselLabel: 'Photos des équipes',
   heroPrev: 'Équipe précédente',
