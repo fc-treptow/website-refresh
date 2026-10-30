@@ -1,8 +1,10 @@
 ---
-title: "Neuer Vorstand gewählt"
+title: Neuer Vorstand gewählt
 date: 2025-11-13
-teaser: "Auf der außerordentlichen Mitgliederversammlung am 13. November 2025 wurde ein neuer Vorstand gewählt."
 tag: Verein
+teaser: Auf der außerordentlichen Mitgliederversammlung am 13. November 2025
+  wurde ein neuer Vorstand gewählt.
+image: /images/uploads/logo-update-symetrical.png
 ---
 
 Auf der außerordentlichen Mitgliedervollversammlung am 13.11.2025 wurde ein neuer Vorstand gewählt:
