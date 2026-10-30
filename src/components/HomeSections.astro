@@ -198,6 +198,8 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         </div>
         {leagueTeamList.map((tm, i) => (
           <div id={`tpanel-${tm.slug}`} role="tabpanel" aria-labelledby={`ttab-${tm.slug}`} tabindex="0" hidden={i !== 0}>
+            <!-- Liga der gewählten Mannschaft; wechselt mit dem Reiter, weil sie im Panel steht -->
+            <p class="mb-3 text-sm"><span class="font-semibold">{leagueLabel(tm.data.league, lang)}</span>{fixtures.teams[tm.slug]?.table?.season && <span class="text-ink-soft"> · {fixtures.teams[tm.slug]?.table?.season}</span>}</p>
             <div data-fixtures="table" data-team={tm.slug} data-query={query} data-built-at={fixtures.fetchedAt} data-labels={JSON.stringify(fx)} set:html={leagueTable(fixtures.teams[tm.slug]?.table ?? null, fx)} />
             <a href={l(lang, `/mannschaften/${tm.slug}`)} class="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">{tm.data.name} <Icon name="arrow" size={16} /></a>
           </div>
