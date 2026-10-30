@@ -29,8 +29,6 @@ gallery:
   - src: /images/uploads/20201025_1.herren-1c450862-1920w.webp
     alt: Mannschaftsfoto Anfang Saison 2020/21
   - src: /images/uploads/fairplay-mannschaft-1.-herren-2019-1920w.webp
-    alt: Mannschaftsfoto Anfang Saison 2019/20
-  - src: /images/uploads/fairplay-mannschaft-1.-herren-2019-1920w.webp
     alt: Mannschaftsfoto Anfang Saison 2018/19
   - src: /images/uploads/1.-herren-2014-2015-1920w.webp
     alt: Mannschaftsfoto Anfang Saison 2015/16
