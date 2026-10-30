@@ -1,12 +1,17 @@
 ---
 shortName: Erkekler I
 galleryAlt:
-  - Takım fotoğrafı, Eylül 2026
-  - Takım fotoğrafı, Ağustos 2026
-  - Takım fotoğrafı, 2026 başı
+  - Eylül 2026'da takım fotoğrafı
+  - Ağustos 2026'da takım fotoğrafı
+  - 2026 başında takım fotoğrafı
+  - 2021/22 sezonu başında takım fotoğrafı
+  - 2020/21 sezonu başında takım fotoğrafı
+  - 2019/20 sezonu başında takım fotoğrafı
+  - 2018/19 sezonu başında takım fotoğrafı
+  - 2015/16 sezonu başında takım fotoğrafı
 quelle:
   shortName: b315bc8bb001
-  galleryAlt: e34e43715083
+  galleryAlt: 197c84553680
   body: edf3c6baf8e9
 ---
 

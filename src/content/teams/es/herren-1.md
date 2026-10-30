@@ -1,12 +1,17 @@
 ---
 shortName: Masculino I
 galleryAlt:
-  - Foto del equipo, septiembre de 2026
-  - Foto del equipo, agosto de 2026
-  - Foto del equipo, principios de 2026
+  - Foto del equipo en septiembre de 2026
+  - Foto del equipo en agosto de 2026
+  - Foto del equipo a principios de 2026
+  - Foto del equipo al inicio de la temporada 2021/22
+  - Foto del equipo al inicio de la temporada 2020/21
+  - Foto del equipo al inicio de la temporada 2019/20
+  - Foto del equipo al inicio de la temporada 2018/19
+  - Foto del equipo al inicio de la temporada 2015/16
 quelle:
   shortName: b315bc8bb001
-  galleryAlt: e34e43715083
+  galleryAlt: 197c84553680
   body: edf3c6baf8e9
 ---
 
