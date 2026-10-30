@@ -3,9 +3,11 @@ import PageHeader from '../PageHeader.astro';
 import { defaultLocale, bcp47, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { getNews } from '../../i18n/content';
+import { thumbAttrs } from '../../lib/newsImages';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('newsIndex', lang);
+const td = pageT('newsDetail', lang);
 const news = await getNews(lang);
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 ---
@@ -18,13 +20,14 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         <a href={l(lang, `/news/${n.slug}`)} class="group grid gap-5 py-8 sm:grid-cols-[14rem_1fr] sm:gap-8 lg:grid-cols-[18rem_1fr_10rem]">
           {n.data.image ? (
             <div class="overflow-hidden rounded-sm bg-ink">
-              <img src={n.data.image} alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
+              <img {...thumbAttrs(n.data.image)} sizes="(min-width: 64rem) 18rem, (min-width: 40rem) 14rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
             </div>
           ) : <div class="hidden sm:block" />}
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.14em] text-club">{n.data.tag}</p>
             <h2 class="mt-2 text-2xl font-bold leading-snug tracking-tight text-balance group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4 sm:text-3xl">{n.data.title}</h2>
             <p class="mt-3 max-w-2xl leading-relaxed text-ink-soft">{n.data.teaser}</p>
+            {n.data.gallery.length > 0 && <p class="mt-3 text-sm font-medium text-ink-soft">{td.photoCount.replace('{n}', String(n.data.gallery.length))}</p>}
           </div>
           <p class="text-sm text-ink-soft lg:text-end"><time datetime={n.data.date.toISOString().slice(0, 10)}>{fmt(n.data.date)}</time></p>
         </a>

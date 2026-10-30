@@ -1,4 +1,5 @@
 ---
+import { thumbAttrs } from '../lib/newsImages';
 import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
 import CtaButton from './CtaButton.astro';
@@ -271,7 +272,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
       <a href={l(lang, `/news/${lead.slug}`)} class="reveal group lg:col-span-7">
         {lead.data.image && (
           <div class="overflow-hidden rounded-sm bg-ink">
-            <img src={lead.data.image} alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.02]" />
+            <img {...thumbAttrs(lead.data.image)} sizes="(min-width: 64rem) 42rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.02]" />
           </div>
         )}
         <p class="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{lead.data.tag}</span> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{fmt(lead.data.date)}</time></p>
