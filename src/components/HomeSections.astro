@@ -71,7 +71,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
 
 <!-- 1. Auftakt als Plakat: Mannschaftsfoto über die volle Breite, der Leitsatz steht darunter
      und ragt nur in den Rasen hinein, damit keine Gesichter verdeckt werden -->
-<section class="pb-section">
+<section>
   <!-- Karussell mit dem Mannschaftsfoto jeder Mannschaft aus dem CMS. Ohne JavaScript steht das erste Foto. -->
   <div class="bg-ink text-paper" data-hero-carousel role="region" aria-roledescription="carousel" aria-label={t.heroCarouselLabel}>
     <!-- Handy und Tablet: Querformat, damit links und rechts niemand abgeschnitten wird.
@@ -142,26 +142,42 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
       </div>
     </div>
   </div>
-
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <dl class="mt-10 grid grid-cols-1 border-t border-ink sm:grid-cols-3 lg:mt-14">
-    <div class="flex items-baseline justify-between gap-4 border-b border-line py-4 sm:block sm:border-b-0 sm:border-e sm:py-5 sm:pe-6">
-      <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.factTraining}</dt>
-      <dd class="text-end text-base font-semibold sm:mt-2 sm:text-start sm:text-lg">{t.factTrainingValue}</dd>
-    </div>
-    <div class="flex items-baseline justify-between gap-4 border-b border-line py-4 sm:block sm:border-b-0 sm:border-e sm:px-6 sm:py-5">
-      <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.factGround}</dt>
-      <dd class="text-end text-base font-semibold sm:mt-2 sm:text-start sm:text-lg">{club.ground.name}</dd>
-    </div>
-    <div class="flex items-baseline justify-between gap-4 py-4 sm:block sm:py-5 sm:ps-6">
-      <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.factFee}</dt>
-      <dd class="text-end text-base font-semibold sm:mt-2 sm:text-start sm:text-lg">{t.factFeeValue}</dd>
-    </div>
-  </dl>
-  </div>
 </section>
 
-<!-- 2. Nächste Spiele, live von fussball.de -->
+<!-- 2. News direkt unter dem Auftakt: ein Aufmacher, der Rest als Liste -->
+{lead && (
+  <section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
+    <div class="reveal flex items-end justify-between gap-6">
+      <h2 class="display text-5xl sm:text-6xl">{t.newsHeading}</h2>
+      <a href={l(lang, '/news')} class="inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold text-club hover:text-club-deep">{t.allNews} <Icon name="arrow" size={16} /></a>
+    </div>
+    <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
+      <a href={l(lang, `/news/${lead.slug}`)} class="reveal group lg:col-span-7">
+        {lead.data.image && (
+          <div class="overflow-hidden rounded-sm bg-ink">
+            <img {...thumbAttrs(lead.data.image)} sizes="(min-width: 64rem) 42rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.02]" />
+          </div>
+        )}
+        <p class="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{lead.data.tag}</span> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{fmt(lead.data.date)}</time></p>
+        <h3 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-balance group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4 sm:text-4xl">{lead.data.title}</h3>
+        <p class="mt-3 max-w-xl leading-relaxed text-ink-soft">{lead.data.teaser}</p>
+      </a>
+      <ul class="stagger border-t border-ink lg:col-span-5">
+        {moreNews.slice(0, 4).map((n) => (
+          <li class="border-b border-line">
+            <a href={l(lang, `/news/${n.slug}`)} class="group block py-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{n.data.tag}</span> · <time datetime={n.data.date.toISOString().slice(0, 10)}>{fmt(n.data.date)}</time></p>
+              <h3 class="mt-2 text-xl font-bold leading-snug group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">{n.data.title}</h3>
+              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">{n.data.teaser}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<!-- 3. Nächste Spiele, live von fussball.de -->
 <section class="bg-card">
   <div class="mx-auto grid max-w-7xl gap-10 px-4 py-section sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
     <div class="reveal lg:col-span-4">
@@ -213,7 +229,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
   </div>
 </section>
 
-<!-- 3. Mannschaften als Index, nicht als Kachelwand -->
+<!-- 4. Mannschaften als Index, nicht als Kachelwand -->
 <section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
   <div class="reveal flex items-end justify-between gap-6">
     <h2 class="display text-5xl sm:text-6xl">{t.teamsHeading}</h2>
@@ -244,7 +260,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
   </ol>
 </section>
 
-<!-- 4. Das eine rote Band: Mitspielen -->
+<!-- 5. Das eine rote Band: Mitspielen -->
 <section class="bg-club text-white">
   <div class="mx-auto grid max-w-7xl gap-10 px-4 py-section sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
     <div class="reveal lg:col-span-6">
@@ -265,39 +281,6 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
     </ol>
   </div>
 </section>
-
-<!-- 5. News: ein Aufmacher, der Rest als Liste -->
-{lead && (
-  <section class="mx-auto max-w-7xl px-4 py-section sm:px-6 lg:px-8">
-    <div class="reveal flex items-end justify-between gap-6">
-      <h2 class="display text-5xl sm:text-6xl">{t.newsHeading}</h2>
-      <a href={l(lang, '/news')} class="inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold text-club hover:text-club-deep">{t.allNews} <Icon name="arrow" size={16} /></a>
-    </div>
-    <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
-      <a href={l(lang, `/news/${lead.slug}`)} class="reveal group lg:col-span-7">
-        {lead.data.image && (
-          <div class="overflow-hidden rounded-sm bg-ink">
-            <img {...thumbAttrs(lead.data.image)} sizes="(min-width: 64rem) 42rem, 100vw" alt="" loading="lazy" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.02]" />
-          </div>
-        )}
-        <p class="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{lead.data.tag}</span> · <time datetime={lead.data.date.toISOString().slice(0, 10)}>{fmt(lead.data.date)}</time></p>
-        <h3 class="mt-3 text-3xl font-bold leading-tight tracking-tight text-balance group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4 sm:text-4xl">{lead.data.title}</h3>
-        <p class="mt-3 max-w-xl leading-relaxed text-ink-soft">{lead.data.teaser}</p>
-      </a>
-      <ul class="stagger border-t border-ink lg:col-span-5">
-        {moreNews.slice(0, 4).map((n) => (
-          <li class="border-b border-line">
-            <a href={l(lang, `/news/${n.slug}`)} class="group block py-6">
-              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft"><span class="text-club">{n.data.tag}</span> · <time datetime={n.data.date.toISOString().slice(0, 10)}>{fmt(n.data.date)}</time></p>
-              <h3 class="mt-2 text-xl font-bold leading-snug group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4">{n.data.title}</h3>
-              <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">{n.data.teaser}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-)}
 
 <!-- 6. Chronik: 1925 als Zahl, die Wappen als Dokumente -->
 <section class="border-y border-line bg-card">
