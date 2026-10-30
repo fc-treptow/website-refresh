@@ -28,7 +28,7 @@ const de = {
   external: 'öffnet externe Seite',
 
   heroTitle: 'Gewachsen im Kiez. Offen für alle.',
-  heroText: 'Drei Herrenteams, eine Freizeitmannschaft und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, kommt einfach zum Training.',
+  heroText: 'Drei Herrenteams, eine Freizeitmannschaft und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, meldet sich zum Probetraining.',
   heroCarouselLabel: 'Mannschaftsfotos',
   heroPrev: 'Vorherige Mannschaft',
   heroNext: 'Nächste Mannschaft',
@@ -46,9 +46,9 @@ const de = {
   newsHeading: 'Aus dem Verein',
   allNews: 'Alle News',
 
-  joinHeading: 'Einfach vorbeikommen.',
-  joinText: 'Kein Casting, keine Aufnahmeprüfung. Du trainierst ein paarmal mit, dann entscheidest du.',
-  joinSteps: ['Probetraining anfragen oder direkt zum Training kommen', 'Zwei, drei Einheiten mitmachen', 'Anmelden, ab 10 € im Monat'],
+  joinHeading: 'Komm zum Probetraining.',
+  joinText: 'Am liebsten schreibst du uns vorher kurz. Du trainierst ein paarmal mit, danach gibt dir der Trainer Rückmeldung, ob es passt und in welchem Team Platz ist.',
+  joinSteps: ['Probetraining anfragen oder direkt zum Training kommen', 'Zwei, drei Einheiten mittrainieren', 'Passt es: anmelden, ab 10 € im Monat'],
 
   chronikHeading: 'Sieben Namen, ein Verein',
   chronikText: 'Gegründet 1925 als Werksverein der Bewag, später Elektra, Turbine und seit 1994 FC Treptow. Die Geschichte eines Kiezvereins durch ein ganzes Jahrhundert Berlin.',
@@ -114,7 +114,7 @@ const en: UI = {
   external: 'opens external site',
 
   heroTitle: 'Rooted in the neighbourhood. Open to all.',
-  heroText: 'Three men’s teams, a recreational side and a clubhouse on Köpenicker Landstraße. If you want to play, just come to training.',
+  heroText: 'Three men’s teams, a recreational side and a clubhouse on Köpenicker Landstraße. If you want to play, sign up for a trial session.',
   heroCarouselLabel: 'Team photos',
   heroPrev: 'Previous team',
   heroNext: 'Next team',
@@ -132,9 +132,9 @@ const en: UI = {
   newsHeading: 'Club news',
   allNews: 'All news',
 
-  joinHeading: 'Just come along.',
-  joinText: 'No trials in the scary sense. Train with us a few times, then decide.',
-  joinSteps: ['Request a trial session or just turn up to training', 'Join in for two or three sessions', 'Sign up, from €10 a month'],
+  joinHeading: 'Come to a trial session.',
+  joinText: 'Ideally, drop us a line first. Train with us a few times, then the coach will let you know whether it’s a fit and which team has room.',
+  joinSteps: ['Request a trial session or just turn up to training', 'Train with us two or three times', 'If it’s a fit: sign up, from €10 a month'],
 
   chronikHeading: 'Seven names, one club',
   chronikText: 'Founded in 1925 as the Bewag works club, later Elektra, Turbine and, since 1994, FC Treptow. A neighbourhood club through a whole century of Berlin.',
@@ -198,7 +198,7 @@ const tr: UI = {
   external: 'harici siteyi açar',
 
   heroTitle: 'Mahallede büyüdük. Herkese açığız.',
-  heroText: 'Üç erkek takımı, bir hobi takımı ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen antrenmana gelsin, yeter.',
+  heroText: 'Üç erkek takımı, bir hobi takımı ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen deneme antrenmanı için başvursun.',
   heroCarouselLabel: 'Takım fotoğrafları',
   heroPrev: 'Önceki takım',
   heroNext: 'Sonraki takım',
@@ -216,9 +216,9 @@ const tr: UI = {
   newsHeading: 'Kulüpten haberler',
   allNews: 'Tüm haberler',
 
-  joinHeading: 'Gelmen yeterli.',
-  joinText: 'Seçme yok, sınav yok. Birkaç kez bizimle antrenman yap, sonra karar ver.',
-  joinSteps: ['Deneme antrenmanı iste ya da doğrudan antrenmana gel', 'İki üç antrenmana katıl', 'Kayıt ol, ayda 10 €’dan başlayan aidatla'],
+  joinHeading: 'Deneme antrenmanına gel.',
+  joinText: 'En iyisi önceden bize kısaca yaz. Birkaç kez antrenmana katılırsın, ardından antrenör uyum olup olmadığını ve hangi takımda yer olduğunu sana söyler.',
+  joinSteps: ['Deneme antrenmanı iste ya da doğrudan antrenmana gel', 'İki üç antrenmana katıl', 'Uyum varsa kayıt ol, ayda 10 €’dan başlayan aidatla'],
 
   chronikHeading: 'Yedi isim, tek kulüp',
   chronikText: '1925’te Bewag işyeri kulübü olarak kuruldu, sonra Elektra, Turbine ve 1994’ten beri FC Treptow. Berlin’de koca bir yüzyıl boyunca bir mahalle kulübü.',
@@ -282,7 +282,7 @@ const ar: UI = {
   external: 'يفتح موقعًا خارجيًا',
 
   heroTitle: 'نشأنا في الحي. مفتوحون للجميع.',
-  heroText: 'ثلاثة فرق رجال وفريق ترفيهي ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يأتي إلى التدريب فقط.',
+  heroText: 'ثلاثة فرق رجال وفريق ترفيهي ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يسجّل في تدريب تجريبي.',
   heroCarouselLabel: 'صور الفرق',
   heroPrev: 'الفريق السابق',
   heroNext: 'الفريق التالي',
@@ -300,9 +300,9 @@ const ar: UI = {
   newsHeading: 'أخبار النادي',
   allNews: 'جميع الأخبار',
 
-  joinHeading: 'تعال فقط.',
-  joinText: 'لا اختبارات قبول. تدرّب معنا بضع مرات، ثم قرّر.',
-  joinSteps: ['اطلب تدريبًا تجريبيًا أو تعال مباشرة إلى التدريب', 'شارك في حصتين أو ثلاث', 'سجّل، من 10 يورو شهريًا'],
+  joinHeading: 'تعال إلى تدريب تجريبي.',
+  joinText: 'يُفضَّل أن تراسلنا مسبقًا. تتدرب معنا بضع مرات، ثم يخبرك المدرب ما إذا كان الأمر مناسبًا وفي أي فريق يوجد مكان.',
+  joinSteps: ['اطلب تدريبًا تجريبيًا أو تعال مباشرة إلى التدريب', 'تدرّب معنا مرتين أو ثلاثًا', 'إذا كان مناسبًا، سجّل، من 10 يورو شهريًا'],
 
   chronikHeading: 'سبعة أسماء، ناد واحد',
   chronikText: 'تأسس عام 1925 كنادٍ لموظفي شركة بيفاغ، ثم إلكترا وتوربينه، ومنذ 1994 إف سي تريبتاو. نادي حيّ عبر قرن كامل من تاريخ برلين.',
@@ -366,7 +366,7 @@ const es: UI = {
   external: 'abre un sitio externo',
 
   heroTitle: 'Crecimos en el barrio. Abiertos a todos.',
-  heroText: 'Tres equipos masculinos, un equipo recreativo y una sede en la Köpenicker Landstraße. Si quieres jugar, ven al entrenamiento.',
+  heroText: 'Tres equipos masculinos, un equipo recreativo y una sede en la Köpenicker Landstraße. Si quieres jugar, apúntate a un entrenamiento de prueba.',
   heroCarouselLabel: 'Fotos de los equipos',
   heroPrev: 'Equipo anterior',
   heroNext: 'Equipo siguiente',
@@ -384,9 +384,9 @@ const es: UI = {
   newsHeading: 'Noticias del club',
   allNews: 'Todas las noticias',
 
-  joinHeading: 'Solo tienes que venir.',
-  joinText: 'Sin pruebas de acceso. Entrena con nosotros unas cuantas veces y luego decides.',
-  joinSteps: ['Solicita un entrenamiento de prueba o ven directamente', 'Participa en dos o tres sesiones', 'Inscríbete, desde 10 € al mes'],
+  joinHeading: 'Ven a un entrenamiento de prueba.',
+  joinText: 'Lo ideal es que nos escribas antes. Entrenas con nosotros unas cuantas veces y luego el entrenador te dice si encajas y en qué equipo hay sitio.',
+  joinSteps: ['Solicita un entrenamiento de prueba o ven directamente', 'Entrena con nosotros dos o tres veces', 'Si encajas, inscríbete, desde 10 € al mes'],
 
   chronikHeading: 'Siete nombres, un club',
   chronikText: 'Fundado en 1925 como club de empresa de Bewag, después Elektra, Turbine y, desde 1994, FC Treptow. Un club de barrio a lo largo de todo un siglo de Berlín.',
@@ -450,7 +450,7 @@ const fr: UI = {
   external: 'ouvre un site externe',
 
   heroTitle: 'Né dans le quartier. Ouvert à tous.',
-  heroText: 'Trois équipes masculines, une équipe loisir et un club-house sur la Köpenicker Landstraße. Pour jouer, il suffit de venir à l’entraînement.',
+  heroText: 'Trois équipes masculines, une équipe loisir et un club-house sur la Köpenicker Landstraße. Pour jouer, inscris-toi à une séance d’essai.',
   heroCarouselLabel: 'Photos des équipes',
   heroPrev: 'Équipe précédente',
   heroNext: 'Équipe suivante',
@@ -468,9 +468,9 @@ const fr: UI = {
   newsHeading: 'Actualités du club',
   allNews: 'Toutes les actualités',
 
-  joinHeading: 'Viens, tout simplement.',
-  joinText: 'Pas de sélection. Entraîne-toi quelques fois avec nous, puis décide.',
-  joinSteps: ['Demande une séance d’essai ou viens directement à l’entraînement', 'Participe à deux ou trois séances', 'Inscris-toi, dès 10 € par mois'],
+  joinHeading: 'Viens à une séance d’essai.',
+  joinText: 'Idéalement, écris-nous avant. Entraîne-toi quelques fois avec nous, puis l’entraîneur te dira si ça colle et dans quelle équipe il y a de la place.',
+  joinSteps: ['Demande une séance d’essai ou viens directement à l’entraînement', 'Entraîne-toi deux ou trois fois avec nous', 'Si ça colle, inscris-toi, dès 10 € par mois'],
 
   chronikHeading: 'Sept noms, un seul club',
   chronikText: 'Fondé en 1925 comme club d’entreprise de la Bewag, puis Elektra, Turbine et, depuis 1994, FC Treptow. Un club de quartier à travers tout un siècle de Berlin.',
