@@ -3,6 +3,7 @@ title: تم انتخاب مجلس إدارة جديد
 teaser: في الجمعية العمومية الاستثنائية في 13 نوفمبر 2025 تم انتخاب مجلس إدارة جديد.
 date: 2025-11-13
 tag: Verein
+image: /images/uploads/logo-update-symetrical.png
 quelle:
   title: 4a3fb9b64404
   teaser: b85c4f44ba96

@@ -3,6 +3,7 @@ title: Yeni Yönetim Seçildi
 teaser: 13 Kasım 2025'te yapılan olağanüstü genel kurulda yeni bir yönetim seçildi.
 date: 2025-11-13
 tag: Verein
+image: /images/uploads/logo-update-symetrical.png
 quelle:
   title: 4a3fb9b64404
   teaser: b85c4f44ba96

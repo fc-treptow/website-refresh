@@ -3,6 +3,7 @@ title: Nuevo comité directivo elegido
 teaser: En la asamblea extraordinaria de socios del 13 de noviembre de 2025 se eligió un nuevo comité directivo.
 date: 2025-11-13
 tag: Verein
+image: /images/uploads/logo-update-symetrical.png
 quelle:
   title: 4a3fb9b64404
   teaser: b85c4f44ba96

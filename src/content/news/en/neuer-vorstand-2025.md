@@ -3,6 +3,7 @@ title: New Board Elected
 teaser: At the extraordinary members' meeting on 13 November 2025, a new board was elected.
 date: 2025-11-13
 tag: Verein
+image: /images/uploads/logo-update-symetrical.png
 quelle:
   title: 4a3fb9b64404
   teaser: b85c4f44ba96
