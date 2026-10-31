@@ -13,6 +13,7 @@ import { getInstagramPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
 import { gameRow, leagueTable, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
+import { wappen } from '../data/chronik';
 import { readFileSync } from 'node:fs';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
@@ -57,15 +58,6 @@ const heroSlides = teams.map((tm) => {
     srcset: resized ? Object.entries(resized).map(([w, f]) => `${f} ${w}w`).join(', ') : undefined,
   };
 });
-const chronik = [
-  { year: '1925', img: '/images/chronik-1925.jpg', label: 'Werksverein Bewag' },
-  { year: '1932', img: '/images/chronik-1932.webp', label: 'SV Bewag Berlin' },
-  { year: '1938', img: '/images/chronik-1938.png', label: 'SV Elektra Berlin' },
-  { year: '1950', img: '/images/chronik-1950.jpg', label: 'BSG Turbine Bewag' },
-  { year: '1978', img: '/images/chronik-1978.webp', label: 'BSG Turbine Berlin' },
-  { year: '1990', img: '/images/chronik-1990.webp', label: 'SV Turbine Berlin' },
-  { year: '1994', img: '/images/crest.png', label: 'FC Treptow e.V.' },
-];
 const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
@@ -306,12 +298,14 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         <a href={l(lang, '/vereinschronik')} class="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">{t.chronikCta} <Icon name="arrow" size={16} /></a>
       </div>
     </div>
-    <ol class="no-scrollbar stagger -mx-4 mt-14 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 sm:gap-px sm:mx-0 sm:grid sm:grid-cols-7 sm:overflow-visible sm:px-0">
-      {chronik.map((c) => (
-        <li class="w-32 shrink-0 snap-start border-t border-ink pt-4 sm:w-auto">
-          <img src={c.img} alt="" width="64" height="64" loading="lazy" class="h-14 w-14 object-contain mix-blend-multiply" />
-          <p class="display nums mt-4 text-2xl">{c.year}</p>
-          <p class="mt-1 text-xs leading-snug text-ink-soft">{c.label}</p>
+    <ol class="no-scrollbar stagger -mx-4 mt-14 flex snap-x scroll-px-4 gap-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-9 lg:gap-px lg:overflow-visible">
+      {wappen.map((w) => (
+        <li class="w-28 shrink-0 snap-start border-t border-ink lg:w-auto">
+          <a href={`${l(lang, '/vereinschronik')}#${w.epoche}`} class="block pt-4 transition-opacity hover:opacity-70">
+            <img src={w.bild} alt="" width="64" height="64" loading="lazy" class="h-14 w-14 object-contain mix-blend-multiply" />
+            <p class="display nums mt-4 text-2xl">{w.jahr}</p>
+            <p class="mt-1 text-xs leading-snug text-ink-soft">{w.name}</p>
+          </a>
         </li>
       ))}
     </ol>
