@@ -208,7 +208,14 @@ const pill = 'inline-flex min-h-11 cursor-pointer list-none items-center rounded
       <h3 class="mb-3 text-xl font-bold">{t.namesH}</h3>
       <ul class="border-b border-line">
         {t.names.map((p) => (
-          <li class="border-t border-line py-3"><b>{p.n}</b>{p.note && <span class="text-ink-soft"> · {p.note}</span>}</li>
+          <li class="border-t border-line py-3">
+            {p.href ? (
+              <a href={p.href} rel="noopener" target="_blank" class="inline-flex items-center gap-1 font-bold underline decoration-line decoration-2 underline-offset-4 hover:decoration-ink">{p.n}<span class="text-xs font-normal text-ink-soft" aria-hidden="true">↗</span><span class="sr-only"> (Wikipedia)</span></a>
+            ) : (
+              <b>{p.n}</b>
+            )}
+            {p.note && <p class="mt-0.5 text-sm leading-snug text-ink-soft">{p.note}</p>}
+          </li>
         ))}
       </ul>
     </div>
