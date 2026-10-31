@@ -1,37 +1,230 @@
 ---
+// Vereinschronik in drei Ebenen: Wappenleiste (auf einen Blick), Epochen mit "Mehr lesen"
+// (für Neugierige) und Zahlen mit Ligaleiter und allen Spielzeiten (für Tiefergeher).
+// Daten in src/data/chronik.ts, Texte in src/i18n/pages.ts. "Mehr lesen" gibt es nur auf
+// Deutsch; die anderen Sprachen verlinken dorthin.
 import PageHeader from '../PageHeader.astro';
-import { defaultLocale, type Locale } from '../../i18n/languages';
+import CtaButton from '../CtaButton.astro';
+import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
+import { wappen, mehr, ligaleiter, ligaStufen, spielzeiten, quellen, type EraId } from '../../data/chronik';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('vereinschronik', lang);
+const isDe = lang === 'de';
 
-const images: Record<string, string> = {
-  '1925': '/images/chronik-1925.jpg',
-  '1932': '/images/chronik-1932.jpg',
-  '1938': '/images/chronik-1938.png',
-  '1950': '/images/chronik-1950.jpg',
-  '1978': '/images/chronik-1974.jpg',
-  '1990': '/images/chronik-1990.jpg',
-  '1994': '/images/chronik-lok.png',
-  '1996': '/images/crest.png',
+const wappenFuer = (id: EraId) => wappen.filter((w) => w.epoche === id && id !== 'fusion');
+const turbine = wappen.find((w) => w.name === 'SV Turbine Berlin')!;
+const lok = wappen.find((w) => w.name === 'ESV Lok Schöneweide')!;
+const fct = wappen.find((w) => w.name === 'FC Treptow e.V.')!;
+
+// Ligaleiter als SVG: eine Stufe pro Zeile, eine Saison pro Spalte, Lücken gestrichelt.
+const W = 1100, X0 = 130, X1 = 1060, H = 250;
+const yStufe = (s: number) => 30 + (4 - s) * 50;
+const step = (X1 - X0) / (ligaleiter.length - 1);
+const xAt = (i: number) => X0 + i * step;
+const half = step / 2;
+const segmente: string[] = [];
+const luecken: { x1: number; y1: number; x2: number; y2: number }[] = [];
+let pfad = '';
+let letzte: { i: number; s: number } | null = null;
+ligaleiter.forEach((z, i) => {
+  if (z.stufe === null) {
+    if (pfad) { segmente.push(pfad); pfad = ''; }
+    return;
+  }
+  const y = yStufe(z.stufe);
+  if (!pfad) {
+    if (letzte && letzte.i < i - 1) {
+      luecken.push({ x1: xAt(letzte.i) + half, y1: yStufe(letzte.s), x2: xAt(i) - half, y2: y });
+    }
+    pfad = `M${xAt(i) - half},${y}`;
+  } else if (letzte && letzte.s !== z.stufe) {
+    pfad += ` V${y}`;
+  }
+  pfad += ` H${xAt(i) + half}`;
+  letzte = { i, s: z.stufe };
+});
+if (pfad) segmente.push(pfad);
+const markiere = (saison: string) => {
+  const i = ligaleiter.findIndex((z) => z.saison === saison);
+  return { x: xAt(i), y: yStufe(ligaleiter[i].stufe ?? 1) };
 };
+const vize = markiere('20/21');
+const heute = { x: xAt(ligaleiter.length - 1), y: yStufe(ligaleiter[ligaleiter.length - 1].stufe ?? 1) };
+const narvaIdx = ligaleiter.map((z, i) => (z.stufe === 4 ? i : -1)).filter((i) => i >= 0);
+const narva = { x: (xAt(narvaIdx[0]) + xAt(narvaIdx[narvaIdx.length - 1])) / 2, y: yStufe(4) };
+const ticks = ligaleiter.map((z, i) => ({ ...z, x: xAt(i) })).filter((_, i) => i % 5 === 0);
+
+const pill = 'inline-flex min-h-11 cursor-pointer list-none items-center rounded-full border border-ink px-5 text-[15px] font-medium transition-colors hover:bg-ink hover:text-paper [&::-webkit-details-marker]:hidden';
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
-<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <ol>
-    {t.timeline.map((item: any) => (
-      <li class="reveal grid gap-4 border-b border-line py-8 sm:grid-cols-[10rem_1fr] sm:gap-10 lg:grid-cols-[16rem_1fr_6rem] lg:py-10">
-        <p class="display nums text-6xl text-club lg:text-7xl">{item.year}</p>
-        <div class="max-w-2xl">
-          <h2 class="text-2xl font-bold tracking-tight">{item.title}</h2>
-          <p class="mt-3 font-serif text-lg leading-relaxed text-ink-soft">{item.text}</p>
-        </div>
-        {images[item.year] && (
-          <img src={images[item.year]} alt="" width="96" height="96" loading="lazy" class="hidden h-20 w-20 object-contain mix-blend-multiply lg:block lg:justify-self-end" />
-        )}
+<!-- Ebene 1: alle Wappen in einer Leiste, jedes springt zu seiner Epoche -->
+<nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label={t.stripLabel}>
+  <p class="mb-4 text-[13px] font-medium uppercase tracking-[0.08em] text-ink-soft">{t.stripLabel}</p>
+  <ol class="no-scrollbar -mx-4 flex snap-x scroll-px-4 gap-1 overflow-x-auto border-y border-line px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-9 lg:overflow-visible">
+    {wappen.map((w) => (
+      <li class="w-24 shrink-0 snap-start lg:w-auto">
+        <a href={`#${w.epoche}`} class="flex h-full flex-col items-center gap-2 rounded-sm px-1 pb-4 pt-5 text-center transition-colors hover:bg-paper-deep">
+          <img src={w.bild} alt="" width="72" height="72" class="h-16 w-16 object-contain mix-blend-multiply" />
+          <span class="display nums text-2xl">{w.jahr}</span>
+          <span class="text-xs leading-snug text-ink-soft">{w.name}</span>
+        </a>
       </li>
     ))}
   </ol>
+</nav>
+
+<!-- Ebene 2: Epochen, kurz für alle, ausführlich auf Klick -->
+<section class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8" aria-label={t.erasLabel}>
+  <ol>
+    {t.eras.map((era) => {
+      const id = era.id as EraId;
+      const absaetze = mehr[id] ?? [];
+      const bilder = wappenFuer(id);
+      return (
+        <li id={id} class="reveal grid scroll-mt-24 gap-4 border-b border-line py-10 sm:grid-cols-[10rem_1fr] sm:gap-10 lg:grid-cols-[15rem_1fr_6rem] lg:py-12">
+          <p class="display nums text-4xl text-club sm:text-5xl lg:text-6xl"><bdi>{era.years}</bdi></p>
+          <div class="max-w-2xl">
+            {bilder.length > 0 && (
+              <div class="mb-4 flex gap-2 lg:hidden" aria-hidden="true">
+                {bilder.map((w) => <img src={w.bild} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 object-contain mix-blend-multiply" />)}
+              </div>
+            )}
+            <h2 class="text-2xl font-bold tracking-tight sm:text-[28px]">{era.title}</h2>
+            <p class="mt-3 font-serif text-lg leading-relaxed text-ink-soft sm:text-[19px]">{era.text}</p>
+
+            {id === 'fusion' && (
+              <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-line py-4">
+                <img src={turbine.bild} alt={turbine.name} width="56" height="56" loading="lazy" class="h-12 w-12 object-contain mix-blend-multiply" />
+                <span class="text-xl text-ink-soft" aria-hidden="true">+</span>
+                <img src={lok.bild} alt={lok.name} width="56" height="56" loading="lazy" class="h-12 w-12 object-contain mix-blend-multiply" />
+                <span class="text-xl text-ink-soft" aria-hidden="true">=</span>
+                <img src={fct.bild} alt={fct.name} width="64" height="64" loading="lazy" class="h-14 w-14 object-contain" />
+                <span class="text-sm leading-snug text-ink-soft">{turbine.name} + {lok.name}<br /><b class="text-ink">{fct.name}, 1994</b></span>
+              </div>
+            )}
+
+            {era.facts.length > 0 && (
+              <p class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-soft">
+                {era.facts.map((f) => <span><b class="nums text-ink">{f.v}</b> {f.l}</span>)}
+              </p>
+            )}
+
+            {absaetze.length > 0 && (isDe ? (
+              <details class="group mt-5">
+                <summary class={pill}><span class="group-open:hidden">{t.more}</span><span class="hidden group-open:inline">{t.less}</span></summary>
+                <div class="mt-5 space-y-3 font-serif text-[17px] leading-relaxed text-ink-soft">
+                  {absaetze.map((a) => <p>{a}</p>)}
+                </div>
+              </details>
+            ) : (
+              <a href={`/vereinschronik#${id}`} hreflang="de" class="mt-5 inline-flex min-h-11 items-center text-sm font-semibold text-club hover:text-club-deep">{t.germanOnly} (DE)</a>
+            ))}
+
+            {id === 'heute' && <CtaButton href="#zahlen" class="mt-6">{t.allSeasonsCta}</CtaButton>}
+          </div>
+          {bilder.length > 0 && (
+            <div class="hidden flex-col items-end gap-3 lg:flex" aria-hidden="true">
+              {bilder.map((w) => <img src={w.bild} alt="" width="64" height="64" loading="lazy" class="h-16 w-16 object-contain mix-blend-multiply" />)}
+            </div>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</section>
+
+<!-- Ebene 3: Zahlen für Tiefergeher -->
+<section id="zahlen" class="mx-auto max-w-7xl scroll-mt-24 px-4 py-section sm:px-6 lg:px-8" aria-labelledby="zahlen-h">
+  <div class="border-b border-ink pb-6">
+    <h2 id="zahlen-h" class="display text-5xl sm:text-6xl">{t.deepH}</h2>
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink-soft">{t.deepIntro}</p>
+  </div>
+
+  <h3 class="mt-10 text-xl font-bold">{t.ladderH}</h3>
+  <p class="mt-1 text-sm text-ink-soft">{t.ladderSub}</p>
+  <div class="no-scrollbar mt-4 overflow-x-auto border-y border-line py-4" dir="ltr">
+    <svg viewBox={`0 0 ${W} ${H}`} class="block h-auto w-full min-w-[880px] font-sans" role="img" aria-label={t.ladderAria}>
+      {ligaStufen.map((name, i) => (
+        <g>
+          <text x="0" y={yStufe(i + 1) + 4} font-size="15" class="fill-ink-soft">{name}</text>
+          <line x1="110" x2={W - 10} y1={yStufe(i + 1)} y2={yStufe(i + 1)} class="stroke-line" stroke-width="1" />
+        </g>
+      ))}
+      {luecken.map((g) => (
+        <g>
+          <line x1={g.x1} y1={g.y1} x2={g.x2} y2={g.y2} class="stroke-ink-soft" stroke-width="1.5" stroke-dasharray="4 5" />
+          <text x={(g.x1 + g.x2) / 2 + 30} y={Math.min(g.y1, g.y2) - 6} text-anchor="middle" font-size="14" class="fill-ink-soft">{t.noData}</text>
+        </g>
+      ))}
+      {segmente.map((d) => <path d={d} fill="none" class="stroke-ink" stroke-width="3" stroke-linejoin="round" />)}
+      <text x={narva.x} y={narva.y - 10} text-anchor="middle" font-size="14" font-weight="700" class="fill-ink">{t.narva}</text>
+      <circle cx={vize.x} cy={vize.y} r="5" class="fill-ink" />
+      <text x={vize.x} y={vize.y - 14} text-anchor="middle" font-size="14" font-weight="700" class="fill-ink">{t.runnerUp}</text>
+      <circle cx={heute.x} cy={heute.y} r="5" class="fill-ink" />
+      <text x={heute.x} y={heute.y + 22} text-anchor="middle" font-size="14" class="fill-ink">{t.today}</text>
+      {ticks.map((k) => <text x={k.x} y={H - 10} text-anchor="middle" font-size="14" class="nums fill-ink-soft">{k.saison}</text>)}
+    </svg>
+  </div>
+
+  <details class="group mt-8 border-b border-line pb-4">
+    <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
+      <h3 class="text-xl font-bold">{t.tableH} <span class="nums font-normal text-ink-soft">({spielzeiten.length})</span></h3>
+      <span class="inline-flex min-h-10 items-center rounded-full border border-ink px-4 text-sm font-medium transition-colors group-hover:bg-ink group-hover:text-paper"><span class="group-open:hidden">{t.tableShow}</span><span class="hidden group-open:inline">{t.tableHide}</span></span>
+    </summary>
+    <div class="mt-3 overflow-x-auto" dir="ltr">
+      <table class="nums w-full min-w-[620px] border-collapse text-left text-sm">
+        <thead>
+          <tr class="text-xs uppercase tracking-[0.06em] text-ink-soft">
+            <th class="border-b border-ink py-2 pe-2 font-medium">{t.th.saison}</th>
+            <th class="border-b border-ink p-2 font-medium">{t.th.verein}</th>
+            <th class="border-b border-ink p-2 font-medium">{t.th.liga}</th>
+            <th class="border-b border-ink p-2 text-right font-medium">{t.th.tore}</th>
+            <th class="border-b border-ink p-2 text-right font-medium">{t.th.punkte}</th>
+            <th class="border-b border-ink py-2 ps-2 text-right font-medium">{t.th.platz}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {spielzeiten.map((s) => (
+            <tr class="border-b border-line">
+              <td class="py-2 pe-2 font-bold">{s.saison}</td>
+              <td class="p-2 text-ink-soft">{s.verein}</td>
+              <td class="p-2">{s.liga}</td>
+              <td class="p-2 text-right">{s.tore}</td>
+              <td class="p-2 text-right">{s.punkte}</td>
+              <td class="py-2 ps-2 text-right font-bold">{s.platz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-[13px] leading-relaxed text-ink-soft">{t.tableNote}</p>
+  </details>
+
+  <div class="mt-14 grid gap-12 md:grid-cols-2">
+    <div>
+      <h3 class="mb-3 text-xl font-bold">{t.namesH}</h3>
+      <ul class="border-b border-line">
+        {t.names.map((p) => (
+          <li class="border-t border-line py-3"><b>{p.n}</b>{p.note && <span class="text-ink-soft"> · {p.note}</span>}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="mb-3 text-xl font-bold">{t.cupsH}</h3>
+      <ul class="border-b border-line">
+        {t.cups.map((c) => (
+          <li class="flex justify-between gap-4 border-t border-line py-3"><span>{c.l}</span><b class="nums shrink-0">{c.v}</b></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <p class="mt-14 text-[13px] leading-relaxed text-ink-soft">
+    {t.sourcesLabel}: {t.archive}; {quellen.map((q, i) => (
+      <>{i > 0 && '; '}<a href={q.href} rel="noopener" class="underline decoration-line underline-offset-2 hover:text-ink">{q.label}</a></>
+    ))}. {t.contact} <a href={l(lang, '/kontakt')} class="font-semibold text-club hover:text-club-deep">{t.contactCta}</a>.
+  </p>
 </section>
