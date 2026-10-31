@@ -50,8 +50,8 @@ const de = {
   joinText: 'Am liebsten schreibst du uns vorher kurz. Du trainierst ein paarmal mit, danach gibt dir der Trainer Rückmeldung, ob es passt und in welchem Team Platz ist.',
   joinSteps: ['Probetraining anfragen oder direkt zum Training kommen', 'Zwei, drei Einheiten mittrainieren', 'Passt es: anmelden, ab 10 € im Monat'],
 
-  chronikHeading: 'Sieben Namen, ein Verein',
-  chronikText: 'Gegründet 1925 als Werksverein der Bewag, später Elektra, Turbine und seit 1994 FC Treptow. Die Geschichte eines Kiezvereins durch ein ganzes Jahrhundert Berlin.',
+  chronikHeading: 'Neun Wappen, ein Verein',
+  chronikText: 'Gegründet 1925 als Werksverein der Bewag, später Elektra und Turbine, seit der Fusion mit Lok Schöneweide 1994 FC Treptow. Die Geschichte eines Kiezvereins durch ein ganzes Jahrhundert Berlin, von der Gauliga bis zur Kreisliga.',
   chronikCta: 'Zur Chronik',
 
   shopHeading: 'Fanshop',
@@ -136,8 +136,8 @@ const en: UI = {
   joinText: 'Ideally, drop us a line first. Train with us a few times, then the coach will let you know whether it’s a fit and which team has room.',
   joinSteps: ['Request a trial session or just turn up to training', 'Train with us two or three times', 'If it’s a fit: sign up, from €10 a month'],
 
-  chronikHeading: 'Seven names, one club',
-  chronikText: 'Founded in 1925 as the Bewag works club, later Elektra, Turbine and, since 1994, FC Treptow. A neighbourhood club through a whole century of Berlin.',
+  chronikHeading: 'Nine crests, one club',
+  chronikText: 'Founded in 1925 as the Bewag works club, later Elektra and Turbine, and FC Treptow since the 1994 merger with Lok Schöneweide. A neighbourhood club through a whole century of Berlin, from the Gauliga to the Kreisliga.',
   chronikCta: 'Read the history',
 
   shopHeading: 'Fan shop',
@@ -220,8 +220,8 @@ const tr: UI = {
   joinText: 'En iyisi önceden bize kısaca yaz. Birkaç kez antrenmana katılırsın, ardından antrenör uyum olup olmadığını ve hangi takımda yer olduğunu sana söyler.',
   joinSteps: ['Deneme antrenmanı iste ya da doğrudan antrenmana gel', 'İki üç antrenmana katıl', 'Uyum varsa kayıt ol, ayda 10 €’dan başlayan aidatla'],
 
-  chronikHeading: 'Yedi isim, tek kulüp',
-  chronikText: '1925’te Bewag işyeri kulübü olarak kuruldu, sonra Elektra, Turbine ve 1994’ten beri FC Treptow. Berlin’de koca bir yüzyıl boyunca bir mahalle kulübü.',
+  chronikHeading: 'Dokuz arma, tek kulüp',
+  chronikText: '1925’te Bewag işyeri kulübü olarak kuruldu, sonra Elektra ve Turbine oldu, 1994’te Lok Schöneweide ile birleşmesinden beri FC Treptow. Gauliga’dan Kreisliga’ya, Berlin’de koca bir yüzyıl boyunca bir mahalle kulübü.',
   chronikCta: 'Tarihçeye git',
 
   shopHeading: 'Taraftar mağazası',
@@ -304,8 +304,8 @@ const ar: UI = {
   joinText: 'يُفضَّل أن تراسلنا مسبقًا. تتدرب معنا بضع مرات، ثم يخبرك المدرب ما إذا كان الأمر مناسبًا وفي أي فريق يوجد مكان.',
   joinSteps: ['اطلب تدريبًا تجريبيًا أو تعال مباشرة إلى التدريب', 'تدرّب معنا مرتين أو ثلاثًا', 'إذا كان مناسبًا، سجّل، من 10 يورو شهريًا'],
 
-  chronikHeading: 'سبعة أسماء، ناد واحد',
-  chronikText: 'تأسس عام 1925 كنادٍ لموظفي شركة بيفاغ، ثم إلكترا وتوربينه، ومنذ 1994 إف سي تريبتاو. نادي حيّ عبر قرن كامل من تاريخ برلين.',
+  chronikHeading: 'تسعة شعارات، نادٍ واحد',
+  chronikText: 'تأسس عام 1925 كنادٍ لموظفي شركة بيفاغ، ثم إلكترا وتوربينه، ومنذ الاندماج مع لوك شونيفايده عام 1994 إف سي تريبتاو. نادي حيّ عبر قرن كامل من تاريخ برلين، من Gauliga إلى Kreisliga.',
   chronikCta: 'إلى تاريخ النادي',
 
   shopHeading: 'متجر المشجعين',
@@ -388,8 +388,8 @@ const es: UI = {
   joinText: 'Lo ideal es que nos escribas antes. Entrenas con nosotros unas cuantas veces y luego el entrenador te dice si encajas y en qué equipo hay sitio.',
   joinSteps: ['Solicita un entrenamiento de prueba o ven directamente', 'Entrena con nosotros dos o tres veces', 'Si encajas, inscríbete, desde 10 € al mes'],
 
-  chronikHeading: 'Siete nombres, un club',
-  chronikText: 'Fundado en 1925 como club de empresa de Bewag, después Elektra, Turbine y, desde 1994, FC Treptow. Un club de barrio a lo largo de todo un siglo de Berlín.',
+  chronikHeading: 'Nueve escudos, un club',
+  chronikText: 'Fundado en 1925 como club de empresa de Bewag, después Elektra y Turbine, y FC Treptow desde la fusión con Lok Schöneweide en 1994. Un club de barrio a lo largo de todo un siglo de Berlín, de la Gauliga a la Kreisliga.',
   chronikCta: 'Ver la historia',
 
   shopHeading: 'Tienda',
@@ -472,8 +472,8 @@ const fr: UI = {
   joinText: 'Idéalement, écris-nous avant. Entraîne-toi quelques fois avec nous, puis l’entraîneur te dira si ça colle et dans quelle équipe il y a de la place.',
   joinSteps: ['Demande une séance d’essai ou viens directement à l’entraînement', 'Entraîne-toi deux ou trois fois avec nous', 'Si ça colle, inscris-toi, dès 10 € par mois'],
 
-  chronikHeading: 'Sept noms, un seul club',
-  chronikText: 'Fondé en 1925 comme club d’entreprise de la Bewag, puis Elektra, Turbine et, depuis 1994, FC Treptow. Un club de quartier à travers tout un siècle de Berlin.',
+  chronikHeading: 'Neuf blasons, un seul club',
+  chronikText: 'Fondé en 1925 comme club d’entreprise de la Bewag, puis Elektra et Turbine, et FC Treptow depuis la fusion avec Lok Schöneweide en 1994. Un club de quartier à travers tout un siècle de Berlin, de la Gauliga à la Kreisliga.',
   chronikCta: 'Lire l’histoire',
 
   shopHeading: 'Boutique',
