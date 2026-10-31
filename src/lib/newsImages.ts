@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-// Verkleinerte Fassungen der News-Fotos, erzeugt von scripts/gen-news-images.mjs.
+// Verkleinerte Fassungen der News- und Mannschaftsfotos, erzeugt von scripts/gen-news-images.mjs.
 // Fehlt eine (Skript nicht gelaufen, Foto defekt), wird das Original ausgeliefert.
 
 type Entry = { width?: number; height?: number; files: Record<string, string> };
