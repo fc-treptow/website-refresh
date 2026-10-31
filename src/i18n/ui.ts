@@ -59,6 +59,9 @@ const de = {
   shopCta: 'Zum Fanshop',
   shopNote: 'Bestellung und Bezahlung laufen über unseren Partner Spreadshirt, direkt hier auf der Seite.',
 
+  instagramText: 'Spieltage, Training, Vereinsleben: Was zwischen den Spielen passiert, zeigen wir auf Instagram.',
+  instagramCta: 'Folgen',
+
   groundHeading: 'Unser Platz',
   groundText: 'Kunstrasen und Vereinsheim an der Köpenicker Landstraße, zwischen Baumschulenweg und Plänterwald.',
   directionsCta: 'Route planen',
@@ -145,6 +148,9 @@ const en: UI = {
   shopCta: 'To the fan shop',
   shopNote: 'Orders and payment run through our partner Spreadshirt, right here on this site.',
 
+  instagramText: 'Matchdays, training, club life: what happens between the games is on our Instagram.',
+  instagramCta: 'Follow us',
+
   groundHeading: 'Our ground',
   groundText: 'Artificial turf and clubhouse on Köpenicker Landstraße, between Baumschulenweg and Plänterwald.',
   directionsCta: 'Plan your route',
@@ -228,6 +234,9 @@ const tr: UI = {
   shopText: 'Arma ve FCT monogramlı formalar, kapüşonlular, şapkalar ve daha fazlası. Spreadshirt tarafından siparişe göre basılır, her alışveriş kulübü destekler.',
   shopCta: 'Mağazaya git',
   shopNote: 'Sipariş ve ödeme, partnerimiz Spreadshirt üzerinden doğrudan bu sitede yapılır.',
+
+  instagramText: "Maç günleri, antrenmanlar, kulüp hayatı: maçların arasında olanları Instagram'da paylaşıyoruz.",
+  instagramCta: 'Takip et',
 
   groundHeading: 'Sahamız',
   groundText: 'Köpenicker Landstraße’de suni çim saha ve kulüp evi, Baumschulenweg ile Plänterwald arasında.',
@@ -313,6 +322,9 @@ const ar: UI = {
   shopCta: 'إلى المتجر',
   shopNote: 'يتم الطلب والدفع عبر شريكنا Spreadshirt مباشرة هنا على الموقع.',
 
+  instagramText: 'أيام المباريات والتدريبات وحياة النادي: ما يحدث بين المباريات تجدونه على إنستغرام.',
+  instagramCta: 'تابِعنا',
+
   groundHeading: 'ملعبنا',
   groundText: 'ملعب بعشب صناعي ومقر للنادي في شارع كوبينيكر لاندشتراسه، بين باومشولنفيغ وبلينترفالد.',
   directionsCta: 'خطط لمسارك',
@@ -397,6 +409,9 @@ const es: UI = {
   shopCta: 'Ir a la tienda',
   shopNote: 'Los pedidos y el pago se gestionan con nuestro socio Spreadshirt, aquí mismo en la web.',
 
+  instagramText: 'Días de partido, entrenamientos, vida de club: lo que pasa entre partidos lo contamos en Instagram.',
+  instagramCta: 'Síguenos',
+
   groundHeading: 'Nuestro campo',
   groundText: 'Césped artificial y sede del club en la Köpenicker Landstraße, entre Baumschulenweg y Plänterwald.',
   directionsCta: 'Planificar ruta',
@@ -480,6 +495,9 @@ const fr: UI = {
   shopText: 'Maillots, sweats, casquettes et plus avec le blason et le monogramme FCT. Imprimés à la demande par Spreadshirt, chaque achat soutient le club.',
   shopCta: 'Aller à la boutique',
   shopNote: 'Commande et paiement passent par notre partenaire Spreadshirt, directement sur ce site.',
+
+  instagramText: "Jours de match, entraînements, vie du club : ce qui se passe entre les matchs, c'est sur Instagram.",
+  instagramCta: 'Nous suivre',
 
   groundHeading: 'Notre terrain',
   groundText: 'Gazon synthétique et club-house sur la Köpenicker Landstraße, entre Baumschulenweg et Plänterwald.',

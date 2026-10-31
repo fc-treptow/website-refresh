@@ -147,6 +147,24 @@ const shop = defineCollection({
   }),
 });
 
+// Handverlesene Instagram-Beiträge für die Startseite, gepflegt im CMS. Werden gezeigt, solange
+// keine automatische Anbindung an Instagram eingerichtet ist (siehe src/lib/instagram.ts), und
+// danach als Ersatz, falls die Anbindung ausfällt. Das Foto liegt selbst auf unserem Server.
+const instagram = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/instagram' }),
+  schema: z.object({
+    image: z.string(),
+    url: z
+      .url()
+      .regex(/^https:\/\/(www\.)?instagram\.com\//, 'Bitte den Link zum Beitrag auf instagram.com eintragen.'),
+    // Kurzbeschreibung des Fotos für Screenreader und Suchmaschinen
+    alt: z.string(),
+    // Video oder Reel: zeigt ein Abspielzeichen auf dem Vorschaubild
+    video: z.boolean().default(false),
+    order: z.number().default(99),
+  }),
+});
+
 export const downloadGroups = ['Neue Mitglieder', 'Spielberechtigung', 'Vereinsordnungen'] as const;
 
 const downloads = defineCollection({
@@ -195,4 +213,4 @@ const kontakt = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, downloads, einstellungen, kontakt };
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt };

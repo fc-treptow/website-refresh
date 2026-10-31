@@ -35,6 +35,7 @@ Dort gibt es diese Bereiche:
 | Vorstand | Namen, Ämter und Kontaktdaten. |
 | Partner und Sponsoren | Logo, Name, Link. |
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
+| Instagram-Beiträge | Ausgewählte Beiträge für die Startseite: Foto hochladen, Link zum Beitrag einfügen, kurz beschreiben. Die ersten vier nach Reihenfolge werden gezeigt. |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
 | Einstellungen | Kontakt: E-Mail des Kontrollrats. Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich eine Adresse ändert. |
@@ -201,8 +202,20 @@ und öffnen den jeweiligen Artikel im eingebetteten Shop.
 
 ## Instagram (optional)
 
-Ohne Zugangsdaten zeigt die Startseite keinen Instagram-Bereich, nur den Link im Footer. Einrichtung
-in `src/lib/instagram.ts`. Bilder werden beim Build heruntergeladen und selbst ausgeliefert.
+Der Instagram-Bereich auf der Startseite zeigt einen kurzen Hinweis mit "Folgen"-Knopf und bis zu
+vier Beiträge. Woher die Beiträge kommen, entscheidet sich beim Build:
+
+1. Sind `INSTAGRAM_ACCESS_TOKEN` und `INSTAGRAM_BUSINESS_ACCOUNT_ID` in Vercel gesetzt, die
+   neuesten Beiträge direkt von Instagram. Einrichtung in `src/lib/instagram.ts`. Bilder werden
+   beim Build heruntergeladen und selbst ausgeliefert.
+2. Sonst (oder wenn das Token abgelaufen ist) die Auswahl aus dem CMS (Instagram-Beiträge).
+   Die Fotos liegen in `public/images/instagram` und werden von `scripts/gen-news-images.mjs`
+   verkleinert.
+3. Ist beides leer, nur der Hinweis mit dem Knopf, keine Bilder.
+
+Umschalten auf die automatische Anbindung braucht keine Codeänderung, nur die Umgebungsvariablen
+und einen neuen Build. Offen danach: täglicher Neubau, damit neue Beiträge erscheinen, und
+automatisches Erneuern des Tokens (läuft nach etwa 60 Tagen ab).
 
 ## Offene Punkte vor dem Livegang
 

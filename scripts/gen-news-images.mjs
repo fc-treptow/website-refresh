@@ -1,5 +1,6 @@
 // Verkleinert die Fotos der News (Titelfoto "image" und Fotogalerie "gallery" in src/content/news/de)
-// und der Mannschaften (Mannschaftsfoto "image" und Fotos "gallery" in src/content/teams/de).
+// und der Mannschaften (Mannschaftsfoto "image" und Fotos "gallery" in src/content/teams/de)
+// sowie die handverlesenen Instagram-Beiträge ("image" in src/content/instagram).
 // Fotos aus dem CMS sind oft Handy-Originale mit mehreren MB; eine Galerie mit 20 Fotos wäre auf
 // dem Handy sonst schnell 40 MB. Ausgeliefert werden stattdessen WebP-Dateien in zwei Breiten
 // unter public/images/news-gen/ (640 px für Vorschaubilder, 1600 px für die Großansicht).
@@ -10,7 +11,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import sharp from 'sharp';
 import { parse } from 'yaml';
 
-const dirs = ['src/content/news/de', 'src/content/teams/de'];
+const dirs = ['src/content/news/de', 'src/content/teams/de', 'src/content/instagram'];
 const out = 'public/images/news-gen';
 const widths = [640, 1600];
 
@@ -25,7 +26,7 @@ const manifest = {};
 
 // Alle Fotopfade aus den deutschen Beiträgen und Mannschaften einsammeln
 const images = new Set();
-for (const dir of dirs) for (const f of readdirSync(dir).filter((n) => n.endsWith('.md'))) {
+for (const dir of dirs.filter((d) => existsSync(d))) for (const f of readdirSync(dir).filter((n) => n.endsWith('.md'))) {
   const m = readFileSync(`${dir}/${f}`, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!m) continue;
   let fm;

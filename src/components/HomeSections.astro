@@ -9,7 +9,7 @@ import { defaultLocale, bcp47, l, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/ui';
 import { getNews, getTeams, leagueLabel, trainingLabel } from '../i18n/content';
 import { fixturesLabels } from '../i18n/fixtures';
-import { getInstagramPosts } from '../lib/instagram';
+import { getSocialPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
 import { gameRow, leagueTable, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
@@ -24,7 +24,7 @@ const sponsors = (await getCollection('sponsors')).sort((a, b) => a.data.order -
 const teams = await getTeams(lang);
 const news = await getNews(lang);
 const [lead, ...moreNews] = news;
-const { posts: socialPosts, isLive: socialIsLive } = await getInstagramPosts(6);
+const { posts: socialPosts, source: socialSource } = await getSocialPosts(4);
 
 // Nächstes Spiel je Mannschaft, zeitlich sortiert
 const fixtures = await buildFixtures();
@@ -327,24 +327,39 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
   </div>
 </section>
 
-<!-- 8. Instagram, nur wenn echte Beiträge da sind -->
-{socialIsLive && (
-  <section class="mx-auto max-w-7xl px-4 pb-section sm:px-6 lg:px-8">
-    <div class="reveal flex items-end justify-between gap-6 border-t border-ink pt-6">
-      <h2 class="display text-3xl">Instagram</h2>
-      <a href={club.social.instagram} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-club">@fc.treptow <Icon name="external" size={16} /></a>
+<!-- 8. Instagram: neueste Beiträge (automatisch) oder die Auswahl aus dem CMS, sonst nur der Hinweis -->
+<section class="mx-auto max-w-7xl px-4 pb-section sm:px-6 lg:px-8">
+  <div class="reveal flex items-end justify-between gap-6 border-t border-ink pt-6">
+    <h2 class="display text-3xl">Instagram</h2>
+    <a href={club.social.instagram} rel="noopener" target="_blank" class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-club hover:text-club-deep">@fc.treptow <Icon name="external" size={16} /></a>
+  </div>
+  <div class="mt-6 grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
+    <div class="reveal lg:col-span-4">
+      <p class="max-w-sm leading-relaxed text-ink-soft">{t.instagramText}</p>
+      <CtaButton href={club.social.instagram} external class="mt-6">{t.instagramCta}</CtaButton>
     </div>
-    <ul class="stagger mt-6 grid grid-cols-3 gap-1 sm:grid-cols-6">
-      {socialPosts.map((post) => (
-        <li>
-          <a href={post.permalink} rel="noopener" target="_blank" class="block overflow-hidden rounded-sm">
-            <Image src={post.imageUrl} alt={post.caption?.slice(0, 120) || 'Instagram'} width={400} height={400} class="aspect-square w-full object-cover" />
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
-)}
+    {socialPosts.length > 0 && (
+      <ul class="stagger grid grid-cols-2 gap-1 sm:grid-cols-4 lg:col-span-8">
+        {socialPosts.map((post) => (
+          <li>
+            <a href={post.permalink} rel="noopener" target="_blank" class="group relative block overflow-hidden rounded-sm">
+              {socialSource === 'api' ? (
+                <Image src={post.imageUrl} alt={post.caption?.slice(0, 120) || 'Instagram'} width={400} height={400} class="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+              ) : (
+                <img {...thumbAttrs(post.imageUrl)} sizes="(min-width: 1024px) 200px, 50vw" alt={post.caption ?? ''} loading="lazy" class="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+              )}
+              {post.isVideo && (
+                <span class="absolute end-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-ink/60 text-white" aria-hidden="true">
+                  <Icon name="play" size={16} />
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
 
 <!-- 9. Partner: ruhig, eine Zeile -->
 {sponsors.length > 0 && (
