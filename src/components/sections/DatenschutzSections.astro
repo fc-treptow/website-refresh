@@ -1,11 +1,27 @@
 ---
 import PageHeader from '../PageHeader.astro';
-import { Content } from '../../legal/datenschutz.md';
+import { compiledContent } from '../../legal/datenschutz.md';
+import { getContacts } from '../../lib/links';
+import { emailDisplay, encodeEmail } from '../../lib/email';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('datenschutz', lang);
+
+// Telefon und Vorstandsadresse kommen aus dem CMS (Einstellungen > Kontakt). In datenschutz.md
+// stehen dafür die Platzhalter {{telefon}} und {{vorstand-email}}; ohne Telefonnummer fällt die
+// ganze Zeile "Telefon: …" weg. Den mailto-Link mit dem Platzhalter hat src/lib/markdownEmail.ts
+// beim Übersetzen schon geschützt, deshalb wird die kodierte Form ebenfalls ersetzt.
+const { phone, boardEmail } = await getContacts();
+const boardToken = '{{vorstand-email}}';
+let html = (await compiledContent())
+  .replaceAll(`data-email="${encodeEmail(boardToken)}"`, `data-email="${encodeEmail(boardEmail)}"`)
+  .replaceAll(boardToken, emailDisplay(boardEmail));
+html = phone
+  ? html.replaceAll('{{telefon}}', phone)
+  : html.replace(/Telefon: \{\{telefon\}\}<br\s*\/?>\s*/g, '');
+if (html.includes('{{')) throw new Error('datenschutz.md enthält einen unbekannten Platzhalter');
 ---
 <PageHeader title={t.h1}>
   {t.notice && <p class="mt-6 max-w-2xl rounded-sm bg-card p-5 leading-relaxed ring-1 ring-line">{t.notice}</p>}
@@ -13,6 +29,6 @@ const t = pageT('datenschutz', lang);
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
   <div lang="de" dir="ltr" class="legal max-w-3xl text-base leading-relaxed text-ink-soft [&>h2:first-child]:mt-0">
-    <Content />
+    <Fragment set:html={html} />
   </div>
 </section>

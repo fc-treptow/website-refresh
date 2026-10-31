@@ -6,7 +6,7 @@ import Email from '../components/Email.astro';
 import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, ogLocale, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/ui';
 import { club } from '../data/club';
-import { getLinks, hostOf, splitHost } from '../lib/links';
+import { getContacts, getLinks, hostOf, splitHost } from '../lib/links';
 import { defaultImage } from '../lib/defaultImage.mjs';
 
 interface Props {
@@ -73,6 +73,7 @@ const moreLinks = [
 
 // Mitgliederbereich in easyVerein: externer Link, Ziel steht dabei (Dienst, Domain, neuer Tab).
 const { memberAreaUrl, appIosUrl, appAndroidUrl } = await getLinks();
+const contacts = await getContacts();
 const memberNote = splitHost(t.memberAreaNote);
 const memberHost = hostOf(memberAreaUrl);
 const memberNoteText = `${memberNote.before}${memberHost}${memberNote.after}`;
@@ -231,8 +232,8 @@ const socials = [
             <div class="col-span-2 sm:col-span-1">
               <p class="text-xs font-semibold uppercase tracking-[0.14em] text-paper/45">{t.footerKontaktHeading}</p>
               <ul class="mt-4 space-y-3 text-sm">
-                <li><Email address={club.email} class="text-paper/80 transition-colors hover:text-paper" /></li>
-                <li><a href={club.phoneHref} class="nums text-paper/80 transition-colors hover:text-paper">{club.phone}</a></li>
+                <li><Email address={contacts.email} class="text-paper/80 transition-colors hover:text-paper" /></li>
+                {contacts.phone && <li><a href={contacts.phoneHref} class="nums text-paper/80 transition-colors hover:text-paper" dir="ltr">{contacts.phone}</a></li>}
                 <li><a href={l(lang, '/kontakt')} class="text-paper/80 transition-colors hover:text-paper">{t.footerAnfahrt}</a></li>
               </ul>
               <ul class="mt-6 flex gap-2">

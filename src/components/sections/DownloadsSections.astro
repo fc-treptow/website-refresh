@@ -3,12 +3,13 @@ import { getCollection } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import Icon from '../Icon.astro';
 import Email from '../Email.astro';
-import { club } from '../../data/club';
+import { getContacts } from '../../lib/links';
 import { downloadGroups } from '../../content.config';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const contacts = await getContacts();
 const t = pageT('downloads', lang);
 // {email} im Einleitungstext wird durch den geschützten Link ersetzt
 const [introBefore, introAfter = ''] = t.intro.split('{email}');
@@ -32,7 +33,7 @@ const known: Record<string, [string, string]> = {
 };
 ---
 <PageHeader title={t.h1}>
-  <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{introBefore}<Email address={club.email} class="font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 hover:decoration-ink" />{introAfter}</p>
+  <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{introBefore}<Email address={contacts.email} class="font-semibold text-ink underline decoration-line decoration-2 underline-offset-4 hover:decoration-ink" />{introAfter}</p>
   {t.germanOnly && <p class="mt-4 text-sm font-medium text-ink-soft">{t.germanOnly}</p>}
 </PageHeader>
 

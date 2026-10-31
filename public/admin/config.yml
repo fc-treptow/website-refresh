@@ -239,6 +239,22 @@ collections:
         file: src/content/einstellungen/kontakt.yml
         format: yml
         fields:
+          - name: email
+            label: E-Mail des Vereins
+            hint: 'Allgemeine Adresse. Steht auf Kontakt, in der Fußzeile, im Impressum, bei den Downloads und im Fehlerhinweis des Probetraining-Formulars. Wohin das Formular Anfragen schickt, ändert sich dadurch nicht.'
+            widget: string
+            pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Bitte eine gültige E-Mail-Adresse eingeben.']
+          - name: boardEmail
+            label: E-Mail des Vorstands
+            hint: 'Steht im Impressum, in der Datenschutzerklärung und auf den Seiten Vorstand und Sponsoren.'
+            widget: string
+            pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Bitte eine gültige E-Mail-Adresse eingeben.']
+          - name: phone
+            label: Telefon des Vereins
+            hint: 'So schreiben, wie sie angezeigt werden soll, z. B. 030 2415328. Leer lassen, um die Nummer überall auszublenden (Kontakt, Fußzeile, Impressum, Datenschutz).'
+            widget: string
+            required: false
+            pattern: ['^(\+?[0-9 ()/-]{6,20})?$', 'Nur Ziffern, Leerzeichen, +, -, / und Klammern, 6 bis 20 Zeichen.']
           - name: controlBoardEmail
             label: E-Mail des Kontrollrats
             hint: 'Gemeinsame Adresse, unter der alle Mitglieder des Kontrollrats erreichbar sind. Steht auf der Seite Vorstand beim Kontrollrat.'

@@ -52,7 +52,10 @@ Status mit `astro dev status`, Logs mit `astro dev logs`).
 - Neue Inhaltsfelder immer in `src/content.config.ts` (Schema) **und** `public/admin/config.yml`
   (CMS-Felder) eintragen, sonst kann die Redaktion sie nicht pflegen oder der Build bricht bei
   CMS-Einträgen.
-- Stammdaten (Adresse, E-Mails, Beiträge, IBAN, Social Links) nur in `src/data/club.ts`.
+- Stammdaten (Adresse, Beiträge, IBAN, Social Links) nur in `src/data/club.ts`. E-Mail-Adressen
+  und Telefonnummer des Vereins pflegt die Redaktion im CMS (Einstellungen > Kontakt,
+  `src/content/einstellungen/kontakt.yml`); im Code über `getContacts()` aus `src/lib/links.ts`.
+  Ist keine Telefonnummer eingetragen, wird sie nirgends angezeigt.
 - `src/legal/datenschutz.md` ist rechtlich bindend. Nur auf ausdrücklichen Auftrag ändern, und
   jede Änderung, die neue Datenflüsse einführt, dort nachtragen.
 

@@ -179,6 +179,17 @@ const einstellungen = defineCollection({
 const kontakt = defineCollection({
   loader: glob({ pattern: 'kontakt.yml', base: './src/content/einstellungen' }),
   schema: z.object({
+    // Allgemeine Adresse des Vereins (Kontakt, Fußzeile, Impressum, Downloads, Probetraining)
+    email: z.email(),
+    // Adresse des Vorstands (Impressum, Vorstand, Sponsoren, Datenschutz)
+    boardEmail: z.email(),
+    // Telefonnummer des Vereins, so geschrieben, wie sie angezeigt werden soll.
+    // Leer oder nicht gesetzt: Die Nummer erscheint nirgends auf der Seite.
+    phone: z
+      .string()
+      .trim()
+      .regex(/^(\+?[0-9 ()/-]{6,20})?$/, 'Telefonnummer: nur Ziffern, Leerzeichen, +, -, / und Klammern')
+      .nullish(),
     // Gemeinsame Adresse aller Mitglieder des Kontrollrats, steht auf der Seite /vorstand
     controlBoardEmail: z.email(),
   }),
