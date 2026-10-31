@@ -13,17 +13,38 @@
 //    Hosting-Projekt (z. B. Vercel) hinterlegen. Das Token läuft nach ca. 60 Tagen ab und muss
 //    regelmäßig erneuert werden (z. B. per Cron-Job, der den Facebook-Token-Refresh-Endpunkt aufruft).
 //
-// Ohne diese Einrichtung blendet die Startseite den Bereich aus und zeigt nur den Link zum
-// Profil. Bewusst keine Platzhalterbilder: fremde Fotos als "Vereinsleben" wären Täuschung.
+// Ohne diese Einrichtung (oder wenn das Token abgelaufen ist) zeigt die Startseite die
+// handverlesenen Beiträge aus dem CMS (Instagram-Beiträge, src/content/instagram). Fehlen auch
+// die, bleibt nur der Hinweis mit dem Link zum Profil. Bewusst keine Platzhalterbilder: fremde
+// Fotos als "Vereinsleben" wären Täuschung.
+//
+// Umschalten braucht keine Codeänderung: Umgebungsvariablen in Vercel setzen, neu bauen.
 //
 // Datenschutz: Die Bilder werden zur Build-Zeit über astro:assets heruntergeladen und von
-// unserer eigenen Domain ausgeliefert. Besucher laden nichts direkt von Instagram/Meta.
+// unserer eigenen Domain ausgeliefert. Besucher laden nichts direkt von Instagram/Meta. Die
+// handverlesenen Fotos liegen ohnehin im Repository (public/images/instagram).
+
+import { getCollection } from 'astro:content';
 
 export interface SocialPost {
   id: string;
   imageUrl: string;
   permalink: string;
   caption?: string;
+  isVideo?: boolean;
+}
+
+export type SocialSource = 'api' | 'manual' | 'none';
+
+/** Neueste Beiträge von Instagram, sonst die Auswahl aus dem CMS, sonst nichts */
+export async function getSocialPosts(limit = 4): Promise<{ posts: SocialPost[]; source: SocialSource }> {
+  const live = await getInstagramPosts(limit);
+  if (live.isLive) return { posts: live.posts, source: 'api' };
+  const manual = (await getCollection('instagram'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .slice(0, limit)
+    .map((e) => ({ id: e.id, imageUrl: e.data.image, permalink: e.data.url, caption: e.data.alt, isVideo: e.data.video }));
+  return { posts: manual, source: manual.length ? 'manual' : 'none' };
 }
 
 export async function getInstagramPosts(limit = 6): Promise<{ posts: SocialPost[]; isLive: boolean }> {
@@ -47,6 +68,7 @@ export async function getInstagramPosts(limit = 6): Promise<{ posts: SocialPost[
         imageUrl: item.media_type === 'VIDEO' ? item.thumbnail_url : item.media_url,
         permalink: item.permalink,
         caption: item.caption,
+        isVideo: item.media_type === 'VIDEO',
       }));
     return { posts, isLive: posts.length > 0 };
   } catch {

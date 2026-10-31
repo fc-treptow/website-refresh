@@ -199,6 +199,22 @@ collections:
       - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 99 }
       - { name: body, label: Beschreibung, widget: markdown, required: false, buttons: [bold, italic, bulleted-list], editor_components: [], modes: [rich_text], hint: 'Material, Passform, Pflege. Erscheint auf der Artikelseite.' }
 
+  - name: instagram
+    label: Instagram-Beiträge
+    label_singular: Instagram-Beitrag
+    description: 'Ausgewählte Beiträge für die Startseite. Die ersten vier (nach Reihenfolge) werden gezeigt. Sobald die automatische Anbindung an Instagram eingerichtet ist, erscheinen dort stattdessen die neuesten Beiträge; diese Auswahl bleibt dann als Ersatz.'
+    folder: src/content/instagram
+    create: true
+    slug: '{{alt}}'
+    summary: '{{order}}  ·  {{alt}}'
+    sortable_fields: [order, alt]
+    fields:
+      - { name: image, label: Foto, widget: image, media_folder: /public/images/instagram, public_folder: /images/instagram, hint: 'Das Foto aus dem Beitrag (Bildschirmfoto reicht). Wird quadratisch zugeschnitten.' }
+      - { name: url, label: Link zum Beitrag, widget: string, pattern: ['^https://(www\.)?instagram\.com/.+', 'Der Link muss mit https://www.instagram.com/ beginnen.'], hint: 'Auf Instagram beim Beitrag auf "Teilen" und "Link kopieren" tippen, dann hier einfügen.' }
+      - { name: alt, label: Kurzbeschreibung, widget: string, hint: 'Was ist zu sehen? z. B. "Herren 1 nach dem Derbysieg". Für Screenreader und Suchmaschinen.' }
+      - { name: video, label: Video oder Reel, widget: boolean, default: false, required: false }
+      - { name: order, label: Reihenfolge, widget: number, value_type: int, default: 99, hint: 'Kleinere Zahl steht weiter vorne.' }
+
   - name: downloads
     label: Downloads (PDF)
     label_singular: Dokument
