@@ -6,8 +6,10 @@ import Email from '../Email.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
+import { getContacts } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const contacts = await getContacts();
 const t = pageT('kontakt', lang);
 ---
 <PageHeader title={t.h1} intro={t.intro} />
@@ -18,12 +20,14 @@ const t = pageT('kontakt', lang);
       <dl class="border-t border-ink">
         <div class="border-b border-line py-6">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.email}</dt>
-          <dd class="mt-1"><Email address={club.email} class="inline-flex min-h-11 items-center text-xl font-semibold text-club hover:text-club-deep" /></dd>
+          <dd class="mt-1"><Email address={contacts.email} class="inline-flex min-h-11 items-center text-xl font-semibold text-club hover:text-club-deep" /></dd>
         </div>
-        <div class="border-b border-line py-6">
-          <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.telefon}</dt>
-          <dd class="mt-1"><a href={club.phoneHref} class="nums inline-flex min-h-11 items-center text-xl font-semibold" dir="ltr">{club.phone}</a></dd>
-        </div>
+        {contacts.phone && (
+          <div class="border-b border-line py-6">
+            <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.telefon}</dt>
+            <dd class="mt-1"><a href={contacts.phoneHref} class="nums inline-flex min-h-11 items-center text-xl font-semibold" dir="ltr">{contacts.phone}</a></dd>
+          </div>
+        )}
         <div class="border-b border-line py-6">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.sportanlage}</dt>
           <dd class="mt-2 text-lg font-semibold leading-snug">{club.ground.name}<br />{club.ground.street}<br />{club.ground.city}</dd>

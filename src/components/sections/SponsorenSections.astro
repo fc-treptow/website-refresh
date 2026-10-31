@@ -4,10 +4,11 @@ import PageHeader from '../PageHeader.astro';
 import CtaButton from '../CtaButton.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
-import { club } from '../../data/club';
+import { getContacts } from '../../lib/links';
 import { emailDisplay } from '../../lib/email';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const contacts = await getContacts();
 const t = pageT('sponsoren', lang);
 const sponsors = (await getCollection('sponsors')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -43,7 +44,7 @@ const sponsors = (await getCollection('sponsors')).sort((a, b) => a.data.order -
     <h2 class="display text-5xl sm:text-6xl lg:col-span-5">{t.ctaTitle}</h2>
     <div class="lg:col-span-7">
       <p class="max-w-xl text-lg leading-relaxed text-ink-soft">{t.ctaText}</p>
-      <CtaButton email={club.boardEmail} class="mt-8"><span data-email-text>{emailDisplay(club.boardEmail)}</span></CtaButton>
+      <CtaButton email={contacts.boardEmail} class="mt-8"><span data-email-text>{emailDisplay(contacts.boardEmail)}</span></CtaButton>
     </div>
   </div>
 </section>

@@ -88,7 +88,9 @@ Regeln für KI-Assistenten (Claude & Co.) stehen in `AGENTS.md` (`CLAUDE.md` ist
 - `src/i18n/` – alle festen Oberflächentexte in sechs Sprachen. `ui.ts` (Navigation, Startseite),
   `pages.ts` (Unterseiten), `fixtures.ts` (Spielplan/Tabelle). Deutsch ist die Typvorlage: fehlt in
   einer Sprache ein Schlüssel, meldet `npm run check` einen Fehler (der Build allein prüft das nicht).
-- `src/data/club.ts` – Stammdaten (Adresse, E-Mails, Telefon, Beiträge, IBAN, Social Links).
+- `src/data/club.ts` – Stammdaten (Adresse, Beiträge, IBAN, Social Links).
+- `src/content/einstellungen/kontakt.yml` – E-Mail-Adressen und Telefonnummer des Vereins,
+  im CMS unter Einstellungen › Kontakt. Leere Telefonnummer = Nummer wird nicht angezeigt.
 - `src/legal/datenschutz.md` – Datenschutzerklärung (Deutsch, rechtlich bindend).
 - `src/lib/fussballde.mjs` – liest nächste Spiele und Tabelle von fussball.de (kein Widget, kein
   Fremdskript im Browser). Läuft beim Build und in `api/fixtures.mjs` (Vercel-Funktion, eine

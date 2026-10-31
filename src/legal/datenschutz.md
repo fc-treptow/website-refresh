@@ -22,13 +22,13 @@ Köpenicker Landstraße 186
 
 Vertreten durch den Vorstand: Jannis Rußkamp (1. Vorsitzender) und Lars Lemke (2. Vorsitzender)
 
-Telefon: 030 2415328  
-E-Mail: [vorstand@fc-treptow.de](mailto:vorstand@fc-treptow.de)  
+Telefon: {{telefon}}  
+E-Mail: [{{vorstand-email}}](mailto:{{vorstand-email}})  
 Registergericht: Amtsgericht Charlottenburg, Registernummer VR14908
 
 ## 3. Datenschutzbeauftragter
 
-Einen Datenschutzbeauftragten haben wir nicht benannt, da die gesetzlichen Voraussetzungen hierfür (Art. 37 DSGVO, § 38 BDSG) bei uns nicht vorliegen. Bei allen Fragen zum Datenschutz und zur Ausübung Ihrer Rechte wenden Sie sich bitte an den Vorstand unter [vorstand@fc-treptow.de](mailto:vorstand@fc-treptow.de) oder an die oben genannte Postanschrift.
+Einen Datenschutzbeauftragten haben wir nicht benannt, da die gesetzlichen Voraussetzungen hierfür (Art. 37 DSGVO, § 38 BDSG) bei uns nicht vorliegen. Bei allen Fragen zum Datenschutz und zur Ausübung Ihrer Rechte wenden Sie sich bitte an den Vorstand unter [{{vorstand-email}}](mailto:{{vorstand-email}}) oder an die oben genannte Postanschrift.
 
 ## 4. Rechtsgrundlagen der Verarbeitung
 
@@ -179,7 +179,7 @@ Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden perso
 
 **Werden Ihre Daten verarbeitet, um Direktwerbung zu betreiben, haben Sie das Recht, jederzeit Widerspruch gegen diese Verarbeitung einzulegen. Ihre Daten werden dann nicht mehr für diesen Zweck verwendet.**
 
-Zur Ausübung Ihrer Rechte genügt eine formlose Nachricht an [vorstand@fc-treptow.de](mailto:vorstand@fc-treptow.de) oder an unsere Postanschrift.
+Zur Ausübung Ihrer Rechte genügt eine formlose Nachricht an [{{vorstand-email}}](mailto:{{vorstand-email}}) oder an unsere Postanschrift.
 
 ## 18. Beschwerderecht bei der Aufsichtsbehörde
 

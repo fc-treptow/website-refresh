@@ -6,14 +6,15 @@ import Icon from '../Icon.astro';
 import Email from '../Email.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
-import { club } from '../../data/club';
+import { getContacts } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const contacts = await getContacts();
 const t = pageT('schiedsrichter', lang);
 
 // Obmann aus dem Vorstand (Rolle refereeLead), Team aus der eigenen Sammlung
 const lead = (await getCollection('vorstand')).map((e) => e.data).find((m) => m.role === 'refereeLead');
-const leadEmail = lead?.email ?? club.email;
+const leadEmail = lead?.email ?? contacts.email;
 const team = (await getCollection('schiedsrichter')).map((e) => e.data).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, 'de'));
 ---
 <PageHeader title={t.h1} intro={t.intro} />

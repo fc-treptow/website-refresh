@@ -18,10 +18,16 @@ export const splitHost = (text: string) => {
   return { before, after };
 };
 
+// tel:-Link aus einer angezeigten Nummer: nur Ziffern und +, deutsche Nummern mit +49 statt 0
+export const telHref = (p: string) =>
+  `tel:${p.replace(/[^\d+]/g, '').replace(/^00/, '+').replace(/^0/, '+49')}`;
+
 // Kontaktadressen, gepflegt im CMS unter Einstellungen > Kontakt
-// (src/content/einstellungen/kontakt.yml).
+// (src/content/einstellungen/kontakt.yml). Ist keine Telefonnummer eingetragen,
+// sind phone und phoneHref null und die Nummer wird nirgends angezeigt.
 export async function getContacts() {
   const entry = await getEntry('kontakt', 'kontakt');
   if (!entry) throw new Error('src/content/einstellungen/kontakt.yml fehlt');
-  return entry.data;
+  const phone = entry.data.phone?.trim() || null;
+  return { ...entry.data, phone, phoneHref: phone ? telHref(phone) : null };
 }

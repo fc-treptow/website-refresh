@@ -1,12 +1,10 @@
 // Stammdaten des Vereins an einer Stelle. Wer hier etwas ändert, ändert es überall.
+// E-Mail-Adressen und Telefonnummer pflegt die Redaktion im CMS (Einstellungen > Kontakt),
+// sie kommen über getContacts() aus src/lib/links.ts.
 export const club = {
   name: 'FC Treptow e.V.',
   legalName: 'Fußball Club Treptow e.V.',
   founded: 1925,
-  email: 'kontakt@fc-treptow.de',
-  boardEmail: 'vorstand@fc-treptow.de',
-  phone: '030 2415328',
-  phoneHref: 'tel:+49302415328',
   ground: {
     name: 'Willi-Sänger-Sportanlage',
     street: 'Köpenicker Landstraße 186',
