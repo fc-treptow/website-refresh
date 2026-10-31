@@ -128,7 +128,9 @@ const socials = [
   <body class="grain flex min-h-[100dvh] flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper">{t.skip}</a>
 
-    <header id="site-header" class="sticky top-0 z-40 border-b border-transparent bg-paper/90 backdrop-blur-md transition-[border-color] duration-300">
+    <!-- Deckend, ohne Unschärfe: Safari ab iOS 26 übernimmt die Farbe dann in die Statusleiste.
+         Mit halbdurchsichtigem Hintergrund scheint dort stattdessen der Seiteninhalt durch. -->
+    <header id="site-header" class="sticky top-0 z-40 border-b border-transparent bg-paper transition-[border-color] duration-300">
       <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:h-[4.5rem] lg:px-8">
         <a href={l(lang, '/')} class="flex items-center gap-3" aria-label="FC Treptow e.V.">
           <img src="/images/crest.png" alt="" width="40" height="40" class="h-9 w-9 object-contain lg:h-10 lg:w-10" />
@@ -258,8 +260,9 @@ const socials = [
       </div>
     </footer>
 
-    <!-- Untere Navigation (nur Handy/Tablet) -->
-    <nav aria-label={t.nav.main} class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/92 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden">
+    <!-- Untere Navigation (nur Handy/Tablet). Deckend wie der Kopf, damit Safari ab iOS 26 die
+         schwebende Browserleiste darunter papierfarben füllt statt den Seiteninhalt zu zeigen. -->
+    <nav aria-label={t.nav.main} class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper pb-[env(safe-area-inset-bottom)] lg:hidden">
       <ul class="mx-auto grid h-[4.25rem] max-w-lg grid-cols-5">
         {tabs.map((tab) => (
           <li>
