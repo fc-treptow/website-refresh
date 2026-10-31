@@ -1,7 +1,8 @@
 ---
 import { render } from 'astro:content';
 import ShareBar from '../ShareBar.astro';
-import Icon from '../Icon.astro';
+import PhotoGrid from '../PhotoGrid.astro';
+import Lightbox from '../Lightbox.astro';
 import { newsImage } from '../../lib/newsImages';
 import { defaultLocale, bcp47, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
@@ -15,8 +16,7 @@ const { Content } = await render(post);
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('newsDetail', lang);
 const cover = post.data.image ? newsImage(post.data.image) : null;
-const photos = post.data.gallery.map((g) => ({ ...g, img: newsImage(g.src) }));
-const n = photos.length;
+const n = post.data.gallery.length;
 // Strukturierte Daten für Suchmaschinen (schema.org NewsArticle)
 const site = Astro.site ?? new URL(Astro.url.origin);
 const jsonLd = {
@@ -60,100 +60,11 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         <h2 id="news-fotos" class="display text-4xl sm:text-5xl">{t.photos}</h2>
         <p class="text-sm text-ink-soft">{t.photoCount.replace('{n}', String(n))}</p>
       </div>
-      <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4" data-gallery>
-        {photos.map((p, i) => (
-          <li>
-            <figure>
-              <a
-                href={p.img.full}
-                data-index={i}
-                data-full={p.img.full}
-                data-alt={p.alt ?? ''}
-                data-caption={p.caption ?? ''}
-                class="group block overflow-hidden rounded-sm bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-club"
-                aria-label={`${t.openPhoto}: ${p.caption || p.alt || t.photoOf.replace('{i}', String(i + 1)).replace('{n}', String(n))}`}
-              >
-                <img src={p.img.src} srcset={p.img.srcset} sizes="(min-width: 64rem) 21rem, (min-width: 40rem) 33vw, 50vw" width={p.img.width} height={p.img.height} alt={p.alt ?? ''} loading="lazy" decoding="async" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
-              </a>
-              {p.caption && <figcaption class="mt-2 text-sm leading-snug text-ink-soft">{p.caption}</figcaption>}
-            </figure>
-          </li>
-        ))}
-      </ul>
+      <div class="mt-6">
+        <PhotoGrid photos={post.data.gallery} />
+      </div>
     </section>
   )}
 </article>
 
-{n > 0 && (
-  <dialog data-lightbox aria-label={t.photos} class="m-0 h-dvh max-h-none w-screen max-w-none bg-ink p-0 text-paper backdrop:bg-ink/90">
-    <div class="flex h-full flex-col">
-      <div class="flex items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <p class="nums text-sm text-paper/70" data-lightbox-count aria-live="polite"></p>
-        <button type="button" data-lightbox-close class="flex h-11 w-11 items-center justify-center rounded-full ring-1 ring-paper/30 transition-colors hover:bg-paper hover:text-ink" aria-label={t.closePhoto}><Icon name="close" size={18} /></button>
-      </div>
-      <div class="relative flex min-h-0 flex-1 items-center justify-center px-2 sm:px-16">
-        <img data-lightbox-img alt="" class="max-h-full max-w-full object-contain" />
-        {n > 1 && (
-          <>
-            <button type="button" data-lightbox-prev class="absolute start-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 ring-1 ring-paper/30 transition-colors hover:bg-paper hover:text-ink sm:flex sm:start-4" aria-label={t.prevPhoto}><Icon name="arrow" size={18} class="rotate-180" /></button>
-            <button type="button" data-lightbox-next class="absolute end-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink/60 ring-1 ring-paper/30 transition-colors hover:bg-paper hover:text-ink sm:flex sm:end-4" aria-label={t.nextPhoto}><Icon name="arrow" size={18} /></button>
-          </>
-        )}
-      </div>
-      <p class="min-h-14 px-4 py-4 text-center text-sm leading-snug text-paper/85 sm:px-6" data-lightbox-caption></p>
-    </div>
-  </dialog>
-)}
-
-<script define:vars={{ photoOf: t.photoOf }}>
-  // Großansicht der Fotogalerie mit dem eingebauten <dialog> des Browsers, ohne fremdes Skript.
-  // Ohne JavaScript öffnen die Vorschaubilder einfach das große Foto.
-  const dialog = document.querySelector('[data-lightbox]');
-  const links = [...document.querySelectorAll('[data-gallery] a[data-index]')];
-  if (dialog && links.length) {
-    const img = dialog.querySelector('[data-lightbox-img]');
-    const caption = dialog.querySelector('[data-lightbox-caption]');
-    const count = dialog.querySelector('[data-lightbox-count]');
-    const rtl = document.documentElement.dir === 'rtl';
-    let current = 0;
-    const show = (i) => {
-      current = (i + links.length) % links.length;
-      const a = links[current];
-      img.src = a.dataset.full;
-      img.alt = a.dataset.alt;
-      caption.textContent = a.dataset.caption || a.dataset.alt;
-      count.textContent = photoOf.replace('{i}', String(current + 1)).replace('{n}', String(links.length));
-      // Nächstes Foto schon laden, damit das Blättern nicht hakt
-      new Image().src = links[(current + 1) % links.length].dataset.full;
-    };
-    links.forEach((a) =>
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        show(Number(a.dataset.index));
-        dialog.showModal();
-      }),
-    );
-    dialog.querySelector('[data-lightbox-close]').addEventListener('click', () => dialog.close());
-    dialog.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => show(current - 1));
-    dialog.querySelector('[data-lightbox-next]')?.addEventListener('click', () => show(current + 1));
-    dialog.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') show(current + (rtl ? -1 : 1));
-      if (e.key === 'ArrowLeft') show(current + (rtl ? 1 : -1));
-    });
-    // Klick neben das Foto schließt
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog || e.target === img.parentElement) dialog.close();
-    });
-    // Wischen auf dem Handy
-    let startX = null;
-    dialog.addEventListener('touchstart', (e) => (startX = e.touches[0].clientX), { passive: true });
-    dialog.addEventListener('touchend', (e) => {
-      if (startX === null || links.length < 2) return;
-      const dx = e.changedTouches[0].clientX - startX;
-      startX = null;
-      if (Math.abs(dx) < 40) return;
-      show(current + ((dx < 0) !== rtl ? 1 : -1));
-    });
-    dialog.addEventListener('close', () => links[current]?.focus());
-  }
-</script>
+{n > 0 && <Lightbox count={n} />}

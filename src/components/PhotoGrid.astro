@@ -1,0 +1,44 @@
+---
+// Fotogalerie als Raster von Vorschaubildern (News-Beiträge, Mannschaften).
+// Jedes Vorschaubild öffnet die Großansicht aus Lightbox.astro; ohne JavaScript öffnet der
+// Link einfach das große Foto. `offset` verschiebt die Nummerierung, wenn vor dem Raster
+// schon ein anderes Foto in derselben Großansicht steckt (z. B. das Mannschaftsfoto oben).
+import { newsImage } from '../lib/newsImages';
+import { defaultLocale, type Locale } from '../i18n/languages';
+import { pageT } from '../i18n/pages';
+
+interface Props {
+  photos: { src: string; alt?: string | null; caption?: string | null }[];
+  /** Gesamtzahl der Fotos in der Großansicht, für "Foto 3 von 8" */
+  total?: number;
+  offset?: number;
+  /** Bildbeschreibung als Unterschrift zeigen, wenn keine eigene Unterschrift da ist (Mannschaften) */
+  altAsCaption?: boolean;
+}
+const { photos, offset = 0, altAsCaption = false } = Astro.props;
+const total = Astro.props.total ?? photos.length + offset;
+const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+// Die Texte der Fotogalerie teilen sich News und Mannschaften
+const t = pageT('newsDetail', lang);
+const items = photos.map((p) => ({ ...p, img: newsImage(p.src), shown: p.caption || (altAsCaption ? p.alt : '') }));
+---
+<ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+  {items.map((p, i) => (
+    <li>
+      <figure>
+        <a
+          href={p.img.full}
+          data-lightbox-index={offset + i}
+          data-full={p.img.full}
+          data-alt={p.alt ?? ''}
+          data-caption={p.caption ?? ''}
+          class="group block overflow-hidden rounded-sm bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-club"
+          aria-label={`${t.openPhoto}: ${p.caption || p.alt || t.photoOf.replace('{i}', String(offset + i + 1)).replace('{n}', String(total))}`}
+        >
+          <img src={p.img.src} srcset={p.img.srcset} sizes="(min-width: 64rem) 21rem, (min-width: 40rem) 33vw, 50vw" width={p.img.width} height={p.img.height} alt={p.alt ?? ''} loading="lazy" decoding="async" class="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-(--ease-club) group-hover:scale-[1.03]" />
+        </a>
+        {p.shown && <figcaption class="mt-2 text-sm leading-snug text-ink-soft">{p.shown}</figcaption>}
+      </figure>
+    </li>
+  ))}
+</ul>
