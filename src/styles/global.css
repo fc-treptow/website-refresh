@@ -78,10 +78,17 @@ html[lang="ar"] .font-serif {
   font-variant-numeric: tabular-nums;
 }
 
-/* Papierkorn: fest, ohne Pointer-Events, liegt nie auf scrollenden Containern */
+/* Papierkorn: ohne Pointer-Events, liegt nie auf scrollenden Containern.
+   Absolut statt fest: Safari ab iOS 26 färbt Statusleiste und Browserleiste nach festen
+   Elementen am Bildschirmrand. Eine feste, fast durchsichtige Ebene über dem ganzen
+   Bildschirm würde dabei mitgelesen und die Leisten durchsichtig machen. */
+.grain {
+  position: relative;
+}
+
 .grain::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 60;
   pointer-events: none;
