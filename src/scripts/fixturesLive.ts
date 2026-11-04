@@ -1,6 +1,6 @@
 // Frischt Spielplan und Tabelle im Browser auf, wenn /api/fixtures neuere Daten hat als der Build.
 // Ohne JavaScript oder ohne API (lokal) bleibt einfach der Stand vom Build stehen.
-import { gamesList, leagueTable, gameRow, resultRow, resultsList, latestResults, type FixturesLabels, type TeamFixtures, type Game } from '../lib/fixturesView';
+import { gamesList, leagueTable, gameRow, resultRow, resultsList, latestResults, seasonList, type FixturesLabels, type TeamFixtures, type Game } from '../lib/fixturesView';
 
 type Payload = { fetchedAt: string; teams: Record<string, TeamFixtures> };
 
@@ -31,6 +31,7 @@ if (nodes.length) {
             const team = data.teams[el.dataset.team ?? ''];
             if (!team) return;
             if (mode === 'games' && team.games) el.innerHTML = gamesList(team.games, t);
+            if (mode === 'season' && team.games) el.innerHTML = seasonList(team.games, team.results, t);
             if (mode === 'results' && team.results) el.innerHTML = resultsList(team.results, t);
             if (mode === 'table' && team.table) el.innerHTML = leagueTable(team.table, t);
           }
