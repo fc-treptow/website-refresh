@@ -143,9 +143,8 @@ collections:
     create: true
     slug: '{{date}}-{{team}}'
     summary: '{{date}} · {{team}} · {{opponent}} · {{goalsFor}}:{{goalsAgainst}}'
-    sortable_fields:
-      fields: [date, team]
-      default: { field: date, direction: descending }
+    # Nur die Listenform: Die eingebundene Decap-Version kennt keine Standard-Sortierung
+    sortable_fields: [date, team]
     fields:
       - { name: team, label: Mannschaft, widget: relation, collection: teams, value_field: '{{slug}}', search_fields: [shortName, name], display_fields: [shortName] }
       - { name: date, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true }
