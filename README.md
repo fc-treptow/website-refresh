@@ -32,7 +32,7 @@ Dort gibt es diese Bereiche:
 |---|---|
 | Neuigkeiten | Beiträge schreiben, mit Foto. Erscheinen auf der Startseite und unter News. |
 | Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. |
-| Ergebnisse | Ein Eintrag pro Spiel: Mannschaft, Datum, Gegner, Heim/Auswärts, Tore (unsere zuerst). Erscheint auf der Startseite und auf der Mannschaftsseite. Am besten gleich nach der Ergebnismeldung im DFBnet. |
+| Ergebnisse | Die Spiele legt die Seite jeden Morgen selbst aus dem Spielplan an. Nach dem Spiel nur den Eintrag öffnen und die Tore eintragen (unsere zuerst), am besten gleich nach der Ergebnismeldung im DFBnet. Bis dahin steht auf der Seite "Ergebnis folgt". Freundschaftsspiele und die Freizeitmannschaft selbst anlegen. |
 | Vorstand | Namen, Ämter und Kontaktdaten. |
 | Partner und Sponsoren | Logo, Name, Link. |
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
@@ -248,4 +248,9 @@ Erledigt:
   fussball.de schützt die Tore absichtlich gegen automatisches Auslesen; diesen Schutz zu
   umgehen verbieten die DFB-Nutzungsbedingungen (§5). Deshalb bitte auch künftig nicht
   automatisieren, ohne vorher beim BFV bzw. DFB-Medien nachzufragen.
+- Die Spiele (ohne Tore) legt `.github/workflows/sync-results.yml` täglich gegen 6 Uhr aus dem
+  Spielplan an und speichert direkt auf `main`. Das Skript `scripts/sync-results.mjs` ändert nie
+  einen Eintrag mit Toren, löscht nichts und bricht bei Fehlern oder mehr als 12 Änderungen ab,
+  ohne zu speichern. Probelauf: in GitHub unter Actions › „Spiele für Ergebnisse anlegen“ ›
+  Run workflow mit „Nur anzeigen“.
 - Kein Dark Mode, bewusst.

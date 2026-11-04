@@ -1,0 +1,61 @@
+# Legt anstehende Spiele von fussball.de als Ergebnis-Einträge ohne Tore an, damit die Redaktion
+# im CMS nur noch die Tore eintragen muss. Speichert direkt auf main, wie die Übersetzungen.
+# Regeln und Sicherheitsnetz: siehe Kopf von scripts/sync-results.mjs.
+name: Spiele für Ergebnisse anlegen
+
+on:
+  schedule:
+    # Täglich gegen 6 Uhr (Sommerzeit 7 Uhr)
+    - cron: '7 5 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Nur anzeigen, was sich ändern würde, nichts speichern
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-results
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Spiele abgleichen
+        run: node scripts/sync-results.mjs ${{ inputs.dry_run && '--dry-run' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
+      - name: Speichern
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git add src/content/ergebnisse
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -F - <<EOF
+          Ergebnisse: Spiele von fussball.de angelegt
+
+          Automatisch aus dem Spielplan, ohne Tore. Die Tore trägt die Redaktion im CMS ein.
+
+          $(cat "$RUNNER_TEMP/bericht.txt")
+          EOF
+          # Falls zwischendurch jemand im CMS gespeichert hat: auf den neuesten Stand setzen
+          for i in 1 2 3; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

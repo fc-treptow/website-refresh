@@ -1,6 +1,20 @@
 // Frischt Spielplan und Tabelle im Browser auf, wenn /api/fixtures neuere Daten hat als der Build.
 // Ohne JavaScript oder ohne API (lokal) bleibt einfach der Stand vom Build stehen.
-import { gamesList, leagueTable, gameRow, seasonList, type FixturesLabels, type TeamFixtures, type Game, type Result } from '../lib/fixturesView';
+import { gamesList, leagueTable, gameRow, seasonList, latestResults, resultRow, type FixturesLabels, type TeamFixtures, type Game, type Result } from '../lib/fixturesView';
+
+// Ergebnisse stehen schon im Build. "Gespielt" hängt aber von der Uhrzeit ab, deshalb hier sofort
+// mit der aktuellen Zeit neu zeichnen, auch ohne API (z. B. "Ergebnis folgt" am Sonntagabend).
+const read = <T>(v: string | undefined, fallback: T) => (v ? (JSON.parse(v) as T) : fallback);
+document.querySelectorAll<HTMLElement>('[data-results-latest]').forEach((el) => {
+  const t = read<FixturesLabels>(el.dataset.labels, {} as FixturesLabels);
+  const labels = read<Record<string, string>>(el.dataset.teamLabels, {});
+  const last = latestResults(read<Record<string, Result[]>>(el.dataset.results, {}));
+  if (last.length) el.innerHTML = `<ul>${last.map(({ slug, r }) => resultRow(r, t, labels[slug])).join('')}</ul>`;
+});
+document.querySelectorAll<HTMLElement>('[data-fixtures="season"]').forEach((el) => {
+  const t = read<FixturesLabels>(el.dataset.labels, {} as FixturesLabels);
+  el.innerHTML = seasonList(read<Game[] | null>(el.dataset.games, null), read<Result[]>(el.dataset.results, []), t);
+});
 
 type Payload = { fetchedAt: string; teams: Record<string, TeamFixtures> };
 
@@ -28,7 +42,7 @@ if (nodes.length) {
             if (!team) return;
             if (mode === 'games' && team.games) el.innerHTML = gamesList(team.games, t);
             // Ergebnisse stammen aus dem CMS und stehen schon im Build, nur der Spielplan wird frisch
-            if (mode === 'season' && team.games) el.innerHTML = seasonList(team.games, JSON.parse(el.dataset.results ?? '[]') as Result[], t);
+            if (mode === 'season' && team.games) el.innerHTML = seasonList(team.games, read<Result[]>(el.dataset.results, []), t);
             if (mode === 'table' && team.table) el.innerHTML = leagueTable(team.table, t);
           }
         });

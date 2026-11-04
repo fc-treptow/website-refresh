@@ -193,7 +193,8 @@ const einstellungen = defineCollection({
   }),
 });
 
-// Ergebnisse: pflegt die Redaktion im CMS, ein Eintrag pro Spiel (src/content/ergebnisse).
+// Ergebnisse (src/content/ergebnisse), ein Eintrag pro Spiel. Anstehende Spiele legt
+// scripts/sync-results.mjs aus dem Spielplan an, die Tore trägt die Redaktion im CMS ein.
 // Bewusst nicht von fussball.de: Dort sind die Tore gegen automatisches Auslesen geschützt.
 export const resultNotes = ['cancelled', 'forfeitOpponent', 'forfeitUs'] as const;
 const goals = z.number().int().min(0).max(99).nullish();
@@ -204,6 +205,8 @@ const ergebnisse = defineCollection({
       // Dateiname der Mannschaft in src/content/teams/de, z. B. "herren-1"
       team: z.string(),
       date: z.coerce.date(),
+      // Anstoß, freiwillig. Ab Anstoß plus zwei Stunden steht ohne Tore "Ergebnis folgt".
+      time: time.nullish().or(z.literal('').transform(() => null)),
       opponent: z.string(),
       isHome: z.boolean().default(true),
       goalsFor: goals,
@@ -211,9 +214,14 @@ const ergebnisse = defineCollection({
       // Leer = Liga der Mannschaft. Sonst z. B. "Berliner Pilsner-Pokal" (wird nicht übersetzt).
       competition: z.string().nullish(),
       note: z.enum(resultNotes).nullish().or(z.literal('').transform(() => null)),
+      // Kennung des Spiels auf fussball.de, setzt scripts/sync-results.mjs
+      fussballDeId: z.string().nullish(),
     })
-    .refine((r) => r.note === 'cancelled' || (r.goalsFor != null && r.goalsAgainst != null), {
-      message: 'Bitte beide Torzahlen eintragen (oder "Abgesetzt" wählen).',
+    .refine((r) => (r.goalsFor == null) === (r.goalsAgainst == null), {
+      message: 'Bitte beide Torzahlen eintragen oder beide leer lassen.',
+    })
+    .refine((r) => !r.note || r.note === 'cancelled' || r.goalsFor != null, {
+      message: 'Bei Nichtantritt bitte die Wertung als Tore eintragen, z. B. 2:0.',
     }),
 });
 
