@@ -32,6 +32,7 @@ Dort gibt es diese Bereiche:
 |---|---|
 | Neuigkeiten | Beiträge schreiben, mit Foto. Erscheinen auf der Startseite und unter News. |
 | Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. |
+| Ergebnisse | Ein Eintrag pro Spiel: Mannschaft, Datum, Gegner, Heim/Auswärts, Tore (unsere zuerst). Erscheint auf der Startseite und auf der Mannschaftsseite. Am besten gleich nach der Ergebnismeldung im DFBnet. |
 | Vorstand | Namen, Ämter und Kontaktdaten. |
 | Partner und Sponsoren | Logo, Name, Link. |
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
@@ -47,7 +48,8 @@ Faustregeln:
 - Nur auf Deutsch schreiben. Mannschaften und News werden nach dem Speichern automatisch in alle
   anderen Sprachen übersetzt (Vercel AI Gateway, siehe unten "Übersetzungen"). Nach etwa 2 bis 3 Minuten sind
   alle Sprachen online.
-- Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de.
+- Spielplan und Tabelle muss niemand pflegen. Sie kommen von fussball.de. Ergebnisse dagegen
+  trägt die Redaktion selbst ein (Bereich Ergebnisse).
 
 ## Redaktion einrichten (einmalig, technisch)
 
@@ -242,6 +244,8 @@ Erledigt:
 
 ## Bekannte Einschränkungen
 
-- Ergebnisse vergangener Spiele werden nicht gezeigt: fussball.de verschleiert Tore mit einer
-  Spezialschrift. Der Link "Alles auf fussball.de" führt hin.
+- Ergebnisse kommen nicht von fussball.de, sondern aus dem CMS (`src/content/ergebnisse`).
+  fussball.de schützt die Tore absichtlich gegen automatisches Auslesen; diesen Schutz zu
+  umgehen verbieten die DFB-Nutzungsbedingungen (§5). Deshalb bitte auch künftig nicht
+  automatisieren, ohne vorher beim BFV bzw. DFB-Medien nachzufragen.
 - Kein Dark Mode, bewusst.

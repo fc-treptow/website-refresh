@@ -66,6 +66,8 @@ Status mit `astro dev status`, Logs mit `astro dev logs`).
 - Externe Dienste (Spreadshop-Fanshop) laden erst nach einem Klick. Dieses Muster beibehalten.
 - fussball.de wird nur serverseitig gelesen: beim Build (`src/lib/fixturesBuild.ts`) und in der
   Vercel-Funktion `api/fixtures.mjs`. Nie ein fussball.de-Widget oder -Skript im Browser einbauen.
+- Ergebnisse kommen aus dem CMS (`src/content/ergebnisse`), nicht von fussball.de. Die Tore sind
+  dort gegen Auslesen geschützt; diesen Schutz nicht umgehen (DFB-Nutzungsbedingungen §5).
 - Das Probetraining-Formular schickt an die Vercel-Funktion `api/probetraining.mjs`, die per
   E-Mail über noreply@ an den Verein weiterleitet (README, Abschnitt Formulare). Die Funktion
   speichert nichts und loggt keine Formularinhalte. Der Spam-Schutz ALTCHA kommt als npm-Paket und
