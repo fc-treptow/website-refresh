@@ -39,6 +39,7 @@ const de = {
 
   fixturesHeading: 'Spielplan und Tabellen',
   tabSchedule: 'Spielplan',
+  tabResults: 'Ergebnisse',
   tabTable: 'Tabelle',
   fixturesText: 'Ansetzungen, Ergebnisse und Tabellen führt der Berliner Fußball-Verband auf fussball.de. Dort ist alles tagesaktuell.',
   fixturesLink: 'Auf fussball.de',
@@ -128,6 +129,7 @@ const en: UI = {
 
   fixturesHeading: 'Fixtures and tables',
   tabSchedule: 'Fixtures',
+  tabResults: 'Results',
   tabTable: 'Table',
   fixturesText: 'Fixtures, results and tables are kept by the Berlin Football Association on fussball.de, always up to date.',
   fixturesLink: 'On fussball.de',
@@ -215,6 +217,7 @@ const tr: UI = {
 
   fixturesHeading: 'Fikstür ve puan durumu',
   tabSchedule: 'Fikstür',
+  tabResults: 'Sonuçlar',
   tabTable: 'Puan durumu',
   fixturesText: 'Maç programı, sonuçlar ve puan durumu Berlin Futbol Federasyonu tarafından fussball.de’de güncel tutulur.',
   fixturesLink: 'fussball.de’de',
@@ -302,6 +305,7 @@ const ar: UI = {
 
   fixturesHeading: 'جدول المباريات والترتيب',
   tabSchedule: 'المباريات',
+  tabResults: 'النتائج',
   tabTable: 'الترتيب',
   fixturesText: 'يحدّث اتحاد برلين لكرة القدم المباريات والنتائج والترتيب على موقع fussball.de بشكل يومي.',
   fixturesLink: 'على fussball.de',
@@ -389,6 +393,7 @@ const es: UI = {
 
   fixturesHeading: 'Calendario y clasificación',
   tabSchedule: 'Calendario',
+  tabResults: 'Resultados',
   tabTable: 'Clasificación',
   fixturesText: 'La Federación de Fútbol de Berlín publica calendario, resultados y clasificación en fussball.de, siempre al día.',
   fixturesLink: 'En fussball.de',
@@ -476,6 +481,7 @@ const fr: UI = {
 
   fixturesHeading: 'Calendrier et classements',
   tabSchedule: 'Calendrier',
+  tabResults: 'Résultats',
   tabTable: 'Classement',
   fixturesText: 'La Fédération de football de Berlin tient le calendrier, les résultats et les classements à jour sur fussball.de.',
   fixturesLink: 'Sur fussball.de',

@@ -11,7 +11,7 @@ import { getNews, getTeams, leagueLabel, trainingLabel } from '../i18n/content';
 import { fixturesLabels } from '../i18n/fixtures';
 import { getSocialPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
-import { gameRow, leagueTable, type Game } from '../lib/fixturesView';
+import { gameRow, leagueTable, latestResults, resultRow, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
 import { wappen } from '../data/chronik';
 import { readFileSync } from 'node:fs';
@@ -35,6 +35,8 @@ const nextGames = Object.entries(fixtures.teams)
   .map(([slug, f]) => (f.games?.[0] ? { slug, g: f.games[0] as Game } : null))
   .filter((x): x is { slug: string; g: Game } => !!x)
   .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
+// Letztes Ergebnis je Mannschaft, neuestes zuerst
+const lastResults = latestResults(fixtures.teams);
 
 const numerals = ['I', 'II', 'III', 'F'];
 
@@ -194,9 +196,10 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
       </a>
     </div>
     <div class="reveal lg:col-span-8">
-      <!-- Reiter: Spielplan / Tabelle. Ohne JavaScript ist der Spielplan sichtbar. -->
+      <!-- Reiter: Spielplan / Ergebnisse / Tabelle. Ohne JavaScript ist der Spielplan sichtbar. -->
       <div role="tablist" aria-label={t.fixturesHeading} class="flex gap-1 border-b border-ink" data-tabs>
         <button role="tab" type="button" id="tab-schedule" aria-controls="panel-schedule" aria-selected="true" class="display -mb-px min-h-12 border-b-[3px] border-club px-3 text-2xl transition-colors aria-[selected=false]:border-transparent aria-[selected=false]:text-ink-soft aria-[selected=false]:hover:text-ink">{t.tabSchedule}</button>
+        <button role="tab" type="button" id="tab-results" aria-controls="panel-results" aria-selected="false" tabindex="-1" class="display -mb-px min-h-12 border-b-[3px] border-club px-3 text-2xl transition-colors aria-[selected=false]:border-transparent aria-[selected=false]:text-ink-soft aria-[selected=false]:hover:text-ink">{t.tabResults}</button>
         <button role="tab" type="button" id="tab-table" aria-controls="panel-table" aria-selected="false" tabindex="-1" class="display -mb-px min-h-12 border-b-[3px] border-club px-3 text-2xl transition-colors aria-[selected=false]:border-transparent aria-[selected=false]:text-ink-soft aria-[selected=false]:hover:text-ink">{t.tabTable}</button>
       </div>
       <div id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule" tabindex="0">
@@ -209,6 +212,21 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         >
           {nextGames.length > 0 ? (
             <ul set:html={nextGames.map(({ slug, g }) => gameRow(g, fx, teamLabels[slug])).join('')} />
+          ) : (
+            <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.unavailable}</p>
+          )}
+        </div>
+      </div>
+      <div id="panel-results" role="tabpanel" aria-labelledby="tab-results" tabindex="0" hidden>
+        <div
+          data-fixtures="last"
+          data-query={query}
+          data-built-at={fixtures.fetchedAt}
+          data-labels={JSON.stringify(fx)}
+          data-team-labels={JSON.stringify(teamLabels)}
+        >
+          {lastResults.length > 0 ? (
+            <ul set:html={lastResults.map(({ slug, r }) => resultRow(r, fx, teamLabels[slug])).join('')} />
           ) : (
             <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.unavailable}</p>
           )}
