@@ -11,6 +11,7 @@ import { getNews, getTeams, leagueLabel, trainingLabel } from '../i18n/content';
 import { fixturesLabels } from '../i18n/fixtures';
 import { getSocialPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
+import { getResults } from '../lib/results';
 import { gameRow, leagueTable, latestResults, resultRow, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
 import { wappen } from '../data/chronik';
@@ -36,7 +37,7 @@ const nextGames = Object.entries(fixtures.teams)
   .filter((x): x is { slug: string; g: Game } => !!x)
   .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
 // Letztes Ergebnis je Mannschaft, neuestes zuerst
-const lastResults = latestResults(fixtures.teams);
+const lastResults = latestResults(await getResults(lang));
 
 const numerals = ['I', 'II', 'III', 'F'];
 
@@ -218,19 +219,12 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         </div>
       </div>
       <div id="panel-results" role="tabpanel" aria-labelledby="tab-results" tabindex="0" hidden>
-        <div
-          data-fixtures="last"
-          data-query={query}
-          data-built-at={fixtures.fetchedAt}
-          data-labels={JSON.stringify(fx)}
-          data-team-labels={JSON.stringify(teamLabels)}
-        >
-          {lastResults.length > 0 ? (
-            <ul set:html={lastResults.map(({ slug, r }) => resultRow(r, fx, teamLabels[slug])).join('')} />
-          ) : (
-            <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.unavailable}</p>
-          )}
-        </div>
+        <!-- Ergebnisse pflegt die Redaktion im CMS, sie kommen mit dem Build und ändern sich nicht live -->
+        {lastResults.length > 0 ? (
+          <ul set:html={lastResults.map(({ slug, r }) => resultRow(r, fx, teamLabels[slug])).join('')} />
+        ) : (
+          <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.noResults}</p>
+        )}
       </div>
       <div id="panel-table" role="tabpanel" aria-labelledby="tab-table" tabindex="0" hidden>
         <div role="tablist" aria-label={t.teamsHeading} class="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 py-4 sm:mx-0 sm:px-0" data-team-tabs>

@@ -13,10 +13,15 @@ export interface Game {
   provisional?: boolean;
 }
 
-export interface Result extends Game {
-  goalsHome: number | null; // null bei Absetzung, Nichtantritt o. Ä., dann steht der Grund in note
-  goalsAway: number | null;
-  note: string | null;
+// Ergebnis aus dem CMS (src/lib/results.ts). Tore aus unserer Sicht.
+export interface Result {
+  date: string; // YYYY-MM-DD
+  opponent: string;
+  isHome: boolean;
+  goalsFor: number | null; // null nur bei abgesetzten Spielen
+  goalsAgainst: number | null;
+  competition: string;
+  note: 'cancelled' | 'forfeitOpponent' | 'forfeitUs' | null;
 }
 
 export interface TableRow {
@@ -36,7 +41,6 @@ export interface TableRow {
 
 export interface TeamFixtures {
   games: Game[] | null;
-  results?: Result[] | null; // optional: Daten aus älteren Builds/Caches haben das Feld noch nicht
   table: { rows: TableRow[]; season: string | null; url: string } | null;
   url: string | null;
 }
@@ -50,6 +54,7 @@ export interface FixturesLabels {
   noGames: string;
   noResults: string;
   today: string;
+  notes: { cancelled: string; forfeitOpponent: string; forfeitUs: string };
   win: string;
   draw: string;
   loss: string;
@@ -62,7 +67,7 @@ export interface FixturesLabels {
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
-function when(g: Game, locale: string) {
+function when(g: { date: string }, locale: string) {
   // Mittags UTC, damit die Zeitzone des Servers das Datum nicht verschiebt
   const d = new Date(`${g.date}T12:00:00Z`);
   // Lateinische Ziffern auch im Arabischen, damit Datum und Uhrzeit zusammenpassen
@@ -91,44 +96,33 @@ export function gameRow(g: Game, t: FixturesLabels, teamLabel?: string) {
 </${Tag}></li>`;
 }
 
-/** Kompakte Zeile: ein Ergebnis, Tore aus unserer Sicht (unsere zuerst), Ausgang darunter. */
+/** Kompakte Zeile: ein Ergebnis, unsere Tore zuerst, darunter Ausgang oder Hinweis. */
 export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
   const { weekday, day } = when(r, t.locale);
-  const scored = r.goalsHome !== null && r.goalsAway !== null;
-  const ours = scored ? (r.isHome ? r.goalsHome! : r.goalsAway!) : 0;
-  const theirs = scored ? (r.isHome ? r.goalsAway! : r.goalsHome!) : 0;
-  const outcome = !scored ? '' : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
-  const Tag = r.url ? 'a' : 'div';
-  const spoken = scored ? `${r.home} ${r.goalsHome}:${r.goalsAway} ${r.away}` : `${r.home} – ${r.away}, ${r.note ?? ''}`;
-  const href = r.url ? ` href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(`${spoken}, ${day}. ${t.matchLink}`)}"` : '';
-  return `<li><${Tag}${href} class="group grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 transition-colors duration-200 hover:bg-paper-deep/60 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
+  const scored = r.goalsFor !== null && r.goalsAgainst !== null && r.note !== 'cancelled';
+  const ours = r.goalsFor ?? 0;
+  const theirs = r.goalsAgainst ?? 0;
+  const outcome = r.note ? t.notes[r.note] : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
+  return `<li><div class="grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
   <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl">${esc(day)}</span></span>
   <span class="min-w-0">
     ${teamLabel ? `<span class="block text-xs font-semibold uppercase tracking-wider text-club">${esc(teamLabel)}</span>` : ''}
     <span class="mt-0.5 block truncate text-[15px] font-semibold sm:text-base">${r.isHome ? '' : `<span class="font-normal text-ink-soft">${esc(t.vs)} </span>`}${esc(r.opponent)}</span>
     <span class="mt-0.5 block text-xs text-ink-soft">${esc(r.competition)}</span>
   </span>
-  <span class="text-end" aria-hidden="${r.url ? 'true' : 'false'}">
-    ${scored
-      ? `<span class="nums display block text-2xl sm:text-3xl" dir="ltr">${ours}:${theirs}</span>
-    <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${ours > theirs ? 'text-ink' : 'text-ink-soft'}">${esc(outcome)}</span>`
-      : `<span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(r.note ?? '')}</span>`}
+  <span class="text-end">
+    ${scored ? `<span class="nums display block text-2xl sm:text-3xl" dir="ltr">${ours}:${theirs}</span>` : ''}
+    <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${scored && ours > theirs ? 'text-ink' : 'text-ink-soft'}">${esc(outcome)}</span>
   </span>
-</${Tag}></li>`;
-}
-
-export function resultsList(results: Result[] | null | undefined, t: FixturesLabels, teamLabel?: string) {
-  if (!results) return `<p class="py-6 text-sm text-ink-soft">${esc(t.unavailable)}</p>`;
-  if (results.length === 0) return `<p class="py-6 text-sm text-ink-soft">${esc(t.noResults)}</p>`;
-  return `<ul class="border-t border-line">${results.map((r) => resultRow(r, t, teamLabel)).join('')}</ul>`;
+</div></li>`;
 }
 
 /**
  * Mannschaftsseite: eine Zeitleiste. Oben die letzten Ergebnisse (älteste zuerst), dann eine
- * Trennlinie "Heute", darunter die nächsten Spiele. Fehlen die Ergebnisse (fussball.de nicht
- * lesbar), bleibt einfach der Spielplan stehen, ohne Fehlermeldung.
+ * Trennlinie "Heute", darunter die nächsten Spiele. Ohne eingetragene Ergebnisse bleibt
+ * einfach der Spielplan stehen.
  */
-export function seasonList(games: Game[] | null, results: Result[] | null | undefined, t: FixturesLabels, recent = 3) {
+export function seasonList(games: Game[] | null, results: Result[] | undefined, t: FixturesLabels, recent = 3) {
   const past = (results ?? []).slice(0, recent).reverse();
   if (past.length === 0) return gamesList(games, t);
   const divider = `<li class="flex items-center gap-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-ink" aria-hidden="true"><span class="h-px flex-1 bg-ink"></span>${esc(t.today)}<span class="h-px flex-1 bg-ink"></span></li>`;
@@ -142,11 +136,11 @@ export function seasonList(games: Game[] | null, results: Result[] | null | unde
 }
 
 /** Startseite: das letzte Ergebnis jeder Mannschaft, neuestes zuerst. */
-export function latestResults(teams: Record<string, TeamFixtures>) {
-  return Object.entries(teams)
-    .map(([slug, f]) => (f.results?.[0] ? { slug, r: f.results[0] } : null))
+export function latestResults(results: Record<string, Result[]>) {
+  return Object.entries(results)
+    .map(([slug, list]) => (list[0] ? { slug, r: list[0] } : null))
     .filter((x): x is { slug: string; r: Result } => !!x)
-    .sort((a, b) => `${b.r.date}${b.r.time}`.localeCompare(`${a.r.date}${a.r.time}`));
+    .sort((a, b) => b.r.date.localeCompare(a.r.date));
 }
 
 export function gamesList(games: Game[] | null, t: FixturesLabels) {

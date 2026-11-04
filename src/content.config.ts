@@ -193,6 +193,30 @@ const einstellungen = defineCollection({
   }),
 });
 
+// Ergebnisse: pflegt die Redaktion im CMS, ein Eintrag pro Spiel (src/content/ergebnisse).
+// Bewusst nicht von fussball.de: Dort sind die Tore gegen automatisches Auslesen geschützt.
+export const resultNotes = ['cancelled', 'forfeitOpponent', 'forfeitUs'] as const;
+const goals = z.number().int().min(0).max(99).nullish();
+const ergebnisse = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/ergebnisse' }),
+  schema: z
+    .object({
+      // Dateiname der Mannschaft in src/content/teams/de, z. B. "herren-1"
+      team: z.string(),
+      date: z.coerce.date(),
+      opponent: z.string(),
+      isHome: z.boolean().default(true),
+      goalsFor: goals,
+      goalsAgainst: goals,
+      // Leer = Liga der Mannschaft. Sonst z. B. "Berliner Pilsner-Pokal" (wird nicht übersetzt).
+      competition: z.string().nullish(),
+      note: z.enum(resultNotes).nullish().or(z.literal('').transform(() => null)),
+    })
+    .refine((r) => r.note === 'cancelled' || (r.goalsFor != null && r.goalsAgainst != null), {
+      message: 'Bitte beide Torzahlen eintragen (oder "Abgesetzt" wählen).',
+    }),
+});
+
 // Kontaktadressen, die die Redaktion selbst pflegt (Einstellungen > Kontakt im CMS).
 const kontakt = defineCollection({
   loader: glob({ pattern: 'kontakt.yml', base: './src/content/einstellungen' }),
@@ -213,4 +237,4 @@ const kontakt = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt };
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, ergebnisse };

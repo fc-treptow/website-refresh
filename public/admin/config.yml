@@ -135,6 +135,25 @@ collections:
       - { name: fussballDeTeamId, label: fussball.de Team-ID, widget: string, required: false, pattern: ['^[0-9A-Z]{32}$', 'Die Team-ID hat genau 32 Zeichen (Ziffern und Großbuchstaben).'], hint: 'Nur einmal nötig und meist schon ausgefüllt. Leer lassen bei der Freizeitmannschaft.' }
       - { name: body, label: Beschreibung, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
 
+  - name: ergebnisse
+    label: Ergebnisse
+    label_singular: Ergebnis
+    description: 'Ein Eintrag pro Spiel, am besten direkt nach der Ergebnismeldung im DFBnet. Erscheint auf der Startseite (Reiter Ergebnisse) und auf der Mannschaftsseite. Tore immer aus unserer Sicht: unsere zuerst.'
+    folder: src/content/ergebnisse
+    create: true
+    slug: '{{date}}-{{team}}'
+    summary: '{{date}} · {{team}} · {{opponent}} {{goalsFor}}:{{goalsAgainst}}'
+    sortable_fields: [date, team]
+    fields:
+      - { name: team, label: Mannschaft, widget: relation, collection: teams, value_field: '{{slug}}', search_fields: [shortName, name], display_fields: [shortName] }
+      - { name: date, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true }
+      - { name: opponent, label: Gegner, widget: string, hint: 'So wie bei fussball.de, z. B. "Motherland Berlin SC"' }
+      - { name: isHome, label: Heimspiel, widget: boolean, default: true, hint: 'Aus, wenn wir auswärts gespielt haben.' }
+      - { name: goalsFor, label: Tore FC Treptow, widget: number, value_type: int, min: 0, max: 99, required: false }
+      - { name: goalsAgainst, label: Tore Gegner, widget: number, value_type: int, min: 0, max: 99, required: false }
+      - { name: note, label: Besonderheit, widget: select, required: false, options: [{ label: 'Abgesetzt (keine Tore eintragen)', value: cancelled }, { label: 'Gegner nicht angetreten', value: forfeitOpponent }, { label: 'Wir nicht angetreten', value: forfeitUs }], hint: 'Meist leer lassen. Bei Nichtantritt die Wertung als Tore eintragen, z. B. 2:0.' }
+      - { name: competition, label: Wettbewerb, widget: string, required: false, hint: 'Leer lassen bei Ligaspielen. Sonst z. B. "Berliner Pilsner-Pokal" oder "Freundschaftsspiel".' }
+
   - name: vorstand
     label: Vorstand
     label_singular: Person
