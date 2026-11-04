@@ -16,9 +16,10 @@ export interface Game {
 // Ergebnis aus dem CMS (src/lib/results.ts). Tore aus unserer Sicht.
 export interface Result {
   date: string; // YYYY-MM-DD
+  time: string | null; // HH:MM, Anstoß
   opponent: string;
   isHome: boolean;
-  goalsFor: number | null; // null nur bei abgesetzten Spielen
+  goalsFor: number | null; // null: abgesetzt oder noch nicht eingetragen
   goalsAgainst: number | null;
   competition: string;
   note: 'cancelled' | 'forfeitOpponent' | 'forfeitUs' | null;
@@ -54,6 +55,7 @@ export interface FixturesLabels {
   noGames: string;
   noResults: string;
   today: string;
+  pending: string;
   notes: { cancelled: string; forfeitOpponent: string; forfeitUs: string };
   win: string;
   draw: string;
@@ -102,7 +104,7 @@ export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
   const scored = r.goalsFor !== null && r.goalsAgainst !== null && r.note !== 'cancelled';
   const ours = r.goalsFor ?? 0;
   const theirs = r.goalsAgainst ?? 0;
-  const outcome = r.note ? t.notes[r.note] : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
+  const outcome = r.note ? t.notes[r.note] : !scored ? t.pending : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
   return `<li><div class="grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
   <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl">${esc(day)}</span></span>
   <span class="min-w-0">
@@ -117,13 +119,33 @@ export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
 </div></li>`;
 }
 
+// Wie lange nach Anstoß ein Spiel als gespielt gilt, und wie lange "Ergebnis folgt" stehen bleibt
+const MATCH_MINUTES = 120;
+const PENDING_DAYS = 14;
+
+/**
+ * Nur gespielte Spiele, neuestes zuerst. Einträge ohne Tore (vom Spielplan angelegt) erscheinen
+ * ab Anstoß plus zwei Stunden als "Ergebnis folgt", aber höchstens zwei Wochen lang.
+ * Läuft beim Build und noch einmal im Browser, damit "jetzt" auch ohne neuen Build stimmt.
+ */
+export function played(results: Result[], now = new Date()) {
+  // Uhrzeiten sind Berliner Zeit. Beide Seiten als "UTC" lesen, dann passt der Vergleich.
+  const nowBerlin = Date.parse(`${now.toLocaleString('sv-SE', { timeZone: 'Europe/Berlin' }).replace(' ', 'T')}Z`);
+  return results.filter((r) => {
+    const end = Date.parse(`${r.date}T${r.time ?? '00:00'}:00Z`) + (r.time ? MATCH_MINUTES : 24 * 60) * 60_000;
+    if (end > nowBerlin) return false;
+    const pending = r.goalsFor === null && !r.note;
+    return !pending || nowBerlin - end < PENDING_DAYS * 86_400_000;
+  });
+}
+
 /**
  * Mannschaftsseite: eine Zeitleiste. Oben die letzten Ergebnisse (älteste zuerst), dann eine
  * Trennlinie "Heute", darunter die nächsten Spiele. Ohne eingetragene Ergebnisse bleibt
  * einfach der Spielplan stehen.
  */
-export function seasonList(games: Game[] | null, results: Result[] | undefined, t: FixturesLabels, recent = 3) {
-  const past = (results ?? []).slice(0, recent).reverse();
+export function seasonList(games: Game[] | null, results: Result[] | undefined, t: FixturesLabels, now = new Date(), recent = 3) {
+  const past = played(results ?? [], now).slice(0, recent).reverse();
   if (past.length === 0) return gamesList(games, t);
   const divider = `<li class="flex items-center gap-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-ink" aria-hidden="true"><span class="h-px flex-1 bg-ink"></span>${esc(t.today)}<span class="h-px flex-1 bg-ink"></span></li>`;
   const upcoming = !games
@@ -136,9 +158,12 @@ export function seasonList(games: Game[] | null, results: Result[] | undefined, 
 }
 
 /** Startseite: das letzte Ergebnis jeder Mannschaft, neuestes zuerst. */
-export function latestResults(results: Record<string, Result[]>) {
+export function latestResults(results: Record<string, Result[]>, now = new Date()) {
   return Object.entries(results)
-    .map(([slug, list]) => (list[0] ? { slug, r: list[0] } : null))
+    .map(([slug, list]) => {
+      const r = played(list, now)[0];
+      return r ? { slug, r } : null;
+    })
     .filter((x): x is { slug: string; r: Result } => !!x)
     .sort((a, b) => b.r.date.localeCompare(a.r.date));
 }

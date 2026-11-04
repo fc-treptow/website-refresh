@@ -138,21 +138,25 @@ collections:
   - name: ergebnisse
     label: Ergebnisse
     label_singular: Ergebnis
-    description: 'Ein Eintrag pro Spiel, am besten direkt nach der Ergebnismeldung im DFBnet. Erscheint auf der Startseite (Reiter Ergebnisse) und auf der Mannschaftsseite. Tore immer aus unserer Sicht: unsere zuerst.'
+    description: 'Die Spiele legt die Seite jeden Morgen selbst aus dem Spielplan an (ein paar Tage vorher). Nach dem Spiel nur öffnen und die Tore eintragen, aus unserer Sicht: unsere zuerst. Einträge ohne Tore stehen auf der Seite als "Ergebnis folgt". Freundschaftsspiele oder Spiele der Freizeitmannschaft hier selbst anlegen.'
     folder: src/content/ergebnisse
     create: true
     slug: '{{date}}-{{team}}'
-    summary: '{{date}} · {{team}} · {{opponent}} {{goalsFor}}:{{goalsAgainst}}'
-    sortable_fields: [date, team]
+    summary: '{{date}} · {{team}} · {{opponent}} · {{goalsFor}}:{{goalsAgainst}}'
+    sortable_fields:
+      fields: [date, team]
+      default: { field: date, direction: descending }
     fields:
       - { name: team, label: Mannschaft, widget: relation, collection: teams, value_field: '{{slug}}', search_fields: [shortName, name], display_fields: [shortName] }
       - { name: date, label: Datum, widget: datetime, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true }
+      - { name: time, label: Anstoß, widget: string, required: false, hint: 'z. B. 13:00. Freiwillig.', pattern: ['^(([01]?[0-9]|2[0-3]):[0-5][0-9])?$', 'Bitte als Uhrzeit schreiben, z. B. 13:00'] }
       - { name: opponent, label: Gegner, widget: string, hint: 'So wie bei fussball.de, z. B. "Motherland Berlin SC"' }
       - { name: isHome, label: Heimspiel, widget: boolean, default: true, hint: 'Aus, wenn wir auswärts gespielt haben.' }
       - { name: goalsFor, label: Tore FC Treptow, widget: number, value_type: int, min: 0, max: 99, required: false }
       - { name: goalsAgainst, label: Tore Gegner, widget: number, value_type: int, min: 0, max: 99, required: false }
       - { name: note, label: Besonderheit, widget: select, required: false, options: [{ label: 'Abgesetzt (keine Tore eintragen)', value: cancelled }, { label: 'Gegner nicht angetreten', value: forfeitOpponent }, { label: 'Wir nicht angetreten', value: forfeitUs }], hint: 'Meist leer lassen. Bei Nichtantritt die Wertung als Tore eintragen, z. B. 2:0.' }
       - { name: competition, label: Wettbewerb, widget: string, required: false, hint: 'Leer lassen bei Ligaspielen. Sonst z. B. "Berliner Pilsner-Pokal" oder "Freundschaftsspiel".' }
+      - { name: fussballDeId, label: fussball.de-Kennung, widget: hidden, required: false }
 
   - name: vorstand
     label: Vorstand

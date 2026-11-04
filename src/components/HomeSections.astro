@@ -37,7 +37,8 @@ const nextGames = Object.entries(fixtures.teams)
   .filter((x): x is { slug: string; g: Game } => !!x)
   .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
 // Letztes Ergebnis je Mannschaft, neuestes zuerst
-const lastResults = latestResults(await getResults(lang));
+const allResults = await getResults(lang);
+const lastResults = latestResults(allResults);
 
 const numerals = ['I', 'II', 'III', 'F'];
 
@@ -219,12 +220,15 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
         </div>
       </div>
       <div id="panel-results" role="tabpanel" aria-labelledby="tab-results" tabindex="0" hidden>
-        <!-- Ergebnisse pflegt die Redaktion im CMS, sie kommen mit dem Build und ändern sich nicht live -->
-        {lastResults.length > 0 ? (
-          <ul set:html={lastResults.map(({ slug, r }) => resultRow(r, fx, teamLabels[slug])).join('')} />
-        ) : (
-          <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.noResults}</p>
-        )}
+        <!-- Ergebnisse aus dem CMS. Der Browser rechnet "jetzt" noch einmal nach (fixturesLive.ts),
+             damit ein gespieltes Spiel auch ohne neuen Build als "Ergebnis folgt" erscheint. -->
+        <div data-results-latest data-results={JSON.stringify(allResults)} data-labels={JSON.stringify(fx)} data-team-labels={JSON.stringify(teamLabels)}>
+          {lastResults.length > 0 ? (
+            <ul set:html={lastResults.map(({ slug, r }) => resultRow(r, fx, teamLabels[slug])).join('')} />
+          ) : (
+            <p class="border-b border-line py-8 text-sm text-ink-soft">{fx.noResults}</p>
+          )}
+        </div>
       </div>
       <div id="panel-table" role="tabpanel" aria-labelledby="tab-table" tabindex="0" hidden>
         <div role="tablist" aria-label={t.teamsHeading} class="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 py-4 sm:mx-0 sm:px-0" data-team-tabs>
