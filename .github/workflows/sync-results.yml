@@ -35,6 +35,8 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Spiele abgleichen
+        # pipefail: Bricht das Skript ab, soll der Schritt trotz "| tee" fehlschlagen
+        shell: bash -eo pipefail {0}
         run: node scripts/sync-results.mjs ${{ inputs.dry_run && '--dry-run' || '' }} | tee "$RUNNER_TEMP/bericht.txt"
       - name: Speichern
         if: ${{ !inputs.dry_run }}

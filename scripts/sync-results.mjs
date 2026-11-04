@@ -111,6 +111,16 @@ async function main() {
   const games = [];
   for (const t of teams) for (const game of await fetchNextGames(t.id, 10)) games.push({ team: t.slug, league: t.league, game });
 
+  // Bericht: was im Spielplan steht, auch wenn noch nichts anzulegen ist. So zeigt schon der
+  // Probelauf, dass fussball.de gelesen wurde.
+  console.log(`Spielplan gelesen (${teams.length} Mannschaften, ${games.length} Spiele):`);
+  for (const { team, game } of games) {
+    console.log(`  ${team} ${game.date} ${game.time} ${game.isHome ? 'gegen' : 'bei'} ${game.opponent}${matchId(game.url) ? '' : ' (ohne Kennung, wird übersprungen)'}`);
+  }
+  if (teams.length > 0 && games.length === 0) console.log('  (keine anstehenden Spiele)');
+  console.log(`Angelegt werden Spiele bis ${DAYS_AHEAD} Tage im Voraus.`);
+  console.log('');
+
   if (!existsSync(DIR)) mkdirSync(DIR, { recursive: true });
   const existing = readdirSync(DIR)
     .filter((n) => n.endsWith('.md'))
