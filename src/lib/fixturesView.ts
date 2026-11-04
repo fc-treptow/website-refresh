@@ -23,6 +23,7 @@ export interface Result {
   goalsAgainst: number | null;
   competition: string;
   note: 'cancelled' | 'forfeitOpponent' | 'forfeitUs' | null;
+  url: string | null; // Spiel auf fussball.de
 }
 
 export interface TableRow {
@@ -105,7 +106,10 @@ export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
   const ours = r.goalsFor ?? 0;
   const theirs = r.goalsAgainst ?? 0;
   const outcome = r.note ? t.notes[r.note] : !scored ? t.pending : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
-  return `<li><div class="grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
+  const Tag = r.url ? 'a' : 'div';
+  const spoken = `${r.isHome ? '' : `${t.vs} `}${r.opponent}, ${day}: ${scored ? `${ours}:${theirs}, ` : ''}${outcome}. ${t.matchLink}`;
+  const href = r.url ? ` href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(spoken)}"` : '';
+  return `<li><${Tag}${href} class="grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2${r.url ? ' transition-colors duration-200 hover:bg-paper-deep/60' : ''}">
   <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl">${esc(day)}</span></span>
   <span class="min-w-0">
     ${teamLabel ? `<span class="block text-xs font-semibold uppercase tracking-wider text-club">${esc(teamLabel)}</span>` : ''}
@@ -116,7 +120,7 @@ export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
     ${scored ? `<span class="nums display block text-2xl sm:text-3xl" dir="ltr">${ours}:${theirs}</span>` : ''}
     <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${scored && ours > theirs ? 'text-ink' : 'text-ink-soft'}">${esc(outcome)}</span>
   </span>
-</div></li>`;
+</${Tag}></li>`;
 }
 
 // Wie lange nach Anstoß ein Spiel als gespielt gilt, und wie lange "Ergebnis folgt" stehen bleibt

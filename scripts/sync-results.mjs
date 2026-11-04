@@ -7,7 +7,8 @@
 //
 // Sicherheitsregeln, damit nie etwas von der Redaktion überschrieben wird:
 // 1. Ein Eintrag mit Toren oder Besonderheit wird nie mehr angefasst.
-// 2. An offenen Einträgen ändert das Skript nur Datum und Anstoß (Spielverlegung).
+// 2. An offenen Einträgen ändert das Skript nur Datum und Anstoß (Spielverlegung) und ergänzt
+//    einen fehlenden Link zum Spiel auf fussball.de.
 //    Gegner, Heim/Auswärts und Wettbewerb bleiben, wie sie beim Anlegen waren oder wie die
 //    Redaktion sie korrigiert hat.
 // 3. Das Skript löscht nie etwas.
@@ -60,8 +61,10 @@ export function plan(existing, games, today) {
       if (settled(known.data)) continue; // Regel 1
       const date = dateOf(known.data.date);
       if (date !== game.date || String(known.data.time ?? '') !== game.time) {
-        // Regel 2: nur Datum und Anstoß
-        changes.push({ kind: 'move', file: known.file, data: { ...known.data, date: game.date, time: game.time }, label: `${team} ${game.opponent}: ${date} → ${game.date} ${game.time}` });
+        // Regel 2: nur Datum und Anstoß (und der Link, falls er noch fehlt)
+        changes.push({ kind: 'move', file: known.file, data: { ...known.data, date: game.date, time: game.time, fussballDeUrl: known.data.fussballDeUrl || game.url }, label: `${team} ${game.opponent}: ${date} → ${game.date} ${game.time}` });
+      } else if (!known.data.fussballDeUrl) {
+        changes.push({ kind: 'link', file: known.file, data: { ...known.data, fussballDeUrl: game.url }, label: `${team} ${game.opponent}: Link zu fussball.de ergänzt` });
       }
       continue;
     }
@@ -69,7 +72,7 @@ export function plan(existing, games, today) {
     // Regel 4: von Hand angelegter Eintrag für denselben Tag
     const manual = existing.find((e) => !e.data.fussballDeId && e.data.team === team && dateOf(e.data.date) === game.date);
     if (manual) {
-      changes.push({ kind: 'link', file: manual.file, data: { ...manual.data, fussballDeId: id }, label: `${team} ${game.opponent}: mit fussball.de verknüpft` });
+      changes.push({ kind: 'link', file: manual.file, data: { ...manual.data, fussballDeId: id, fussballDeUrl: manual.data.fussballDeUrl || game.url }, label: `${team} ${game.opponent}: mit fussball.de verknüpft` });
       byId.set(id, manual);
       continue;
     }
@@ -88,6 +91,7 @@ export function plan(existing, games, today) {
         // Ligaspiele ohne Wettbewerb speichern: Dann zeigt die Seite die übersetzte Liga der Mannschaft
         ...(game.competition && !league.includes(game.competition) ? { competition: game.competition } : {}),
         fussballDeId: id,
+        fussballDeUrl: game.url,
       },
       label: `${team} ${game.date} ${game.isHome ? 'gegen' : 'bei'} ${game.opponent}`,
     });
