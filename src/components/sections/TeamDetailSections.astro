@@ -13,7 +13,7 @@ import { useTranslations } from '../../i18n/ui';
 import { fixturesLabels } from '../../i18n/fixtures';
 import { leagueLabel, trainingLabel, type LocalizedTeam } from '../../i18n/content';
 import { buildFixtures, fixturesQuery } from '../../lib/fixturesBuild';
-import { gamesList, leagueTable } from '../../lib/fixturesView';
+import { seasonList, leagueTable } from '../../lib/fixturesView';
 
 interface Props {
   team: LocalizedTeam;
@@ -111,7 +111,8 @@ const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+4
             <div class="flex items-end justify-between gap-4">
               <h2 class="display text-4xl sm:text-5xl">{t.spielplan}</h2>
             </div>
-            <div class="mt-6" data-fixtures="games" data-team={team.slug} data-query={query} data-built-at={fixtures.fetchedAt} data-labels={JSON.stringify(fx)} set:html={gamesList(f?.games ?? null, fx)} />
+            <!-- Letzte Ergebnisse, Trennlinie "Heute", nächste Spiele -->
+            <div class="mt-6" data-fixtures="season" data-team={team.slug} data-query={query} data-built-at={fixtures.fetchedAt} data-labels={JSON.stringify(fx)} set:html={seasonList(f?.games ?? null, f?.results, fx)} />
           </div>
           <div class="reveal mt-12">
             <div class="flex items-end justify-between gap-4">

@@ -49,6 +49,7 @@ export interface FixturesLabels {
   provisional: string;
   noGames: string;
   noResults: string;
+  today: string;
   win: string;
   draw: string;
   loss: string;
@@ -120,6 +121,24 @@ export function resultsList(results: Result[] | null | undefined, t: FixturesLab
   if (!results) return `<p class="py-6 text-sm text-ink-soft">${esc(t.unavailable)}</p>`;
   if (results.length === 0) return `<p class="py-6 text-sm text-ink-soft">${esc(t.noResults)}</p>`;
   return `<ul class="border-t border-line">${results.map((r) => resultRow(r, t, teamLabel)).join('')}</ul>`;
+}
+
+/**
+ * Mannschaftsseite: eine Zeitleiste. Oben die letzten Ergebnisse (älteste zuerst), dann eine
+ * Trennlinie "Heute", darunter die nächsten Spiele. Fehlen die Ergebnisse (fussball.de nicht
+ * lesbar), bleibt einfach der Spielplan stehen, ohne Fehlermeldung.
+ */
+export function seasonList(games: Game[] | null, results: Result[] | null | undefined, t: FixturesLabels, recent = 3) {
+  const past = (results ?? []).slice(0, recent).reverse();
+  if (past.length === 0) return gamesList(games, t);
+  const divider = `<li class="flex items-center gap-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-ink" aria-hidden="true"><span class="h-px flex-1 bg-ink"></span>${esc(t.today)}<span class="h-px flex-1 bg-ink"></span></li>`;
+  const upcoming = !games
+    ? `<li><p class="py-6 text-sm text-ink-soft">${esc(t.unavailable)}</p></li>`
+    : games.length === 0
+      ? `<li><p class="py-6 text-sm text-ink-soft">${esc(t.noGames)}</p></li>`
+      : games.map((g) => gameRow(g, t)).join('');
+  const note = games?.some((g) => g.provisional) ? `<p class="mt-3 text-xs text-ink-soft">${esc(t.provisional)}</p>` : '';
+  return `<ul class="border-t border-line">${past.map((r) => resultRow(r, t)).join('')}${divider}${upcoming}</ul>${note}`;
 }
 
 /** Startseite: das letzte Ergebnis jeder Mannschaft, neuestes zuerst. */
