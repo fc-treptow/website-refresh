@@ -13,6 +13,12 @@ export interface Game {
   provisional?: boolean;
 }
 
+export interface Result extends Game {
+  goalsHome: number | null; // null bei Absetzung, Nichtantritt o. Ä., dann steht der Grund in note
+  goalsAway: number | null;
+  note: string | null;
+}
+
 export interface TableRow {
   rank: number;
   club: string;
@@ -30,6 +36,7 @@ export interface TableRow {
 
 export interface TeamFixtures {
   games: Game[] | null;
+  results?: Result[] | null; // optional: Daten aus älteren Builds/Caches haben das Feld noch nicht
   table: { rows: TableRow[]; season: string | null; url: string } | null;
   url: string | null;
 }
@@ -41,6 +48,10 @@ export interface FixturesLabels {
   vs: string;
   provisional: string;
   noGames: string;
+  noResults: string;
+  win: string;
+  draw: string;
+  loss: string;
   table: { rank: string; club: string; played: string; goals: string; diff: string; points: string; caption: string };
   unavailable: string;
   source: string;
@@ -77,6 +88,46 @@ export function gameRow(g: Game, t: FixturesLabels, teamLabel?: string) {
     <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${g.isHome ? 'text-ink' : 'text-ink-soft'}">${esc(tag)}</span>
   </span>
 </${Tag}></li>`;
+}
+
+/** Kompakte Zeile: ein Ergebnis, Tore aus unserer Sicht (unsere zuerst), Ausgang darunter. */
+export function resultRow(r: Result, t: FixturesLabels, teamLabel?: string) {
+  const { weekday, day } = when(r, t.locale);
+  const scored = r.goalsHome !== null && r.goalsAway !== null;
+  const ours = scored ? (r.isHome ? r.goalsHome! : r.goalsAway!) : 0;
+  const theirs = scored ? (r.isHome ? r.goalsAway! : r.goalsHome!) : 0;
+  const outcome = !scored ? '' : ours > theirs ? t.win : ours < theirs ? t.loss : t.draw;
+  const Tag = r.url ? 'a' : 'div';
+  const spoken = scored ? `${r.home} ${r.goalsHome}:${r.goalsAway} ${r.away}` : `${r.home} – ${r.away}, ${r.note ?? ''}`;
+  const href = r.url ? ` href="${esc(r.url)}" rel="noopener" target="_blank" aria-label="${esc(`${spoken}, ${day}. ${t.matchLink}`)}"` : '';
+  return `<li><${Tag}${href} class="group grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 transition-colors duration-200 hover:bg-paper-deep/60 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
+  <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl">${esc(day)}</span></span>
+  <span class="min-w-0">
+    ${teamLabel ? `<span class="block text-xs font-semibold uppercase tracking-wider text-club">${esc(teamLabel)}</span>` : ''}
+    <span class="mt-0.5 block truncate text-[15px] font-semibold sm:text-base">${r.isHome ? '' : `<span class="font-normal text-ink-soft">${esc(t.vs)} </span>`}${esc(r.opponent)}</span>
+    <span class="mt-0.5 block text-xs text-ink-soft">${esc(r.competition)}</span>
+  </span>
+  <span class="text-end" aria-hidden="${r.url ? 'true' : 'false'}">
+    ${scored
+      ? `<span class="nums display block text-2xl sm:text-3xl" dir="ltr">${ours}:${theirs}</span>
+    <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${ours > theirs ? 'text-ink' : 'text-ink-soft'}">${esc(outcome)}</span>`
+      : `<span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(r.note ?? '')}</span>`}
+  </span>
+</${Tag}></li>`;
+}
+
+export function resultsList(results: Result[] | null | undefined, t: FixturesLabels, teamLabel?: string) {
+  if (!results) return `<p class="py-6 text-sm text-ink-soft">${esc(t.unavailable)}</p>`;
+  if (results.length === 0) return `<p class="py-6 text-sm text-ink-soft">${esc(t.noResults)}</p>`;
+  return `<ul class="border-t border-line">${results.map((r) => resultRow(r, t, teamLabel)).join('')}</ul>`;
+}
+
+/** Startseite: das letzte Ergebnis jeder Mannschaft, neuestes zuerst. */
+export function latestResults(teams: Record<string, TeamFixtures>) {
+  return Object.entries(teams)
+    .map(([slug, f]) => (f.results?.[0] ? { slug, r: f.results[0] } : null))
+    .filter((x): x is { slug: string; r: Result } => !!x)
+    .sort((a, b) => `${b.r.date}${b.r.time}`.localeCompare(`${a.r.date}${a.r.time}`));
 }
 
 export function gamesList(games: Game[] | null, t: FixturesLabels) {
