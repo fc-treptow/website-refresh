@@ -155,6 +155,7 @@ collections:
       - { name: goalsAgainst, label: Tore Gegner, widget: number, value_type: int, min: 0, max: 99, required: false }
       - { name: note, label: Besonderheit, widget: select, required: false, options: [{ label: 'Abgesetzt (keine Tore eintragen)', value: cancelled }, { label: 'Gegner nicht angetreten', value: forfeitOpponent }, { label: 'Wir nicht angetreten', value: forfeitUs }], hint: 'Meist leer lassen. Bei Nichtantritt die Wertung als Tore eintragen, z. B. 2:0.' }
       - { name: competition, label: Wettbewerb, widget: string, required: false, hint: 'Leer lassen bei Ligaspielen. Sonst z. B. "Berliner Pilsner-Pokal" oder "Freundschaftsspiel".' }
+      - { name: fussballDeUrl, label: Link zum Spiel auf fussball.de, widget: string, required: false, pattern: ['^(https://www\.fussball\.de/spiel/.*)?$', 'Bitte den Link zum Spiel auf fussball.de einfügen (beginnt mit https://www.fussball.de/spiel/).'], hint: 'Trägt die Seite selbst ein. Nur bei selbst angelegten Spielen freiwillig einfügen: auf fussball.de das Spiel öffnen und die Adresse kopieren.' }
       - { name: fussballDeId, label: fussball.de-Kennung, widget: hidden, required: false }
 
   - name: vorstand

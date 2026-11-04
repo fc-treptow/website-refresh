@@ -27,6 +27,7 @@ export async function getResults(lang: Locale): Promise<Record<string, Result[]>
       goalsAgainst: e.goalsAgainst ?? null,
       competition: e.competition?.trim() || leagueLabel(league[e.team], lang),
       note: e.note ?? null,
+      url: e.fussballDeUrl ?? null,
     });
   }
   for (const list of Object.values(bySlug)) list.sort((a, b) => `${b.date}${b.time ?? ''}`.localeCompare(`${a.date}${a.time ?? ''}`));

@@ -216,6 +216,12 @@ const ergebnisse = defineCollection({
       note: z.enum(resultNotes).nullish().or(z.literal('').transform(() => null)),
       // Kennung des Spiels auf fussball.de, setzt scripts/sync-results.mjs
       fussballDeId: z.string().nullish(),
+      // Link zum Spiel auf fussball.de, setzt das Skript; bei eigenen Einträgen freiwillig
+      fussballDeUrl: z
+        .string()
+        .regex(/^https:\/\/www\.fussball\.de\/spiel\//, 'Bitte den Link zum Spiel auf fussball.de einfügen (beginnt mit https://www.fussball.de/spiel/).')
+        .nullish()
+        .or(z.literal('').transform(() => null)),
     })
     .refine((r) => (r.goalsFor == null) === (r.goalsAgainst == null), {
       message: 'Bitte beide Torzahlen eintragen oder beide leer lassen.',
