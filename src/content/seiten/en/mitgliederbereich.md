@@ -4,18 +4,24 @@ intro: Your data and contributions all in one place, in the browser or in the ap
 quelle:
   title: 0fbefbb61cda
   intro: 98bf860a6b76
-  body: 0f82822b9599
+  body: 2c0cb34df9c0
 ---
 
 ## What is easyVerein?
 
-We manage our members with easyVerein. In the member area, you can see the data the club has about you and your contributions.
+**Your member area at easyVerein**
 
-## How to log in
+We manage our members with easyVerein. After signing up, you can manage your membership yourself, for example:
 
-1. You’ll receive an invitation by e-mail at the address we have for you.
+* **Update your profile**: Update your address, phone number and e-mail address yourself.
+* **Download documents**: Contribution invoices, receipts or a membership certificate as a PDF.
+* **Cancel**: Cancel your membership directly online (the notice period according to the statutes applies).
+
+## How to sign up
+
+1. You will receive an invitation by e-mail to the address we have for you.
 2. Open the link in the e-mail and set a password.
-3. After that, you can log in anytime via the [member area](https://easyverein.com/public/FC230TE/) or in the app.
+3. After that, you can log in anytime via the [member area](https://easyverein.com/public/FC230TE/) or the app.
 
 ## The app
 
@@ -23,6 +29,6 @@ easyVerein is also available as an app for the [iPhone](https://apps.apple.com/d
 
 ## Didn’t get an invitation?
 
-Please check your spam folder first. If it’s not there either, write to us at [kontakt@fc-treptow.de](mailto:kontakt@fc-treptow.de), preferably with your name and the e-mail address you want us to use.
+Please check your spam folder first. If it’s not there either, write to us at [kontakt@fc-treptow.de](mailto:kontakt@fc-treptow.de), preferably with your name and the e-mail address we should use.
 
 Not a member yet? How to become a member is explained under [Membership](/mitgliedschaft).
