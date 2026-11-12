@@ -1,7 +1,7 @@
 ---
-linkText: Üyeler alanına git
+linkText: İşte böyle
 quelle:
-  linkText: 8b13be5c6f98
+  linkText: 444244ed1d6e
   body: 7ec348397ff2
 ---
 

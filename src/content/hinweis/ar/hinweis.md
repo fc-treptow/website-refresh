@@ -1,7 +1,7 @@
 ---
-linkText: إلى منطقة الأعضاء
+linkText: هكذا تعمل الأمور
 quelle:
-  linkText: 8b13be5c6f98
+  linkText: 444244ed1d6e
   body: 7ec348397ff2
 ---
 
