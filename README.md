@@ -31,9 +31,10 @@ Dort gibt es diese Bereiche:
 | Bereich | Was man dort macht |
 |---|---|
 | Neuigkeiten | Beiträge schreiben, mit Foto. Erscheinen auf der Startseite und unter News. |
-| Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. |
+| Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. Die Trainingszeiten stehen automatisch auch auf Kontakt, Mitgliedschaft und Probetraining, die Zahl der Teams auf der Startseite. |
 | Ergebnisse | Die Spiele legt die Seite jeden Morgen selbst aus dem Spielplan an. Nach dem Spiel nur den Eintrag öffnen und die Tore eintragen (unsere zuerst), am besten gleich nach der Ergebnismeldung im DFBnet. Bis dahin steht auf der Seite "Ergebnis folgt". Freundschaftsspiele und die Freizeitmannschaft selbst anlegen. |
-| Vorstand | Namen, Ämter und Kontaktdaten. |
+| Vorstand | Namen, Ämter und Kontaktdaten. Wer als Vorsitzende/r und 2. Vorsitzende/r eingetragen ist, steht automatisch im Impressum und in der Datenschutzerklärung. |
+| Vereinschronik | Spielzeiten der Chronik: jede neue Saison oben anlegen, am Saisonende Platz, Tore und Punkte nachtragen. Ligaleiter und der Text zur Gegenwart rechnen sich daraus. |
 | Partner und Sponsoren | Logo, Name, Link. |
 | Fanshop-Artikel | Auswahl für die Fanshop-Seite (Name, Preis, Foto, Link in den Shop). |
 | Instagram-Beiträge | Ausgewählte Beiträge für die Startseite: Foto hochladen, Link zum Beitrag einfügen, kurz beschreiben. Die ersten vier nach Reihenfolge werden gezeigt. |
