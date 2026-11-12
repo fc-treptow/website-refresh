@@ -165,6 +165,36 @@ html[lang="ar"] .font-serif {
 .hero-slide[data-active="true"] {
   opacity: 1;
 }
+/* Leitsatz im Auftakt: alle Zeilen liegen übereinander in derselben Rasterzelle, die Höhe richtet
+   sich nach der längsten. So springt beim Wechsel nichts. Ohne JavaScript steht die erste Zeile. */
+.hero-lines {
+  display: grid;
+  overflow: clip;
+  padding-block: 0.1em;
+  margin-block: -0.1em;
+}
+.hero-line {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.hero-line[data-state="active"],
+.hero-line[data-state="leaving"] {
+  visibility: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Anzeigetafel: die alte Zeile rollt nach oben weg, die neue kommt von unten */
+  .hero-line {
+    transform: translate3d(0, 110%, 0);
+  }
+  .hero-line[data-state="active"] {
+    transform: none;
+    transition: transform 0.56s var(--ease-club) 0.14s;
+  }
+  .hero-line[data-state="leaving"] {
+    transform: translate3d(0, -110%, 0);
+    transition: transform 0.42s cubic-bezier(0.5, 0, 0.75, 0);
+  }
+}
 /* Pfeile erscheinen beim Darüberfahren; auf Touch-Geräten (kein Hover) stehen sie immer */
 @media (hover: hover) {
   .hero-arrow {
