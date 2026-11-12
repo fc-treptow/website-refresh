@@ -1,5 +1,6 @@
 ---
 import PageHeader from '../PageHeader.astro';
+import Icon from '../Icon.astro';
 import { defaultLocale, bcp47, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { getNews } from '../../i18n/content';
@@ -18,27 +19,43 @@ const tags = [...counts.keys()].sort((a, b) => counts.get(b)! - counts.get(a)! |
 
 // Nach Jahren gruppiert, neueste zuerst
 const years = [...new Set(news.map((n) => n.data.date.getFullYear()))];
-const pill = 'inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold ring-1 ring-line transition-colors hover:ring-ink aria-pressed:bg-club aria-pressed:text-white aria-pressed:ring-club';
+// Auf dem Handy 44px hohe Tippziele, ab sm kompakter
+const pill = 'inline-flex min-h-11 items-center rounded-full px-4 sm:min-h-9 text-sm font-semibold ring-1 ring-line transition-colors hover:ring-ink aria-pressed:bg-club aria-pressed:text-white aria-pressed:ring-club';
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
 <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  {tags.length > 1 && (
-    <div class="mb-8 flex flex-wrap items-center gap-2" role="group" aria-label={t.filterLabel} data-news-filter hidden>
-      <button type="button" class={pill} data-filter="" aria-pressed="true">{t.filterAll}</button>
-      {tags.map((tag) => <button type="button" class={pill} data-filter={tag} aria-pressed="false">{tag}</button>)}
+  {(tags.length > 1 || years.length > 1) && (
+    // Rubriken und Jahr in einer Zeile: Rubriken links, Jahresauswahl rechts
+    <div class="mb-8 flex flex-wrap items-center gap-x-4 gap-y-3 sm:mb-10">
+      {tags.length > 1 && (
+        <div class="flex flex-wrap items-center gap-2" role="group" aria-label={t.filterLabel} data-news-filter hidden>
+          <button type="button" class={pill} data-filter="" aria-pressed="true">{t.filterAll}</button>
+          {tags.map((tag) => <button type="button" class={pill} data-filter={tag} aria-pressed="false">{tag}</button>)}
+        </div>
+      )}
+      {years.length > 1 && (
+        <nav aria-label={t.yearsLabel} class="ms-auto">
+          {/* Mit JavaScript: kompakte Auswahlliste */}
+          <label class="relative hidden in-[.js]:inline-flex">
+            <span class="sr-only">{t.yearsLabel}</span>
+            <select data-year-select class="nums min-h-11 cursor-pointer appearance-none rounded-full bg-transparent ps-4 pe-10 text-sm font-semibold ring-1 ring-line transition-colors hover:ring-ink sm:min-h-9">
+              <option value="" selected>{t.yearPick}</option>
+              {years.map((year) => <option value={year}>{year}</option>)}
+            </select>
+            <Icon name="chevron" size={18} class="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2" />
+          </label>
+          {/* Ohne JavaScript: einfache Sprungmarken */}
+          <ul class="flex flex-wrap gap-x-4 in-[.js]:hidden">
+            {years.map((year) => (
+              <li>
+                <a href={`#jahr-${year}`} class="nums inline-flex min-h-11 items-center text-sm font-semibold text-ink-soft transition-colors hover:text-ink hover:underline hover:decoration-2 hover:underline-offset-4">{year}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div>
-  )}
-  {years.length > 1 && (
-    <nav aria-label={t.yearsLabel} class="mb-12">
-      <ul class="flex flex-wrap gap-x-4 gap-y-0">
-        {years.map((year) => (
-          <li data-year-link={year}>
-            <a href={`#jahr-${year}`} class="nums inline-flex min-h-11 items-center text-base font-semibold text-ink-soft transition-colors hover:text-ink hover:underline hover:decoration-2 hover:underline-offset-4">{year}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
   )}
   {years.map((year, i) => (
     <div data-news-year={year} id={`jahr-${year}`} class="scroll-mt-24">
@@ -70,6 +87,7 @@ const pill = 'inline-flex min-h-11 items-center rounded-full px-4 text-sm font-s
 <script>
   // Rubrikfilter: blendet Beiträge anderer Rubriken aus. Ohne JavaScript bleibt alles sichtbar
   // und die Knöpfe erscheinen gar nicht.
+  const select = document.querySelector<HTMLSelectElement>('[data-year-select]');
   const bar = document.querySelector<HTMLElement>('[data-news-filter]');
   if (bar) {
     bar.hidden = false;
@@ -87,10 +105,21 @@ const pill = 'inline-flex min-h-11 items-center rounded-full px-4 text-sm font-s
           });
           year.hidden = visible === 0;
           // Jahr ohne passende Beiträge auch in der Jahresauswahl ausblenden
-          const link = document.querySelector<HTMLElement>(`[data-year-link="${year.dataset.newsYear}"]`);
-          if (link) link.hidden = visible === 0;
+          // (disabled zusätzlich, weil Safari ausgeblendete Optionen trotzdem zeigt)
+          const option = select?.querySelector<HTMLOptionElement>(`option[value="${year.dataset.newsYear}"]`);
+          if (option) option.hidden = option.disabled = visible === 0;
         });
       }),
     );
   }
+
+  // Jahresauswahl: springt zum gewählten Jahr und stellt sich danach zurück
+  select?.addEventListener('change', () => {
+    const target = document.getElementById(`jahr-${select.value}`);
+    if (target) {
+      history.replaceState(null, '', `#jahr-${select.value}`);
+      target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+    select.value = '';
+  });
 </script>
