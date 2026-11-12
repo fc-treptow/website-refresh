@@ -28,6 +28,8 @@ const de = {
   external: 'öffnet externe Seite',
 
   // Leitsatz im Auftakt: rollt einmal Zeile für Zeile durch und bleibt auf der letzten stehen
+  // Dachzeile über dem Leitsatz: Vereinsname und Ortsteil, Eigennamen bleiben in allen Sprachen gleich
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Seit 1925 im Kiez.', 'Entstanden als Werksverein.', 'Heute aus aller Welt.'],
   heroText: 'Drei Herrenteams, eine Freizeitmannschaft und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, meldet sich zum Probetraining.',
   heroCarouselLabel: 'Mannschaftsfotos',
@@ -118,6 +120,7 @@ const en: UI = {
   moreTitle: 'Everything FC Treptow',
   external: 'opens external site',
 
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['In the neighbourhood since 1925.', 'Founded as a works club.', 'Today from all over the world.'],
   heroText: 'Three men’s teams, a recreational side and a clubhouse on Köpenicker Landstraße. If you want to play, sign up for a trial session.',
   heroCarouselLabel: 'Team photos',
@@ -206,6 +209,7 @@ const tr: UI = {
   moreTitle: 'FC Treptow hakkında her şey',
   external: 'harici siteyi açar',
 
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['1925’ten beri mahallede.', 'Bir fabrika kulübü olarak kurulduk.', 'Bugün dünyanın dört bir yanından.'],
   heroText: 'Üç erkek takımı, bir hobi takımı ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen deneme antrenmanı için başvursun.',
   heroCarouselLabel: 'Takım fotoğrafları',
@@ -294,6 +298,7 @@ const ar: UI = {
   moreTitle: 'كل ما يخص إف سي تريبتاو',
   external: 'يفتح موقعًا خارجيًا',
 
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['في الحي منذ 1925.', 'تأسسنا كنادٍ لعمال مصنع.', 'واليوم من كل أنحاء العالم.'],
   heroText: 'ثلاثة فرق رجال وفريق ترفيهي ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يسجّل في تدريب تجريبي.',
   heroCarouselLabel: 'صور الفرق',
@@ -382,6 +387,7 @@ const es: UI = {
   moreTitle: 'Todo sobre el FC Treptow',
   external: 'abre un sitio externo',
 
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['En el barrio desde 1925.', 'Nacimos como club de empresa.', 'Hoy, de todo el mundo.'],
   heroText: 'Tres equipos masculinos, un equipo recreativo y una sede en la Köpenicker Landstraße. Si quieres jugar, apúntate a un entrenamiento de prueba.',
   heroCarouselLabel: 'Fotos de los equipos',
@@ -470,6 +476,7 @@ const fr: UI = {
   moreTitle: 'Tout le FC Treptow',
   external: 'ouvre un site externe',
 
+  heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Dans le quartier depuis 1925.', 'Né club d’entreprise.', 'Aujourd’hui, du monde entier.'],
   heroText: 'Trois équipes masculines, une équipe loisir et un club-house sur la Köpenicker Landstraße. Pour jouer, inscris-toi à une séance d’essai.',
   heroCarouselLabel: 'Photos des équipes',
