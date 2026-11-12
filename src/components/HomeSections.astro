@@ -14,11 +14,15 @@ import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
 import { getResults } from '../lib/results';
 import { gameRow, leagueTable, latestResults, resultRow, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
+import { getFees, amount } from '../lib/fees';
 import { wappen } from '../data/chronik';
 import { readFileSync } from 'node:fs';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(lang);
+// "ab … € im Monat" im roten Band: niedrigster Beitrag für Spielende (Einstellungen › Beiträge)
+const fee = await getFees();
+const minFee = amount(Math.min(fee.regular.monthly, fee.reduced.monthly), lang);
 const fx = fixturesLabels(lang);
 
 const sponsors = (await getCollection('sponsors')).sort((a, b) => a.data.order - b.data.order);
@@ -302,7 +306,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
       {t.joinSteps.map((step, i) => (
         <li class="flex items-baseline gap-6 border-t border-white/25 py-5 last:border-b">
           <span class="display nums w-10 shrink-0 text-4xl text-white/50">{i + 1}</span>
-          <span class="text-lg font-medium leading-snug">{step}</span>
+          <span class="text-lg font-medium leading-snug">{step.replace('{minFee}', minFee)}</span>
         </li>
       ))}
     </ol>

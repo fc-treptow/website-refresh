@@ -1,6 +1,7 @@
 // Stammdaten des Vereins an einer Stelle. Wer hier etwas ändert, ändert es überall.
 // E-Mail-Adressen und Telefonnummer pflegt die Redaktion im CMS (Einstellungen > Kontakt),
-// sie kommen über getContacts() aus src/lib/links.ts.
+// sie kommen über getContacts() aus src/lib/links.ts. Beiträge stehen im CMS unter
+// Einstellungen > Beiträge (getFees() aus src/lib/fees.ts).
 export const club = {
   name: 'FC Treptow e.V.',
   legalName: 'Fußball Club Treptow e.V.',
@@ -19,6 +20,5 @@ export const club = {
     instagram: 'https://www.instagram.com/fc.treptow/',
     youtube: 'https://www.youtube.com/@FCTreptow',
   },
-  fees: { regular: 15, reduced: 10, passive: 6 },
   iban: 'DE57 1009 0000 3946 9680 04',
 };

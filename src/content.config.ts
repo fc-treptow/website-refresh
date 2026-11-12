@@ -251,4 +251,19 @@ const kontakt = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, ergebnisse };
+// Mitgliedsbeiträge in Euro (Einstellungen › Beiträge im CMS). Seite Mitgliedschaft und Startseite.
+const euro = z.number().min(0);
+const beitraege = defineCollection({
+  loader: glob({ pattern: 'beitraege.yml', base: './src/content/einstellungen' }),
+  schema: z.object({
+    // monthly: Monatsbeitrag. annual: Preis bei Zahlung für ein ganzes Jahr im Voraus, freiwillig.
+    // Der Jahresbetrag ohne Vorauszahlung ist immer 12 × Monatsbeitrag.
+    regular: z.object({ monthly: euro, annual: euro.nullish() }),
+    reduced: z.object({ monthly: euro, annual: euro.nullish() }),
+    passive: z.object({ monthly: euro }),
+    // Einmalige Aufnahmegebühr, geht an den Berliner Fußball-Verband
+    joiningFee: euro,
+  }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, ergebnisse };
