@@ -1,12 +1,18 @@
 ---
 title: Mitgliederbereich in easyVerein
-intro: Deine Daten und Beiträge an einem Ort, im Browser oder in der App. So meldest du dich an.
+intro: Deine Daten und Beiträge an einem Ort, im Browser oder in der App. So
+  meldest du dich an.
 noindex: false
 ---
-
 ## Was ist easyVerein?
 
-Unsere Mitglieder verwalten wir mit easyVerein. Im Mitgliederbereich siehst du die Daten, die der Verein von dir hat, und deine Beiträge.
+**Dein Mitgliederbereich bei easyVerein**
+
+Unsere Mitglieder verwalten wir mit easyVerein. Nach der Anmeldung kannst du deine Mitgliedschaft selbst verwalten, zum Beispiel:
+
+* **Profil pflegen**: Adresse, Telefonnummer und E-Mail-Adresse selbst aktualisieren.
+* **Dokumente herunterladen**: Beitragsrechnungen, Belege oder eine Mitgliedsbescheinigung als PDF.
+* **Kündigen**: Mitgliedschaft direkt online kündigen (es gilt die Kündigungsfrist laut Satzung).
 
 ## So meldest du dich an
 
