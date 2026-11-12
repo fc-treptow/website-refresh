@@ -1,7 +1,7 @@
 ---
 import PageHeader from '../PageHeader.astro';
 import { compiledContent } from '../../legal/datenschutz.md';
-import { getContacts } from '../../lib/links';
+import { getContacts, getRepresentatives } from '../../lib/links';
 import { emailDisplay, encodeEmail } from '../../lib/email';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
@@ -21,6 +21,9 @@ let html = (await compiledContent())
 html = phone
   ? html.replaceAll('{{telefon}}', phone)
   : html.replace(/Telefon: \{\{telefon\}\}<br\s*\/?>\s*/g, '');
+// Vertretungsberechtigte aus dem CMS (Vorstand): Platzhalter {{vorsitz}} und {{vorsitz2}}
+const rep = await getRepresentatives();
+html = html.replaceAll('{{vorsitz}}', rep.chair).replaceAll('{{vorsitz2}}', rep.viceChair);
 if (html.includes('{{')) throw new Error('datenschutz.md enthält einen unbekannten Platzhalter');
 ---
 <PageHeader title={t.h1}>
