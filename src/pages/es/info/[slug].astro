@@ -1,0 +1,17 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Sections from '../../../components/sections/SeiteSections.astro';
+import { getSeiten } from '../../../i18n/content';
+import { istAbgelaufen } from '../../../lib/datum';
+
+export async function getStaticPaths() {
+  const seiten = await getSeiten('es');
+  return seiten.map((seite) => ({ params: { slug: seite.slug }, props: { seite } }));
+}
+
+const { seite } = Astro.props;
+const abgelaufen = istAbgelaufen(seite.data.bis);
+---
+<Base title={seite.data.title} description={seite.data.intro ?? undefined} image={seite.data.image ?? undefined} imageAlt={seite.data.imageAlt ?? undefined} noindex={seite.data.noindex || abgelaufen}>
+  <Sections seite={seite} abgelaufen={abgelaufen} />
+</Base>

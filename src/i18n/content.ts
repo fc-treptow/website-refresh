@@ -30,6 +30,23 @@ export async function getNews(lang: Locale): Promise<LocalizedNews[]> {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
+export type LocalizedSeite = CollectionEntry<'seiten'> & { slug: string; isFallback: boolean };
+
+// Info-Seiten (src/content/seiten): wie News, Übersetzung falls vorhanden, sonst Deutsch.
+// Foto, noindex und Ablaufdatum kommen immer aus dem deutschen Eintrag.
+export async function getSeiten(lang: Locale): Promise<LocalizedSeite[]> {
+  const all = await getCollection('seiten');
+  return all
+    .filter((e) => localeOf(e.id) === defaultLocale)
+    .map((de) => {
+      const slug = slugOf(de.id);
+      const local = lang === defaultLocale ? null : all.find((e) => e.id === `${lang}/${slug}`);
+      const entry = local ?? de;
+      const data = { ...entry.data, image: de.data.image, noindex: de.data.noindex, bis: de.data.bis, imageAlt: entry.data.imageAlt ?? de.data.imageAlt };
+      return { ...entry, data, slug, isFallback: lang !== defaultLocale && !local };
+    });
+}
+
 export type LocalizedTeam = CollectionEntry<'teams'> & {
   slug: string;
   /** Eintrag, dessen Text (Body) gerendert wird: Übersetzung oder Deutsch */

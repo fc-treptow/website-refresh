@@ -587,6 +587,16 @@ export const pages = {
     fr: { metaTitle: 'Actualités', metaDesc: 'Actualités du FC Treptow e.V.', h1: 'Actualités', intro: 'Comptes rendus de matchs, vie du club et tout ce qui anime le club.', filterLabel: 'Filtrer par rubrique', filterAll: 'Toutes', yearsLabel: 'Aller à l’année', yearPick: 'Année' },
   },
 
+  // Info-Seiten unter /info/<name> (src/components/sections/SeiteSections.astro)
+  seite: {
+    de: { expiredTitle: 'Diese Seite ist nicht mehr aktuell', expiredText: 'Die Information hier galt nur für einen bestimmten Zeitraum. Aktuelles findest du auf der Startseite und in den News.', home: 'Zur Startseite', news: 'Zu den News' },
+    en: { expiredTitle: 'This page is no longer current', expiredText: 'The information here only applied for a limited time. You’ll find the latest on the home page and in the news.', home: 'Go to the home page', news: 'Go to the news' },
+    tr: { expiredTitle: 'Bu sayfa artık güncel değil', expiredText: 'Buradaki bilgi yalnızca belirli bir süre için geçerliydi. Güncel bilgileri ana sayfada ve haberlerde bulabilirsin.', home: 'Ana sayfaya git', news: 'Haberlere git' },
+    ar: { expiredTitle: 'هذه الصفحة لم تعد محدّثة', expiredText: 'كانت المعلومات هنا صالحة لفترة محددة فقط. ستجد آخر الأخبار في الصفحة الرئيسية وفي قسم الأخبار.', home: 'إلى الصفحة الرئيسية', news: 'إلى الأخبار' },
+    es: { expiredTitle: 'Esta página ya no está vigente', expiredText: 'La información de esta página solo era válida durante un tiempo determinado. Encontrarás lo más reciente en la página de inicio y en las noticias.', home: 'Ir a la página de inicio', news: 'Ir a las noticias' },
+    fr: { expiredTitle: 'Cette page n’est plus d’actualité', expiredText: 'Les informations de cette page n’étaient valables que pour une période limitée. Vous trouverez l’actualité sur la page d’accueil et dans les news.', home: 'Vers la page d’accueil', news: 'Vers les news' },
+  },
+
   newsDetail: {
     de: { back: '← Alle News', shareLabel: 'Teilen', copyLink: 'Link kopieren', copied: 'Link kopiert', photos: 'Fotos', photoCount: '{n} Fotos', photoOf: 'Foto {i} von {n}', openPhoto: 'Foto groß anzeigen', closePhoto: 'Schließen', prevPhoto: 'Vorheriges Foto', nextPhoto: 'Nächstes Foto' },
     en: { back: '← All news', shareLabel: 'Share', copyLink: 'Copy link', copied: 'Link copied', photos: 'Photos', photoCount: '{n} photos', photoOf: 'Photo {i} of {n}', openPhoto: 'Show photo full size', closePhoto: 'Close', prevPhoto: 'Previous photo', nextPhoto: 'Next photo' },

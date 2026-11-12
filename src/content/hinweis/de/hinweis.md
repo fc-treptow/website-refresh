@@ -1,8 +1,8 @@
 ---
 aktiv: true
 stufe: info
-linkText: Zum Mitgliederbereich
-link: https://easyverein.com/public/FC230TE/
+linkText: So geht’s
+link: /info/mitgliederbereich
 ab:
 bis: 2026-11-30
 wo: alle

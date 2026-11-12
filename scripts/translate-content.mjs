@@ -74,6 +74,17 @@ const collections = [
     copy: ['date', 'tag', 'image'],
   },
   {
+    // Info-Seiten (CMS: Seiten): Foto, noindex und Ablaufdatum kommen beim Anzeigen immer aus der
+    // deutschen Datei (src/i18n/content.ts), übersetzt werden nur die Texte.
+    dir: 'seiten',
+    fields: {
+      title: (fm) => fm.title,
+      intro: (fm) => fm.intro,
+      imageAlt: (fm) => fm.imageAlt,
+    },
+    copy: [],
+  },
+  {
     // Hinweisbanner (Einstellungen › Hinweis): Text (body) und Link-Text. Alles andere
     // (an/aus, Stufe, Link, Datum) kommt immer aus der deutschen Datei.
     dir: 'hinweis',
