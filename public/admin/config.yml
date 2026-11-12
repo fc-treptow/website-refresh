@@ -268,6 +268,32 @@ collections:
       - { name: body, label: Nachruf, widget: markdown, buttons: [bold, italic], editor_components: [], modes: [rich_text] }
       - { name: signature, label: Unterschrift, widget: string, default: 'Der Vorstand des FC Treptow e. V.' }
 
+  - name: chronik
+    label: Vereinschronik
+    description: 'Tabelle "Alle Spielzeiten" und Ligaleiter auf der Seite Vereinschronik. Die Texte der Chronik stehen im Code.'
+    editor: { preview: false }
+    files:
+      - name: spielzeiten
+        label: Spielzeiten
+        file: src/content/chronik/spielzeiten.yml
+        format: yml
+        fields:
+          - name: seasons
+            label: Spielzeiten
+            label_singular: Spielzeit
+            widget: list
+            collapsed: true
+            add_to_top: true
+            summary: '{{fields.saison}} · {{fields.liga}} · {{fields.platz}}'
+            hint: 'Neue Saison mit "Spielzeit hinzufügen" oben anlegen, am Saisonende Platz, Tore und Punkte nachtragen. Die Reihenfolge ist egal, die Seite sortiert selbst.'
+            fields:
+              - { name: saison, label: Saison, widget: string, pattern: ['^\d{4}(/\d{2})?$', 'Bitte als 2026/27 eintragen (bei alten Einträgen auch nur das Jahr, z. B. 1960).'], hint: 'z. B. 2027/28' }
+              - { name: verein, label: Vereinsname in dieser Saison, widget: string, default: 'FC Treptow', hint: 'Für die Ligaleiter zählen nur Spielzeiten mit "FC Treptow".' }
+              - { name: liga, label: Liga, widget: string, hint: 'z. B. "Kreisliga B, St. 5". Für die Ligaleiter muss der Name mit Kreisliga B, Kreisliga A, Bezirksliga oder Landesliga beginnen.' }
+              - { name: platz, label: Platz, widget: string, default: '–', hint: 'z. B. "4. (16)" (Mannschaften in Klammern) oder während der Saison "10. (läuft)". Unbekannt: –' }
+              - { name: tore, label: Tore, widget: string, default: '–', hint: 'z. B. 73:96. Unbekannt: –' }
+              - { name: punkte, label: Punkte, widget: string, default: '–', hint: 'Unbekannt: –' }
+
   - name: einstellungen
     label: Einstellungen
     description: 'Kontaktadressen, Beiträge und Links zu externen Diensten. Nur ändern, wenn sich wirklich etwas geändert hat. Bei neuen Beiträgen auch die Beitragsordnung unter Downloads austauschen.'

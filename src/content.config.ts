@@ -266,4 +266,23 @@ const beitraege = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, ergebnisse };
+// Alle bekannten Spielzeiten (CMS: Vereinschronik › Spielzeiten). Tabelle und Ligaleiter auf
+// /vereinschronik. Alle Felder sind Text, damit auch "–" oder "10. (läuft)" möglich sind.
+const txt = z.coerce.string();
+const spielzeiten = defineCollection({
+  loader: glob({ pattern: 'spielzeiten.yml', base: './src/content/chronik' }),
+  schema: z.object({
+    seasons: z.array(
+      z.object({
+        saison: z.string().regex(/^\d{4}(\/\d{2})?$/, 'Saison bitte als 2026/27 oder als Jahr (1960) eintragen.'),
+        verein: z.string().default('FC Treptow'),
+        liga: z.string(),
+        tore: txt.default('–'),
+        punkte: txt.default('–'),
+        platz: txt.default('–'),
+      }),
+    ),
+  }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, spielzeiten, ergebnisse };

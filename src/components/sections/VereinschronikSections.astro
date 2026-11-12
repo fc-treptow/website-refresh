@@ -1,17 +1,53 @@
 ---
 // Vereinschronik in drei Ebenen: Wappenleiste (auf einen Blick), Epochen mit "Mehr lesen"
 // (für Neugierige) und Zahlen mit Ligaleiter und allen Spielzeiten (für Tiefergeher).
-// Daten in src/data/chronik.ts, Texte in src/i18n/pages.ts. "Mehr lesen" gibt es nur auf
+// Wappen und "Mehr lesen" in src/data/chronik.ts, Spielzeiten im CMS (src/content/chronik/
+// spielzeiten.yml), Texte in src/i18n/pages.ts. "Mehr lesen" gibt es nur auf
 // Deutsch; die anderen Sprachen verlinken dorthin.
 import PageHeader from '../PageHeader.astro';
 import CtaButton from '../CtaButton.astro';
 import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
-import { wappen, mehr, ligaleiter, ligaStufen, spielzeiten, quellen, type EraId } from '../../data/chronik';
+import { getCollection, getEntry } from 'astro:content';
+import { wappen, mehr, ligaStufen, quellen, ligaleiterAus, startJahr, stufeVon, type EraId } from '../../data/chronik';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('vereinschronik', lang);
 const isDe = lang === 'de';
+
+// Spielzeiten aus dem CMS, neueste zuerst. Daraus entstehen Tabelle und Ligaleiter.
+const eintrag = await getEntry('spielzeiten', 'spielzeiten');
+if (!eintrag) throw new Error('src/content/chronik/spielzeiten.yml fehlt');
+const spielzeiten = [...eintrag.data.seasons].sort((a, b) => startJahr(b.saison) - startJahr(a.saison));
+const ligaleiter = ligaleiterAus(spielzeiten);
+
+// Gegenwart für den Text der Epoche "heute": aktuelle Liga der Ersten, seit wann, Zahl der Teams.
+// Platzhalter in pages.ts: {league}, {since}, {teams}, {others} (= weitere Teams neben der Ersten)
+const aktuell = spielzeiten.find((z) => z.verein === 'FC Treptow')!;
+const aktuelleStufe = stufeVon(aktuell.liga);
+let seit = ligaleiter.length - 1;
+while (aktuelleStufe && seit > 0 && ligaleiter[seit - 1].stufe === aktuelleStufe) seit--;
+const teamZahl = (await getCollection('teams')).length;
+const gegenwart: Record<string, string> = {
+  '{league}': aktuelleStufe ? ligaStufen[aktuelleStufe - 1] : aktuell.liga.split(',')[0],
+  '{since}': String(ligaleiter[seit].jahr),
+  '{teams}': String(teamZahl),
+  '{others}': String(teamZahl - 1),
+};
+const fuelle = (text: string) => Object.entries(gegenwart).reduce((acc, [k, v]) => acc.replaceAll(k, v), text);
+
+// Beschreibung der Ligaleiter für Screenreader, aus denselben Daten: "Kreisliga B 1994/95–1995/96, …"
+const lang2 = (j: number) => `${j}/${String((j + 1) % 100).padStart(2, '0')}`;
+const abschnitte: { name: string; von: number; bis: number }[] = [];
+for (const z of ligaleiter) {
+  const name = z.stufe ? ligaStufen[z.stufe - 1] : t.noData;
+  const letzter = abschnitte[abschnitte.length - 1];
+  if (letzter && letzter.name === name) letzter.bis = z.jahr;
+  else abschnitte.push({ name, von: z.jahr, bis: z.jahr });
+}
+const ladderAria = t.ladderAria
+  .replace('{first}', lang2(ligaleiter[0].jahr))
+  .replace('{runs}', abschnitte.map((a) => `${a.name} ${lang2(a.von)}${a.bis > a.von ? `–${lang2(a.bis)}` : ''}`).join(lang === 'ar' ? '، ' : ', '));
 
 const wappenFuer = (id: EraId) => wappen.filter((w) => w.epoche === id && id !== 'fusion');
 const turbine = wappen.find((w) => w.name === 'SV Turbine Berlin')!;
@@ -93,7 +129,7 @@ const pill = 'inline-flex min-h-11 cursor-pointer list-none items-center rounded
               </div>
             )}
             <h2 class="text-2xl font-bold tracking-tight sm:text-[28px]">{era.title}</h2>
-            <p class="mt-3 font-serif text-lg leading-relaxed text-ink-soft sm:text-[19px]">{era.text}</p>
+            <p class="mt-3 font-serif text-lg leading-relaxed text-ink-soft sm:text-[19px]">{fuelle(era.text)}</p>
 
             {id === 'fusion' && (
               <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-line py-4">
@@ -108,7 +144,7 @@ const pill = 'inline-flex min-h-11 cursor-pointer list-none items-center rounded
 
             {era.facts.length > 0 && (
               <p class="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-soft">
-                {era.facts.map((f) => <span><b class="nums text-ink">{f.v}</b> {f.l}</span>)}
+                {era.facts.map((f) => <span><b class="nums text-ink">{fuelle(f.v)}</b> {f.l}</span>)}
               </p>
             )}
 
@@ -146,7 +182,7 @@ const pill = 'inline-flex min-h-11 cursor-pointer list-none items-center rounded
   <h3 class="mt-10 text-xl font-bold">{t.ladderH}</h3>
   <p class="mt-1 text-sm text-ink-soft">{t.ladderSub}</p>
   <div class="no-scrollbar mt-4 overflow-x-auto border-y border-line py-4" dir="ltr">
-    <svg viewBox={`0 0 ${W} ${H}`} class="block h-auto w-full min-w-[880px] font-sans" role="img" aria-label={t.ladderAria}>
+    <svg viewBox={`0 0 ${W} ${H}`} class="block h-auto w-full min-w-[880px] font-sans" role="img" aria-label={ladderAria}>
       {ligaStufen.map((name, i) => (
         <g>
           <text x="0" y={yStufe(i + 1) + 4} font-size="15" class="fill-ink-soft">{name}</text>

@@ -1,6 +1,7 @@
-// Daten der Vereinschronik. Sprachneutrales (Wappen, Spielzeiten, Ligaleiter) und die
+// Daten der Vereinschronik. Sprachneutrales (Wappen) und die
 // ausführlichen Texte "Mehr lesen", die es bewusst nur auf Deutsch gibt.
 // Kurztexte und Beschriftungen in allen Sprachen stehen in src/i18n/pages.ts (vereinschronik).
+// Die Spielzeiten pflegt die Redaktion im CMS (src/content/chronik/spielzeiten.yml).
 
 export type EraId = 'werksverein' | 'turbine' | 'fusion' | 'landesliga' | 'heute';
 
@@ -47,66 +48,33 @@ export const mehr: Record<EraId, string[]> = {
   heute: [],
 };
 
-// Spielklasse der 1. Herren seit 1994 für die Ligaleiter. 4 = Landesliga, 3 = Bezirksliga,
-// 2 = Kreisliga A, 1 = Kreisliga B, null = keine Daten. Jede neue Saison hinten anhängen.
-export const ligaleiter: { saison: string; stufe: 1 | 2 | 3 | 4 | null }[] = [
-  { saison: '94/95', stufe: 1 }, { saison: '95/96', stufe: 1 },
-  { saison: '96/97', stufe: 4 }, { saison: '97/98', stufe: 4 }, { saison: '98/99', stufe: 4 },
-  { saison: '99/00', stufe: 4 }, { saison: '00/01', stufe: 4 },
-  { saison: '01/02', stufe: 3 }, { saison: '02/03', stufe: 3 }, { saison: '03/04', stufe: 3 },
-  { saison: '04/05', stufe: 3 },
-  { saison: '05/06', stufe: null }, { saison: '06/07', stufe: null }, { saison: '07/08', stufe: null },
-  { saison: '08/09', stufe: null }, { saison: '09/10', stufe: null },
-  { saison: '10/11', stufe: 2 }, { saison: '11/12', stufe: 2 }, { saison: '12/13', stufe: 2 },
-  { saison: '13/14', stufe: 2 }, { saison: '14/15', stufe: 2 }, { saison: '15/16', stufe: 2 },
-  { saison: '16/17', stufe: 2 }, { saison: '17/18', stufe: 2 }, { saison: '18/19', stufe: 2 },
-  { saison: '19/20', stufe: 2 }, { saison: '20/21', stufe: 2 }, { saison: '21/22', stufe: 2 },
-  { saison: '22/23', stufe: 2 }, { saison: '23/24', stufe: 2 }, { saison: '24/25', stufe: 2 },
-  { saison: '25/26', stufe: 1 }, { saison: '26/27', stufe: 1 },
-];
+// Spielklassen für die Ligaleiter, von unten nach oben (Stufe 1 bis 4). Die Stufe einer Saison
+// ergibt sich aus dem Anfang des Liga-Namens in den Spielzeiten (CMS: Vereinschronik › Spielzeiten).
 export const ligaStufen = ['Kreisliga B', 'Kreisliga A', 'Bezirksliga', 'Landesliga'];
 
-// Alle bekannten Spielzeiten, neueste zuerst. Punkte bis 1994/95 nach Zwei-Punkte-Regel.
-// "–" = in den Quellen nicht angegeben. Platz in Klammern = Zahl der Mannschaften.
-export const spielzeiten: { saison: string; verein: string; liga: string; tore: string; punkte: string; platz: string }[] = [
-  { saison: '2026/27', verein: 'FC Treptow', liga: 'Kreisliga B, St. 5', tore: '–', punkte: '–', platz: '10. (läuft)' },
-  { saison: '2025/26', verein: 'FC Treptow', liga: 'Kreisliga B, St. 2', tore: '–', punkte: '–', platz: '9.' },
-  { saison: '2024/25', verein: 'FC Treptow', liga: 'Kreisliga A, St. 2', tore: '–', punkte: '–', platz: '15.' },
-  { saison: '2023/24', verein: 'FC Treptow', liga: 'Kreisliga A, St. 4', tore: '–', punkte: '–', platz: '11.' },
-  { saison: '2022/23', verein: 'FC Treptow', liga: 'Kreisliga A, St. 3', tore: '–', punkte: '–', platz: '10.' },
-  { saison: '2021/22', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '11.' },
-  { saison: '2020/21', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '2.' },
-  { saison: '2019/20', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '9.' },
-  { saison: '2018/19', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '5.' },
-  { saison: '2017/18', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '9.' },
-  { saison: '2016/17', verein: 'FC Treptow', liga: 'Kreisliga A, St. 4', tore: '73:96', punkte: '37', platz: '10. (16)' },
-  { saison: '2015/16', verein: 'FC Treptow', liga: 'Kreisliga A, St. 2', tore: '–', punkte: '–', platz: '7.' },
-  { saison: '2014/15', verein: 'FC Treptow', liga: 'Kreisliga A, St. 1', tore: '–', punkte: '–', platz: '6.' },
-  { saison: '2013/14', verein: 'FC Treptow', liga: 'Kreisliga A, St. 3', tore: '–', punkte: '–', platz: '7.' },
-  { saison: '2012/13', verein: 'FC Treptow', liga: 'Kreisliga A, St. 4', tore: '–', punkte: '–', platz: '10.' },
-  { saison: '2011/12', verein: 'FC Treptow', liga: 'Kreisliga A, St. 3', tore: '51:76', punkte: '35', platz: '13. (16)' },
-  { saison: '2010/11', verein: 'FC Treptow', liga: 'Kreisliga A, St. 4', tore: '62:71', punkte: '42', platz: '11. (17)' },
-  { saison: '2004/05', verein: 'FC Treptow', liga: 'Bezirksliga, St. 1', tore: '34:94', punkte: '15', platz: '15. (16)' },
-  { saison: '2003/04', verein: 'FC Treptow', liga: 'Bezirksliga, St. 2', tore: '59:36', punkte: '44', platz: '5. (16)' },
-  { saison: '2002/03', verein: 'FC Treptow', liga: 'Bezirksliga, St. 2', tore: '53:59', punkte: '35', platz: '12. (16)' },
-  { saison: '2001/02', verein: 'FC Treptow', liga: 'Bezirksliga, St. 3', tore: '53:65', punkte: '41', platz: '7. (16)' },
-  { saison: '2000/01', verein: 'FC Treptow', liga: 'Landesliga, St. 1', tore: '47:68', punkte: '24', platz: '15. (16)' },
-  { saison: '1999/00', verein: 'FC Treptow', liga: 'Landesliga, St. 2', tore: '68:61', punkte: '46', platz: '4. (16)' },
-  { saison: '1998/99', verein: 'FC Treptow', liga: 'Landesliga, St. 2', tore: '61:66', punkte: '35', platz: '9. (16)' },
-  { saison: '1997/98', verein: 'FC Treptow', liga: 'Landesliga, St. 2', tore: '50:52', punkte: '38', platz: '8. (16)' },
-  { saison: '1996/97', verein: 'FC Treptow', liga: 'Landesliga, St. 2', tore: '66:46', punkte: '50', platz: '4. (16)' },
-  { saison: '1995/96', verein: 'FC Treptow', liga: 'Kreisliga B, St. 3', tore: '104:41', punkte: '65', platz: '3. (16)' },
-  { saison: '1994/95', verein: 'FC Treptow', liga: 'Kreisliga B, St. 2', tore: '83:32', punkte: '41:19', platz: '4. (16)' },
-  { saison: '1960', verein: 'BSG Turbine Bewag', liga: 'Bezirksliga Berlin-Ost', tore: '27:25', punkte: '22:22', platz: '7. (12)' },
-  { saison: '1959', verein: 'BSG Turbine Bewag', liga: 'Bezirksliga Berlin-Ost', tore: '28:30', punkte: '17:23', platz: '5. (11)' },
-  { saison: '1956', verein: 'BSG Turbine Bewag', liga: 'Bezirksliga Berlin-Ost B', tore: '20:50', punkte: '8:36', platz: '11. (12)' },
-  { saison: '1940/41', verein: 'SV Elektra Berlin', liga: 'Gauliga Berlin-Brandenburg', tore: '38:51', punkte: '17:27', platz: '11. (12)' },
-  { saison: '1939/40', verein: 'SV Elektra Berlin', liga: 'Gauliga, Staffel A', tore: '19:23', punkte: '11:9', platz: '3. (6)' },
-  { saison: '1938/39', verein: 'SV Elektra Berlin', liga: 'Gauliga Berlin-Brandenburg', tore: '21:25', punkte: '14:22', platz: '7. (10)' },
-  { saison: '1937/38', verein: 'SV Bewag Berlin', liga: 'Gauliga Berlin-Brandenburg', tore: '32:35', punkte: '16:20', platz: '5. (10)' },
-  { saison: '1936/37', verein: 'SV Bewag Berlin', liga: 'Gauliga Berlin-Brandenburg', tore: '33:31', punkte: '16:20', platz: '6. (10)' },
-  { saison: '1932/33', verein: 'SV Bewag Berlin', liga: 'Verbandsliga, Gruppe B', tore: '39:52', punkte: '13:23', platz: '9. (10)' },
-];
+export interface Spielzeit { saison: string; verein: string; liga: string; tore: string; punkte: string; platz: string }
+
+// Startjahr einer Saison: "2026/27" -> 2026, "1960" -> 1960
+export const startJahr = (saison: string) => Number(saison.slice(0, 4));
+
+// Stufe der Ligaleiter aus dem Liga-Namen, null = keine der vier Spielklassen
+export const stufeVon = (liga: string): 1 | 2 | 3 | 4 | null => {
+  const i = ligaStufen.findIndex((s) => liga.startsWith(s));
+  return i < 0 ? null : ((i + 1) as 1 | 2 | 3 | 4);
+};
+
+// Ligaleiter der 1. Herren seit 1994/95: eine Spalte pro Saison bis zur neuesten eingetragenen,
+// Lücken ohne Eintrag als "keine Daten". Kurzform "94/95" für die Achse.
+export function ligaleiterAus(spielzeiten: Spielzeit[]) {
+  const nachJahr = new Map(spielzeiten.filter((s) => s.verein === 'FC Treptow').map((s) => [startJahr(s.saison), s]));
+  const letztes = Math.max(...nachJahr.keys());
+  const leiter: { saison: string; jahr: number; stufe: 1 | 2 | 3 | 4 | null }[] = [];
+  for (let j = 1994; j <= letztes; j++) {
+    const s = nachJahr.get(j);
+    leiter.push({ saison: `${String(j % 100).padStart(2, '0')}/${String((j + 1) % 100).padStart(2, '0')}`, jahr: j, stufe: s ? stufeVon(s.liga) : null });
+  }
+  return leiter;
+}
 
 export const quellen = [
   { label: 'Deutsches Fußball-Archiv (CC BY-SA)', href: 'https://daffs.fandom.com/wiki/FC_Treptow' },
