@@ -86,6 +86,24 @@ collections:
           - { name: alt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist zu sehen? Hilft blinden Menschen. Leer lassen, wenn die Bildunterschrift das schon sagt.' }
       - { name: body, label: Text, widget: markdown, buttons: [bold, italic, link, heading-two, bulleted-list, numbered-list], editor_components: [image], modes: [rich_text] }
 
+  - name: seiten
+    label: Seiten (Info)
+    label_singular: Seite
+    description: 'Eigene Seiten unter fc-treptow.de/info/…, die keine News sind, z. B. als Ziel für den Hinweisbanner. Sie stehen nicht im Menü, man erreicht sie nur über einen Link. Nur Deutsch schreiben, die anderen Sprachen werden automatisch übersetzt.'
+    folder: src/content/seiten/de
+    create: true
+    # Die Adresse entsteht aus dem Titel und bleibt danach gleich, auch wenn sich der Titel ändert
+    slug: '{{slug}}'
+    summary: '{{title}}  ·  /info/{{slug}}'
+    fields:
+      - { name: title, label: Überschrift, widget: string, hint: 'Daraus entsteht beim ersten Speichern die Adresse, z. B. "Mitgliederbereich" → /info/mitgliederbereich. Die Adresse ändert sich danach nicht mehr.' }
+      - { name: intro, label: Kurztext, widget: text, required: false, hint: '1 bis 2 Sätze unter der Überschrift. Erscheint auch als Vorschau beim Teilen und in Suchmaschinen.' }
+      - { name: image, label: Foto, widget: image, required: false, hint: 'Freiwillig. Querformat, nicht größer als etwa 2 MB.' }
+      - { name: imageAlt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist auf dem Foto zu sehen? Hilft blinden Menschen.' }
+      - { name: bis, label: Gültig bis einschließlich, widget: datetime, required: false, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true, hint: 'Freiwillig, z. B. für eine Einladung. Danach zeigt die Seite nur noch "Diese Seite ist nicht mehr aktuell". Leer = gilt dauerhaft.' }
+      - { name: noindex, label: Vor Suchmaschinen verbergen, widget: boolean, default: false, required: false, hint: 'Für kurzlebige oder interne Seiten. Wer den Link hat, kann die Seite trotzdem öffnen.' }
+      - { name: body, label: Text, widget: markdown, buttons: [bold, italic, link, heading-two, bulleted-list, numbered-list], editor_components: [image], modes: [rich_text] }
+
   - name: teams
     label: Mannschaften
     label_singular: Mannschaft
@@ -360,7 +378,7 @@ collections:
           - { name: stufe, label: Wichtigkeit, widget: select, default: info, options: [{ label: 'Info (heller Streifen, z. B. Neuigkeiten, Einladungen)', value: info }, { label: 'Wichtig (dunkler Streifen, z. B. Platzsperre, Ausfall)', value: wichtig }] }
           - { name: body, label: Text, widget: text, hint: 'Ein bis zwei Sätze, höchstens etwa 200 Zeichen. Nur Deutsch schreiben: Die anderen Sprachen werden nach dem Speichern automatisch übersetzt.' }
           - { name: linkText, label: Link-Text, widget: string, required: false, hint: 'Freiwillig, z. B. "Mehr dazu". Wird nur gezeigt, wenn auch ein Link eingetragen ist.' }
-          - { name: link, label: Link, widget: string, required: false, pattern: ['^((/|https://)\S*)?$', 'Eine Seite der Website (beginnt mit /, z. B. /news/…) oder eine Adresse mit https://'], hint: 'Freiwillig. Seite der Website, z. B. /mitgliedschaft, oder volle Adresse mit https://' }
+          - { name: link, label: Link, widget: string, required: false, pattern: ['^((/|https://)\S*)?$', 'Eine Seite der Website (beginnt mit /, z. B. /news/…) oder eine Adresse mit https://'], hint: 'Freiwillig. Seite der Website, z. B. /mitgliedschaft oder eine Info-Seite wie /info/mitgliederbereich, oder volle Adresse mit https://' }
           - { name: ab, label: Anzeigen ab, widget: datetime, required: false, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true, hint: 'Freiwillig. Leer = sofort nach dem Veröffentlichen.' }
           - { name: bis, label: Anzeigen bis einschließlich, widget: datetime, required: false, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true, hint: 'Freiwillig. Danach verschwindet der Hinweis von selbst.' }
           - { name: wo, label: Wo anzeigen, widget: select, default: alle, options: [{ label: Auf allen Seiten, value: alle }, { label: Nur auf der Startseite, value: start }] }

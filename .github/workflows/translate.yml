@@ -1,4 +1,4 @@
-# Übersetzt Mannschaften, News und den Hinweisbanner automatisch über das Vercel AI Gateway
+# Übersetzt Mannschaften, News, Info-Seiten und den Hinweisbanner automatisch über das Vercel AI Gateway
 # (scripts/translate-content.mjs).
 #
 # Läuft, sobald im CMS ein deutscher Eintrag gespeichert wird (Push auf main unter
@@ -22,6 +22,7 @@ on:
       - src/content/teams/de/**
       - src/content/news/de/**
       - src/content/hinweis/de/**
+      - src/content/seiten/de/**
       - scripts/translate-content.mjs
       - .github/workflows/translate.yml
   workflow_dispatch:
@@ -64,7 +65,7 @@ jobs:
           TRANSLATE_MODEL: ${{ vars.TRANSLATE_MODEL }}
       - name: Übersetzungen speichern
         run: |
-          git add src/content/teams src/content/news src/content/hinweis
+          git add src/content/teams src/content/news src/content/hinweis src/content/seiten
           if git diff --cached --quiet; then
             echo "Keine Änderungen."
             exit 0

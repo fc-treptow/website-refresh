@@ -1,6 +1,7 @@
 // Verkleinert die Fotos der News (Titelfoto "image" und Fotogalerie "gallery" in src/content/news/de)
 // und der Mannschaften (Mannschaftsfoto "image" und Fotos "gallery" in src/content/teams/de)
-// sowie die handverlesenen Instagram-Beiträge ("image" in src/content/instagram).
+// sowie die handverlesenen Instagram-Beiträge ("image" in src/content/instagram) und die Fotos
+// der Info-Seiten ("image" in src/content/seiten/de).
 // Fotos aus dem CMS sind oft Handy-Originale mit mehreren MB; eine Galerie mit 20 Fotos wäre auf
 // dem Handy sonst schnell 40 MB. Ausgeliefert werden stattdessen WebP-Dateien in zwei Breiten
 // unter public/images/news-gen/ (640 px für Vorschaubilder, 1600 px für die Großansicht).
@@ -11,7 +12,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import sharp from 'sharp';
 import { parse } from 'yaml';
 
-const dirs = ['src/content/news/de', 'src/content/teams/de', 'src/content/instagram'];
+const dirs = ['src/content/news/de', 'src/content/teams/de', 'src/content/instagram', 'src/content/seiten/de'];
 const out = 'public/images/news-gen';
 const widths = [640, 1600];
 

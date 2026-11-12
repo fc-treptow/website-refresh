@@ -312,4 +312,22 @@ const hinweisI18n = defineCollection({
   schema: z.object({ linkText: z.string().nullish() }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, spielzeiten, hinweis, hinweisI18n, ergebnisse };
+// Info-Seiten (CMS: Seiten): Seiten unter /info/<name>, die nicht in der Navigation stehen und
+// keine News sind, z. B. als Ziel für den Hinweisbanner. Wie News: Deutsch unter seiten/de,
+// Übersetzungen mit demselben Dateinamen unter seiten/<sprache> (automatisch übersetzt).
+const seiten = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/seiten' }),
+  schema: z.object({
+    title: z.string(),
+    intro: z.string().nullish(),
+    image: z.string().nullish(),
+    imageAlt: z.string().nullish(),
+    // Nicht in Suchmaschinen und nicht in der Sitemap, z. B. für kurzlebige Seiten
+    noindex: z.boolean().default(false),
+    // Gültig bis einschließlich (Berliner Datum). Danach zeigt die Seite nur noch den Hinweis,
+    // dass sie nicht mehr aktuell ist (src/components/sections/SeiteSections.astro).
+    bis: z.coerce.date().nullish(),
+  }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, spielzeiten, hinweis, hinweisI18n, seiten, ergebnisse };

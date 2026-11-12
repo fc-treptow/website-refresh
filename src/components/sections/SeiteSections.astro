@@ -1,0 +1,67 @@
+---
+// Info-Seite unter /info/<name> (CMS: Seiten). Gleicher Aufbau wie ein News-Beitrag, aber ohne
+// Datum, Rubrik und Fotogalerie, und nicht in Übersicht, Startseite oder RSS.
+//
+// "Gültig bis": Danach zeigt die Seite statt des Inhalts nur den Hinweis, dass sie nicht mehr
+// aktuell ist. Beim Bauen entfällt der Inhalt ganz; zwischen zwei Builds schaltet ein kleines
+// Skript nach Berliner Datum um, damit nichts Veraltetes stehen bleibt.
+import { render } from 'astro:content';
+import ShareBar from '../ShareBar.astro';
+import { newsImage } from '../../lib/newsImages';
+import { defaultLocale, l, type Locale } from '../../i18n/languages';
+import { pageT } from '../../i18n/pages';
+import type { LocalizedSeite } from '../../i18n/content';
+
+interface Props {
+  seite: LocalizedSeite;
+  abgelaufen: boolean;
+}
+const { seite, abgelaufen } = Astro.props;
+const { Content } = await render(seite);
+const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const t = pageT('seite', lang);
+const cover = seite.data.image ? newsImage(seite.data.image) : null;
+const bis = seite.data.bis ? seite.data.bis.toISOString().slice(0, 10) : '';
+---
+<article class="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
+  <div data-seite-abgelaufen hidden={!abgelaufen} class="mx-auto max-w-3xl border-y border-ink py-10">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{t.expiredTitle}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-ink-soft">{t.expiredText}</p>
+    <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+      <a href={l(lang, '/')} class="inline-flex min-h-11 items-center font-semibold text-club hover:text-club-deep">{t.home}</a>
+      <a href={l(lang, '/news')} class="inline-flex min-h-11 items-center font-semibold text-club hover:text-club-deep">{t.news}</a>
+    </div>
+  </div>
+
+  {!abgelaufen && (
+    <div data-seite-inhalt data-bis={bis}>
+      <div class="mx-auto max-w-3xl">
+        <div class="flex justify-end">
+          <ShareBar title={seite.data.title} />
+        </div>
+        <h1 class="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-balance sm:text-5xl">{seite.data.title}</h1>
+        {seite.data.intro && <p class="mt-5 text-xl leading-relaxed text-ink-soft">{seite.data.intro}</p>}
+      </div>
+      {cover && (
+        <div class="mx-auto mt-10 max-w-5xl overflow-hidden rounded-sm bg-ink">
+          <img src={cover.full} srcset={cover.srcset} sizes="(min-width: 64rem) 64rem, 100vw" width={cover.width} height={cover.height} alt={seite.data.imageAlt ?? ''} class="aspect-[16/9] w-full object-cover" fetchpriority="high" />
+        </div>
+      )}
+      <div lang={seite.isFallback ? 'de' : undefined} class="prose-club mx-auto mt-10 max-w-3xl text-lg leading-relaxed">
+        <Content />
+      </div>
+    </div>
+  )}
+</article>
+
+{!abgelaufen && bis && (
+  <script is:inline>
+    (function () {
+      var inhalt = document.querySelector('[data-seite-inhalt]');
+      var hinweis = document.querySelector('[data-seite-abgelaufen]');
+      if (!inhalt || !hinweis) return;
+      var heute = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+      if (heute > inhalt.getAttribute('data-bis')) { inhalt.hidden = true; hinweis.hidden = false; }
+    })();
+  </script>
+)}

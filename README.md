@@ -31,6 +31,7 @@ Dort gibt es diese Bereiche:
 | Bereich | Was man dort macht |
 |---|---|
 | Neuigkeiten | Beiträge schreiben, mit Foto. Erscheinen auf der Startseite und unter News. |
+| Seiten (Info) | Eigene Seiten unter /info/…, die keine News sind, z. B. als Ziel für den Hinweisbanner (Anleitung, Einladung, Platzsperre). Nicht im Menü, nur per Link erreichbar. Freiwillig: "Gültig bis" (danach steht dort nur noch "nicht mehr aktuell") und "Vor Suchmaschinen verbergen". Wird automatisch übersetzt. |
 | Mannschaften | Trainingszeiten, Trainer, Mannschaftsfotos ändern. Das Mannschaftsfoto erscheint auch im Bildwechsel oben auf der Startseite. Die Trainingszeiten stehen automatisch auch auf Kontakt, Mitgliedschaft und Probetraining, die Zahl der Teams auf der Startseite. |
 | Ergebnisse | Die Spiele legt die Seite jeden Morgen selbst aus dem Spielplan an. Nach dem Spiel nur den Eintrag öffnen und die Tore eintragen (unsere zuerst), am besten gleich nach der Ergebnismeldung im DFBnet. Bis dahin steht auf der Seite "Ergebnis folgt". Freundschaftsspiele und die Freizeitmannschaft selbst anlegen. |
 | Vorstand | Namen, Ämter und Kontaktdaten. Wer als Vorsitzende/r und 2. Vorsitzende/r eingetragen ist, steht automatisch im Impressum und in der Datenschutzerklärung. |
@@ -112,7 +113,7 @@ der Sprachwahl.
 
 ## Übersetzungen
 
-Mannschaften (`src/content/teams/de`), News (`src/content/news/de`) und der Hinweisbanner (`src/content/hinweis/de`) werden automatisch übersetzt:
+Mannschaften (`src/content/teams/de`), News (`src/content/news/de`), Info-Seiten (`src/content/seiten/de`) und der Hinweisbanner (`src/content/hinweis/de`) werden automatisch übersetzt:
 Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
 Er schickt die geänderten Texte über das Vercel AI Gateway an ein KI-Modell, schreibt Englisch, Türkisch, Arabisch, Spanisch und
 Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.
