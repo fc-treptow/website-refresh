@@ -4,11 +4,15 @@ import Email from '../Email.astro';
 import { defaultLocale, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
-import { getContacts } from '../../lib/links';
+import { getContacts, getRepresentatives } from '../../lib/links';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const contacts = await getContacts();
 const t = pageT('impressum', lang);
+
+// Vertretungsberechtigte Personen kommen aus dem CMS (Vorstand), siehe getRepresentatives().
+const rep = await getRepresentatives();
+const reps = [`${rep.chair}, ${t.repChair}`, `${rep.viceChair}, ${t.repVice}`];
 ---
 <PageHeader title={t.h1} />
 
@@ -20,7 +24,7 @@ const t = pageT('impressum', lang);
     </div>
     <div class="grid gap-2 border-b border-line py-6 sm:grid-cols-[16rem_1fr]">
       <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft sm:pt-1">{t.repHeading}</dt>
-      <dd class="text-lg leading-relaxed">{t.rep1}<br />{t.rep2}</dd>
+      <dd class="text-lg leading-relaxed">{reps[0]}<br />{reps[1]}</dd>
     </div>
     <div class="grid gap-2 border-b border-line py-6 sm:grid-cols-[16rem_1fr]">
       <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft sm:pt-1">{t.contactLabel}</dt>

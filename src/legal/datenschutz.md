@@ -20,7 +20,7 @@ Fußball Club Treptow e.V.
 Köpenicker Landstraße 186  
 12437 Berlin
 
-Vertreten durch den Vorstand: Jannis Rußkamp (1. Vorsitzender) und Lars Lemke (2. Vorsitzender)
+Vertreten durch den Vorstand: {{vorsitz}} (1. Vorsitzender) und {{vorsitz2}} (2. Vorsitzender)
 
 Telefon: {{telefon}}  
 E-Mail: [{{vorstand-email}}](mailto:{{vorstand-email}})  

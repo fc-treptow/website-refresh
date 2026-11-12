@@ -1,4 +1,4 @@
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 // Adressen externer Dienste, gepflegt im CMS unter Einstellungen > Links
 // (src/content/einstellungen/links.yml).
@@ -30,4 +30,17 @@ export async function getContacts() {
   if (!entry) throw new Error('src/content/einstellungen/kontakt.yml fehlt');
   const phone = entry.data.phone?.trim() || null;
   return { ...entry.data, phone, phoneHref: phone ? telHref(phone) : null };
+}
+
+// Vertretungsberechtigte Personen (1. und 2. Vorsitzende/r), gepflegt im CMS unter Vorstand.
+// Stehen im Impressum und in der Datenschutzerklärung. Fehlt ein Amt, bricht der Build ab,
+// statt ein unvollständiges Impressum zu veröffentlichen.
+export async function getRepresentatives() {
+  const board = await getCollection('vorstand');
+  const holder = (role: 'chair' | 'viceChair') => {
+    const people = board.filter((p) => p.data.role === role).sort((a, b) => a.data.order - b.data.order);
+    if (people.length === 0) throw new Error(`Im Vorstand fehlt eine Person mit dem Amt "${role}" (Impressum, Datenschutz).`);
+    return people[0].data.name;
+  };
+  return { chair: holder('chair'), viceChair: holder('viceChair') };
 }
