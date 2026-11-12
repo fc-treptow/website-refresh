@@ -15,6 +15,7 @@ import { getResults } from '../lib/results';
 import { gameRow, leagueTable, latestResults, resultRow, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
 import { getFees, amount } from '../lib/fees';
+import { fillTeamCounts } from '../lib/teamCounts';
 import { wappen } from '../data/chronik';
 import { readFileSync } from 'node:fs';
 
@@ -22,6 +23,8 @@ const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = useTranslations(lang);
 // "ab … € im Monat" im roten Band: niedrigster Beitrag für Spielende (Einstellungen › Beiträge)
 const fee = await getFees();
+// Zahl der Mannschaften im Auftakt ({teams}), aus den Mannschaften im CMS
+const heroText = await fillTeamCounts(t.heroText, lang);
 const minFee = amount(Math.min(fee.regular.monthly, fee.reduced.monthly), lang);
 const fx = fixturesLabels(lang);
 
@@ -119,7 +122,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
       <div class="mt-6 flex flex-col gap-6 lg:mt-8 lg:flex-row lg:items-center lg:justify-between">
         <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
           <CtaButton href={l(lang, '/mitgliedschaft')}>{t.joinCta}</CtaButton>
-          <p class="max-w-md text-base leading-relaxed text-paper/85 sm:text-[17px]">{t.heroText}</p>
+          <p class="max-w-md text-base leading-relaxed text-paper/85 sm:text-[17px]">{heroText}</p>
         </div>
         <div class="flex items-center justify-between gap-4 text-xs text-paper/85 lg:justify-end lg:gap-6">
           <span aria-live="off" data-hero-captions>
