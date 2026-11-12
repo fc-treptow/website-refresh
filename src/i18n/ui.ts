@@ -26,6 +26,10 @@ const de = {
   langSwitcher: 'Sprache',
   moreTitle: 'Alles vom FC Treptow',
   external: 'öffnet externe Seite',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'Hinweis des Vereins',
+  hinweisWichtig: 'Wichtig',
+  hinweisClose: 'Hinweis schließen',
 
   // Leitsatz im Auftakt: rollt einmal Zeile für Zeile durch und bleibt auf der letzten stehen
   // Dachzeile über dem Leitsatz: Vereinsname und Ortsteil, Eigennamen bleiben in allen Sprachen gleich
@@ -122,6 +126,10 @@ const en: UI = {
   langSwitcher: 'Language',
   moreTitle: 'Everything FC Treptow',
   external: 'opens external site',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'Club notice',
+  hinweisWichtig: 'Important',
+  hinweisClose: 'Close notice',
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['In the neighbourhood since 1925.', 'Founded as a works club.', 'Today from all over the world.'],
@@ -214,6 +222,10 @@ const tr: UI = {
   langSwitcher: 'Dil',
   moreTitle: 'FC Treptow hakkında her şey',
   external: 'harici siteyi açar',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'Kulüp duyurusu',
+  hinweisWichtig: 'Önemli',
+  hinweisClose: 'Duyuruyu kapat',
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['1925’ten beri mahallede.', 'Bir fabrika kulübü olarak kurulduk.', 'Bugün dünyanın dört bir yanından.'],
@@ -306,6 +318,10 @@ const ar: UI = {
   langSwitcher: 'اللغة',
   moreTitle: 'كل ما يخص إف سي تريبتاو',
   external: 'يفتح موقعًا خارجيًا',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'إشعار من النادي',
+  hinweisWichtig: 'مهم',
+  hinweisClose: 'إغلاق الإشعار',
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['في الحي منذ 1925.', 'تأسسنا كنادٍ لعمال مصنع.', 'واليوم من كل أنحاء العالم.'],
@@ -398,6 +414,10 @@ const es: UI = {
   langSwitcher: 'Idioma',
   moreTitle: 'Todo sobre el FC Treptow',
   external: 'abre un sitio externo',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'Aviso del club',
+  hinweisWichtig: 'Importante',
+  hinweisClose: 'Cerrar aviso',
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['En el barrio desde 1925.', 'Nacimos como club de empresa.', 'Hoy, de todo el mundo.'],
@@ -490,6 +510,10 @@ const fr: UI = {
   langSwitcher: 'Langue',
   moreTitle: 'Tout le FC Treptow',
   external: 'ouvre un site externe',
+  // Hinweisbanner ganz oben (src/components/Hinweis.astro)
+  hinweisLabel: 'Avis du club',
+  hinweisWichtig: 'Important',
+  hinweisClose: 'Fermer l’avis',
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Dans le quartier depuis 1925.', 'Né club d’entreprise.', 'Aujourd’hui, du monde entier.'],

@@ -1,7 +1,7 @@
 ---
 // Eine Icon-Familie für die ganze Seite: feine Linien, 1.5px, runde Enden.
 interface Props {
-  name: 'home' | 'shirt' | 'news' | 'ball' | 'more' | 'arrow' | 'external' | 'close' | 'pin' | 'clock' | 'download' | 'bag' | 'mail' | 'phone' | 'globe' | 'chevron' | 'instagram' | 'facebook' | 'tiktok' | 'check' | 'lock' | 'play' | 'share' | 'whatsapp' | 'link';
+  name: 'home' | 'shirt' | 'news' | 'ball' | 'more' | 'arrow' | 'external' | 'close' | 'pin' | 'clock' | 'download' | 'bag' | 'mail' | 'phone' | 'globe' | 'chevron' | 'instagram' | 'facebook' | 'tiktok' | 'check' | 'lock' | 'play' | 'share' | 'whatsapp' | 'link' | 'info';
   size?: number;
   class?: string;
 }
@@ -15,6 +15,7 @@ const paths: Record<Props['name'], string> = {
   arrow: '<path d="M4.5 12h15M13.5 6l6 6-6 6"/>',
   external: '<path d="M8 16 16.5 7.5M9.5 7.5h7v7"/>',
   close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/>',
   pin: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/>',
   clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   download: '<path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14"/>',

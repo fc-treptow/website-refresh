@@ -73,6 +73,15 @@ const collections = [
     },
     copy: ['date', 'tag', 'image'],
   },
+  {
+    // Hinweisbanner (Einstellungen › Hinweis): Text (body) und Link-Text. Alles andere
+    // (an/aus, Stufe, Link, Datum) kommt immer aus der deutschen Datei.
+    dir: 'hinweis',
+    fields: {
+      linkText: (fm) => fm.linkText,
+    },
+    copy: [],
+  },
 ];
 
 // Feste Übersetzungen, damit die Seite einheitlich bleibt (wie in src/i18n/ verwendet)

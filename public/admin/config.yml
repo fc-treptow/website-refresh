@@ -296,7 +296,7 @@ collections:
 
   - name: einstellungen
     label: Einstellungen
-    description: 'Kontaktadressen, Beiträge und Links zu externen Diensten. Nur ändern, wenn sich wirklich etwas geändert hat. Bei neuen Beiträgen auch die Beitragsordnung unter Downloads austauschen.'
+    description: 'Hinweisbanner, Kontaktadressen, Beiträge und Links zu externen Diensten. Kontakt, Beiträge und Links nur ändern, wenn sich wirklich etwas geändert hat. Bei neuen Beiträgen auch die Beitragsordnung unter Downloads austauschen.'
     editor: { preview: false }
     files:
       - name: kontakt
@@ -351,6 +351,19 @@ collections:
             fields:
               - { name: monthly, label: Monatsbeitrag in Euro, widget: number, value_type: float, min: 0, step: 0.5 }
           - { name: joiningFee, label: Aufnahmegebühr in Euro, widget: number, value_type: float, min: 0, step: 0.5, hint: 'Einmalig, geht an den Berliner Fußball-Verband.' }
+      - name: hinweis
+        label: Hinweis (Banner oben)
+        file: src/content/hinweis/de/hinweis.md
+        format: frontmatter
+        fields:
+          - { name: aktiv, label: Hinweis anzeigen, widget: boolean, default: false, hint: 'Aus = nirgends zu sehen, auch wenn unten etwas eingetragen ist.' }
+          - { name: stufe, label: Wichtigkeit, widget: select, default: info, options: [{ label: 'Info (heller Streifen, z. B. Neuigkeiten, Einladungen)', value: info }, { label: 'Wichtig (dunkler Streifen, z. B. Platzsperre, Ausfall)', value: wichtig }] }
+          - { name: body, label: Text, widget: text, hint: 'Ein bis zwei Sätze, höchstens etwa 200 Zeichen. Nur Deutsch schreiben: Die anderen Sprachen werden nach dem Speichern automatisch übersetzt.' }
+          - { name: linkText, label: Link-Text, widget: string, required: false, hint: 'Freiwillig, z. B. "Mehr dazu". Wird nur gezeigt, wenn auch ein Link eingetragen ist.' }
+          - { name: link, label: Link, widget: string, required: false, pattern: ['^((/|https://)\S*)?$', 'Eine Seite der Website (beginnt mit /, z. B. /news/…) oder eine Adresse mit https://'], hint: 'Freiwillig. Seite der Website, z. B. /mitgliedschaft, oder volle Adresse mit https://' }
+          - { name: ab, label: Anzeigen ab, widget: datetime, required: false, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true, hint: 'Freiwillig. Leer = sofort nach dem Veröffentlichen.' }
+          - { name: bis, label: Anzeigen bis einschließlich, widget: datetime, required: false, format: 'YYYY-MM-DD', date_format: 'DD.MM.YYYY', time_format: false, picker_utc: true, hint: 'Freiwillig. Danach verschwindet der Hinweis von selbst.' }
+          - { name: wo, label: Wo anzeigen, widget: select, default: alle, options: [{ label: Auf allen Seiten, value: alle }, { label: Nur auf der Startseite, value: start }] }
       - name: links
         label: Links
         file: src/content/einstellungen/links.yml
