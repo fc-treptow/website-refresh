@@ -91,7 +91,7 @@ export const pages = {
 
   kontakt: {
     de: {
-      anreise: 'Anreise', sbahn: 'S-Bahnhof Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 167', parken: 'Parken auf dem Mittelstreifen der Köpenicker Landstraße. Auf dem Vereinsgelände ist Parken nicht erlaubt.', telefon: 'Telefon', vorstandLink: 'Ansprechpersonen im Vorstand',
+      anreise: 'Anreise', sbahn: 'S-Bahnhof Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Parken auf dem Mittelstreifen der Köpenicker Landstraße. Auf dem Vereinsgelände ist Parken nicht erlaubt.', telefon: 'Telefon', vorstandLink: 'Ansprechpersonen im Vorstand',
       metaTitle: 'Kontakt', metaDesc: 'Kontakt und Anfahrt: FC Treptow e.V., Willi-Sänger-Sportanlage, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Kontakt', intro: 'Am liebsten schreibst du uns vorher kurz. Du kannst aber auch an einem Trainingstag vorbeikommen.',
       heading: 'So erreichst du uns', email: 'E-Mail', sportanlage: 'Sportanlage', training: 'Training',
@@ -99,7 +99,7 @@ export const pages = {
       imgAlt: 'Vereinsbüro des FC Treptow auf der Willi-Sänger-Sportanlage',
     },
     en: {
-      anreise: 'Getting here', sbahn: 'S-Bahn station Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 167', parken: 'Park on the central reservation of Köpenicker Landstraße. Parking on the club grounds is not allowed.', telefon: 'Phone', vorstandLink: 'Board contacts',
+      anreise: 'Getting here', sbahn: 'S-Bahn station Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Park on the central reservation of Köpenicker Landstraße. Parking on the club grounds is not allowed.', telefon: 'Phone', vorstandLink: 'Board contacts',
       metaTitle: 'Contact', metaDesc: 'Contact and directions: FC Treptow e.V., Willi-Sänger sports ground, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Ideally, write to us first. You can also just drop by on a training day.',
       heading: 'How to reach us', email: 'Email', sportanlage: 'Sports ground', training: 'Training',
@@ -107,7 +107,7 @@ export const pages = {
       imgAlt: 'FC Treptow club office at the Willi-Sänger sports ground',
     },
     tr: {
-      anreise: 'Ulaşım', sbahn: 'Baumschulenweg S-Bahn istasyonu (S45, S46, S47, S8, S85, S9)', bus: '167 numaralı otobüs', parken: 'Köpenicker Landstraße’nin orta şeridine park edebilirsin. Kulüp alanına park etmek yasaktır.', telefon: 'Telefon', vorstandLink: 'Yönetimdeki kişiler',
+      anreise: 'Ulaşım', sbahn: 'Baumschulenweg S-Bahn istasyonu (S45, S46, S47, S8, S85, S9)', bus: '165 numaralı otobüs', parken: 'Köpenicker Landstraße’nin orta şeridine park edebilirsin. Kulüp alanına park etmek yasaktır.', telefon: 'Telefon', vorstandLink: 'Yönetimdeki kişiler',
       metaTitle: 'İletişim', metaDesc: 'İletişim ve yol tarifi: FC Treptow e.V., Willi-Sänger Spor Tesisi, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'İletişim', intro: 'En iyisi önceden bize yaz. İstersen bir antrenman günü doğrudan da uğrayabilirsin.',
       heading: 'Bize şu şekilde ulaşabilirsin', email: 'E-posta', sportanlage: 'Spor tesisi', training: 'Antrenman',
@@ -115,7 +115,7 @@ export const pages = {
       imgAlt: 'Willi-Sänger Spor Tesisi’ndeki FC Treptow kulüp ofisi',
     },
     ar: {
-      anreise: 'الوصول', sbahn: 'محطة S-Bahn باومشولنفيغ (S45، S46، S47، S8، S85، S9)', bus: 'الحافلة 167', parken: 'الوقوف على الجزيرة الوسطى لشارع كوبينيكر لاندشتراسه. الوقوف داخل أرض النادي غير مسموح.', telefon: 'الهاتف', vorstandLink: 'جهات الاتصال في مجلس الإدارة',
+      anreise: 'الوصول', sbahn: 'محطة S-Bahn باومشولنفيغ (S45، S46، S47، S8، S85، S9)', bus: 'الحافلة 165', parken: 'الوقوف على الجزيرة الوسطى لشارع كوبينيكر لاندشتراسه. الوقوف داخل أرض النادي غير مسموح.', telefon: 'الهاتف', vorstandLink: 'جهات الاتصال في مجلس الإدارة',
       metaTitle: 'اتصل بنا', metaDesc: 'التواصل والاتجاهات: نادي إف سي تريبتاو، منشأة فيلي زانغر الرياضية، Köpenicker Landstraße 186، 12437 برلين.',
       h1: 'اتصل بنا', intro: 'يُفضَّل أن تراسلنا مسبقًا، ويمكنك أيضًا الحضور في أحد أيام التدريب.',
       heading: 'كيف تصل إلينا', email: 'البريد الإلكتروني', sportanlage: 'المنشأة الرياضية', training: 'التدريب',
@@ -123,7 +123,7 @@ export const pages = {
       imgAlt: 'مكتب نادي إف سي تريبتاو في منشأة فيلي زانغر الرياضية',
     },
     es: {
-      anreise: 'Cómo llegar', sbahn: 'Estación de S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Autobús 167', parken: 'Aparca en la mediana de la Köpenicker Landstraße. No está permitido aparcar en el recinto del club.', telefon: 'Teléfono', vorstandLink: 'Contactos de la junta directiva',
+      anreise: 'Cómo llegar', sbahn: 'Estación de S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Autobús 165', parken: 'Aparca en la mediana de la Köpenicker Landstraße. No está permitido aparcar en el recinto del club.', telefon: 'Teléfono', vorstandLink: 'Contactos de la junta directiva',
       metaTitle: 'Contacto', metaDesc: 'Contacto y cómo llegar: FC Treptow e.V., instalación deportiva Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlín.',
       h1: 'Contacto', intro: 'Lo ideal es que nos escribas antes, aunque también puedes pasarte cualquier día de entrenamiento.',
       heading: 'Cómo contactarnos', email: 'Correo electrónico', sportanlage: 'Instalación deportiva', training: 'Entrenamiento',
@@ -131,7 +131,7 @@ export const pages = {
       imgAlt: 'Oficina del club FC Treptow en la instalación deportiva Willi-Sänger',
     },
     fr: {
-      anreise: 'Accès', sbahn: 'Gare S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 167', parken: 'Stationnement sur le terre-plein central de la Köpenicker Landstraße. Le stationnement sur le terrain du club est interdit.', telefon: 'Téléphone', vorstandLink: 'Contacts du comité directeur',
+      anreise: 'Accès', sbahn: 'Gare S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Stationnement sur le terre-plein central de la Köpenicker Landstraße. Le stationnement sur le terrain du club est interdit.', telefon: 'Téléphone', vorstandLink: 'Contacts du comité directeur',
       metaTitle: 'Contact', metaDesc: 'Contact et itinéraire : FC Treptow e.V., complexe sportif Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Idéalement, écrivez-nous avant. Vous pouvez aussi passer un jour d’entraînement.',
       heading: 'Comment nous joindre', email: 'E-mail', sportanlage: 'Complexe sportif', training: 'Entraînement',
