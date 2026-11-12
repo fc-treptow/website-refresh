@@ -561,12 +561,12 @@ export const pages = {
   },
 
   mannschaftenIndex: {
-    de: { metaTitle: 'Mannschaften', metaDesc: 'Alle Teams des FC Treptow e.V.: drei Herrenmannschaften und die Freizeit Kickers.', h1: 'Mannschaften', intro: 'Drei Herrenteams im Punktspielbetrieb und die Freizeit Kickers. Alle trainieren auf der Willi-Sänger-Sportanlage.', trainingLabel: 'Training', und: 'und' },
-    en: { metaTitle: 'Teams', metaDesc: 'All FC Treptow e.V. teams: three men’s squads and the Freizeit Kickers.', h1: 'Teams', intro: 'Three men’s teams in league play, plus the Freizeit Kickers. All train at the Willi-Sänger sports ground.', trainingLabel: 'Training', und: 'and' },
-    tr: { metaTitle: 'Takımlar', metaDesc: 'FC Treptow e.V.’nin tüm takımları: üç erkek takımı ve Freizeit Kickers.', h1: 'Takımlar', intro: 'Lig maçlarında üç erkek takımı ve Freizeit Kickers. Hepsi Willi-Sänger spor tesisinde antrenman yapıyor.', trainingLabel: 'Antrenman', und: 've' },
-    ar: { metaTitle: 'الفرق', metaDesc: 'جميع فرق نادي إف سي تريبتاو: ثلاثة فرق رجال و Freizeit Kickers.', h1: 'الفرق', intro: 'ثلاثة فرق رجال في مباريات الدوري، بالإضافة إلى Freizeit Kickers. جميعها تتدرب في منشأة فيلي زانغر الرياضية.', trainingLabel: 'التدريب', und: 'و' },
-    es: { metaTitle: 'Equipos', metaDesc: 'Todos los equipos del FC Treptow e.V.: tres equipos masculinos y los Freizeit Kickers.', h1: 'Equipos', intro: 'Tres equipos masculinos en competición de liga, más los Freizeit Kickers. Todos entrenan en la instalación deportiva Willi-Sänger.', trainingLabel: 'Entrenamiento', und: 'y' },
-    fr: { metaTitle: 'Équipes', metaDesc: 'Toutes les équipes du FC Treptow e.V. : trois équipes masculines et les Freizeit Kickers.', h1: 'Équipes', intro: 'Trois équipes masculines en championnat, plus les Freizeit Kickers. Toutes s’entraînent au complexe sportif Willi-Sänger.', trainingLabel: 'Entraînement', und: 'et' },
+    de: { metaTitle: 'Mannschaften', metaDesc: 'Alle Teams des FC Treptow e.V.: {men} und die {hobby}.', h1: 'Mannschaften', intro: '{men} im Punktspielbetrieb und die {hobby}. Alle trainieren auf der Willi-Sänger-Sportanlage.', trainingLabel: 'Training', und: 'und' },
+    en: { metaTitle: 'Teams', metaDesc: 'All FC Treptow e.V. teams: {men} and the {hobby}.', h1: 'Teams', intro: '{men} in league play, plus the {hobby}. All train at the Willi-Sänger sports ground.', trainingLabel: 'Training', und: 'and' },
+    tr: { metaTitle: 'Takımlar', metaDesc: 'FC Treptow e.V.’nin tüm takımları: {men} ve {hobby}.', h1: 'Takımlar', intro: 'Lig maçlarında {men} ve {hobby}. Hepsi Willi-Sänger spor tesisinde antrenman yapıyor.', trainingLabel: 'Antrenman', und: 've' },
+    ar: { metaTitle: 'الفرق', metaDesc: 'جميع فرق نادي إف سي تريبتاو: {men} و {hobby}.', h1: 'الفرق', intro: '{men} في مباريات الدوري، بالإضافة إلى {hobby}. جميعها تتدرب في منشأة فيلي زانغر الرياضية.', trainingLabel: 'التدريب', und: 'و' },
+    es: { metaTitle: 'Equipos', metaDesc: 'Todos los equipos del FC Treptow e.V.: {men} y los {hobby}.', h1: 'Equipos', intro: '{men} en competición de liga, más los {hobby}. Todos entrenan en la instalación deportiva Willi-Sänger.', trainingLabel: 'Entrenamiento', und: 'y' },
+    fr: { metaTitle: 'Équipes', metaDesc: 'Toutes les équipes du FC Treptow e.V. : {men} et les {hobby}.', h1: 'Équipes', intro: '{men} en championnat, plus les {hobby}. Toutes s’entraînent au complexe sportif Willi-Sänger.', trainingLabel: 'Entraînement', und: 'et' },
   },
 
   teamDetail: {

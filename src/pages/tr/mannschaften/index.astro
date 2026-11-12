@@ -2,9 +2,11 @@
 import Base from '../../../layouts/Base.astro';
 import Sections from '../../../components/sections/MannschaftenIndexSections.astro';
 import { pageT } from '../../../i18n/pages';
+import { fillTeamCounts } from '../../../lib/teamCounts';
 
 const t = pageT('mannschaftenIndex', 'tr');
+const description = await fillTeamCounts(t.metaDesc, 'tr');
 ---
-<Base title={t.metaTitle} description={'metaDesc' in t ? t.metaDesc : undefined}>
+<Base title={t.metaTitle} description={description}>
   <Sections />
 </Base>

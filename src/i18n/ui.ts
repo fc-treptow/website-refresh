@@ -31,7 +31,10 @@ const de = {
   // Dachzeile über dem Leitsatz: Vereinsname und Ortsteil, Eigennamen bleiben in allen Sprachen gleich
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Seit 1925 im Kiez.', 'Entstanden als Werksverein.', 'Heute aus aller Welt.'],
-  heroText: 'Drei Herrenteams, eine Freizeitmannschaft und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, meldet sich zum Probetraining.',
+  heroText: '{teams} und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, meldet sich zum Probetraining.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['ein Herrenteam', 'zwei Herrenteams', 'drei Herrenteams', 'vier Herrenteams', 'fünf Herrenteams', 'sechs Herrenteams', '{n} Herrenteams'], hobby: ['eine Freizeitmannschaft', 'zwei Freizeitmannschaften', 'drei Freizeitmannschaften', '{n} Freizeitmannschaften'], sep: ', ' },
   heroCarouselLabel: 'Mannschaftsfotos',
   heroPrev: 'Vorherige Mannschaft',
   heroNext: 'Nächste Mannschaft',
@@ -122,7 +125,10 @@ const en: UI = {
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['In the neighbourhood since 1925.', 'Founded as a works club.', 'Today from all over the world.'],
-  heroText: 'Three men’s teams, a recreational side and a clubhouse on Köpenicker Landstraße. If you want to play, sign up for a trial session.',
+  heroText: '{teams} and a clubhouse on Köpenicker Landstraße. If you want to play, sign up for a trial session.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['one men’s team', 'two men’s teams', 'three men’s teams', 'four men’s teams', 'five men’s teams', 'six men’s teams', '{n} men’s teams'], hobby: ['a recreational side', 'two recreational sides', 'three recreational sides', '{n} recreational sides'], sep: ', ' },
   heroCarouselLabel: 'Team photos',
   heroPrev: 'Previous team',
   heroNext: 'Next team',
@@ -211,7 +217,10 @@ const tr: UI = {
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['1925’ten beri mahallede.', 'Bir fabrika kulübü olarak kurulduk.', 'Bugün dünyanın dört bir yanından.'],
-  heroText: 'Üç erkek takımı, bir hobi takımı ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen deneme antrenmanı için başvursun.',
+  heroText: '{teams} ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen deneme antrenmanı için başvursun.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['bir erkek takımı', 'iki erkek takımı', 'üç erkek takımı', 'dört erkek takımı', 'beş erkek takımı', 'altı erkek takımı', '{n} erkek takımı'], hobby: ['bir hobi takımı', 'iki hobi takımı', 'üç hobi takımı', '{n} hobi takımı'], sep: ', ' },
   heroCarouselLabel: 'Takım fotoğrafları',
   heroPrev: 'Önceki takım',
   heroNext: 'Sonraki takım',
@@ -300,7 +309,10 @@ const ar: UI = {
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['في الحي منذ 1925.', 'تأسسنا كنادٍ لعمال مصنع.', 'واليوم من كل أنحاء العالم.'],
-  heroText: 'ثلاثة فرق رجال وفريق ترفيهي ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يسجّل في تدريب تجريبي.',
+  heroText: '{teams} ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يسجّل في تدريب تجريبي.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['فريق رجال واحد', 'فريقا رجال', 'ثلاثة فرق رجال', 'أربعة فرق رجال', 'خمسة فرق رجال', 'ستة فرق رجال', '{n} فرق رجال'], hobby: ['فريق ترفيهي', 'فريقان ترفيهيان', 'ثلاثة فرق ترفيهية', '{n} فرق ترفيهية'], sep: ' و' },
   heroCarouselLabel: 'صور الفرق',
   heroPrev: 'الفريق السابق',
   heroNext: 'الفريق التالي',
@@ -389,7 +401,10 @@ const es: UI = {
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['En el barrio desde 1925.', 'Nacimos como club de empresa.', 'Hoy, de todo el mundo.'],
-  heroText: 'Tres equipos masculinos, un equipo recreativo y una sede en la Köpenicker Landstraße. Si quieres jugar, apúntate a un entrenamiento de prueba.',
+  heroText: '{teams} y una sede en la Köpenicker Landstraße. Si quieres jugar, apúntate a un entrenamiento de prueba.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['un equipo masculino', 'dos equipos masculinos', 'tres equipos masculinos', 'cuatro equipos masculinos', 'cinco equipos masculinos', 'seis equipos masculinos', '{n} equipos masculinos'], hobby: ['un equipo recreativo', 'dos equipos recreativos', 'tres equipos recreativos', '{n} equipos recreativos'], sep: ', ' },
   heroCarouselLabel: 'Fotos de los equipos',
   heroPrev: 'Equipo anterior',
   heroNext: 'Equipo siguiente',
@@ -478,7 +493,10 @@ const fr: UI = {
 
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Dans le quartier depuis 1925.', 'Né club d’entreprise.', 'Aujourd’hui, du monde entier.'],
-  heroText: 'Trois équipes masculines, une équipe loisir et un club-house sur la Köpenicker Landstraße. Pour jouer, inscris-toi à une séance d’essai.',
+  heroText: '{teams} et un club-house sur la Köpenicker Landstraße. Pour jouer, inscris-toi à une séance d’essai.',
+  // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
+  // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
+  teamWords: { men: ['une équipe masculine', 'deux équipes masculines', 'trois équipes masculines', 'quatre équipes masculines', 'cinq équipes masculines', 'six équipes masculines', '{n} équipes masculines'], hobby: ['une équipe loisir', 'deux équipes loisir', 'trois équipes loisir', '{n} équipes loisir'], sep: ', ' },
   heroCarouselLabel: 'Photos des équipes',
   heroPrev: 'Équipe précédente',
   heroNext: 'Équipe suivante',
