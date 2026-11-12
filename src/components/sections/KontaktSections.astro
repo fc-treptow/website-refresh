@@ -7,10 +7,13 @@ import { defaultLocale, l, type Locale } from '../../i18n/languages';
 import { pageT } from '../../i18n/pages';
 import { club } from '../../data/club';
 import { getContacts } from '../../lib/links';
+import { getTraining } from '../../lib/training';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const contacts = await getContacts();
 const t = pageT('kontakt', lang);
+// Trainingstage und -zeiten aus den Mannschaften im CMS
+const training = await getTraining(lang);
 ---
 <PageHeader title={t.h1} intro={t.intro} />
 
@@ -34,7 +37,7 @@ const t = pageT('kontakt', lang);
         </div>
         <div class="border-b border-line py-6">
           <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-ink-soft">{t.training}</dt>
-          <dd class="mt-2 text-lg font-semibold">{t.trainingTimes}</dd>
+          <dd class="mt-2 text-lg font-semibold">{training.fillStart(t.trainingTimes)}</dd>
         </div>
       </dl>
       <CtaButton href={club.ground.mapsUrl} external class="mt-8">{t.routeCta}</CtaButton>

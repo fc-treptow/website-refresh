@@ -7,6 +7,7 @@ import { encodeEmail } from '../../lib/email';
 import { useTranslations } from '../../i18n/ui';
 import { getContacts, getLinks } from '../../lib/links';
 import { getTeams, leagueLabel } from '../../i18n/content';
+import { getTraining } from '../../lib/training';
 import { limits } from '../../lib/trialValidate.mjs';
 
 // Die Anfrage geht an die Vercel-Funktion api/probetraining.mjs, die per E-Mail an den Verein
@@ -19,6 +20,8 @@ const t = pageT('probetraining', lang);
 const ui = useTranslations(lang);
 const { applicationUrl } = await getLinks();
 const teams = await getTeams(lang);
+// Trainingstage und Beginn aus den Mannschaften im CMS (Platzhalter in sideItems)
+const training = await getTraining(lang);
 const [privacyBefore, privacyAfter] = t.privacy.split('{link}');
 
 const field = 'min-h-12 w-full rounded-sm border border-ink/25 bg-card px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-soft/60 focus:border-ink focus:ring-2 focus:ring-club/25 aria-invalid:border-club';
@@ -109,7 +112,7 @@ const box = 'h-5 w-5 shrink-0 accent-club';
           <li class="flex gap-4">
             <span class="display nums text-2xl text-paper/50">{i + 1}</span>
             <span class="leading-relaxed text-paper/85">
-              {item}
+              {training.fillStart(item)}
               {i === t.sideItems.length - 1 && <> <a href={applicationUrl} rel="noopener" target="_blank" class="font-semibold text-paper underline decoration-club decoration-2 underline-offset-4">{t.regLinkLabel}<Icon name="external" size={13} class="ms-1 inline align-[-1px]" /><span class="sr-only"> ({ui.newTab})</span></a>.</>}
             </span>
           </li>

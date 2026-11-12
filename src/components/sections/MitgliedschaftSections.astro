@@ -7,10 +7,13 @@ import { pageT } from '../../i18n/pages';
 import { useTranslations } from '../../i18n/ui';
 import { club } from '../../data/club';
 import { getLinks, hostOf, splitHost } from '../../lib/links';
+import { getTraining } from '../../lib/training';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('mitgliedschaft', lang);
 const ui = useTranslations(lang);
+// Trainingstage aus den Mannschaften im CMS (Platzhalter {daysOr} in Schritt 1)
+const training = await getTraining(lang);
 // Schritt 3 führt zum Mitgliedsantrag in easyVerein (extern, neuer Tab). Kein Einbetten,
 // damit auf unserer Seite keine Fremdinhalte geladen werden. Die Adresse pflegt die
 // Redaktion im CMS unter Einstellungen > Links.
@@ -34,7 +37,7 @@ const fees = [
       <li class="flex flex-col bg-paper py-8 md:px-8 md:first:ps-0 md:last:pe-0">
         <span class="display nums text-6xl text-club">{i + 1}</span>
         <h2 class="mt-5 text-xl font-bold">{s.title}</h2>
-        <p class="mt-2 flex-1 leading-relaxed text-ink-soft">{s.text}</p>
+        <p class="mt-2 flex-1 leading-relaxed text-ink-soft">{training.fill(s.text)}</p>
         {s.linkLabel && stepLinks[i] && (
           stepLinks[i]!.startsWith('http')
             ? <>

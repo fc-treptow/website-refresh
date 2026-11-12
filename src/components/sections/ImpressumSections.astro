@@ -12,7 +12,8 @@ const t = pageT('impressum', lang);
 
 // Vertretungsberechtigte Personen kommen aus dem CMS (Vorstand), siehe getRepresentatives().
 const rep = await getRepresentatives();
-const reps = [`${rep.chair}, ${t.repChair}`, `${rep.viceChair}, ${t.repVice}`];
+const sep = lang === 'ar' ? '، ' : ', ';
+const reps = [`${rep.chair}${sep}${t.repChair}`, `${rep.viceChair}${sep}${t.repVice}`];
 ---
 <PageHeader title={t.h1} />
 
