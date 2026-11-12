@@ -8,6 +8,7 @@ import { useTranslations } from '../../i18n/ui';
 import { club } from '../../data/club';
 import { getLinks, hostOf, splitHost } from '../../lib/links';
 import { getTraining } from '../../lib/training';
+import { getFees, amount } from '../../lib/fees';
 
 const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
 const t = pageT('mitgliedschaft', lang);
@@ -23,10 +24,16 @@ const stepLinks = [l(lang, '/probetraining'), undefined, applicationUrl];
 // wohin man geht. Die Domain kommt aus der gepflegten Adresse, {host} im Text wird ersetzt.
 const host = hostOf(applicationUrl);
 const memberNote = splitHost(ui.memberAreaNote);
+// Beiträge aus dem CMS (Einstellungen › Beiträge). Jahresbetrag = 12 × Monatsbeitrag,
+// bei Vorauszahlung zusätzlich der rabattierte Preis, falls eingetragen.
+const fee = await getFees();
+const eur = (n: number) => amount(n, lang);
+const yearText = (f: { monthly: number; annual?: number | null }) =>
+  (f.annual != null ? t.perYearPrepaid : t.perYear).replace('{year}', eur(f.monthly * 12)).replace('{prepaid}', eur(f.annual ?? 0));
 const fees = [
-  { label: t.aktive, detail: t.aktiveDetail, amount: club.fees.regular },
-  { label: t.ermaessigt, detail: t.ermaessigtDetail, amount: club.fees.reduced },
-  { label: t.passiv, detail: t.passivDetail, amount: club.fees.passive },
+  { label: t.aktive, detail: yearText(fee.regular), amount: eur(fee.regular.monthly) },
+  { label: t.ermaessigt, detail: `${t.ermaessigtDetail} ${yearText(fee.reduced)}`, amount: eur(fee.reduced.monthly) },
+  { label: t.passiv, detail: t.passivDetail, amount: eur(fee.passive.monthly) },
 ];
 ---
 <PageHeader title={t.h1} intro={t.intro} />
@@ -79,7 +86,7 @@ const fees = [
           <dd class="display nums shrink-0 text-5xl">0 €<span class="ms-1 font-sans text-sm font-normal normal-case tracking-normal text-ink-soft">{t.proMonat}</span></dd>
         </div>
       </dl>
-      <p class="mt-6 max-w-xl text-sm leading-relaxed text-ink-soft">{t.aufnahme}</p>
+      <p class="mt-6 max-w-xl text-sm leading-relaxed text-ink-soft">{t.aufnahme.replace('{joiningFee}', eur(fee.joiningFee))}</p>
     </div>
     <aside class="reveal self-start rounded-sm bg-ink p-8 text-paper lg:col-span-5 lg:p-10">
       <h2 class="display text-3xl">{t.bankverbindung}</h2>

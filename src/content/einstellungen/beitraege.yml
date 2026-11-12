@@ -1,0 +1,9 @@
+regular:
+  monthly: 15
+  annual: 165
+reduced:
+  monthly: 10
+  annual: 110
+passive:
+  monthly: 6
+joiningFee: 10

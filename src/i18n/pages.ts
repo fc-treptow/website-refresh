@@ -4,7 +4,7 @@ import type { Locale } from './languages';
 export const pages = {
   mitgliedschaft: {
     de: {
-      passiv: 'Passive Mitglieder', passivDetail: 'Für alle, die den Verein unterstützen, ohne zu spielen.', aufnahme: 'Einmalig 10 € Aufnahmegebühr, die an den Berliner Fußball-Verband geht. Beiträge sind bis zum 15. des Monats fällig. Kündigen geht schriftlich mit drei Monaten Frist zum Halbjahres- oder Jahresende.', beitragsordnungLabel: 'Beitragsordnung', schiri: 'Schiedsrichter', schiriDetail: 'Wer aktiv für den FC Treptow pfeift, zahlt keinen Beitrag.', schiriLink: 'Schiedsrichter werden',
+      passiv: 'Passive Mitglieder', passivDetail: 'Für alle, die den Verein unterstützen, ohne zu spielen.', aufnahme: 'Einmalig {joiningFee} € Aufnahmegebühr, die an den Berliner Fußball-Verband geht. Beiträge sind bis zum 15. des Monats fällig. Kündigen geht schriftlich mit drei Monaten Frist zum Halbjahres- oder Jahresende.', beitragsordnungLabel: 'Beitragsordnung', schiri: 'Schiedsrichter', schiriDetail: 'Wer aktiv für den FC Treptow pfeift, zahlt keinen Beitrag.', schiriLink: 'Schiedsrichter werden',
       metaTitle: 'Mitgliedschaft', metaDesc: 'Mitglied werden beim FC Treptow e.V.: Beiträge, Probetraining und Anmeldung.',
       h1: 'Mitglied werden', intro: 'Vom ersten Probetraining bis zur Spielberechtigung in drei Schritten.',
       steps: [
@@ -12,13 +12,13 @@ export const pages = {
         { title: 'Kicken und kennenlernen', text: 'Du trainierst ein paar Mal mit. Danach gibt dir der Trainer Rückmeldung, ob und in welchem Team es passt. Bei den Freizeit Kickers gibt es keine Auswahl, dort meldest du dich vorher nur kurz beim Teamleiter.' },
         { title: 'Anmeldung abschließen', text: 'Den Mitgliedsantrag stellst du online. Den Antrag auf Spielberechtigung unterschreibst du anschließend.', linkLabel: 'Zum Mitgliedsantrag', linkNote: 'Formular in easyVerein, unserer Mitgliederverwaltung ({host}). Öffnet in neuem Tab.' },
       ],
-      beitraege: 'Beiträge', aktive: 'Aktive Mitglieder', aktiveDetail: '180 € im Jahr, bei Jahreszahlung 165 €',
-      ermaessigt: 'Ermäßigt', ermaessigtDetail: 'Azubis, Studierende, Erwerbslose, Freizeitsport und Jugend. 120 € im Jahr, bei Jahreszahlung 110 €',
+      beitraege: 'Beiträge', aktive: 'Aktive Mitglieder', perYear: '{year} € im Jahr', perYearPrepaid: '{year} € im Jahr, bei Jahreszahlung {prepaid} €',
+      ermaessigt: 'Ermäßigt', ermaessigtDetail: 'Azubis, Studierende, Erwerbslose, Freizeitsport und Jugend.',
       proMonat: '/ Monat', bankverbindung: 'Bankverbindung', bankHint: 'Beiträge bitte an den Verein überweisen:',
       kontoinhaber: 'Kontoinhaber', iban: 'IBAN', memberHint: 'Schon Mitglied? Deine Daten und Beiträge findest du online.', formsHint: 'Formulare wie die Eintrittserklärung findest du unter', downloadsLabel: 'Downloads',
     },
     en: {
-      passiv: 'Supporting members', passivDetail: 'For everyone who backs the club without playing.', aufnahme: 'A one-off €10 joining fee, passed on to the Berlin Football Association. Fees are due by the 15th of each month. You can cancel in writing with three months’ notice to the end of the half-year or year.', beitragsordnungLabel: 'Fee regulations', schiri: 'Referees', schiriDetail: 'Anyone actively refereeing for FC Treptow pays no fee.', schiriLink: 'Become a referee',
+      passiv: 'Supporting members', passivDetail: 'For everyone who backs the club without playing.', aufnahme: 'A one-off €{joiningFee} joining fee, passed on to the Berlin Football Association. Fees are due by the 15th of each month. You can cancel in writing with three months’ notice to the end of the half-year or year.', beitragsordnungLabel: 'Fee regulations', schiri: 'Referees', schiriDetail: 'Anyone actively refereeing for FC Treptow pays no fee.', schiriLink: 'Become a referee',
       metaTitle: 'Membership', metaDesc: 'Become a member of FC Treptow e.V.: fees, trial training and registration.',
       h1: 'Become a member', intro: 'From your first trial session to full playing eligibility in three steps.',
       steps: [
@@ -26,13 +26,13 @@ export const pages = {
         { title: 'Play and get to know us', text: 'You train with us a few times. Afterwards the coach lets you know whether, and in which team, it’s a fit. The Freizeit Kickers have no selection, just get in touch with the team lead first.' },
         { title: 'Complete registration', text: 'Submit your membership application online. You then sign the playing-eligibility form.', linkLabel: 'To the application', linkNote: 'Form in easyVerein, our membership admin tool ({host}). Opens in a new tab.' },
       ],
-      beitraege: 'Fees', aktive: 'Active members', aktiveDetail: '€180 per year, €165 if paid annually',
-      ermaessigt: 'Reduced rate', ermaessigtDetail: 'Apprentices, students, unemployed, leisure sport and youth. €120 per year, €110 if paid annually',
+      beitraege: 'Fees', aktive: 'Active members', perYear: '€{year} per year', perYearPrepaid: '€{year} per year, €{prepaid} if paid annually',
+      ermaessigt: 'Reduced rate', ermaessigtDetail: 'Apprentices, students, unemployed, leisure sport and youth.',
       proMonat: '/ month', bankverbindung: 'Bank details', bankHint: 'Please transfer fees to the club:',
       kontoinhaber: 'Account holder', iban: 'IBAN', memberHint: 'Already a member? Your details and fees are online.', formsHint: 'You’ll find forms like the membership declaration under', downloadsLabel: 'Downloads',
     },
     tr: {
-      passiv: 'Destekçi üyeler', passivDetail: 'Oynamadan kulübü desteklemek isteyen herkes için.', aufnahme: 'Bir kereye mahsus 10 € giriş ücreti, Berlin Futbol Federasyonu’na aktarılır. Aidatlar her ayın 15’ine kadar ödenir. Üyelik, yarıyıl veya yıl sonuna üç ay önceden yazılı olarak feshedilebilir.', beitragsordnungLabel: 'Aidat yönetmeliği', schiri: 'Hakemler', schiriDetail: 'FC Treptow için aktif hakemlik yapanlar aidat ödemez.', schiriLink: 'Hakem ol',
+      passiv: 'Destekçi üyeler', passivDetail: 'Oynamadan kulübü desteklemek isteyen herkes için.', aufnahme: 'Bir kereye mahsus {joiningFee} € giriş ücreti, Berlin Futbol Federasyonu’na aktarılır. Aidatlar her ayın 15’ine kadar ödenir. Üyelik, yarıyıl veya yıl sonuna üç ay önceden yazılı olarak feshedilebilir.', beitragsordnungLabel: 'Aidat yönetmeliği', schiri: 'Hakemler', schiriDetail: 'FC Treptow için aktif hakemlik yapanlar aidat ödemez.', schiriLink: 'Hakem ol',
       metaTitle: 'Üyelik', metaDesc: 'FC Treptow e.V.’ye üye ol: aidatlar, deneme antrenmanı ve kayıt.',
       h1: 'Üye ol', intro: 'İlk deneme antrenmanından oyuncu lisansına üç adımda.',
       steps: [
@@ -40,13 +40,13 @@ export const pages = {
         { title: 'Oyna ve tanış', text: 'Birkaç kez antrenmana katılırsın. Ardından antrenör, uyum olup olmadığını ve hangi takımda yer olduğunu sana bildirir. Freizeit Kickers’ta seçme yok, önceden takım sorumlusuna kısaca haber vermen yeterli.' },
         { title: 'Kaydı tamamla', text: 'Üyelik başvurunu online yaparsın. Ardından oyuncu lisansı başvurusunu imzalarsın.', linkLabel: 'Üyelik başvurusuna git', linkNote: 'Form, üye yönetim sistemimiz easyVerein’de ({host}). Yeni sekmede açılır.' },
       ],
-      beitraege: 'Aidatlar', aktive: 'Aktif üyeler', aktiveDetail: 'Yılda 180 €, yıllık ödemede 165 €',
-      ermaessigt: 'İndirimli', ermaessigtDetail: 'Çıraklar, öğrenciler, işsizler, hobi sporcuları ve gençler. Yılda 120 €, yıllık ödemede 110 €',
+      beitraege: 'Aidatlar', aktive: 'Aktif üyeler', perYear: 'Yılda {year} €', perYearPrepaid: 'Yılda {year} €, yıllık ödemede {prepaid} €',
+      ermaessigt: 'İndirimli', ermaessigtDetail: 'Çıraklar, öğrenciler, işsizler, hobi sporcuları ve gençler.',
       proMonat: '/ ay', bankverbindung: 'Banka bilgileri', bankHint: 'Aidatları lütfen kulübe havale edin:',
       kontoinhaber: 'Hesap sahibi', iban: 'IBAN', memberHint: 'Zaten üye misin? Bilgilerin ve aidatların online.', formsHint: 'Üyelik beyanı gibi formları şurada bulabilirsin:', downloadsLabel: 'İndirilenler',
     },
     ar: {
-      passiv: 'أعضاء داعمون', passivDetail: 'لكل من يدعم النادي دون أن يلعب.', aufnahme: 'رسوم انتساب لمرة واحدة بقيمة 10 يورو تُحوَّل إلى اتحاد برلين لكرة القدم. تُستحق الاشتراكات حتى اليوم 15 من كل شهر. يمكن إنهاء العضوية كتابيًا بإشعار مدته ثلاثة أشهر قبل نهاية نصف السنة أو السنة.', beitragsordnungLabel: 'لائحة الاشتراكات', schiri: 'الحكام', schiriDetail: 'من يمارس التحكيم بنشاط لصالح إف سي تريبتاو لا يدفع رسوماً.', schiriLink: 'كن حكماً',
+      passiv: 'أعضاء داعمون', passivDetail: 'لكل من يدعم النادي دون أن يلعب.', aufnahme: 'رسوم انتساب لمرة واحدة بقيمة {joiningFee} يورو تُحوَّل إلى اتحاد برلين لكرة القدم. تُستحق الاشتراكات حتى اليوم 15 من كل شهر. يمكن إنهاء العضوية كتابيًا بإشعار مدته ثلاثة أشهر قبل نهاية نصف السنة أو السنة.', beitragsordnungLabel: 'لائحة الاشتراكات', schiri: 'الحكام', schiriDetail: 'من يمارس التحكيم بنشاط لصالح إف سي تريبتاو لا يدفع رسوماً.', schiriLink: 'كن حكماً',
       metaTitle: 'العضوية', metaDesc: 'انضم إلى نادي إف سي تريبتاو: الرسوم والتدريب التجريبي والتسجيل.',
       h1: 'انضم إلينا', intro: 'من أول تدريب تجريبي إلى أهلية اللعب الكاملة في ثلاث خطوات.',
       steps: [
@@ -54,13 +54,13 @@ export const pages = {
         { title: 'العب وتعرّف علينا', text: 'تتدرب معنا بضع مرات. بعد ذلك يخبرك المدرب ما إذا كان الأمر مناسبًا وفي أي فريق. لا يوجد اختيار في فريق Freizeit Kickers، يكفي أن تتواصل مع مسؤول الفريق مسبقًا.' },
         { title: 'أكمل التسجيل', text: 'تقدّم طلب العضوية عبر الإنترنت. بعد ذلك توقّع على طلب أهلية اللعب.', linkLabel: 'إلى طلب العضوية', linkNote: 'النموذج على easyVerein، نظام إدارة الأعضاء لدينا ({host}). يُفتح في علامة تبويب جديدة.' },
       ],
-      beitraege: 'الرسوم', aktive: 'الأعضاء النشطون', aktiveDetail: '180 يورو سنويًا، أو 165 يورو عند الدفع السنوي',
-      ermaessigt: 'رسوم مخفضة', ermaessigtDetail: 'المتدربون والطلاب والعاطلون عن العمل والرياضة الترفيهية والشباب. 120 يورو سنويًا، أو 110 يورو عند الدفع السنوي',
+      beitraege: 'الرسوم', aktive: 'الأعضاء النشطون', perYear: '{year} يورو سنويًا', perYearPrepaid: '{year} يورو سنويًا، أو {prepaid} يورو عند الدفع السنوي',
+      ermaessigt: 'رسوم مخفضة', ermaessigtDetail: 'المتدربون والطلاب والعاطلون عن العمل والرياضة الترفيهية والشباب.',
       proMonat: '/ شهريًا', bankverbindung: 'البيانات المصرفية', bankHint: 'يرجى تحويل الرسوم إلى النادي:',
       kontoinhaber: 'صاحب الحساب', iban: 'الآيبان', memberHint: 'عضو بالفعل؟ بياناتك واشتراكاتك متاحة عبر الإنترنت.', formsHint: 'ستجد نماذج مثل إقرار العضوية تحت', downloadsLabel: 'التنزيلات',
     },
     es: {
-      passiv: 'Socios de apoyo', passivDetail: 'Para quienes apoyan al club sin jugar.', aufnahme: 'Cuota de alta única de 10 €, que se transfiere a la Federación de Fútbol de Berlín. Las cuotas vencen el día 15 de cada mes. La baja se comunica por escrito con tres meses de antelación al final del semestre o del año.', beitragsordnungLabel: 'Reglamento de cuotas', schiri: 'Árbitros', schiriDetail: 'Quien arbitra en activo para el FC Treptow no paga cuota.', schiriLink: 'Hazte árbitro',
+      passiv: 'Socios de apoyo', passivDetail: 'Para quienes apoyan al club sin jugar.', aufnahme: 'Cuota de alta única de {joiningFee} €, que se transfiere a la Federación de Fútbol de Berlín. Las cuotas vencen el día 15 de cada mes. La baja se comunica por escrito con tres meses de antelación al final del semestre o del año.', beitragsordnungLabel: 'Reglamento de cuotas', schiri: 'Árbitros', schiriDetail: 'Quien arbitra en activo para el FC Treptow no paga cuota.', schiriLink: 'Hazte árbitro',
       metaTitle: 'Membresía', metaDesc: 'Hazte socio del FC Treptow e.V.: cuotas, entrenamiento de prueba e inscripción.',
       h1: 'Hazte socio', intro: 'Desde tu primer entrenamiento de prueba hasta la ficha federativa en tres pasos.',
       steps: [
@@ -68,13 +68,13 @@ export const pages = {
         { title: 'Juega y conócenos', text: 'Entrenas con nosotros unas cuantas veces. Después el entrenador te dice si encajas y en qué equipo. En los Freizeit Kickers no hay selección, solo tienes que avisar antes al responsable del equipo.' },
         { title: 'Completa la inscripción', text: 'Envías la solicitud de socio online. Después firmas la solicitud de ficha.', linkLabel: 'Ir a la solicitud', linkNote: 'Formulario en easyVerein, nuestra herramienta de gestión de socios ({host}). Se abre en una pestaña nueva.' },
       ],
-      beitraege: 'Cuotas', aktive: 'Socios activos', aktiveDetail: '180 € al año, 165 € con pago anual',
-      ermaessigt: 'Tarifa reducida', ermaessigtDetail: 'Aprendices, estudiantes, desempleados, deporte de ocio y juventud. 120 € al año, 110 € con pago anual',
+      beitraege: 'Cuotas', aktive: 'Socios activos', perYear: '{year} € al año', perYearPrepaid: '{year} € al año, {prepaid} € con pago anual',
+      ermaessigt: 'Tarifa reducida', ermaessigtDetail: 'Aprendices, estudiantes, desempleados, deporte de ocio y juventud.',
       proMonat: '/ mes', bankverbindung: 'Datos bancarios', bankHint: 'Por favor, transfiere las cuotas al club:',
       kontoinhaber: 'Titular de la cuenta', iban: 'IBAN', memberHint: '¿Ya eres socio? Tus datos y cuotas están online.', formsHint: 'Encontrarás formularios como la declaración de socio en', downloadsLabel: 'Descargas',
     },
     fr: {
-      passiv: 'Membres de soutien', passivDetail: 'Pour celles et ceux qui soutiennent le club sans jouer.', aufnahme: 'Frais d’adhésion uniques de 10 €, reversés à la Fédération de football de Berlin. Les cotisations sont dues avant le 15 de chaque mois. La résiliation se fait par écrit avec un préavis de trois mois avant la fin du semestre ou de l’année.', beitragsordnungLabel: 'Règlement des cotisations', schiri: 'Arbitres', schiriDetail: 'Qui arbitre activement pour le FC Treptow ne paie pas de cotisation.', schiriLink: 'Devenir arbitre',
+      passiv: 'Membres de soutien', passivDetail: 'Pour celles et ceux qui soutiennent le club sans jouer.', aufnahme: 'Frais d’adhésion uniques de {joiningFee} €, reversés à la Fédération de football de Berlin. Les cotisations sont dues avant le 15 de chaque mois. La résiliation se fait par écrit avec un préavis de trois mois avant la fin du semestre ou de l’année.', beitragsordnungLabel: 'Règlement des cotisations', schiri: 'Arbitres', schiriDetail: 'Qui arbitre activement pour le FC Treptow ne paie pas de cotisation.', schiriLink: 'Devenir arbitre',
       metaTitle: 'Adhésion', metaDesc: 'Devenez membre du FC Treptow e.V. : cotisations, séance d’essai et inscription.',
       h1: 'Devenir membre', intro: 'De la première séance d’essai à la qualification en trois étapes.',
       steps: [
@@ -82,8 +82,8 @@ export const pages = {
         { title: 'Jouer et faire connaissance', text: 'Vous vous entraînez quelques fois avec nous. Ensuite, l’entraîneur vous dit si cela colle et dans quelle équipe. Chez les Freizeit Kickers, pas de sélection : prévenez simplement le responsable de l’équipe avant.' },
         { title: 'Finaliser l’inscription', text: 'Vous déposez votre demande d’adhésion en ligne. Vous signez ensuite la demande de qualification.', linkLabel: 'Vers la demande d’adhésion', linkNote: 'Formulaire sur easyVerein, notre outil de gestion des membres ({host}). S’ouvre dans un nouvel onglet.' },
       ],
-      beitraege: 'Cotisations', aktive: 'Membres actifs', aktiveDetail: '180 € par an, 165 € en paiement annuel',
-      ermaessigt: 'Tarif réduit', ermaessigtDetail: 'Apprentis, étudiants, demandeurs d’emploi, sport loisir et jeunesse. 120 € par an, 110 € en paiement annuel',
+      beitraege: 'Cotisations', aktive: 'Membres actifs', perYear: '{year} € par an', perYearPrepaid: '{year} € par an, {prepaid} € en paiement annuel',
+      ermaessigt: 'Tarif réduit', ermaessigtDetail: 'Apprentis, étudiants, demandeurs d’emploi, sport loisir et jeunesse.',
       proMonat: '/ mois', bankverbindung: 'Coordonnées bancaires', bankHint: 'Merci de virer les cotisations au club :',
       kontoinhaber: 'Titulaire du compte', iban: 'IBAN', memberHint: 'Déjà membre ? Vos données et cotisations sont en ligne.', formsHint: 'Vous trouverez des formulaires comme la déclaration d’adhésion sous', downloadsLabel: 'Téléchargements',
     },

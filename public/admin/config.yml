@@ -270,7 +270,7 @@ collections:
 
   - name: einstellungen
     label: Einstellungen
-    description: 'Kontaktadressen und Links zu externen Diensten. Nur ändern, wenn sich eine Adresse wirklich geändert hat.'
+    description: 'Kontaktadressen, Beiträge und Links zu externen Diensten. Nur ändern, wenn sich wirklich etwas geändert hat. Bei neuen Beiträgen auch die Beitragsordnung unter Downloads austauschen.'
     editor: { preview: false }
     files:
       - name: kontakt
@@ -299,6 +299,32 @@ collections:
             hint: 'Gemeinsame Adresse, unter der alle Mitglieder des Kontrollrats erreichbar sind. Steht auf der Seite Vorstand beim Kontrollrat.'
             widget: string
             pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Bitte eine gültige E-Mail-Adresse eingeben.']
+      - name: beitraege
+        label: Beiträge
+        file: src/content/einstellungen/beitraege.yml
+        format: yml
+        fields:
+          - name: regular
+            label: Aktive Mitglieder
+            widget: object
+            collapsed: false
+            fields:
+              - { name: monthly, label: Monatsbeitrag in Euro, widget: number, value_type: float, min: 0, step: 0.5, hint: 'Steht groß auf der Seite Mitgliedschaft. Der Jahresbetrag (12 × Monatsbeitrag) wird daraus berechnet.' }
+              - { name: annual, label: Preis bei Jahreszahlung in Euro, widget: number, value_type: float, min: 0, step: 0.5, required: false, hint: 'Freiwillig. Leer lassen, wenn es keinen Rabatt für Zahlung im Voraus gibt.' }
+          - name: reduced
+            label: Ermäßigt
+            widget: object
+            collapsed: false
+            fields:
+              - { name: monthly, label: Monatsbeitrag in Euro, widget: number, value_type: float, min: 0, step: 0.5, hint: 'Steht auch auf der Startseite als "ab … € im Monat".' }
+              - { name: annual, label: Preis bei Jahreszahlung in Euro, widget: number, value_type: float, min: 0, step: 0.5, required: false, hint: 'Freiwillig. Leer lassen, wenn es keinen Rabatt für Zahlung im Voraus gibt.' }
+          - name: passive
+            label: Passive Mitglieder
+            widget: object
+            collapsed: false
+            fields:
+              - { name: monthly, label: Monatsbeitrag in Euro, widget: number, value_type: float, min: 0, step: 0.5 }
+          - { name: joiningFee, label: Aufnahmegebühr in Euro, widget: number, value_type: float, min: 0, step: 0.5, hint: 'Einmalig, geht an den Berliner Fußball-Verband.' }
       - name: links
         label: Links
         file: src/content/einstellungen/links.yml

@@ -39,7 +39,7 @@ Dort gibt es diese Bereiche:
 | Instagram-Beiträge | Ausgewählte Beiträge für die Startseite: Foto hochladen, Link zum Beitrag einfügen, kurz beschreiben. Die ersten vier nach Reihenfolge werden gezeigt. |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
-| Einstellungen | Kontakt: E-Mail des Kontrollrats. Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich eine Adresse ändert. |
+| Einstellungen | Kontakt: E-Mail-Adressen und Telefon. Beiträge: Monatsbeiträge, Preis bei Jahreszahlung, Aufnahmegebühr (die Seite rechnet den Jahresbetrag selbst aus). Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich wirklich etwas ändert. |
 
 Faustregeln:
 
@@ -91,7 +91,8 @@ Regeln für KI-Assistenten (Claude & Co.) stehen in `AGENTS.md` (`CLAUDE.md` ist
 - `src/i18n/` – alle festen Oberflächentexte in sechs Sprachen. `ui.ts` (Navigation, Startseite),
   `pages.ts` (Unterseiten), `fixtures.ts` (Spielplan/Tabelle). Deutsch ist die Typvorlage: fehlt in
   einer Sprache ein Schlüssel, meldet `npm run check` einen Fehler (der Build allein prüft das nicht).
-- `src/data/club.ts` – Stammdaten (Adresse, Beiträge, IBAN, Social Links).
+- `src/data/club.ts` – Stammdaten (Adresse, IBAN, Social Links).
+- `src/content/einstellungen/beitraege.yml` – Mitgliedsbeiträge, im CMS unter Einstellungen › Beiträge.
 - `src/content/einstellungen/kontakt.yml` – E-Mail-Adressen und Telefonnummer des Vereins,
   im CMS unter Einstellungen › Kontakt. Leere Telefonnummer = Nummer wird nicht angezeigt.
 - `src/legal/datenschutz.md` – Datenschutzerklärung (Deutsch, rechtlich bindend).
