@@ -8,7 +8,7 @@ export const pages = {
       metaTitle: 'Mitgliedschaft', metaDesc: 'Mitglied werden beim FC Treptow e.V.: Beiträge, Probetraining und Anmeldung.',
       h1: 'Mitglied werden', intro: 'Vom ersten Probetraining bis zur Spielberechtigung in drei Schritten.',
       steps: [
-        { title: 'Probetraining vereinbaren', text: 'Am liebsten kurz das Formular ausfüllen. Du kannst aber auch dienstags oder donnerstags direkt vorbeikommen. Das Probetraining ist kostenlos.', linkLabel: 'Zum Probetraining' },
+        { title: 'Probetraining vereinbaren', text: 'Am liebsten kurz das Formular ausfüllen. Du kannst aber auch am {daysOr} direkt vorbeikommen. Das Probetraining ist kostenlos.', linkLabel: 'Zum Probetraining' },
         { title: 'Kicken und kennenlernen', text: 'Du trainierst ein paar Mal mit. Danach gibt dir der Trainer Rückmeldung, ob und in welchem Team es passt. Bei den Freizeit Kickers gibt es keine Auswahl, dort meldest du dich vorher nur kurz beim Teamleiter.' },
         { title: 'Anmeldung abschließen', text: 'Den Mitgliedsantrag stellst du online. Den Antrag auf Spielberechtigung unterschreibst du anschließend.', linkLabel: 'Zum Mitgliedsantrag', linkNote: 'Formular in easyVerein, unserer Mitgliederverwaltung ({host}). Öffnet in neuem Tab.' },
       ],
@@ -22,7 +22,7 @@ export const pages = {
       metaTitle: 'Membership', metaDesc: 'Become a member of FC Treptow e.V.: fees, trial training and registration.',
       h1: 'Become a member', intro: 'From your first trial session to full playing eligibility in three steps.',
       steps: [
-        { title: 'Arrange a trial session', text: 'Ideally, fill in the short form. You can also just come along on a Tuesday or Thursday. Trial training is free.', linkLabel: 'To trial training' },
+        { title: 'Arrange a trial session', text: 'Ideally, fill in the short form. You can also just come along on a {daysOr}. Trial training is free.', linkLabel: 'To trial training' },
         { title: 'Play and get to know us', text: 'You train with us a few times. Afterwards the coach lets you know whether, and in which team, it’s a fit. The Freizeit Kickers have no selection, just get in touch with the team lead first.' },
         { title: 'Complete registration', text: 'Submit your membership application online. You then sign the playing-eligibility form.', linkLabel: 'To the application', linkNote: 'Form in easyVerein, our membership admin tool ({host}). Opens in a new tab.' },
       ],
@@ -36,7 +36,7 @@ export const pages = {
       metaTitle: 'Üyelik', metaDesc: 'FC Treptow e.V.’ye üye ol: aidatlar, deneme antrenmanı ve kayıt.',
       h1: 'Üye ol', intro: 'İlk deneme antrenmanından oyuncu lisansına üç adımda.',
       steps: [
-        { title: 'Deneme antrenmanı ayarla', text: 'En iyisi kısa formu doldur. İstersen salı veya perşembe günü doğrudan da gelebilirsin. Deneme antrenmanı ücretsizdir.', linkLabel: 'Deneme antrenmanına git' },
+        { title: 'Deneme antrenmanı ayarla', text: 'En iyisi kısa formu doldur. İstersen {daysOr} günü doğrudan da gelebilirsin. Deneme antrenmanı ücretsizdir.', linkLabel: 'Deneme antrenmanına git' },
         { title: 'Oyna ve tanış', text: 'Birkaç kez antrenmana katılırsın. Ardından antrenör, uyum olup olmadığını ve hangi takımda yer olduğunu sana bildirir. Freizeit Kickers’ta seçme yok, önceden takım sorumlusuna kısaca haber vermen yeterli.' },
         { title: 'Kaydı tamamla', text: 'Üyelik başvurunu online yaparsın. Ardından oyuncu lisansı başvurusunu imzalarsın.', linkLabel: 'Üyelik başvurusuna git', linkNote: 'Form, üye yönetim sistemimiz easyVerein’de ({host}). Yeni sekmede açılır.' },
       ],
@@ -50,7 +50,7 @@ export const pages = {
       metaTitle: 'العضوية', metaDesc: 'انضم إلى نادي إف سي تريبتاو: الرسوم والتدريب التجريبي والتسجيل.',
       h1: 'انضم إلينا', intro: 'من أول تدريب تجريبي إلى أهلية اللعب الكاملة في ثلاث خطوات.',
       steps: [
-        { title: 'حدد موعد تدريب تجريبي', text: 'يُفضَّل أن تملأ النموذج القصير، ويمكنك أيضًا الحضور مباشرة يوم الثلاثاء أو الخميس. التدريب التجريبي مجاني.', linkLabel: 'إلى التدريب التجريبي' },
+        { title: 'حدد موعد تدريب تجريبي', text: 'يُفضَّل أن تملأ النموذج القصير، ويمكنك أيضًا الحضور مباشرة يوم {daysOr}. التدريب التجريبي مجاني.', linkLabel: 'إلى التدريب التجريبي' },
         { title: 'العب وتعرّف علينا', text: 'تتدرب معنا بضع مرات. بعد ذلك يخبرك المدرب ما إذا كان الأمر مناسبًا وفي أي فريق. لا يوجد اختيار في فريق Freizeit Kickers، يكفي أن تتواصل مع مسؤول الفريق مسبقًا.' },
         { title: 'أكمل التسجيل', text: 'تقدّم طلب العضوية عبر الإنترنت. بعد ذلك توقّع على طلب أهلية اللعب.', linkLabel: 'إلى طلب العضوية', linkNote: 'النموذج على easyVerein، نظام إدارة الأعضاء لدينا ({host}). يُفتح في علامة تبويب جديدة.' },
       ],
@@ -64,7 +64,7 @@ export const pages = {
       metaTitle: 'Membresía', metaDesc: 'Hazte socio del FC Treptow e.V.: cuotas, entrenamiento de prueba e inscripción.',
       h1: 'Hazte socio', intro: 'Desde tu primer entrenamiento de prueba hasta la ficha federativa en tres pasos.',
       steps: [
-        { title: 'Concierta un entrenamiento de prueba', text: 'Lo ideal es rellenar el breve formulario, aunque también puedes venir directamente un martes o jueves. El entrenamiento de prueba es gratuito.', linkLabel: 'Ir al entrenamiento de prueba' },
+        { title: 'Concierta un entrenamiento de prueba', text: 'Lo ideal es rellenar el breve formulario, aunque también puedes venir directamente un {daysOr}. El entrenamiento de prueba es gratuito.', linkLabel: 'Ir al entrenamiento de prueba' },
         { title: 'Juega y conócenos', text: 'Entrenas con nosotros unas cuantas veces. Después el entrenador te dice si encajas y en qué equipo. En los Freizeit Kickers no hay selección, solo tienes que avisar antes al responsable del equipo.' },
         { title: 'Completa la inscripción', text: 'Envías la solicitud de socio online. Después firmas la solicitud de ficha.', linkLabel: 'Ir a la solicitud', linkNote: 'Formulario en easyVerein, nuestra herramienta de gestión de socios ({host}). Se abre en una pestaña nueva.' },
       ],
@@ -78,7 +78,7 @@ export const pages = {
       metaTitle: 'Adhésion', metaDesc: 'Devenez membre du FC Treptow e.V. : cotisations, séance d’essai et inscription.',
       h1: 'Devenir membre', intro: 'De la première séance d’essai à la qualification en trois étapes.',
       steps: [
-        { title: 'Organiser une séance d’essai', text: 'Idéalement, remplissez le court formulaire. Vous pouvez aussi venir directement un mardi ou un jeudi. La séance d’essai est gratuite.', linkLabel: 'Vers la séance d’essai' },
+        { title: 'Organiser une séance d’essai', text: 'Idéalement, remplissez le court formulaire. Vous pouvez aussi venir directement un {daysOr}. La séance d’essai est gratuite.', linkLabel: 'Vers la séance d’essai' },
         { title: 'Jouer et faire connaissance', text: 'Vous vous entraînez quelques fois avec nous. Ensuite, l’entraîneur vous dit si cela colle et dans quelle équipe. Chez les Freizeit Kickers, pas de sélection : prévenez simplement le responsable de l’équipe avant.' },
         { title: 'Finaliser l’inscription', text: 'Vous déposez votre demande d’adhésion en ligne. Vous signez ensuite la demande de qualification.', linkLabel: 'Vers la demande d’adhésion', linkNote: 'Formulaire sur easyVerein, notre outil de gestion des membres ({host}). S’ouvre dans un nouvel onglet.' },
       ],
@@ -95,7 +95,7 @@ export const pages = {
       metaTitle: 'Kontakt', metaDesc: 'Kontakt und Anfahrt: FC Treptow e.V., Willi-Sänger-Sportanlage, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Kontakt', intro: 'Am liebsten schreibst du uns vorher kurz. Du kannst aber auch an einem Trainingstag vorbeikommen.',
       heading: 'So erreichst du uns', email: 'E-Mail', sportanlage: 'Sportanlage', training: 'Training',
-      trainingTimes: 'Dienstag und Donnerstag, 18:00 bis 21:00 Uhr', routeCta: 'Route planen',
+      trainingTimes: '{days}, {from} bis {to} Uhr', routeCta: 'Route planen',
       imgAlt: 'Vereinsbüro des FC Treptow auf der Willi-Sänger-Sportanlage',
     },
     en: {
@@ -103,7 +103,7 @@ export const pages = {
       metaTitle: 'Contact', metaDesc: 'Contact and directions: FC Treptow e.V., Willi-Sänger sports ground, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Ideally, write to us first. You can also just drop by on a training day.',
       heading: 'How to reach us', email: 'Email', sportanlage: 'Sports ground', training: 'Training',
-      trainingTimes: 'Tuesday and Thursday, 6:00 to 9:00 PM', routeCta: 'Get directions',
+      trainingTimes: '{days}, {from} to {to}', routeCta: 'Get directions',
       imgAlt: 'FC Treptow club office at the Willi-Sänger sports ground',
     },
     tr: {
@@ -111,7 +111,7 @@ export const pages = {
       metaTitle: 'İletişim', metaDesc: 'İletişim ve yol tarifi: FC Treptow e.V., Willi-Sänger Spor Tesisi, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'İletişim', intro: 'En iyisi önceden bize yaz. İstersen bir antrenman günü doğrudan da uğrayabilirsin.',
       heading: 'Bize şu şekilde ulaşabilirsin', email: 'E-posta', sportanlage: 'Spor tesisi', training: 'Antrenman',
-      trainingTimes: 'Salı ve Perşembe, 18:00-21:00', routeCta: 'Yol tarifi al',
+      trainingTimes: '{days}, {from}-{to}', routeCta: 'Yol tarifi al',
       imgAlt: 'Willi-Sänger Spor Tesisi’ndeki FC Treptow kulüp ofisi',
     },
     ar: {
@@ -119,7 +119,7 @@ export const pages = {
       metaTitle: 'اتصل بنا', metaDesc: 'التواصل والاتجاهات: نادي إف سي تريبتاو، منشأة فيلي زانغر الرياضية، Köpenicker Landstraße 186، 12437 برلين.',
       h1: 'اتصل بنا', intro: 'يُفضَّل أن تراسلنا مسبقًا، ويمكنك أيضًا الحضور في أحد أيام التدريب.',
       heading: 'كيف تصل إلينا', email: 'البريد الإلكتروني', sportanlage: 'المنشأة الرياضية', training: 'التدريب',
-      trainingTimes: 'الثلاثاء والخميس، 6:00 حتى 9:00 مساءً', routeCta: 'احصل على الاتجاهات',
+      trainingTimes: '{days}، {from} حتى {to}', routeCta: 'احصل على الاتجاهات',
       imgAlt: 'مكتب نادي إف سي تريبتاو في منشأة فيلي زانغر الرياضية',
     },
     es: {
@@ -127,7 +127,7 @@ export const pages = {
       metaTitle: 'Contacto', metaDesc: 'Contacto y cómo llegar: FC Treptow e.V., instalación deportiva Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlín.',
       h1: 'Contacto', intro: 'Lo ideal es que nos escribas antes, aunque también puedes pasarte cualquier día de entrenamiento.',
       heading: 'Cómo contactarnos', email: 'Correo electrónico', sportanlage: 'Instalación deportiva', training: 'Entrenamiento',
-      trainingTimes: 'Martes y jueves, de 18:00 a 21:00', routeCta: 'Ver cómo llegar',
+      trainingTimes: '{days}, de {from} a {to}', routeCta: 'Ver cómo llegar',
       imgAlt: 'Oficina del club FC Treptow en la instalación deportiva Willi-Sänger',
     },
     fr: {
@@ -135,7 +135,7 @@ export const pages = {
       metaTitle: 'Contact', metaDesc: 'Contact et itinéraire : FC Treptow e.V., complexe sportif Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Idéalement, écrivez-nous avant. Vous pouvez aussi passer un jour d’entraînement.',
       heading: 'Comment nous joindre', email: 'E-mail', sportanlage: 'Complexe sportif', training: 'Entraînement',
-      trainingTimes: 'Mardi et jeudi, de 18h00 à 21h00', routeCta: 'Voir l’itinéraire',
+      trainingTimes: '{days}, de {from} à {to}', routeCta: 'Voir l’itinéraire',
       imgAlt: 'Bureau du club FC Treptow au complexe sportif Willi-Sänger',
     },
   },
@@ -457,7 +457,7 @@ export const pages = {
       successTitle: 'Anfrage ist raus', successText: 'Danke! Du bekommst gleich eine Bestätigung per E-Mail. Wir melden uns in den nächsten Tagen mit einem Termin.',
       sideTitle: 'So läuft es ab',
       sideItems: [
-        'Training dienstags und donnerstags ab 18:00 Uhr auf dem Kunstrasen der Willi-Sänger-Sportanlage.',
+        'Training am {days} ab {from} Uhr auf dem Kunstrasen der Willi-Sänger-Sportanlage.',
         'Du trainierst ein paar Mal mit. Danach gibt dir der Trainer Rückmeldung, ob es passt. Bei den Freizeit Kickers gibt es keine Auswahl, dort meldest du dich vor dem ersten Mal nur kurz beim Teamleiter.',
         'Wenn es passt, stellst du den',
       ],
@@ -476,7 +476,7 @@ export const pages = {
       successTitle: 'Request sent', successText: 'Thanks! You’ll get a confirmation email shortly. We’ll get back to you with a date within the next few days.',
       sideTitle: 'How it works',
       sideItems: [
-        'Training Tuesdays and Thursdays from 6:00 PM on the artificial turf at the Willi-Sänger sports ground.',
+        'Training on {days} from {from} on the artificial turf at the Willi-Sänger sports ground.',
         'You train with us a few times. Afterwards the coach lets you know whether it’s a fit. The Freizeit Kickers have no selection, just get in touch with the team lead before your first visit.',
         'If it’s a good fit, you submit the',
       ],
@@ -495,7 +495,7 @@ export const pages = {
       successTitle: 'İstek gönderildi', successText: 'Teşekkürler! Birazdan e-posta ile bir onay alacaksın. Önümüzdeki günlerde bir tarihle sana dönüş yapacağız.',
       sideTitle: 'Nasıl işliyor',
       sideItems: [
-        'Salı ve perşembe günleri saat 18:00’den itibaren Willi-Sänger spor tesisindeki suni çim sahada antrenman.',
+        'Antrenman: {days}, saat {from} itibarıyla, Willi-Sänger spor tesisindeki suni çim sahada.',
         'Birkaç kez antrenmana katılırsın. Ardından antrenör uyum olup olmadığını sana bildirir. Freizeit Kickers’ta seçme yok, ilk gelişinden önce takım sorumlusuna kısaca haber vermen yeterli.',
         'Uyum sağlarsa, başvurunu yaparsın:',
       ],
@@ -514,7 +514,7 @@ export const pages = {
       successTitle: 'تم إرسال الطلب', successText: 'شكرًا! ستصلك رسالة تأكيد عبر البريد الإلكتروني قريبًا. سنتواصل معك خلال الأيام القادمة بموعد.',
       sideTitle: 'كيف تسير العملية',
       sideItems: [
-        'التدريب أيام الثلاثاء والخميس بدءًا من الساعة 6:00 مساءً على الملعب الصناعي في منشأة فيلي زانغر الرياضية.',
+        'التدريب أيام {days} بدءًا من الساعة {from} على الملعب الصناعي في منشأة فيلي زانغر الرياضية.',
         'تتدرب معنا بضع مرات. بعدها يخبرك المدرب ما إذا كان الأمر مناسبًا. لا يوجد اختيار في فريق Freizeit Kickers، يكفي أن تتواصل مع مسؤول الفريق قبل حضورك الأول.',
         'إذا كان مناسبًا، تقدّم',
       ],
@@ -533,7 +533,7 @@ export const pages = {
       successTitle: 'Solicitud enviada', successText: '¡Gracias! En breve recibirás un correo de confirmación. Te contactaremos en los próximos días con una fecha.',
       sideTitle: 'Cómo funciona',
       sideItems: [
-        'Entrenamiento los martes y jueves desde las 18:00 en el césped artificial de la instalación deportiva Willi-Sänger.',
+        'Entrenamiento los {days} desde las {from} en el césped artificial de la instalación deportiva Willi-Sänger.',
         'Entrenas con nosotros unas cuantas veces. Después el entrenador te dice si encajas. En los Freizeit Kickers no hay selección, solo avisa al responsable del equipo antes de venir por primera vez.',
         'Si encajas bien, envías la',
       ],
@@ -552,7 +552,7 @@ export const pages = {
       successTitle: 'Demande envoyée', successText: 'Merci ! Vous allez recevoir un e-mail de confirmation. Nous vous recontactons dans les prochains jours avec une date.',
       sideTitle: 'Comment ça se passe',
       sideItems: [
-        'Entraînement les mardis et jeudis à partir de 18h00 sur le synthétique du complexe sportif Willi-Sänger.',
+        'Entraînement le {days} à partir de {from} sur le synthétique du complexe sportif Willi-Sänger.',
         'Vous vous entraînez quelques fois avec nous. Ensuite, l’entraîneur vous dit si cela vous convient. Chez les Freizeit Kickers, pas de sélection : prévenez simplement le responsable de l’équipe avant votre première venue.',
         'Si le courant passe, vous déposez la',
       ],
