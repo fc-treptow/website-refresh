@@ -40,6 +40,7 @@ Dort gibt es diese Bereiche:
 | Instagram-Beiträge | Ausgewählte Beiträge für die Startseite: Foto hochladen, Link zum Beitrag einfügen, kurz beschreiben. Die ersten vier nach Reihenfolge werden gezeigt. |
 | Downloads (PDF) | Formulare und Ordnungen hochladen oder austauschen. |
 | In Gedenken | Nachrufe. |
+| Einstellungen › Hinweis | Streifen ganz oben auf der Seite, z. B. für Platzsperren oder Einladungen. An/aus, Info oder Wichtig, Text, freiwilliger Link, Anzeigen ab/bis (schaltet sich dann selbst ein und aus), alle Seiten oder nur Startseite. Text auf Deutsch, wird automatisch übersetzt. |
 | Einstellungen | Kontakt: E-Mail-Adressen und Telefon. Beiträge: Monatsbeiträge, Preis bei Jahreszahlung, Aufnahmegebühr (die Seite rechnet den Jahresbetrag selbst aus). Links zu easyVerein: Mitgliedsantrag, Mitgliederbereich und die App in den Stores. Nur ändern, wenn sich wirklich etwas ändert. |
 
 Faustregeln:
@@ -111,7 +112,7 @@ der Sprachwahl.
 
 ## Übersetzungen
 
-Mannschaften (`src/content/teams/de`) und News (`src/content/news/de`) werden automatisch übersetzt:
+Mannschaften (`src/content/teams/de`), News (`src/content/news/de`) und der Hinweisbanner (`src/content/hinweis/de`) werden automatisch übersetzt:
 Speichert jemand im CMS, startet der GitHub-Workflow **Übersetzen** (`.github/workflows/translate.yml`).
 Er schickt die geänderten Texte über das Vercel AI Gateway an ein KI-Modell, schreibt Englisch, Türkisch, Arabisch, Spanisch und
 Französisch nach `teams/<sprache>/` bzw. `news/<sprache>/` und committet das. Vercel baut danach neu.

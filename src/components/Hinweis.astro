@@ -1,0 +1,90 @@
+---
+// Hinweisbanner ganz oben über der Kopfzeile, gepflegt im CMS unter Einstellungen › Hinweis
+// (src/content/hinweis/de/hinweis.md, Übersetzungen in hinweis/<sprache>/).
+//
+// Zwei Stufen: "info" (helles Papier) und "wichtig" (Tinte). Bewusst nicht rot, Rot bleibt
+// Handlungen vorbehalten (global.css). Ab/bis gilt nach Berliner Datum: beim Bauen fällt ein
+// abgelaufener Hinweis ganz weg, im Browser schaltet ein kleines Skript ihn pünktlich ein und
+// aus, auch wenn seit dem letzten Build kein neuer lief.
+//
+// Schließen blendet den Hinweis nur auf der aktuellen Seite aus. Bewusst ohne sessionStorage
+// oder Cookie: Die Datenschutzerklärung sagt zu, dass nichts im Browser gespeichert wird.
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import { defaultLocale, l, type Locale } from '../i18n/languages';
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  // Pfad ohne Sprachpräfix, z. B. "/" oder "/kontakt"
+  bare: string;
+}
+
+const lang = (Astro.currentLocale ?? defaultLocale) as Locale;
+const t = useTranslations(lang);
+const [entry] = await getCollection('hinweis');
+const tr = lang === defaultLocale ? undefined : (await getCollection('hinweisI18n')).find((e) => e.id.startsWith(`${lang}/`));
+
+const tag = (d: Date) => d.toISOString().slice(0, 10);
+const heute = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+
+const h = entry?.data;
+const text = (tr?.body?.trim() || entry?.body?.trim()) ?? '';
+const ab = h?.ab ? tag(h.ab) : '';
+const bis = h?.bis ? tag(h.bis) : '';
+const zeigen = !!h && h.aktiv && text !== '' && (h.wo === 'alle' || Astro.props.bare === '/') && !(bis && heute > bis);
+const nochNicht = !!ab && heute < ab;
+
+const linkText = tr?.data.linkText || h?.linkText;
+const extern = !!h?.link?.startsWith('https://');
+const href = h?.link ? (extern ? h.link : l(lang, h.link)) : null;
+const wichtig = h?.stufe === 'wichtig';
+---
+{zeigen && (
+  <div
+    id="hinweis"
+    role="region"
+    aria-label={t.hinweisLabel}
+    data-ab={ab}
+    data-bis={bis}
+    hidden={nochNicht}
+    class:list={[wichtig ? 'bg-ink text-paper' : 'border-b border-line bg-paper-deep text-ink']}
+  >
+    <div class="mx-auto flex max-w-7xl items-start gap-3 py-2 ps-4 pe-2 sm:items-center sm:gap-4 sm:px-6 lg:px-8">
+      {wichtig
+        ? <span class="mt-2.5 shrink-0 rounded-sm border border-paper/50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.14em] sm:mt-0 [html[lang=ar]_&]:normal-case [html[lang=ar]_&]:tracking-normal">{t.hinweisWichtig}</span>
+        : <Icon name="info" size={18} class="mt-3 shrink-0 sm:mt-0" />}
+      <p class="flex-1 py-2 text-[15px] leading-snug">
+        {text}
+        {href && linkText && (
+          <>
+            {' '}
+            <a
+              href={href}
+              {...(extern ? { rel: 'noopener', target: '_blank' } : {})}
+              class:list={['whitespace-nowrap font-semibold underline decoration-club decoration-2 underline-offset-4', wichtig ? 'text-paper' : 'text-ink hover:text-club-deep']}
+            >{linkText}{extern && <><Icon name="external" size={13} class="ms-1 inline align-[-1px]" /><span class="sr-only"> ({t.newTab})</span></>}</a>
+          </>
+        )}
+      </p>
+      <button
+        type="button"
+        data-hinweis-close
+        aria-label={t.hinweisClose}
+        class:list={['grid size-11 shrink-0 place-items-center rounded-full transition-colors [.no-js_&]:hidden', wichtig ? 'text-paper/80 hover:bg-paper/10 hover:text-paper' : 'text-ink-soft hover:bg-paper hover:text-ink']}
+      >
+        <Icon name="close" size={18} />
+      </button>
+    </div>
+  </div>
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('hinweis');
+      if (!el) return;
+      var heute = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+      var ab = el.getAttribute('data-ab'), bis = el.getAttribute('data-bis');
+      el.hidden = !!((ab && heute < ab) || (bis && heute > bis));
+      var btn = el.querySelector('[data-hinweis-close]');
+      if (btn) btn.addEventListener('click', function () { el.hidden = true; });
+    })();
+  </script>
+)}

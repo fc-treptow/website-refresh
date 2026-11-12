@@ -285,4 +285,31 @@ const spielzeiten = defineCollection({
   }),
 });
 
-export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, spielzeiten, ergebnisse };
+// Hinweisbanner ganz oben auf der Seite (CMS: Einstellungen › Hinweis). Eine Datei,
+// src/content/hinweis/de/hinweis.md; der Text steht unter dem Frontmatter. Ab/bis prüft die
+// Seite beim Bauen und im Browser, damit der Hinweis auch ohne neuen Build pünktlich erscheint
+// und verschwindet (src/components/Hinweis.astro).
+const linkZiel = z
+  .string()
+  .regex(/^(\/|https:\/\/)\S*$/, 'Link: eine Seite der Website (beginnt mit /) oder eine Adresse mit https://')
+  .nullish()
+  .or(z.literal('').transform(() => null));
+const hinweis = defineCollection({
+  loader: glob({ pattern: 'de/hinweis.md', base: './src/content/hinweis' }),
+  schema: z.object({
+    aktiv: z.boolean().default(false),
+    stufe: z.enum(['info', 'wichtig']).default('info'),
+    linkText: z.string().nullish(),
+    link: linkZiel,
+    ab: z.coerce.date().nullish(),
+    bis: z.coerce.date().nullish(),
+    wo: z.enum(['alle', 'start']).default('alle'),
+  }),
+});
+// Übersetzungen (automatisch, scripts/translate-content.mjs): nur Link-Text und Text
+const hinweisI18n = defineCollection({
+  loader: glob({ pattern: '{en,tr,ar,es,fr}/hinweis.md', base: './src/content/hinweis' }),
+  schema: z.object({ linkText: z.string().nullish() }),
+});
+
+export const collections = { news, teams, teamsI18n, sponsors, vorstand, schiedsrichter, gedenken, shop, instagram, downloads, einstellungen, kontakt, beitraege, spielzeiten, hinweis, hinweisI18n, ergebnisse };

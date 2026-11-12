@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { readFileSync } from 'node:fs';
 import Icon from '../components/Icon.astro';
 import Email from '../components/Email.astro';
+import Hinweis from '../components/Hinweis.astro';
 import { locales, defaultLocale, languageNames, isRtl, localizedPath, l, ogLocale, type Locale } from '../i18n/languages';
 import { useTranslations } from '../i18n/ui';
 import { club } from '../data/club';
@@ -128,6 +129,9 @@ const socials = [
   </head>
   <body class="grain flex min-h-[100dvh] flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-paper">{t.skip}</a>
+
+    <!-- Hinweisbanner aus dem CMS (Einstellungen › Hinweis), scrollt mit der Seite weg -->
+    <Hinweis bare={bare} />
 
     <!-- Deckend, ohne Unschärfe: Safari ab iOS 26 übernimmt die Farbe dann in die Statusleiste.
          Mit halbdurchsichtigem Hintergrund scheint dort stattdessen der Seiteninhalt durch. -->
