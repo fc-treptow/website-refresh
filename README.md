@@ -233,6 +233,14 @@ automatisches Erneuern des Tokens (läuft nach etwa 60 Tagen ab).
 3. `SITE_URL` in Vercel setzen, sobald die eigene Domain (fc-treptow.de) umzieht. Bis dahin gilt
    https://fct-website-refresh.vercel.app (Vorgabe in `astro.config.mjs`).
 
+   **Hauptadresse ist `https://www.fc-treptow.de` (mit www).** Google, Wikipedia und alle alten
+   Links kennen den Verein unter www; so ändert sich beim Umzug nur der Inhalt, nicht die Adresse.
+   Also: `SITE_URL=https://www.fc-treptow.de` (ohne Schrägstrich am Ende) für Production in
+   Vercel, beide Domains in Vercel eintragen und `fc-treptow.de` dort per 308/301 auf
+   `www.fc-treptow.de` umleiten. `SITE_URL` bestimmt Canonical, hreflang, Sitemap, robots.txt,
+   llms.txt und die strukturierten Daten; steht dort etwas Falsches, zeigen alle Seiten auf die
+   falsche Domain. Nach dem Umzug auch `fct-website-refresh.vercel.app` auf die Domain umleiten.
+
 Laufend:
 
 - Fanshop-Auswahl (Preise, Artikel) alle paar Monate mit dem Shop abgleichen (Stand September 2026).

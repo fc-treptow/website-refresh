@@ -42,6 +42,42 @@ try {
 const og = ogManifest[image.startsWith('/') ? image : `/${image}`];
 const ogImage = abs(og?.src ?? image);
 
+// Seitentitel: Titel, die den Vereinsnamen schon enthalten (Startseite, Seiten mit Suchbegriffen
+// wie "Probetraining Herrenfußball Berlin | FC Treptow"), bleiben wie sie sind; alle anderen
+// bekommen " | FC Treptow e.V." angehängt.
+const fullTitle = title.includes('FC Treptow') ? title : `${title} | FC Treptow e.V.`;
+
+// Strukturierte Daten für Suchmaschinen und KI-Assistenten (schema.org SportsOrganization), auf
+// jeder Seite gleich. Quelle sind die Stammdaten in src/data/club.ts.
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsOrganization',
+  '@id': abs('/#verein'),
+  name: club.name,
+  legalName: club.legalName,
+  alternateName: ['FC Treptow', 'Fußball Club Treptow', 'FCT'],
+  url: abs('/'),
+  logo: abs('/images/crest.png'),
+  foundingDate: String(club.founded),
+  sport: 'Soccer',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: club.ground.street,
+    postalCode: club.ground.city.split(' ')[0],
+    addressLocality: 'Berlin',
+    addressRegion: 'Berlin',
+    addressCountry: 'DE',
+  },
+  location: {
+    '@type': 'SportsActivityLocation',
+    name: club.ground.name,
+    address: `${club.ground.street}, ${club.ground.city}`,
+  },
+  areaServed: 'Berlin-Treptow-Köpenick',
+  memberOf: { '@type': 'SportsOrganization', name: 'Berliner Fußball-Verband', url: 'https://www.berliner-fussball.de/' },
+  sameAs: [club.wikipediaUrl, club.fussballDeClubUrl, club.social.instagram, club.social.youtube].filter(Boolean),
+};
+
 const isActive = (href: string) => (href === '/' ? bare === '/' : bare === href || bare.startsWith(`${href}/`));
 
 const desktopNav = [
@@ -92,7 +128,7 @@ const socials = [
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/images/crest.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <title>{title === 'FC Treptow e.V.' ? title : `${title} | FC Treptow e.V.`}</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {noindex ? (
       <meta name="robots" content="noindex" />
@@ -125,6 +161,7 @@ const socials = [
     {type === 'article' && section && <meta property="article:section" content={section} />}
     <meta name="twitter:card" content="summary_large_image" />
     {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
     <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
   </head>
   <body class="grain flex min-h-[100dvh] flex-col">
