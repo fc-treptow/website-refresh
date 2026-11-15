@@ -41,8 +41,8 @@ local_backend: true
 
 # Deutsche Oberfläche
 locale: de
-site_url: https://fct-website-refresh.vercel.app
-display_url: https://fct-website-refresh.vercel.app
+site_url: https://www.fc-treptow.de
+display_url: https://www.fc-treptow.de
 logo_url: /images/crest.png
 
 # Fotos landen hier
