@@ -40,12 +40,12 @@
     },
     {
       "source": "/Mannschaften/kopie-2-herren",
-      "destination": "/mannschaften",
+      "destination": "/mannschaften/herren-3",
       "permanent": true
     },
     {
       "source": "/mannschaften/kopie-2-herren",
-      "destination": "/mannschaften",
+      "destination": "/mannschaften/herren-3",
       "permanent": true
     },
     {
@@ -190,7 +190,7 @@
     },
     {
       "source": "/en-gb/mannschaften/kopie-2-herren",
-      "destination": "/en/mannschaften",
+      "destination": "/en/mannschaften/herren-3",
       "permanent": true
     },
     {
@@ -375,7 +375,7 @@
     },
     {
       "source": "/en-ca/mannschaften/kopie-2-herren",
-      "destination": "/en/mannschaften",
+      "destination": "/en/mannschaften/herren-3",
       "permanent": true
     },
     {
@@ -560,7 +560,7 @@
     },
     {
       "source": "/es-ar/mannschaften/kopie-2-herren",
-      "destination": "/es/mannschaften",
+      "destination": "/es/mannschaften/herren-3",
       "permanent": true
     },
     {
@@ -721,6 +721,86 @@
     {
       "source": "/es-ar/:path*",
       "destination": "/es",
+      "permanent": true
+    },
+    {
+      "source": "/Kontakt",
+      "destination": "/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/News",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/Impressum",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/Datenschutz",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/Mannschaften",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/Schiedsrichter",
+      "destination": "/schiedsrichter",
+      "permanent": true
+    },
+    {
+      "source": "/Sponsoren",
+      "destination": "/sponsoren",
+      "permanent": true
+    },
+    {
+      "source": "/Probetraining",
+      "destination": "/probetraining",
+      "permanent": true
+    },
+    {
+      "source": "/Mitgliedschaft",
+      "destination": "/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/Downloads",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/Vereinschronik",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/Shop",
+      "destination": "/shop",
+      "permanent": true
+    },
+    {
+      "source": "/Fanshop",
+      "destination": "/shop",
+      "permanent": true
+    },
+    {
+      "source": "/fanshop",
+      "destination": "/shop",
+      "permanent": true
+    },
+    {
+      "source": "/Mannschaften/:path*",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/News/:path*",
+      "destination": "/news",
       "permanent": true
     }
   ]
