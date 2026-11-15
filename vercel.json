@@ -3,6 +3,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "fct-website-refresh.vercel.app"
+        }
+      ],
+      "destination": "https://www.fc-treptow.de/:path*",
+      "permanent": true
+    },
+    {
       "source": "/Vorstand",
       "destination": "/vorstand",
       "permanent": true
