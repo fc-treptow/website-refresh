@@ -5,7 +5,7 @@ export const pages = {
   mitgliedschaft: {
     de: {
       passiv: 'Passive Mitglieder', passivDetail: 'Für alle, die den Verein unterstützen, ohne zu spielen.', aufnahme: 'Einmalig {joiningFee} € Aufnahmegebühr, die an den Berliner Fußball-Verband geht. Beiträge sind bis zum 15. des Monats fällig. Kündigen geht schriftlich mit drei Monaten Frist zum Halbjahres- oder Jahresende.', beitragsordnungLabel: 'Beitragsordnung', schiri: 'Schiedsrichter', schiriDetail: 'Wer aktiv für den FC Treptow pfeift, zahlt keinen Beitrag.', schiriLink: 'Schiedsrichter werden',
-      metaTitle: 'Mitgliedschaft', metaDesc: 'Mitglied werden beim FC Treptow e.V.: Beiträge, Probetraining und Anmeldung.',
+      metaTitle: 'Mitspielen & Mitglied werden | FC Treptow Berlin', metaDesc: 'Mitglied werden beim Fußballverein FC Treptow in Berlin-Baumschulenweg: Probetraining, Beiträge und Anmeldung.',
       h1: 'Mitglied werden', intro: 'Vom ersten Probetraining bis zur Spielberechtigung in drei Schritten.',
       steps: [
         { title: 'Probetraining vereinbaren', text: 'Am liebsten kurz das Formular ausfüllen. Du kannst aber auch am {daysOr} direkt vorbeikommen. Das Probetraining ist kostenlos.', linkLabel: 'Zum Probetraining' },
@@ -19,7 +19,7 @@ export const pages = {
     },
     en: {
       passiv: 'Supporting members', passivDetail: 'For everyone who backs the club without playing.', aufnahme: 'A one-off €{joiningFee} joining fee, passed on to the Berlin Football Association. Fees are due by the 15th of each month. You can cancel in writing with three months’ notice to the end of the half-year or year.', beitragsordnungLabel: 'Fee regulations', schiri: 'Referees', schiriDetail: 'Anyone actively refereeing for FC Treptow pays no fee.', schiriLink: 'Become a referee',
-      metaTitle: 'Membership', metaDesc: 'Become a member of FC Treptow e.V.: fees, trial training and registration.',
+      metaTitle: 'Join an Amateur Football Club in Berlin | FC Treptow', metaDesc: 'Become a member of FC Treptow, a football club in Berlin-Baumschulenweg: trial training, fees and registration.',
       h1: 'Become a member', intro: 'From your first trial session to full playing eligibility in three steps.',
       steps: [
         { title: 'Arrange a trial session', text: 'Ideally, fill in the short form. You can also just come along on a {daysOr}. Trial training is free.', linkLabel: 'To trial training' },
@@ -33,7 +33,7 @@ export const pages = {
     },
     tr: {
       passiv: 'Destekçi üyeler', passivDetail: 'Oynamadan kulübü desteklemek isteyen herkes için.', aufnahme: 'Bir kereye mahsus {joiningFee} € giriş ücreti, Berlin Futbol Federasyonu’na aktarılır. Aidatlar her ayın 15’ine kadar ödenir. Üyelik, yarıyıl veya yıl sonuna üç ay önceden yazılı olarak feshedilebilir.', beitragsordnungLabel: 'Aidat yönetmeliği', schiri: 'Hakemler', schiriDetail: 'FC Treptow için aktif hakemlik yapanlar aidat ödemez.', schiriLink: 'Hakem ol',
-      metaTitle: 'Üyelik', metaDesc: 'FC Treptow e.V.’ye üye ol: aidatlar, deneme antrenmanı ve kayıt.',
+      metaTitle: 'Berlin’de Futbol Kulübüne Üye Ol | FC Treptow', metaDesc: 'Berlin-Baumschulenweg’de futbol kulübü FC Treptow’a üye ol: deneme antrenmanı, aidatlar ve kayıt.',
       h1: 'Üye ol', intro: 'İlk deneme antrenmanından oyuncu lisansına üç adımda.',
       steps: [
         { title: 'Deneme antrenmanı ayarla', text: 'En iyisi kısa formu doldur. İstersen {daysOr} günü doğrudan da gelebilirsin. Deneme antrenmanı ücretsizdir.', linkLabel: 'Deneme antrenmanına git' },
@@ -47,7 +47,7 @@ export const pages = {
     },
     ar: {
       passiv: 'أعضاء داعمون', passivDetail: 'لكل من يدعم النادي دون أن يلعب.', aufnahme: 'رسوم انتساب لمرة واحدة بقيمة {joiningFee} يورو تُحوَّل إلى اتحاد برلين لكرة القدم. تُستحق الاشتراكات حتى اليوم 15 من كل شهر. يمكن إنهاء العضوية كتابيًا بإشعار مدته ثلاثة أشهر قبل نهاية نصف السنة أو السنة.', beitragsordnungLabel: 'لائحة الاشتراكات', schiri: 'الحكام', schiriDetail: 'من يمارس التحكيم بنشاط لصالح إف سي تريبتاو لا يدفع رسوماً.', schiriLink: 'كن حكماً',
-      metaTitle: 'العضوية', metaDesc: 'انضم إلى نادي إف سي تريبتاو: الرسوم والتدريب التجريبي والتسجيل.',
+      metaTitle: 'انضم إلى نادي كرة قدم للهواة في برلين | FC Treptow', metaDesc: 'انضم إلى نادي إف سي تريبتاو لكرة القدم في برلين-باومشولنفيغ: التدريب التجريبي والرسوم والتسجيل.',
       h1: 'انضم إلينا', intro: 'من أول تدريب تجريبي إلى أهلية اللعب الكاملة في ثلاث خطوات.',
       steps: [
         { title: 'حدد موعد تدريب تجريبي', text: 'يُفضَّل أن تملأ النموذج القصير، ويمكنك أيضًا الحضور مباشرة يوم {daysOr}. التدريب التجريبي مجاني.', linkLabel: 'إلى التدريب التجريبي' },
@@ -61,7 +61,7 @@ export const pages = {
     },
     es: {
       passiv: 'Socios de apoyo', passivDetail: 'Para quienes apoyan al club sin jugar.', aufnahme: 'Cuota de alta única de {joiningFee} €, que se transfiere a la Federación de Fútbol de Berlín. Las cuotas vencen el día 15 de cada mes. La baja se comunica por escrito con tres meses de antelación al final del semestre o del año.', beitragsordnungLabel: 'Reglamento de cuotas', schiri: 'Árbitros', schiriDetail: 'Quien arbitra en activo para el FC Treptow no paga cuota.', schiriLink: 'Hazte árbitro',
-      metaTitle: 'Membresía', metaDesc: 'Hazte socio del FC Treptow e.V.: cuotas, entrenamiento de prueba e inscripción.',
+      metaTitle: 'Únete a un club de fútbol amateur en Berlín | FC Treptow', metaDesc: 'Hazte socio del FC Treptow, club de fútbol de Berlín-Baumschulenweg: entrenamiento de prueba, cuotas e inscripción.',
       h1: 'Hazte socio', intro: 'Desde tu primer entrenamiento de prueba hasta la ficha federativa en tres pasos.',
       steps: [
         { title: 'Concierta un entrenamiento de prueba', text: 'Lo ideal es rellenar el breve formulario, aunque también puedes venir directamente un {daysOr}. El entrenamiento de prueba es gratuito.', linkLabel: 'Ir al entrenamiento de prueba' },
@@ -75,7 +75,7 @@ export const pages = {
     },
     fr: {
       passiv: 'Membres de soutien', passivDetail: 'Pour celles et ceux qui soutiennent le club sans jouer.', aufnahme: 'Frais d’adhésion uniques de {joiningFee} €, reversés à la Fédération de football de Berlin. Les cotisations sont dues avant le 15 de chaque mois. La résiliation se fait par écrit avec un préavis de trois mois avant la fin du semestre ou de l’année.', beitragsordnungLabel: 'Règlement des cotisations', schiri: 'Arbitres', schiriDetail: 'Qui arbitre activement pour le FC Treptow ne paie pas de cotisation.', schiriLink: 'Devenir arbitre',
-      metaTitle: 'Adhésion', metaDesc: 'Devenez membre du FC Treptow e.V. : cotisations, séance d’essai et inscription.',
+      metaTitle: 'Rejoindre un club de foot amateur à Berlin | FC Treptow', metaDesc: 'Devenez membre du FC Treptow, club de football de Berlin-Baumschulenweg : séance d’essai, cotisations et inscription.',
       h1: 'Devenir membre', intro: 'De la première séance d’essai à la qualification en trois étapes.',
       steps: [
         { title: 'Organiser une séance d’essai', text: 'Idéalement, remplissez le court formulaire. Vous pouvez aussi venir directement un {daysOr}. La séance d’essai est gratuite.', linkLabel: 'Vers la séance d’essai' },
@@ -92,7 +92,7 @@ export const pages = {
   kontakt: {
     de: {
       anreise: 'Anreise', sbahn: 'S-Bahnhof Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Parken auf dem Mittelstreifen der Köpenicker Landstraße. Auf dem Vereinsgelände ist Parken nicht erlaubt.', telefon: 'Telefon', vorstandLink: 'Ansprechpersonen im Vorstand',
-      metaTitle: 'Kontakt', metaDesc: 'Kontakt und Anfahrt: FC Treptow e.V., Willi-Sänger-Sportanlage, Köpenicker Landstraße 186, 12437 Berlin.',
+      metaTitle: 'Kontakt & Anfahrt Willi-Sänger-Sportanlage | FC Treptow', metaDesc: 'Kontakt und Anfahrt: FC Treptow e.V., Willi-Sänger-Sportanlage, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Kontakt', intro: 'Am liebsten schreibst du uns vorher kurz. Du kannst aber auch an einem Trainingstag vorbeikommen.',
       heading: 'So erreichst du uns', email: 'E-Mail', sportanlage: 'Sportanlage', training: 'Training',
       trainingTimes: '{days}, {from} bis {to} Uhr', routeCta: 'Route planen',
@@ -100,7 +100,7 @@ export const pages = {
     },
     en: {
       anreise: 'Getting here', sbahn: 'S-Bahn station Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Park on the central reservation of Köpenicker Landstraße. Parking on the club grounds is not allowed.', telefon: 'Phone', vorstandLink: 'Board contacts',
-      metaTitle: 'Contact', metaDesc: 'Contact and directions: FC Treptow e.V., Willi-Sänger sports ground, Köpenicker Landstraße 186, 12437 Berlin.',
+      metaTitle: 'Contact & Directions, Willi-Sänger Ground | FC Treptow', metaDesc: 'Contact and directions: FC Treptow e.V., Willi-Sänger sports ground, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Ideally, write to us first. You can also just drop by on a training day.',
       heading: 'How to reach us', email: 'Email', sportanlage: 'Sports ground', training: 'Training',
       trainingTimes: '{days}, {from} to {to}', routeCta: 'Get directions',
@@ -108,7 +108,7 @@ export const pages = {
     },
     tr: {
       anreise: 'Ulaşım', sbahn: 'Baumschulenweg S-Bahn istasyonu (S45, S46, S47, S8, S85, S9)', bus: '165 numaralı otobüs', parken: 'Köpenicker Landstraße’nin orta şeridine park edebilirsin. Kulüp alanına park etmek yasaktır.', telefon: 'Telefon', vorstandLink: 'Yönetimdeki kişiler',
-      metaTitle: 'İletişim', metaDesc: 'İletişim ve yol tarifi: FC Treptow e.V., Willi-Sänger Spor Tesisi, Köpenicker Landstraße 186, 12437 Berlin.',
+      metaTitle: 'İletişim ve Ulaşım, Willi-Sänger Tesisi | FC Treptow', metaDesc: 'İletişim ve yol tarifi: FC Treptow e.V., Willi-Sänger Spor Tesisi, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'İletişim', intro: 'En iyisi önceden bize yaz. İstersen bir antrenman günü doğrudan da uğrayabilirsin.',
       heading: 'Bize şu şekilde ulaşabilirsin', email: 'E-posta', sportanlage: 'Spor tesisi', training: 'Antrenman',
       trainingTimes: '{days}, {from}-{to}', routeCta: 'Yol tarifi al',
@@ -116,7 +116,7 @@ export const pages = {
     },
     ar: {
       anreise: 'الوصول', sbahn: 'محطة S-Bahn باومشولنفيغ (S45، S46، S47، S8، S85، S9)', bus: 'الحافلة 165', parken: 'الوقوف على الجزيرة الوسطى لشارع كوبينيكر لاندشتراسه. الوقوف داخل أرض النادي غير مسموح.', telefon: 'الهاتف', vorstandLink: 'جهات الاتصال في مجلس الإدارة',
-      metaTitle: 'اتصل بنا', metaDesc: 'التواصل والاتجاهات: نادي إف سي تريبتاو، منشأة فيلي زانغر الرياضية، Köpenicker Landstraße 186، 12437 برلين.',
+      metaTitle: 'التواصل والوصول إلى منشأة فيلي زانغر | FC Treptow', metaDesc: 'التواصل والاتجاهات: نادي إف سي تريبتاو، منشأة فيلي زانغر الرياضية، Köpenicker Landstraße 186، 12437 برلين.',
       h1: 'اتصل بنا', intro: 'يُفضَّل أن تراسلنا مسبقًا، ويمكنك أيضًا الحضور في أحد أيام التدريب.',
       heading: 'كيف تصل إلينا', email: 'البريد الإلكتروني', sportanlage: 'المنشأة الرياضية', training: 'التدريب',
       trainingTimes: '{days}، {from} حتى {to}', routeCta: 'احصل على الاتجاهات',
@@ -124,7 +124,7 @@ export const pages = {
     },
     es: {
       anreise: 'Cómo llegar', sbahn: 'Estación de S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Autobús 165', parken: 'Aparca en la mediana de la Köpenicker Landstraße. No está permitido aparcar en el recinto del club.', telefon: 'Teléfono', vorstandLink: 'Contactos de la junta directiva',
-      metaTitle: 'Contacto', metaDesc: 'Contacto y cómo llegar: FC Treptow e.V., instalación deportiva Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlín.',
+      metaTitle: 'Contacto y cómo llegar al Willi-Sänger | FC Treptow', metaDesc: 'Contacto y cómo llegar: FC Treptow e.V., instalación deportiva Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlín.',
       h1: 'Contacto', intro: 'Lo ideal es que nos escribas antes, aunque también puedes pasarte cualquier día de entrenamiento.',
       heading: 'Cómo contactarnos', email: 'Correo electrónico', sportanlage: 'Instalación deportiva', training: 'Entrenamiento',
       trainingTimes: '{days}, de {from} a {to}', routeCta: 'Ver cómo llegar',
@@ -132,7 +132,7 @@ export const pages = {
     },
     fr: {
       anreise: 'Accès', sbahn: 'Gare S-Bahn Baumschulenweg (S45, S46, S47, S8, S85, S9)', bus: 'Bus 165', parken: 'Stationnement sur le terre-plein central de la Köpenicker Landstraße. Le stationnement sur le terrain du club est interdit.', telefon: 'Téléphone', vorstandLink: 'Contacts du comité directeur',
-      metaTitle: 'Contact', metaDesc: 'Contact et itinéraire : FC Treptow e.V., complexe sportif Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlin.',
+      metaTitle: 'Contact et accès, complexe Willi-Sänger | FC Treptow', metaDesc: 'Contact et itinéraire : FC Treptow e.V., complexe sportif Willi-Sänger, Köpenicker Landstraße 186, 12437 Berlin.',
       h1: 'Contact', intro: 'Idéalement, écrivez-nous avant. Vous pouvez aussi passer un jour d’entraînement.',
       heading: 'Comment nous joindre', email: 'E-mail', sportanlage: 'Complexe sportif', training: 'Entraînement',
       trainingTimes: '{days}, de {from} à {to}', routeCta: 'Voir l’itinéraire',
@@ -445,7 +445,7 @@ export const pages = {
 
   probetraining: {
     de: {
-      metaTitle: 'Probetraining', metaDesc: 'Kostenloses Probetraining beim FC Treptow e.V. vereinbaren.',
+      metaTitle: 'Probetraining Herrenfußball Berlin | FC Treptow', metaDesc: 'Kostenloses Probetraining beim FC Treptow in Berlin-Baumschulenweg (Treptow-Köpenick), auf dem Kunstrasen der Willi-Sänger-Sportanlage. Kurz anmelden, mittrainieren, der Trainer gibt dir Rückmeldung.',
       h1: 'Probetraining', intro: 'Kostenlos und unverbindlich. Wir melden uns innerhalb weniger Tage mit einem Termin bei dir.',
       name: 'Name', age: 'Alter', email: 'E-Mail', phone: 'Telefon', optional: '(optional)',
       team: 'Wunsch-Team', teamAny: 'Egal, schlagt mir ein Team vor',
@@ -464,7 +464,7 @@ export const pages = {
       regLinkLabel: 'Mitgliedsantrag in easyVerein',
     },
     en: {
-      metaTitle: 'Trial training', metaDesc: 'Arrange a free trial session at FC Treptow e.V.',
+      metaTitle: 'Men’s Football Trial Training Berlin | FC Treptow', metaDesc: 'Free trial training at FC Treptow in Berlin-Baumschulenweg (Treptow-Köpenick), on the artificial pitch at the Willi-Sänger sports ground. Sign up, train with us, the coach gives you feedback.',
       h1: 'Trial training', intro: 'Free and no obligation. We’ll get back to you within a few days with a date.',
       name: 'Name', age: 'Age', email: 'Email', phone: 'Phone', optional: '(optional)',
       team: 'Preferred team', teamAny: 'No preference, suggest a team',
@@ -483,7 +483,7 @@ export const pages = {
       regLinkLabel: 'membership application in easyVerein',
     },
     tr: {
-      metaTitle: 'Deneme antrenmanı', metaDesc: 'FC Treptow e.V.’de ücretsiz deneme antrenmanı ayarla.',
+      metaTitle: 'Berlin’de Futbol Deneme Antrenmanı | FC Treptow', metaDesc: 'Berlin-Baumschulenweg’de (Treptow-Köpenick) FC Treptow’da ücretsiz deneme antrenmanı, Willi-Sänger spor tesisinin suni çim sahasında. Kayıt ol, antrenmana katıl, antrenör sana geri bildirim verir.',
       h1: 'Deneme antrenmanı', intro: 'Ücretsiz ve taahhütsüz. Birkaç gün içinde bir tarihle sana dönüş yaparız.',
       name: 'Ad', age: 'Yaş', email: 'E-posta', phone: 'Telefon', optional: '(isteğe bağlı)',
       team: 'Tercih edilen takım', teamAny: 'Fark etmez, bana bir takım önerin',
@@ -502,7 +502,7 @@ export const pages = {
       regLinkLabel: 'easyVerein’de üyelik başvurusu',
     },
     ar: {
-      metaTitle: 'التدريب التجريبي', metaDesc: 'حدد موعد تدريب تجريبي مجاني في نادي إف سي تريبتاو.',
+      metaTitle: 'تدريب تجريبي لكرة القدم للرجال في برلين | FC Treptow', metaDesc: 'تدريب تجريبي مجاني في نادي إف سي تريبتاو في برلين-باومشولنفيغ (تريبتو-كوبينيك)، على الملعب الصناعي في منشأة فيلي زانغر الرياضية. سجّل، تدرّب معنا، ويعطيك المدرب رأيه.',
       h1: 'التدريب التجريبي', intro: 'مجاني وبدون التزام. سنتواصل معك خلال أيام قليلة بموعد محدد.',
       name: 'الاسم', age: 'العمر', email: 'البريد الإلكتروني', phone: 'الهاتف', optional: '(اختياري)',
       team: 'الفريق المفضل', teamAny: 'لا يهم، اقترحوا عليّ فريقًا',
@@ -521,7 +521,7 @@ export const pages = {
       regLinkLabel: 'طلب العضوية على easyVerein',
     },
     es: {
-      metaTitle: 'Entrenamiento de prueba', metaDesc: 'Concierta un entrenamiento de prueba gratuito en el FC Treptow e.V.',
+      metaTitle: 'Prueba de fútbol masculino en Berlín | FC Treptow', metaDesc: 'Entrenamiento de prueba gratuito en el FC Treptow, en Berlín-Baumschulenweg (Treptow-Köpenick), en el césped artificial de la instalación Willi-Sänger. Apúntate, entrena con nosotros y el entrenador te da su opinión.',
       h1: 'Entrenamiento de prueba', intro: 'Gratuito y sin compromiso. Te contactaremos en pocos días con una fecha.',
       name: 'Nombre', age: 'Edad', email: 'Correo electrónico', phone: 'Teléfono', optional: '(opcional)',
       team: 'Equipo preferido', teamAny: 'Da igual, proponedme un equipo',
@@ -540,7 +540,7 @@ export const pages = {
       regLinkLabel: 'solicitud de socio en easyVerein',
     },
     fr: {
-      metaTitle: 'Séance d’essai', metaDesc: 'Organisez une séance d’essai gratuite au FC Treptow e.V.',
+      metaTitle: 'Séance d’essai football masculin Berlin | FC Treptow', metaDesc: 'Séance d’essai gratuite au FC Treptow à Berlin-Baumschulenweg (Treptow-Köpenick), sur le synthétique du complexe Willi-Sänger. Inscris-toi, entraîne-toi avec nous, l’entraîneur te fait un retour.',
       h1: 'Séance d’essai', intro: 'Gratuit et sans engagement. Nous vous recontactons sous quelques jours avec une date.',
       name: 'Nom', age: 'Âge', email: 'E-mail', phone: 'Téléphone', optional: '(facultatif)',
       team: 'Équipe souhaitée', teamAny: 'Peu importe, proposez-moi une équipe',
@@ -561,12 +561,12 @@ export const pages = {
   },
 
   mannschaftenIndex: {
-    de: { metaTitle: 'Mannschaften', metaDesc: 'Alle Teams des FC Treptow e.V.: {men} und die {hobby}.', h1: 'Mannschaften', intro: '{men} im Punktspielbetrieb und die {hobby}. Alle trainieren auf der Willi-Sänger-Sportanlage.', trainingLabel: 'Training', und: 'und' },
-    en: { metaTitle: 'Teams', metaDesc: 'All FC Treptow e.V. teams: {men} and the {hobby}.', h1: 'Teams', intro: '{men} in league play, plus the {hobby}. All train at the Willi-Sänger sports ground.', trainingLabel: 'Training', und: 'and' },
-    tr: { metaTitle: 'Takımlar', metaDesc: 'FC Treptow e.V.’nin tüm takımları: {men} ve {hobby}.', h1: 'Takımlar', intro: 'Lig maçlarında {men} ve {hobby}. Hepsi Willi-Sänger spor tesisinde antrenman yapıyor.', trainingLabel: 'Antrenman', und: 've' },
-    ar: { metaTitle: 'الفرق', metaDesc: 'جميع فرق نادي إف سي تريبتاو: {men} و {hobby}.', h1: 'الفرق', intro: '{men} في مباريات الدوري، بالإضافة إلى {hobby}. جميعها تتدرب في منشأة فيلي زانغر الرياضية.', trainingLabel: 'التدريب', und: 'و' },
-    es: { metaTitle: 'Equipos', metaDesc: 'Todos los equipos del FC Treptow e.V.: {men} y los {hobby}.', h1: 'Equipos', intro: '{men} en competición de liga, más los {hobby}. Todos entrenan en la instalación deportiva Willi-Sänger.', trainingLabel: 'Entrenamiento', und: 'y' },
-    fr: { metaTitle: 'Équipes', metaDesc: 'Toutes les équipes du FC Treptow e.V. : {men} et les {hobby}.', h1: 'Équipes', intro: '{men} en championnat, plus les {hobby}. Toutes s’entraînent au complexe sportif Willi-Sänger.', trainingLabel: 'Entraînement', und: 'et' },
+    de: { metaTitle: 'Herrenmannschaften Treptow-Köpenick | FC Treptow', metaDesc: 'Alle Teams des FC Treptow aus Berlin-Baumschulenweg: {men} und die {hobby}.', h1: 'Mannschaften', intro: '{men} im Punktspielbetrieb und die {hobby}. Alle trainieren auf der Willi-Sänger-Sportanlage.', trainingLabel: 'Training', und: 'und' },
+    en: { metaTitle: 'Men’s Football Teams Treptow-Köpenick | FC Treptow', metaDesc: 'All teams of FC Treptow from Berlin-Baumschulenweg: {men} and the {hobby}.', h1: 'Teams', intro: '{men} in league play, plus the {hobby}. All train at the Willi-Sänger sports ground.', trainingLabel: 'Training', und: 'and' },
+    tr: { metaTitle: 'Treptow-Köpenick Erkek Futbol Takımları | FC Treptow', metaDesc: 'Berlin-Baumschulenweg’den FC Treptow’un tüm takımları: {men} ve {hobby}.', h1: 'Takımlar', intro: 'Lig maçlarında {men} ve {hobby}. Hepsi Willi-Sänger spor tesisinde antrenman yapıyor.', trainingLabel: 'Antrenman', und: 've' },
+    ar: { metaTitle: 'فرق كرة القدم للرجال في تريبتو-كوبينيك | FC Treptow', metaDesc: 'جميع فرق نادي إف سي تريبتاو من برلين-باومشولنفيغ: {men} و {hobby}.', h1: 'الفرق', intro: '{men} في مباريات الدوري، بالإضافة إلى {hobby}. جميعها تتدرب في منشأة فيلي زانغر الرياضية.', trainingLabel: 'التدريب', und: 'و' },
+    es: { metaTitle: 'Equipos de fútbol masculino Treptow-Köpenick | FC Treptow', metaDesc: 'Todos los equipos del FC Treptow de Berlín-Baumschulenweg: {men} y los {hobby}.', h1: 'Equipos', intro: '{men} en competición de liga, más los {hobby}. Todos entrenan en la instalación deportiva Willi-Sänger.', trainingLabel: 'Entrenamiento', und: 'y' },
+    fr: { metaTitle: 'Équipes de football masculin Treptow-Köpenick | FC Treptow', metaDesc: 'Toutes les équipes du FC Treptow de Berlin-Baumschulenweg : {men} et les {hobby}.', h1: 'Équipes', intro: '{men} en championnat, plus les {hobby}. Toutes s’entraînent au complexe sportif Willi-Sänger.', trainingLabel: 'Entraînement', und: 'et' },
   },
 
   teamDetail: {
@@ -646,12 +646,12 @@ export const pages = {
   },
 
   schiedsrichter: {
-    de: { metaTitle: 'Schiedsrichter', metaDesc: 'Die Schiedsrichter des FC Treptow e.V. und alles zum Einstieg: Voraussetzungen, Ausbildung beim BFV und Vorteile.', h1: 'Schiedsrichter', intro: 'Ohne Schiri kein Spiel. Unsere Schiedsrichter pfeifen jedes Wochenende auf Berlins Plätzen, und wir suchen Verstärkung.', leadLabel: 'Schiedsrichterobmann', teamHeading: 'Unser Team', becomeHeading: 'Schiedsrichter werden', becomeIntro: 'Jeder Verein muss dem Berliner Fußball-Verband genug Schiedsrichter stellen. Wer für den FC Treptow pfeift, hilft also direkt allen unseren Mannschaften.', points: [{ title: 'Voraussetzung', text: 'Du bist Mitglied im FC Treptow und kannst an jedem Wochenende mindestens einen Tag für Einsätze freihalten.' }, { title: 'Ausbildung', text: 'Den Lehrgang organisiert und leitet der Berliner Fußball-Verband. Die Kosten übernimmt der Verein.' }, { title: 'Vorteile', text: 'Aktive Schiedsrichter zahlen keinen Mitgliedsbeitrag. Mit dem Schiedsrichterausweis kommst du außerdem bei vielen Spielen kostenlos ins Stadion.' }], cta: 'Beim Obmann melden', mailSubject: 'Schiedsrichter werden', notMemberYet: 'Noch kein Mitglied?', membershipLink: 'So wirst du Mitglied' },
-    en: { metaTitle: 'Referees', metaDesc: 'The referees of FC Treptow e.V. and how to get started: requirements, training with the Berlin FA and benefits.', h1: 'Referees', intro: 'No referee, no match. Our referees officiate on Berlin’s pitches every weekend, and we’re looking for more.', leadLabel: 'Head of referees', teamHeading: 'Our team', becomeHeading: 'Become a referee', becomeIntro: 'Every club has to provide the Berlin Football Association with enough referees. So refereeing for FC Treptow directly helps all of our teams.', points: [{ title: 'Requirements', text: 'You’re a member of FC Treptow and can keep at least one day free for matches every weekend.' }, { title: 'Training', text: 'The course is organised and run by the Berlin Football Association. The club pays the fees.' }, { title: 'Benefits', text: 'Active referees pay no membership fee. Your referee pass also gets you into many matches for free.' }], cta: 'Contact the head of referees', mailSubject: 'Becoming a referee', notMemberYet: 'Not a member yet?', membershipLink: 'How to join' },
-    tr: { metaTitle: 'Hakemler', metaDesc: 'FC Treptow e.V. hakemleri ve başlamak için her şey: şartlar, Berlin Futbol Federasyonu’nda eğitim ve avantajlar.', h1: 'Hakemler', intro: 'Hakem yoksa maç da yok. Hakemlerimiz her hafta sonu Berlin sahalarında maç yönetiyor ve yeni hakemler arıyoruz.', leadLabel: 'Hakem sorumlusu', teamHeading: 'Ekibimiz', becomeHeading: 'Hakem ol', becomeIntro: 'Her kulüp, Berlin Futbol Federasyonu’na yeterli sayıda hakem sağlamak zorundadır. FC Treptow için hakemlik yapan herkes doğrudan tüm takımlarımıza yardım eder.', points: [{ title: 'Şartlar', text: 'FC Treptow üyesisin ve her hafta sonu en az bir günü maçlar için ayırabiliyorsun.' }, { title: 'Eğitim', text: 'Kursu Berlin Futbol Federasyonu düzenler ve yürütür. Ücretini kulüp karşılar.' }, { title: 'Avantajlar', text: 'Aktif hakemler üyelik aidatı ödemez. Hakem kartınla ayrıca birçok maça ücretsiz girersin.' }], cta: 'Hakem sorumlusuna yaz', mailSubject: 'Hakem olmak istiyorum', notMemberYet: 'Henüz üye değil misin?', membershipLink: 'Nasıl üye olunur' },
-    ar: { metaTitle: 'الحكام', metaDesc: 'حكام نادي إف سي تريبتاو وكل ما تحتاجه للبدء: الشروط والتدريب لدى اتحاد برلين لكرة القدم والمزايا.', h1: 'الحكام', intro: 'لا مباراة بدون حكم. يدير حكامنا المباريات في ملاعب برلين كل نهاية أسبوع، ونبحث عن المزيد.', leadLabel: 'مسؤول الحكام', teamHeading: 'فريقنا', becomeHeading: 'كن حكماً', becomeIntro: 'على كل نادٍ أن يوفّر لاتحاد برلين لكرة القدم عدداً كافياً من الحكام. لذلك فإن التحكيم لصالح إف سي تريبتاو يساعد جميع فرقنا مباشرة.', points: [{ title: 'الشروط', text: 'أن تكون عضواً في نادي إف سي تريبتاو وأن تتفرغ يوماً واحداً على الأقل في كل نهاية أسبوع للمباريات.' }, { title: 'التدريب', text: 'ينظّم اتحاد برلين لكرة القدم الدورة ويديرها، ويتحمّل النادي تكاليفها.' }, { title: 'المزايا', text: 'الحكام النشطون معفون من رسوم العضوية. كما تتيح لك بطاقة الحكم دخول كثير من المباريات مجاناً.' }], cta: 'تواصل مع مسؤول الحكام', mailSubject: 'أريد أن أصبح حكماً', notMemberYet: 'لست عضواً بعد؟', membershipLink: 'كيف تصبح عضواً' },
-    es: { metaTitle: 'Árbitros', metaDesc: 'Los árbitros del FC Treptow e.V. y cómo empezar: requisitos, formación con la federación de Berlín y ventajas.', h1: 'Árbitros', intro: 'Sin árbitro no hay partido. Nuestros árbitros pitan cada fin de semana en los campos de Berlín, y buscamos refuerzos.', leadLabel: 'Responsable de árbitros', teamHeading: 'Nuestro equipo', becomeHeading: 'Hazte árbitro', becomeIntro: 'Cada club tiene que aportar suficientes árbitros a la Federación de Fútbol de Berlín. Quien arbitra para el FC Treptow ayuda directamente a todos nuestros equipos.', points: [{ title: 'Requisitos', text: 'Eres socio del FC Treptow y puedes reservar al menos un día cada fin de semana para partidos.' }, { title: 'Formación', text: 'El curso lo organiza e imparte la Federación de Fútbol de Berlín. El club paga los costes.' }, { title: 'Ventajas', text: 'Los árbitros en activo no pagan cuota de socio. Con el carné de árbitro además entras gratis a muchos partidos.' }], cta: 'Escribir al responsable', mailSubject: 'Quiero ser árbitro', notMemberYet: '¿Aún no eres socio?', membershipLink: 'Cómo hacerte socio' },
-    fr: { metaTitle: 'Arbitres', metaDesc: 'Les arbitres du FC Treptow e.V. et comment commencer : conditions, formation auprès de la fédération berlinoise et avantages.', h1: 'Arbitres', intro: 'Pas d’arbitre, pas de match. Nos arbitres officient chaque week-end sur les terrains berlinois, et nous cherchons du renfort.', leadLabel: 'Responsable des arbitres', teamHeading: 'Notre équipe', becomeHeading: 'Devenir arbitre', becomeIntro: 'Chaque club doit fournir suffisamment d’arbitres à la Fédération de football de Berlin. Arbitrer pour le FC Treptow aide donc directement toutes nos équipes.', points: [{ title: 'Conditions', text: 'Tu es membre du FC Treptow et tu peux te libérer au moins un jour chaque week-end pour des matchs.' }, { title: 'Formation', text: 'La formation est organisée et assurée par la Fédération de football de Berlin. Le club prend les frais en charge.' }, { title: 'Avantages', text: 'Les arbitres actifs ne paient pas de cotisation. Ta carte d’arbitre te permet aussi d’assister gratuitement à de nombreux matchs.' }], cta: 'Écrire au responsable', mailSubject: 'Devenir arbitre', notMemberYet: 'Pas encore membre ?', membershipLink: 'Comment adhérer' },
+    de: { metaTitle: 'Schiedsrichter werden in Berlin | FC Treptow', metaDesc: 'Die Schiedsrichter des FC Treptow e.V. und alles zum Einstieg: Voraussetzungen, Ausbildung beim BFV und Vorteile.', h1: 'Schiedsrichter', intro: 'Ohne Schiri kein Spiel. Unsere Schiedsrichter pfeifen jedes Wochenende auf Berlins Plätzen, und wir suchen Verstärkung.', leadLabel: 'Schiedsrichterobmann', teamHeading: 'Unser Team', becomeHeading: 'Schiedsrichter werden', becomeIntro: 'Jeder Verein muss dem Berliner Fußball-Verband genug Schiedsrichter stellen. Wer für den FC Treptow pfeift, hilft also direkt allen unseren Mannschaften.', points: [{ title: 'Voraussetzung', text: 'Du bist Mitglied im FC Treptow und kannst an jedem Wochenende mindestens einen Tag für Einsätze freihalten.' }, { title: 'Ausbildung', text: 'Den Lehrgang organisiert und leitet der Berliner Fußball-Verband. Die Kosten übernimmt der Verein.' }, { title: 'Vorteile', text: 'Aktive Schiedsrichter zahlen keinen Mitgliedsbeitrag. Mit dem Schiedsrichterausweis kommst du außerdem bei vielen Spielen kostenlos ins Stadion.' }], cta: 'Beim Obmann melden', mailSubject: 'Schiedsrichter werden', notMemberYet: 'Noch kein Mitglied?', membershipLink: 'So wirst du Mitglied' },
+    en: { metaTitle: 'Become a Referee in Berlin | FC Treptow', metaDesc: 'The referees of FC Treptow e.V. and how to get started: requirements, training with the Berlin FA and benefits.', h1: 'Referees', intro: 'No referee, no match. Our referees officiate on Berlin’s pitches every weekend, and we’re looking for more.', leadLabel: 'Head of referees', teamHeading: 'Our team', becomeHeading: 'Become a referee', becomeIntro: 'Every club has to provide the Berlin Football Association with enough referees. So refereeing for FC Treptow directly helps all of our teams.', points: [{ title: 'Requirements', text: 'You’re a member of FC Treptow and can keep at least one day free for matches every weekend.' }, { title: 'Training', text: 'The course is organised and run by the Berlin Football Association. The club pays the fees.' }, { title: 'Benefits', text: 'Active referees pay no membership fee. Your referee pass also gets you into many matches for free.' }], cta: 'Contact the head of referees', mailSubject: 'Becoming a referee', notMemberYet: 'Not a member yet?', membershipLink: 'How to join' },
+    tr: { metaTitle: 'Berlin’de Hakem Ol | FC Treptow', metaDesc: 'FC Treptow e.V. hakemleri ve başlamak için her şey: şartlar, Berlin Futbol Federasyonu’nda eğitim ve avantajlar.', h1: 'Hakemler', intro: 'Hakem yoksa maç da yok. Hakemlerimiz her hafta sonu Berlin sahalarında maç yönetiyor ve yeni hakemler arıyoruz.', leadLabel: 'Hakem sorumlusu', teamHeading: 'Ekibimiz', becomeHeading: 'Hakem ol', becomeIntro: 'Her kulüp, Berlin Futbol Federasyonu’na yeterli sayıda hakem sağlamak zorundadır. FC Treptow için hakemlik yapan herkes doğrudan tüm takımlarımıza yardım eder.', points: [{ title: 'Şartlar', text: 'FC Treptow üyesisin ve her hafta sonu en az bir günü maçlar için ayırabiliyorsun.' }, { title: 'Eğitim', text: 'Kursu Berlin Futbol Federasyonu düzenler ve yürütür. Ücretini kulüp karşılar.' }, { title: 'Avantajlar', text: 'Aktif hakemler üyelik aidatı ödemez. Hakem kartınla ayrıca birçok maça ücretsiz girersin.' }], cta: 'Hakem sorumlusuna yaz', mailSubject: 'Hakem olmak istiyorum', notMemberYet: 'Henüz üye değil misin?', membershipLink: 'Nasıl üye olunur' },
+    ar: { metaTitle: 'كن حكمًا لكرة القدم في برلين | FC Treptow', metaDesc: 'حكام نادي إف سي تريبتاو وكل ما تحتاجه للبدء: الشروط والتدريب لدى اتحاد برلين لكرة القدم والمزايا.', h1: 'الحكام', intro: 'لا مباراة بدون حكم. يدير حكامنا المباريات في ملاعب برلين كل نهاية أسبوع، ونبحث عن المزيد.', leadLabel: 'مسؤول الحكام', teamHeading: 'فريقنا', becomeHeading: 'كن حكماً', becomeIntro: 'على كل نادٍ أن يوفّر لاتحاد برلين لكرة القدم عدداً كافياً من الحكام. لذلك فإن التحكيم لصالح إف سي تريبتاو يساعد جميع فرقنا مباشرة.', points: [{ title: 'الشروط', text: 'أن تكون عضواً في نادي إف سي تريبتاو وأن تتفرغ يوماً واحداً على الأقل في كل نهاية أسبوع للمباريات.' }, { title: 'التدريب', text: 'ينظّم اتحاد برلين لكرة القدم الدورة ويديرها، ويتحمّل النادي تكاليفها.' }, { title: 'المزايا', text: 'الحكام النشطون معفون من رسوم العضوية. كما تتيح لك بطاقة الحكم دخول كثير من المباريات مجاناً.' }], cta: 'تواصل مع مسؤول الحكام', mailSubject: 'أريد أن أصبح حكماً', notMemberYet: 'لست عضواً بعد؟', membershipLink: 'كيف تصبح عضواً' },
+    es: { metaTitle: 'Hazte árbitro en Berlín | FC Treptow', metaDesc: 'Los árbitros del FC Treptow e.V. y cómo empezar: requisitos, formación con la federación de Berlín y ventajas.', h1: 'Árbitros', intro: 'Sin árbitro no hay partido. Nuestros árbitros pitan cada fin de semana en los campos de Berlín, y buscamos refuerzos.', leadLabel: 'Responsable de árbitros', teamHeading: 'Nuestro equipo', becomeHeading: 'Hazte árbitro', becomeIntro: 'Cada club tiene que aportar suficientes árbitros a la Federación de Fútbol de Berlín. Quien arbitra para el FC Treptow ayuda directamente a todos nuestros equipos.', points: [{ title: 'Requisitos', text: 'Eres socio del FC Treptow y puedes reservar al menos un día cada fin de semana para partidos.' }, { title: 'Formación', text: 'El curso lo organiza e imparte la Federación de Fútbol de Berlín. El club paga los costes.' }, { title: 'Ventajas', text: 'Los árbitros en activo no pagan cuota de socio. Con el carné de árbitro además entras gratis a muchos partidos.' }], cta: 'Escribir al responsable', mailSubject: 'Quiero ser árbitro', notMemberYet: '¿Aún no eres socio?', membershipLink: 'Cómo hacerte socio' },
+    fr: { metaTitle: 'Devenir arbitre à Berlin | FC Treptow', metaDesc: 'Les arbitres du FC Treptow e.V. et comment commencer : conditions, formation auprès de la fédération berlinoise et avantages.', h1: 'Arbitres', intro: 'Pas d’arbitre, pas de match. Nos arbitres officient chaque week-end sur les terrains berlinois, et nous cherchons du renfort.', leadLabel: 'Responsable des arbitres', teamHeading: 'Notre équipe', becomeHeading: 'Devenir arbitre', becomeIntro: 'Chaque club doit fournir suffisamment d’arbitres à la Fédération de football de Berlin. Arbitrer pour le FC Treptow aide donc directement toutes nos équipes.', points: [{ title: 'Conditions', text: 'Tu es membre du FC Treptow et tu peux te libérer au moins un jour chaque week-end pour des matchs.' }, { title: 'Formation', text: 'La formation est organisée et assurée par la Fédération de football de Berlin. Le club prend les frais en charge.' }, { title: 'Avantages', text: 'Les arbitres actifs ne paient pas de cotisation. Ta carte d’arbitre te permet aussi d’assister gratuitement à de nombreux matchs.' }], cta: 'Écrire au responsable', mailSubject: 'Devenir arbitre', notMemberYet: 'Pas encore membre ?', membershipLink: 'Comment adhérer' },
   },
 
   shop: {

@@ -36,6 +36,9 @@ const de = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Seit 1925 im Kiez.', 'Entstanden als Werksverein.', 'Heute aus aller Welt.'],
   heroText: '{teams} und ein Vereinsheim an der Köpenicker Landstraße. Wer mitkicken will, meldet sich zum Probetraining.',
+  // Titel und Beschreibung der Startseite für Suchmaschinen: Sport und Ort gehören hinein.
+  homeTitle: 'FC Treptow – Fußballverein in Berlin-Baumschulenweg',
+  homeMetaDesc: 'Fußballverein aus Berlin-Baumschulenweg (Treptow-Köpenick), seit 1925. Herrenteams im Punktspielbetrieb, Freizeit Kickers und kostenloses Probetraining.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['ein Herrenteam', 'zwei Herrenteams', 'drei Herrenteams', 'vier Herrenteams', 'fünf Herrenteams', 'sechs Herrenteams', '{n} Herrenteams'], hobby: ['eine Freizeitmannschaft', 'zwei Freizeitmannschaften', 'drei Freizeitmannschaften', '{n} Freizeitmannschaften'], sep: ', ' },
@@ -134,6 +137,8 @@ const en: UI = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['In the neighbourhood since 1925.', 'Founded as a works club.', 'Today from all over the world.'],
   heroText: '{teams} and a clubhouse on Köpenicker Landstraße. If you want to play, sign up for a trial session.',
+  homeTitle: 'FC Treptow – Football Club in Berlin-Baumschulenweg',
+  homeMetaDesc: 'Football club from Berlin-Baumschulenweg (Treptow-Köpenick), since 1925. Men’s league teams, the Freizeit Kickers recreational side and free trial training.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['one men’s team', 'two men’s teams', 'three men’s teams', 'four men’s teams', 'five men’s teams', 'six men’s teams', '{n} men’s teams'], hobby: ['a recreational side', 'two recreational sides', 'three recreational sides', '{n} recreational sides'], sep: ', ' },
@@ -230,6 +235,8 @@ const tr: UI = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['1925’ten beri mahallede.', 'Bir fabrika kulübü olarak kurulduk.', 'Bugün dünyanın dört bir yanından.'],
   heroText: '{teams} ve Köpenicker Landstraße’de bir kulüp evi. Oynamak isteyen deneme antrenmanı için başvursun.',
+  homeTitle: 'FC Treptow – Berlin-Baumschulenweg’de Futbol Kulübü',
+  homeMetaDesc: '1925’ten beri Berlin-Baumschulenweg’in (Treptow-Köpenick) futbol kulübü. Ligde oynayan erkek takımları, Freizeit Kickers hobi takımı ve ücretsiz deneme antrenmanı.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['bir erkek takımı', 'iki erkek takımı', 'üç erkek takımı', 'dört erkek takımı', 'beş erkek takımı', 'altı erkek takımı', '{n} erkek takımı'], hobby: ['bir hobi takımı', 'iki hobi takımı', 'üç hobi takımı', '{n} hobi takımı'], sep: ', ' },
@@ -326,6 +333,8 @@ const ar: UI = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['في الحي منذ 1925.', 'تأسسنا كنادٍ لعمال مصنع.', 'واليوم من كل أنحاء العالم.'],
   heroText: '{teams} ومقر للنادي في شارع كوبينيكر لاندشتراسه. من يريد اللعب، يسجّل في تدريب تجريبي.',
+  homeTitle: 'FC Treptow – نادي كرة قدم في برلين-باومشولنفيغ',
+  homeMetaDesc: 'نادي كرة قدم من برلين-باومشولنفيغ (تريبتو-كوبينيك) منذ 1925. فرق رجال في الدوري، وفريق الهواة Freizeit Kickers، وتدريب تجريبي مجاني.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['فريق رجال واحد', 'فريقا رجال', 'ثلاثة فرق رجال', 'أربعة فرق رجال', 'خمسة فرق رجال', 'ستة فرق رجال', '{n} فرق رجال'], hobby: ['فريق ترفيهي', 'فريقان ترفيهيان', 'ثلاثة فرق ترفيهية', '{n} فرق ترفيهية'], sep: ' و' },
@@ -422,6 +431,8 @@ const es: UI = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['En el barrio desde 1925.', 'Nacimos como club de empresa.', 'Hoy, de todo el mundo.'],
   heroText: '{teams} y una sede en la Köpenicker Landstraße. Si quieres jugar, apúntate a un entrenamiento de prueba.',
+  homeTitle: 'FC Treptow – Club de fútbol en Berlín-Baumschulenweg',
+  homeMetaDesc: 'Club de fútbol de Berlín-Baumschulenweg (Treptow-Köpenick) desde 1925. Equipos masculinos en liga, el equipo recreativo Freizeit Kickers y entrenamiento de prueba gratuito.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['un equipo masculino', 'dos equipos masculinos', 'tres equipos masculinos', 'cuatro equipos masculinos', 'cinco equipos masculinos', 'seis equipos masculinos', '{n} equipos masculinos'], hobby: ['un equipo recreativo', 'dos equipos recreativos', 'tres equipos recreativos', '{n} equipos recreativos'], sep: ', ' },
@@ -518,6 +529,8 @@ const fr: UI = {
   heroEyebrow: 'Fußball Club Treptow e.V. · Baumschulenweg',
   heroLines: ['Dans le quartier depuis 1925.', 'Né club d’entreprise.', 'Aujourd’hui, du monde entier.'],
   heroText: '{teams} et un club-house sur la Köpenicker Landstraße. Pour jouer, inscris-toi à une séance d’essai.',
+  homeTitle: 'FC Treptow – Club de football à Berlin-Baumschulenweg',
+  homeMetaDesc: 'Club de football de Berlin-Baumschulenweg (Treptow-Köpenick) depuis 1925. Équipes masculines en championnat, l’équipe loisir Freizeit Kickers et séance d’essai gratuite.',
   // Zahl der Mannschaften in Worten für den Auftakt ({teams} im heroText), aus den Mannschaften im CMS.
   // Index 0 = eine, 1 = zwei …; der letzte Eintrag gilt für alle größeren Zahlen ({n} = Ziffer).
   teamWords: { men: ['une équipe masculine', 'deux équipes masculines', 'trois équipes masculines', 'quatre équipes masculines', 'cinq équipes masculines', 'six équipes masculines', '{n} équipes masculines'], hobby: ['une équipe loisir', 'deux équipes loisir', 'trois équipes loisir', '{n} équipes loisir'], sep: ', ' },

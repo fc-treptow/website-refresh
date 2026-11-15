@@ -15,6 +15,7 @@ import { leagueLabel, trainingLabel, type LocalizedTeam } from '../../i18n/conte
 import { buildFixtures, fixturesQuery } from '../../lib/fixturesBuild';
 import { getResults } from '../../lib/results';
 import { seasonList, leagueTable } from '../../lib/fixturesView';
+import { club } from '../../data/club';
 
 interface Props {
   team: LocalizedTeam;
@@ -34,8 +35,23 @@ const fixtures = await buildFixtures();
 const query = await fixturesQuery();
 const f = fixtures.teams[team.slug];
 const results = (await getResults(lang))[team.slug] ?? [];
+// Strukturierte Daten (schema.org SportsTeam), verknüpft mit dem Verein aus Base.astro
+const site = Astro.site ?? new URL(Astro.url.origin);
+const coaches = (d.staff ?? []).filter((s) => s.role === 'coach' || s.role === 'assistant');
+const teamJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsTeam',
+  name: d.name,
+  sport: 'Soccer',
+  gender: 'https://schema.org/Male',
+  url: new URL(Astro.url.pathname.replace(/\/$/, ''), site).href,
+  memberOf: { '@id': new URL('/#verein', site).href },
+  location: { '@type': 'SportsActivityLocation', name: club.ground.name, address: `${club.ground.street}, ${club.ground.city}` },
+  ...(coaches.length ? { coach: coaches.map((c) => ({ '@type': 'Person', name: c.name })) } : {}),
+};
 const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`;
 ---
+<script type="application/ld+json" set:html={JSON.stringify(teamJsonLd)} />
 <PageHeader title={d.name} kicker={t.back} kickerHref={l(lang, '/mannschaften')}>
   {/* Mannschaften mit eigener Identität zeigen ihr Wappen und verlinken ihre eigene Website. */}
   <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-5">

@@ -1,7 +1,7 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Sections from '../../../components/sections/TeamDetailSections.astro';
-import { getTeams, leagueLabel, trainingLabel } from '../../../i18n/content';
+import { getTeams, leagueLabel, teamTitle, trainingLabel } from '../../../i18n/content';
 
 export async function getStaticPaths() {
   const teams = await getTeams('en');
@@ -12,6 +12,6 @@ const { team } = Astro.props;
 const d = team.data;
 const description = [`${d.name}, ${leagueLabel(d.league, 'en')}`, ...d.training.map((s) => trainingLabel(s, 'en'))].join('. ');
 ---
-<Base title={d.name} description={description} image={d.image}>
+<Base title={teamTitle(d, 'en')} description={description} image={d.image}>
   <Sections team={team} />
 </Base>

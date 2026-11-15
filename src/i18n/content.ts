@@ -93,6 +93,15 @@ export function leagueLabel(league: string, lang: Locale) {
   return staffel ? `${base}, ${w.staffel} ${staffel}` : base;
 }
 
+// Seitentitel einer Mannschaft mit Liga und Ort, z. B. "Herren I – Kreisliga B Berlin | FC Treptow".
+// Die Staffel bleibt draußen, sie ändert sich jede Saison und sucht niemand.
+export function teamTitle(team: { shortName?: string | null; name: string; league: string }, lang: Locale) {
+  const league = leagueLabel(team.league.replace(/,\s*Staffel\s*\d+\s*$/, ''), lang);
+  // Ligateams heißen "Herren I" usw., die Hobbymannschaft mit vollem Namen ("Freizeit Kickers").
+  const label = /^hobby/i.test(team.league.trim()) ? team.name : team.shortName || team.name;
+  return `${label} – ${league} Berlin | FC Treptow`;
+}
+
 // Trainingszeit "Dienstag 19:30 bis 21:00" in der jeweiligen Sprache
 const dayIndex = { Montag: 1, Dienstag: 2, Mittwoch: 3, Donnerstag: 4, Freitag: 5, Samstag: 6, Sonntag: 7 } as const;
 const bcp: Record<Locale, string> = { de: 'de-DE', en: 'en-GB', tr: 'tr-TR', ar: 'ar-EG', es: 'es-ES', fr: 'fr-FR' };

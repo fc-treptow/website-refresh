@@ -1,12 +1,10 @@
 ---
-import { fillTeamCounts } from '../../lib/teamCounts';
 import Base from '../../layouts/Base.astro';
 import HomeSections from '../../components/HomeSections.astro';
 import { useTranslations } from '../../i18n/ui';
 
 const t = useTranslations('fr');
-const description = await fillTeamCounts(t.heroText, 'fr');
 ---
-<Base title="FC Treptow e.V." description={description}>
+<Base title={t.homeTitle} description={t.homeMetaDesc}>
   <HomeSections />
 </Base>
