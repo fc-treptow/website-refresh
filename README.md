@@ -8,8 +8,8 @@ automatisch von fussball.de. Kein Tracking, keine Cookies, keine Fremdskripte au
 
 | Was | Adresse |
 |---|---|
-| Live-Seite | https://fct-website-refresh.vercel.app |
-| Redaktion (CMS) | https://fct-website-refresh.vercel.app/admin |
+| Live-Seite | https://www.fc-treptow.de |
+| Redaktion (CMS) | https://www.fc-treptow.de/admin |
 | Vorschau je Pull Request | Vercel kommentiert den Link automatisch im Pull Request |
 | Quellcode | https://github.com/fc-treptow/website-refresh |
 | Lokal | http://localhost:4321 (Redaktion lokal: http://localhost:4321/admin/index.html) |
@@ -17,13 +17,17 @@ automatisch von fussball.de. Kein Tracking, keine Cookies, keine Fremdskripte au
 Das Vercel-Projekt und das GitHub-Repository gehören vollständig der Vereinsorganisation `fc-treptow`.
 Jeder Push auf `main` (auch aus dem CMS) geht nach etwa zwei Minuten live.
 
+Livegang am 15.11.2026. `fc-treptow.de` und `fct-website-refresh.vercel.app` leiten auf
+`https://www.fc-treptow.de` um; in Vercel ist `SITE_URL=https://www.fc-treptow.de` gesetzt. Die Domain
+liegt bei IONOS, die E-Mail (MX) weiterhin bei Google Workspace.
+
 Die ältere Adresse **fc-treptow-site.vercel.app** war die Version aus dem früheren GitHub-Repository.
 Sie ist nicht mehr maßgeblich, wird aus diesem Repository nicht mehr aktualisiert und sollte gelöscht
 oder auf die neue Adresse umgeleitet werden.
 
 ## Für die Redaktion (ohne Technik)
 
-Die Inhalte werden unter **https://fct-website-refresh.vercel.app/admin** gepflegt. Anmeldung mit E-Mail
+Die Inhalte werden unter **https://www.fc-treptow.de/admin** gepflegt. Anmeldung mit E-Mail
 und Passwort. Was gespeichert wird, ist nach etwa zwei Minuten online.
 
 Dort gibt es diese Bereiche:
@@ -223,23 +227,20 @@ Umschalten auf die automatische Anbindung braucht keine Codeänderung, nur die U
 und einen neuen Build. Offen danach: täglicher Neubau, damit neue Beiträge erscheinen, und
 automatisches Erneuern des Tokens (läuft nach etwa 60 Tagen ab).
 
-## Offene Punkte vor dem Livegang
+## Offene Punkte nach dem Livegang
 
 1. Datenschutzerklärung vom Vorstand prüfen lassen. Offene Annahmen sind unten in der Datei
    `src/legal/datenschutz.md` nicht markiert, deshalb hier: kein Datenschutzbeauftragter benannt;
    AV-Vertrag mit Vercel muss im Vercel-Konto akzeptiert sein; E-Mail-Anbieter ist als
    Auftragsverarbeiter beschrieben; Löschfristen (Probetraining 6 Monate) müssen gelebt werden.
-2. Alte Adresse fc-treptow-site.vercel.app löschen oder auf die neue umleiten (siehe Umgebungen).
-3. `SITE_URL` in Vercel setzen, sobald die eigene Domain (fc-treptow.de) umzieht. Bis dahin gilt
-   https://fct-website-refresh.vercel.app (Vorgabe in `astro.config.mjs`).
-
-   **Hauptadresse ist `https://www.fc-treptow.de` (mit www).** Google, Wikipedia und alle alten
-   Links kennen den Verein unter www; so ändert sich beim Umzug nur der Inhalt, nicht die Adresse.
-   Also: `SITE_URL=https://www.fc-treptow.de` (ohne Schrägstrich am Ende) für Production in
-   Vercel, beide Domains in Vercel eintragen und `fc-treptow.de` dort per 308/301 auf
-   `www.fc-treptow.de` umleiten. `SITE_URL` bestimmt Canonical, hreflang, Sitemap, robots.txt,
-   llms.txt und die strukturierten Daten; steht dort etwas Falsches, zeigen alle Seiten auf die
-   falsche Domain. Nach dem Umzug auch `fct-website-refresh.vercel.app` auf die Domain umleiten.
+   Abschnitt 7 nennt fussball.de noch als Quelle der Ergebnisse; die kommen inzwischen aus dem CMS.
+2. Alte Adresse **fc-treptow-site.vercel.app** ist noch online, ohne `noindex` und mit eigener
+   Canonical-Adresse. Im Vercel-Konto das alte Projekt löschen oder auf `https://www.fc-treptow.de`
+   umleiten, sonst sieht Google eine veraltete Kopie der Seite.
+3. Google Search Console: Sitemap `https://www.fc-treptow.de/sitemap-index.xml` einreichen und nach
+   etwa einer Woche unter „Nicht gefunden (404)“ prüfen, welche alten Adressen noch aufgerufen
+   werden. Fehlende Weiterleitungen in `vercel.json` ergänzen (Vercel unterscheidet Groß- und
+   Kleinschreibung).
 
 Laufend:
 
@@ -247,6 +248,8 @@ Laufend:
 
 Erledigt:
 
+- Livegang auf www.fc-treptow.de (15.11.2026): `SITE_URL` gesetzt, `fc-treptow.de` und
+  `fct-website-refresh.vercel.app` leiten auf www um, CMS läuft unter www.fc-treptow.de/admin.
 - Redaktion bei DecapBridge eingeladen.
 - Vercel mit dem GitHub-Repository verbunden.
 - Instagram: offizielles Konto ist **@fc.treptow** (https://www.instagram.com/fc.treptow/), so in
