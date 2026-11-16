@@ -6,6 +6,7 @@ tag: Herren II
 teaser: Unsere Zweite hat im Cosy Wasch-Landespokal den zwei Ligen höher
   spielenden SV Sparta Lichtenberg II unter Flutlicht mit 4:1 (2:1) geschlagen
   und steht damit im Viertelfinale.
+image: /images/uploads/4r3a0980.jpeg
 gallery:
   - src: /images/uploads/4r3a0980.jpeg
     caption: FC Treptow II River Plate nach dem Sieg
