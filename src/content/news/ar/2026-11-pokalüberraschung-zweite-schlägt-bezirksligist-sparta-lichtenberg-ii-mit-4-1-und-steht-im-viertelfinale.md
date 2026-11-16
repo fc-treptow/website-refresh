@@ -3,10 +3,16 @@ title: "مفاجأة الكأس: الفريق الثاني يهزم فريق س�
 teaser: فريقنا الثاني فاز في كأس Cosy Wasch-Landespokal على فريق SV Sparta Lichtenberg II الذي يلعب في دوري أعلى بمستويين تحت أضواء الملعب بنتيجة 4:1 (2:1) وتأهل بذلك إلى ربع النهائي.
 date: 2026-11-16
 tag: Herren II
+galleryCaption:
+  - FC Treptow الثاني River Plate بعد الفوز
+  - ""
+  - ""
+  - ""
 quelle:
   title: 04f97fd5ae71
   teaser: c6cc482f165e
   body: 1c7dd6ef4a94
+  galleryCaption: 8a733f735498
 ---
 
 على الورق، كان توزيع الأدوار واضحًا. فريق Sparta Lichtenberg II يلعب في دوري المقاطعة، وفريقنا الثاني يلعب في Kreisliga B، أي درجتين أدنى. لكن من كان حاضرًا يوم الأحد في مباراة أضواء الملعب في ملعب Willi-Sänger-Sportanlage لم يشعر بذلك على الإطلاق. فريق River واجه الفريق المفضل على قدم المساواة وفاز في النهاية بجدارة وبفارق واضح.

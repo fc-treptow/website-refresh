@@ -3,10 +3,16 @@ title: "Sorpresa en la copa: La Segunda vence al equipo de Bezirksliga Sparta Li
 teaser: Nuestra Segunda derrotó al SV Sparta Lichtenberg II, que juega dos ligas más arriba, por 4:1 (2:1) bajo la luz de los focos en la Cosy Wasch-Landespokal y así está en cuartos de final.
 date: 2026-11-16
 tag: Herren II
+galleryCaption:
+  - FC Treptow II River Plate después de la victoria
+  - ""
+  - ""
+  - ""
 quelle:
   title: 04f97fd5ae71
   teaser: c6cc482f165e
   body: 1c7dd6ef4a94
+  galleryCaption: 8a733f735498
 ---
 
 En el papel, la distribución de roles estaba clara. Sparta Lichtenberg II juega en la Bezirksliga, nuestra Segunda dos categorías más abajo en la Kreisliga B. Pero quien estuvo el domingo en el partido bajo los focos en la Willi-Sänger-Sportanlage no notó nada de eso. River se enfrentó al favorito de tú a tú y al final ganó con justicia y claridad.

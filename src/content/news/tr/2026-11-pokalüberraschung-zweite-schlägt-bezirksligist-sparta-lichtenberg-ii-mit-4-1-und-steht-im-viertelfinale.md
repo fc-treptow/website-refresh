@@ -3,10 +3,16 @@ title: "Kupa sürprizi: Erkekler II, Bezirksligist Sparta Lichtenberg II'yi 4:1 
 teaser: Erkekler II, Cosy Wasch-Landespokal'da iki lig üstte oynayan SV Sparta Lichtenberg II'yi floodlight altında 4:1 (2:1) mağlup etti ve böylece çeyrek finale kaldı.
 date: 2026-11-16
 tag: Herren II
+galleryCaption:
+  - FC Treptow II River Plate galibiyetinden sonra
+  - ""
+  - ""
+  - ""
 quelle:
   title: 04f97fd5ae71
   teaser: c6cc482f165e
   body: 1c7dd6ef4a94
+  galleryCaption: 8a733f735498
 ---
 
 Kağıt üzerinde roller belliydi. Sparta Lichtenberg II Bezirksliga'da oynuyor, Erkekler II ise iki lig altı olan Kreisliga B'de. Ancak Pazar günü Willi-Sänger-Sportanlage'daki floodlight maçında olanlar bunu hiç hissettirmedi. River favori takıma eşit şartlarda karşı koydu ve sonunda haklı ve net bir galibiyet aldı.

@@ -3,10 +3,16 @@ title: "Cup Surprise: Men's II beats district league side Sparta Lichtenberg II 
 teaser: Our Men's II defeated SV Sparta Lichtenberg II, who play two leagues higher, 4-1 (2-1) under the floodlights in the Cosy Wasch State Cup and have now reached the quarter-finals.
 date: 2026-11-16
 tag: Herren II
+galleryCaption:
+  - FC Treptow II River Plate after the win
+  - ""
+  - ""
+  - ""
 quelle:
   title: 04f97fd5ae71
   teaser: c6cc482f165e
   body: 1c7dd6ef4a94
+  galleryCaption: 8a733f735498
 ---
 
 On paper, the roles were clear. Sparta Lichtenberg II play in the Bezirksliga, our Men's II two divisions lower in Kreisliga B. But anyone who was at the floodlit match on the Willi-Sänger-Sportanlage on Sunday wouldn’t have noticed that. River matched the favourites on equal terms and ultimately won deservedly and convincingly.
