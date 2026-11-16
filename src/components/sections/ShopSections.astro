@@ -99,8 +99,10 @@ const shopHost = new URL(club.shopUrl).host;
   // Der Hinweis mit Direktlink kommt dazu, der Shop selbst bleibt sichtbar: Lädt er doch noch,
   // verschwindet der Hinweis wieder. So kann ein Fehlalarm nie einen funktionierenden Shop verstecken.
   const failed = document.getElementById('shop-failed');
+  // Das aktuelle Shop-Skript bettet den Shop als iframe ein (…myspreadshop.de/?embed=1); ältere
+  // Fassungen zeichneten ihn direkt in die Seite. Beides gilt als geladen.
   const hasShopContent = () =>
-    shop?.querySelector('[class*="sprd-product"], [id^="sprd-startpage"], [class*="sprd-detail"]') != null;
+    shop?.querySelector('iframe[src*="myspreadshop"], [class*="sprd-product"], [id^="sprd-startpage"], [class*="sprd-detail"]') != null;
   const showFailed = () => {
     if (!hasShopContent()) failed?.classList.remove('hidden');
   };
