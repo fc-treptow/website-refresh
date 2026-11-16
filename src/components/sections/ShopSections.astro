@@ -100,7 +100,7 @@ const shopHost = new URL(club.shopUrl).host;
   // verschwindet der Hinweis wieder. So kann ein Fehlalarm nie einen funktionierenden Shop verstecken.
   const failed = document.getElementById('shop-failed');
   const hasShopContent = () =>
-    shop?.querySelector('[class*="sprd-product"], [id^="sprd-startpage"], [class*="sprd-detail"], [class*="sprd-basket"], [class*="sprd-checkout"]') != null;
+    shop?.querySelector('[class*="sprd-product"], [id^="sprd-startpage"], [class*="sprd-detail"]') != null;
   const showFailed = () => {
     if (!hasShopContent()) failed?.classList.remove('hidden');
   };
