@@ -8,6 +8,7 @@ galleryCaption:
   - ""
   - ""
   - ""
+image: /images/uploads/4r3a0980.jpeg
 quelle:
   title: 04f97fd5ae71
   teaser: c6cc482f165e
