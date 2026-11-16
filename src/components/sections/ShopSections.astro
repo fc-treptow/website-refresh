@@ -37,7 +37,7 @@ const shopHost = new URL(club.shopUrl).host;
     <p class="max-w-xl text-lg leading-relaxed">{t.loadFailed}</p>
     <a href={club.shopUrl} rel="noopener" target="_blank" class="mt-5 inline-flex min-h-12 items-center gap-2 font-semibold text-club hover:text-club-deep">{t.loadFailedLink} <Icon name="external" size={16} /></a>
   </div>
-  <div id="shop" class="hidden min-h-[60dvh]" data-prefix={club.shopUrl} data-host={shopHost} data-shop-name={shopHost.split('.')[0]} data-locale={shopLocale[lang]} data-loading={t.loading}></div>
+  <div id="shop" class="hidden min-h-[60dvh]" data-prefix={club.shopUrl} data-shop-name={shopHost.split('.')[0]} data-locale={shopLocale[lang]} data-loading={t.loading}></div>
 </section>
 
 <section class="mx-auto max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
@@ -146,7 +146,8 @@ const shopHost = new URL(club.shopUrl).host;
       ...(startToken ? { startToken } : {}),
     };
     const s = document.createElement('script');
-    s.src = `https://${shop.dataset.host?.replace(/\.myspreadshop\.[a-z.]+$/, '.myspreadshop.net')}/js/shopclient.nocache.js`;
+    // Skriptadresse wie im Spreadshop-Partnerbereich (Einstellungen › Erweitert › Shop in Website einbinden)
+    s.src = `${shop.dataset.prefix}/shopfiles/shopclient/shopclient.nocache.js`;
     s.async = true;
     s.onerror = () => {
       shop.classList.add('hidden');
