@@ -33,11 +33,11 @@ const shopHost = new URL(club.shopUrl).host;
       <p class="mt-3 text-xs text-paper/55">{t.loadHint}</p>
     </div>
   </div>
-  <div id="shop" class="hidden min-h-[60dvh]" data-prefix={club.shopUrl} data-host={shopHost} data-shop-name={shopHost.split('.')[0]} data-locale={shopLocale[lang]} data-loading={t.loading}></div>
-  <div id="shop-failed" class="hidden border-y border-ink py-10" role="alert">
+  <div id="shop-failed" class="hidden mb-8 border-y border-ink py-10" role="alert">
     <p class="max-w-xl text-lg leading-relaxed">{t.loadFailed}</p>
     <a href={club.shopUrl} rel="noopener" target="_blank" class="mt-5 inline-flex min-h-12 items-center gap-2 font-semibold text-club hover:text-club-deep">{t.loadFailedLink} <Icon name="external" size={16} /></a>
   </div>
+  <div id="shop" class="hidden min-h-[60dvh]" data-prefix={club.shopUrl} data-host={shopHost} data-shop-name={shopHost.split('.')[0]} data-locale={shopLocale[lang]} data-loading={t.loading}></div>
 </section>
 
 <section class="mx-auto max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
@@ -88,28 +88,54 @@ const shopHost = new URL(club.shopUrl).host;
   const shop = document.getElementById('shop');
   const btn = document.getElementById('shop-load');
 
-  // Artikelkarten (auch von der Startseite) tragen den Produktpfad im Hash
+  // Artikelkarten (auch von der Startseite) tragen den Produktpfad im Hash.
+  // Hashes mit "!" setzt der Spreadshop selbst (#!/…); die sind kein Start-Artikel.
   const startFromHash = () => {
     const h = decodeURIComponent(location.hash.slice(1));
-    return h && h !== 'fanshop' ? h : '';
+    return h && h !== 'fanshop' && !h.startsWith('!') ? h : '';
   };
 
-  // Spreadshop meldet Einbettungsfehler (z. B. Domain nicht freigegeben) als abgelehntes Promise.
-  // Zur Sicherheit greift zusätzlich ein Zeitlimit: bleibt der Shop leer, kommt der Ausweg.
+  // Ausweg, wenn der Shop nicht lädt (z. B. Domain bei Spreadshirt nicht freigegeben, Netzfehler).
+  // Der Hinweis mit Direktlink kommt dazu, der Shop selbst bleibt sichtbar: Lädt er doch noch,
+  // verschwindet der Hinweis wieder. So kann ein Fehlalarm nie einen funktionierenden Shop verstecken.
+  const failed = document.getElementById('shop-failed');
+  const hasShopContent = () =>
+    shop?.querySelector('[class*="sprd-product"], [id^="sprd-startpage"], [class*="sprd-detail"], [class*="sprd-basket"], [class*="sprd-checkout"]') != null;
   const showFailed = () => {
-    shop?.classList.add('hidden');
-    document.getElementById('shop-failed')?.classList.remove('hidden');
+    if (!hasShopContent()) failed?.classList.remove('hidden');
   };
   const isShopError = (v: unknown) => /spread\s?shop/i.test(String((v as any)?.message ?? v ?? ''));
-  window.addEventListener('unhandledrejection', (e) => { if (isShopError(e.reason)) showFailed(); });
-  window.addEventListener('error', (e) => { if (isShopError(e.message)) showFailed(); });
   let loaded = false;
+  function watchShop() {
+    window.addEventListener('unhandledrejection', (e) => { if (isShopError(e.reason)) showFailed(); });
+    // Spreadshop meldet fehlgeschlagene Datenabrufe nur in der Konsole ("[SpreadShop] Failed to fetch …")
+    // und zeichnet trotzdem seinen leeren Rahmen. Diese Meldungen deshalb mitlesen.
+    const consoleError = console.error.bind(console);
+    console.error = (...args: unknown[]) => {
+      if (args.some((a) => /^\[spread\s?shop\].*fail/i.test(String(a)))) showFailed();
+      consoleError(...args);
+    };
+    // Zeitlimit: Nach 15 s noch keine Artikel zu sehen, dann den Ausweg zeigen.
+    setTimeout(showFailed, 15000);
+    // Kommt der Inhalt später doch, Hinweis wieder ausblenden.
+    if (shop) {
+      const obs = new MutationObserver(() => {
+        if (hasShopContent()) {
+          failed?.classList.add('hidden');
+          obs.disconnect();
+        }
+      });
+      obs.observe(shop, { childList: true, subtree: true });
+      setTimeout(() => obs.disconnect(), 120000);
+    }
+  }
   function loadShop(startToken: string) {
     if (!shop || loaded) return;
     loaded = true;
     gate?.classList.add('hidden');
     shop.classList.remove('hidden');
     shop.textContent = shop.dataset.loading ?? '';
+    watchShop();
     (window as any).spread_shop_config = {
       prefix: shop.dataset.prefix,
       shopName: shop.dataset.shopName,
@@ -122,12 +148,12 @@ const shopHost = new URL(club.shopUrl).host;
     const s = document.createElement('script');
     s.src = `https://${shop.dataset.host?.replace(/\.myspreadshop\.[a-z.]+$/, '.myspreadshop.net')}/js/shopclient.nocache.js`;
     s.async = true;
-    s.onerror = showFailed;
+    s.onerror = () => {
+      shop.classList.add('hidden');
+      failed?.classList.remove('hidden');
+    };
     document.body.appendChild(s);
     shop.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    setTimeout(() => {
-      if (shop.querySelector('*') === null) showFailed();
-    }, 15000);
   }
 
   btn?.addEventListener('click', () => loadShop(startFromHash()));
