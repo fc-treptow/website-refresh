@@ -4,33 +4,31 @@ intro: 5 Aralık'ta spor tesisimizdeki bowling pistinde birlikte kutlama yapıyo
 quelle:
   title: 4f77340960b2
   intro: 2611d39f040e
-  body: bb432e11f8f3
+  body: bf4b351d69b0
 ---
 
 Sevgili üyeler,
 
-yıl sona ererken, bunu birlikte kutlamak istiyoruz. **Cumartesi, 5 Aralık 2026** tarihinde yılbaşı partimiz gerçekleşecek. Geçmiş yıllarda olduğu gibi, spor tesisimizdeki bowling pistini kiraladık.
+yıl sonuna yaklaşırken, bunu birlikte kutlamak istiyoruz. **Cumartesi, 5 Aralık 2026** tarihinde yılbaşı partimizi düzenleyeceğiz. Geçmiş yıllarda olduğu gibi, spor tesisimizdeki bowling salonunu kiraladık.
 
-**Bir Bakışta**
 
-**Ne zaman**: Cumartesi, 5 Aralık 2026, \[Saat]
 
-**Nerede**: Spor tesisimizdeki bowling pisti
+**Kısaca**
+
+**Ne zaman**: Cumartesi, 5 Aralık 2026, saat \[Uhrzeit] itibariyle
+
+**Nerede**: Spor tesisimizdeki bowling salonu
 
 **Yemek**: Kulüp tarafından ikram edilen pizza
 
-**İçecekler**: yeterli miktarda mevcut, içecek başına 2 €
+**İçecekler**: Yeterli miktarda mevcut, içecek başına 2 €
+
+Oyuncular, antrenörler, yardımcılar ve diğer tüm kulüp üyeleri dahil herkesi bekliyoruz.
 
 
 
-Katılan herkesi çok seviyoruz: oyuncular, antrenörler, yardımcılar ve diğer tüm kulüp üyeleri.
-
-
-
-**Kayıt için son tarih 25 Kasım**
+**25 Kasım'a kadar kayıt**
 
 Yemek ve içecekleri iyi planlayabilmemiz için, lütfen Çarşamba, 25 Kasım'a kadar gelip gelmeyeceğinizi bildirin.
 
-
-
-Sizinle güzel bir akşam geçirmeyi dört gözle bekliyoruz!
+Sizinle güzel bir akşam geçirmek için sabırsızlanıyoruz!

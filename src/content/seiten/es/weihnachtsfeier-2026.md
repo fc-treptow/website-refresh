@@ -4,24 +4,24 @@ intro: El 5 de diciembre celebramos juntos en la bolera de nuestra instalación 
 quelle:
   title: 4f77340960b2
   intro: 2611d39f040e
-  body: bb432e11f8f3
+  body: bf4b351d69b0
 ---
 
 Queridos miembros,
 
-el año está llegando a su fin y queremos despedirlo juntos. El **sábado 5 de diciembre de 2026** tendrá lugar nuestra fiesta de Navidad. Como en años anteriores, hemos reservado la bolera en nuestra instalación deportiva.
+el año está llegando a su fin y queremos despedirlo juntos. El **sábado, 5 de diciembre de 2026**, celebraremos nuestra fiesta de Navidad. Como en los años anteriores, hemos alquilado la bolera en nuestra instalación deportiva.
+
+
 
 **De un vistazo**
 
-**Cuándo**: sábado 5 de diciembre de 2026, a partir de \[hora]
+**Cuándo**: sábado, 5 de diciembre de 2026, a partir de \[hora]
 
 **Dónde**: bolera en nuestra instalación deportiva
 
 **Comida**: pizza, cortesía del club
 
-**Bebidas**: suficientes disponibles, 2 € por bebida
-
-
+**Bebidas**: disponibles en cantidad, 2 € por bebida
 
 Nos alegraremos de ver a todos los que quieran venir: jugadores, entrenadores, ayudantes y todos los demás miembros del club.
 
@@ -29,8 +29,6 @@ Nos alegraremos de ver a todos los que quieran venir: jugadores, entrenadores, a
 
 **Inscripción hasta el 25 de noviembre**
 
-Para poder planificar bien la comida y las bebidas, por favor avísanos antes del miércoles 25 de noviembre si vienes.
+Para poder planificar bien la comida y las bebidas, por favor avísanos antes del miércoles, 25 de noviembre, si vienes.
 
-
-
-¡Esperamos pasar una noche agradable con vosotros!
+¡Esperamos pasar una noche estupenda con vosotros!
