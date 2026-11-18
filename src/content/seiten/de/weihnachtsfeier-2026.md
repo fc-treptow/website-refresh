@@ -9,8 +9,6 @@ Liebe Mitglieder,
 
 das Jahr neigt sich dem Ende zu, und wir möchten es gemeinsam ausklingen lassen. Am **Samstag, 5. Dezember 2026**, findet unsere Weihnachtsfeier statt. Wie in den vergangenen Jahren haben wir dafür die Kegelbahn auf unserer Sportanlage gemietet.
 
-
-
 **Auf einen Blick**
 
 **Wann**: Samstag, 5. Dezember 2026, ab \[Uhrzeit]
@@ -23,10 +21,12 @@ das Jahr neigt sich dem Ende zu, und wir möchten es gemeinsam ausklingen lassen
 
 Wir freuen uns über alle, die dabei sind: Spieler, Trainer, Helfer und alle anderen Vereinsmitglieder.
 
-
-
 **Anmeldung bis zum 25. November**
 
-Damit wir Essen und Getränke gut planen können, gebt uns bitte bis Mittwoch, 25. November, Bescheid, ob ihr kommt. 
+Damit wir Essen und Getränke gut planen können, gebt uns bitte bis Mittwoch, 25. November, Bescheid, ob ihr kommt. \
+\
+[Hier zusagen](https://docs.google.com/forms/d/e/1FAIpQLSemYEJEc84Q3n4uIYQ3LzpUpGF-_TZFbDGOCFPb8HHigq9Inw/viewform?usp=publish-editor) (Link zu Google Form)
+
+
 
 Wir freuen uns auf einen schönen Abend mit euch!
