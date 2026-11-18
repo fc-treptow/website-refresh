@@ -89,14 +89,15 @@ collections:
   - name: seiten
     label: Seiten (Info)
     label_singular: Seite
-    description: 'Eigene Seiten unter fc-treptow.de/info/…, die keine News sind, z. B. als Ziel für den Hinweisbanner. Sie stehen nicht im Menü, man erreicht sie nur über einen Link. Nur Deutsch schreiben, die anderen Sprachen werden automatisch übersetzt.'
+    description: 'Eigene Seiten unter https://www.fc-treptow.de/info/…, die keine News sind, z. B. als Ziel für den Hinweisbanner. Sie stehen nicht im Menü, man erreicht sie nur über einen Link. Nur Deutsch schreiben, die anderen Sprachen werden automatisch übersetzt.'
     folder: src/content/seiten/de
     create: true
-    # Die Adresse entsteht aus dem Titel und bleibt danach gleich, auch wenn sich der Titel ändert
+    # Die Adresse entsteht aus dem Titel und bleibt danach gleich, auch wenn sich der Titel ändert.
+    # Die Liste zeigt die volle Adresse ({{filename}} = Dateiname ohne .md = Teil hinter /info/).
     slug: '{{slug}}'
-    summary: '{{title}}  ·  /info/{{slug}}'
+    summary: '{{title}}  ·  https://www.fc-treptow.de/info/{{filename}}'
     fields:
-      - { name: title, label: Überschrift, widget: string, hint: 'Daraus entsteht beim ersten Speichern die Adresse, z. B. "Mitgliederbereich" → /info/mitgliederbereich. Die Adresse ändert sich danach nicht mehr.' }
+      - { name: title, label: Überschrift, widget: string, hint: 'Daraus entsteht beim ersten Speichern die Adresse der Seite: https://www.fc-treptow.de/info/ und dahinter die Überschrift in Kleinbuchstaben, Leerzeichen werden zu Bindestrichen. Beispiel: "Platzsperre Winter" → https://www.fc-treptow.de/info/platzsperre-winter. Die Adresse ändert sich danach nicht mehr, auch wenn die Überschrift geändert wird. Die fertige Adresse steht nach dem Speichern in der Liste unter Seiten (Info).' }
       - { name: intro, label: Kurztext, widget: text, required: false, hint: '1 bis 2 Sätze unter der Überschrift. Erscheint auch als Vorschau beim Teilen und in Suchmaschinen.' }
       - { name: image, label: Foto, widget: image, required: false, hint: 'Freiwillig. Querformat, nicht größer als etwa 2 MB.' }
       - { name: imageAlt, label: Bildbeschreibung, widget: string, required: false, hint: 'Was ist auf dem Foto zu sehen? Hilft blinden Menschen.' }
