@@ -11,6 +11,7 @@ export interface Game {
   opponent: string;
   url: string | null;
   provisional?: boolean;
+  cancelled?: boolean; // abgesetzt, laut fussball.de oder Ergebnis-Eintrag im CMS
 }
 
 // Ergebnis aus dem CMS (src/lib/results.ts). Tore aus unserer Sicht.
@@ -79,22 +80,47 @@ function when(g: { date: string }, locale: string) {
   return { weekday, day };
 }
 
+const spielId = (url: string | null | undefined) => url?.match(/\/spiel\/([0-9A-Z]{20,40})(?:[/?#]|$)/)?.[1] ?? null;
+
+/**
+ * Markiert Spiele als abgesetzt, die im CMS (Ergebnisse) als "Abgesetzt" eingetragen sind.
+ * Ergänzt fussball.de, falls dort die Absetzung noch fehlt oder nicht erkannt wird.
+ * Gleiches Datum ist Pflicht: Wird ein abgesetztes Spiel neu angesetzt, behält es auf fussball.de
+ * oft seine Kennung, der neue Termin darf dann nicht als abgesetzt erscheinen.
+ */
+export function withCmsStatus(games: Game[] | null, results: Result[] | undefined): Game[] | null {
+  if (!games || !results?.length) return games;
+  const cancelled = results.filter((r) => r.note === 'cancelled');
+  if (!cancelled.length) return games;
+  return games.map((g) => {
+    if (g.cancelled) return g;
+    const id = spielId(g.url);
+    const hit = cancelled.some((r) => {
+      if (r.date !== g.date) return false;
+      const rid = spielId(r.url);
+      return !id || !rid || id === rid;
+    });
+    return hit ? { ...g, cancelled: true } : g;
+  });
+}
+
 /** Kompakte Zeile: ein Spiel, optional mit Mannschaftsname davor (Startseite). */
 export function gameRow(g: Game, t: FixturesLabels, teamLabel?: string) {
   const { weekday, day } = when(g, t.locale);
-  const tag = g.isHome ? t.home : t.away;
+  const off = !!g.cancelled;
+  const tag = off ? t.notes.cancelled : g.isHome ? t.home : t.away;
   const Tag = g.url ? 'a' : 'div';
-  const href = g.url ? ` href="${esc(g.url)}" rel="noopener" target="_blank" aria-label="${esc(`${g.home} ${t.vs} ${g.away}, ${day} ${g.time}. ${t.matchLink}`)}"` : '';
+  const href = g.url ? ` href="${esc(g.url)}" rel="noopener" target="_blank" aria-label="${esc(`${g.home} ${t.vs} ${g.away}, ${day} ${g.time}${off ? `, ${t.notes.cancelled}` : ''}. ${t.matchLink}`)}"` : '';
   return `<li><${Tag}${href} class="group grid grid-cols-[4.25rem_1fr_auto] items-center gap-x-4 border-b border-line py-4 transition-colors duration-200 hover:bg-paper-deep/60 sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:px-2">
-  <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl">${esc(day)}</span></span>
+  <span class="nums leading-tight"><span class="block text-xs font-semibold uppercase tracking-wider text-ink-soft">${esc(weekday)}</span><span class="display block text-2xl sm:text-3xl${off ? ' text-ink-soft' : ''}">${esc(day)}</span></span>
   <span class="min-w-0">
     ${teamLabel ? `<span class="block text-xs font-semibold uppercase tracking-wider text-club">${esc(teamLabel)}</span>` : ''}
-    <span class="mt-0.5 block truncate text-[15px] font-semibold sm:text-base">${g.isHome ? '' : `<span class="font-normal text-ink-soft">${esc(t.vs)} </span>`}${esc(g.opponent)}</span>
+    <span class="mt-0.5 block truncate text-[15px] font-semibold sm:text-base${off ? ' text-ink-soft' : ''}">${g.isHome ? '' : `<span class="font-normal text-ink-soft">${esc(t.vs)} </span>`}${esc(g.opponent)}</span>
     <span class="mt-0.5 block text-xs text-ink-soft">${esc(g.competition)}</span>
   </span>
   <span class="text-end">
-    <span class="nums display block text-2xl sm:text-3xl">${esc(g.time)}</span>
-    <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${g.isHome ? 'text-ink' : 'text-ink-soft'}">${esc(tag)}</span>
+    <span class="nums display block text-2xl sm:text-3xl${off ? ' text-ink-soft line-through decoration-2' : ''}">${esc(g.time)}</span>
+    <span class="mt-0.5 inline-block text-[11px] font-semibold uppercase tracking-wider ${off || g.isHome ? 'text-ink' : 'text-ink-soft'}">${esc(tag)}</span>
   </span>
 </${Tag}></li>`;
 }
@@ -148,7 +174,8 @@ export function played(results: Result[], now = new Date()) {
  * Trennlinie "Heute", darunter die nächsten Spiele. Ohne eingetragene Ergebnisse bleibt
  * einfach der Spielplan stehen.
  */
-export function seasonList(games: Game[] | null, results: Result[] | undefined, t: FixturesLabels, now = new Date(), recent = 3) {
+export function seasonList(allGames: Game[] | null, results: Result[] | undefined, t: FixturesLabels, now = new Date(), recent = 3) {
+  const games = withCmsStatus(allGames, results);
   const past = played(results ?? [], now).slice(0, recent).reverse();
   if (past.length === 0) return gamesList(games, t);
   const divider = `<li class="flex items-center gap-3 py-3 text-[11px] font-semibold uppercase tracking-wider text-ink" aria-hidden="true"><span class="h-px flex-1 bg-ink"></span>${esc(t.today)}<span class="h-px flex-1 bg-ink"></span></li>`;

@@ -1,6 +1,6 @@
 // Frischt Spielplan und Tabelle im Browser auf, wenn /api/fixtures neuere Daten hat als der Build.
 // Ohne JavaScript oder ohne API (lokal) bleibt einfach der Stand vom Build stehen.
-import { gamesList, leagueTable, gameRow, seasonList, latestResults, resultRow, type FixturesLabels, type TeamFixtures, type Game, type Result } from '../lib/fixturesView';
+import { gamesList, leagueTable, gameRow, seasonList, latestResults, resultRow, withCmsStatus, type FixturesLabels, type TeamFixtures, type Game, type Result } from '../lib/fixturesView';
 
 // Ergebnisse stehen schon im Build. "Gespielt" hängt aber von der Uhrzeit ab, deshalb hier sofort
 // mit der aktuellen Zeit neu zeichnen, auch ohne API (z. B. "Ergebnis folgt" am Sonntagabend).
@@ -32,8 +32,12 @@ if (nodes.length) {
           const mode = el.dataset.fixtures;
           if (mode === 'next') {
             const labels = JSON.parse(el.dataset.teamLabels ?? '{}') as Record<string, string>;
+            const results = read<Record<string, Result[]>>(el.dataset.results, {});
             const next = Object.entries(data.teams)
-              .map(([slug, f]) => (f.games?.[0] ? { slug, g: f.games[0] as Game } : null))
+              .map(([slug, f]) => {
+                const g = withCmsStatus(f.games, results[slug])?.[0];
+                return g ? { slug, g: g as Game } : null;
+              })
               .filter((x): x is { slug: string; g: Game } => !!x)
               .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
             if (next.length) el.innerHTML = `<ul class="border-t border-line">${next.map(({ slug, g }) => gameRow(g, t, labels[slug])).join('')}</ul>`;
