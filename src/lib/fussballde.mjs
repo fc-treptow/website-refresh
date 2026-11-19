@@ -64,6 +64,8 @@ export async function fetchNextGames(teamId, limit = 5) {
     if (clubs.length < 2) continue;
     const [home, away] = clubs.map(([, href, name]) => ({ name: text(name), isUs: href.includes(teamId) }));
     const matchUrl = row.match(/href="(https:\/\/www\.fussball\.de\/spiel\/[^"]+)"/)?.[1] ?? null;
+    // Abgesetzte Spiele bleiben im Spielplan stehen, statt Tore steht dann "Absetzung" in der Zeile
+    const cancelled = /\b(Absetzung|abgesetzt)\b/i.test(text(row.slice(row.indexOf('</tr>'))));
     games.push({
       date: `${yyyy}-${mm}-${dd}`,
       time: `${hh}:${min}`,
@@ -73,6 +75,7 @@ export async function fetchNextGames(teamId, limit = 5) {
       isHome: home.isUs,
       opponent: home.isUs ? away.name : home.name,
       url: matchUrl,
+      cancelled,
     });
     if (games.length >= limit) break;
   }

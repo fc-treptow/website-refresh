@@ -12,7 +12,7 @@ import { fixturesLabels } from '../i18n/fixtures';
 import { getSocialPosts } from '../lib/instagram';
 import { buildFixtures, fixturesQuery } from '../lib/fixturesBuild';
 import { getResults } from '../lib/results';
-import { gameRow, leagueTable, latestResults, resultRow, type Game } from '../lib/fixturesView';
+import { gameRow, leagueTable, latestResults, resultRow, withCmsStatus, type Game } from '../lib/fixturesView';
 import { club } from '../data/club';
 import { getFees, amount } from '../lib/fees';
 import { fillTeamCounts } from '../lib/teamCounts';
@@ -39,12 +39,16 @@ const fixtures = await buildFixtures();
 const query = await fixturesQuery();
 const teamLabels = Object.fromEntries(teams.map((tm) => [tm.slug, tm.data.shortName]));
 const leagueTeamList = teams.filter((tm) => tm.data.fussballDeTeamId);
+const allResults = await getResults(lang);
+// Abgesetzt: laut fussball.de oder laut Ergebnis-Eintrag im CMS
 const nextGames = Object.entries(fixtures.teams)
-  .map(([slug, f]) => (f.games?.[0] ? { slug, g: f.games[0] as Game } : null))
+  .map(([slug, f]) => {
+    const g = withCmsStatus(f.games, allResults[slug])?.[0];
+    return g ? { slug, g: g as Game } : null;
+  })
   .filter((x): x is { slug: string; g: Game } => !!x)
   .sort((a, b) => `${a.g.date}${a.g.time}`.localeCompare(`${b.g.date}${b.g.time}`));
 // Letztes Ergebnis je Mannschaft, neuestes zuerst
-const allResults = await getResults(lang);
 const lastResults = latestResults(allResults);
 
 const numerals = ['I', 'II', 'III', 'F'];
@@ -224,6 +228,7 @@ const fmt = (d: Date) => d.toLocaleDateString(bcp47[lang], { day: 'numeric', mon
           data-built-at={fixtures.fetchedAt}
           data-labels={JSON.stringify(fx)}
           data-team-labels={JSON.stringify(teamLabels)}
+          data-results={JSON.stringify(allResults)}
         >
           {nextGames.length > 0 ? (
             <ul set:html={nextGames.map(({ slug, g }) => gameRow(g, fx, teamLabels[slug])).join('')} />
