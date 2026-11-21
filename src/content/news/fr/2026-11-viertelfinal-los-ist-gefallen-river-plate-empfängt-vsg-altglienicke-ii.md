@@ -7,21 +7,20 @@ image: /images/uploads/screenshot-2026-11-21-at-16.19.44.png
 quelle:
   title: d87156af9fde
   teaser: f0e738521f06
-  body: 4e14324ac034
+  body: d2fafce7e792
 ---
 
-Après le coup de 4:1 contre le club de Bezirksliga Sparta Lichtenberg II, l’adversaire suivant est connu. VSG Altglienicke II.
+Après le coup de 4:1 contre le club de Bezirksliga Sparta Lichtenberg II, l'adversaire suivant est connu. VSG Altglienicke II.
 
-Ce ne sera pas plus facile cette fois. La réserve de la VSG mène actuellement la Landesliga et est donc la grande favorite. Mais Sparta l’était aussi sur le papier. Les gars ont montré qu’ils pouvaient rivaliser avec des adversaires de niveau supérieur, et en coupe, comme on le sait, les règles sont différentes.
+Ce ne sera pas plus facile cette fois. La réserve de la VSG mène actuellement la Landesliga et est donc la favorite évidente. Mais Sparta l'était aussi sur le papier. Les gars ont montré qu'ils peuvent rivaliser avec des adversaires de niveau supérieur, et en coupe, les règles sont connues pour être différentes.
 
-D’ailleurs, la VSG n’est pas un invité venu de loin. Leur équipe première de la Regionalliga Nordost s’entraîne déjà sur notre terrain, et le district prévoit de transformer la Willi-Sänger-Sportanlage en leur futur stade. Mais le 28 mars, c’est nous qui serons les hôtes.
+D'ailleurs, la VSG n'est pas un invité venu de loin. Leur première équipe de la Regionalliga Nordost s'entraîne déjà sur notre terrain, et le district prévoit de transformer la Willi-Sänger-Sportanlage en leur futur stade. Mais le 28 mars, c'est d'abord nous qui sommes les hôtes.
 
-Alors note la date et viens à la Köpenicker Landstraße. Les gars méritent ton soutien !
+Alors, note la date et viens à la Köpenicker Landstraße. Les gars méritent ton soutien !
 
 **Quart de finale Cosy Wasch-Landespokal 2. Herren**
 FC Treptow II River Plate – VSG Altglienicke II
-Dimanche 28 mars 2027, heure de coup d’envoi à venir
+Dimanche 28 mars 2027, heure de coup d'envoi à venir,
 Willi-Sänger-Sportanlage
-
 
 [Match sur fussball.de](https://www.fussball.de/spiel/fc-treptow-ii-river-plate-vsg-altglienicke-ii/-/spiel/032OUICEO8000000VS5489BTVSIO88SN#!/)
