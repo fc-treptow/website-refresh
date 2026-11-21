@@ -8,6 +8,17 @@
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
+    <!--
+      Feste Version mit Prüfsumme (integrity): Der Browser lädt das CMS nur, wenn die Datei
+      genau dieser Version entspricht. Schützt die Redaktion, falls unpkg oder das npm-Paket
+      manipuliert würde. Zum Aktualisieren Version und Prüfsumme gemeinsam ändern, z. B.:
+        npm pack decap-cms@X.Y.Z && tar xzf decap-cms-X.Y.Z.tgz
+        echo "sha384-$(openssl dgst -sha384 -binary package/dist/decap-cms.js | base64 -w0)"
+    -->
+    <script
+      src="https://unpkg.com/decap-cms@3.18.0/dist/decap-cms.js"
+      integrity="sha384-Vu0vdYOBhK+2KywHCtNZ9sCqpzkwx358AT6pCSg8om/clLoDzpWYF41jrtEk/WMM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

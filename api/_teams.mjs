@@ -40,7 +40,7 @@ export const formTeams = {
   },
   "herren-3": {
     "name": "FC Treptow III",
-    "contact": "",
+    "contact": "ope@fc-treptow.de",
     "training": [
       {
         "day": "Dienstag",
