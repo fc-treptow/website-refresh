@@ -17,8 +17,7 @@ Also Termin vormerken und an die Köpenicker Landstraße kommen. Die Jungs haben
 
 **Viertelfinale Cosy Wasch-Landespokal 2. Herren**
 FC Treptow II River Plate – VSG Altglienicke II
-Sonntag, 28. März 2027, Anstoßzeit folgt
+Sonntag, 28. März 2027, Anstoßzeit folgt,
 Willi-Sänger-Sportanlage
-
 
 [Spiel auf fussball.de](https://www.fussball.de/spiel/fc-treptow-ii-river-plate-vsg-altglienicke-ii/-/spiel/032OUICEO8000000VS5489BTVSIO88SN#!/)
