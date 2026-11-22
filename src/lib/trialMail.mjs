@@ -73,6 +73,7 @@ const confirmTexts = {
     anyTeam: 'Wir schauen gemeinsam, welche Mannschaft zu dir passt.',
     feedback: 'Nach ein paar Einheiten gibt dir der Trainer Rückmeldung, ob es passt.',
     under18: 'Hinweis: Wir haben nur Herrenmannschaften (ab 18 Jahren). Wir melden uns trotzdem bei dir.',
+    amateur: 'Gut zu wissen: Wir sind ein ehrenamtlich geführter Amateurverein. Bezahlte Verträge, Hilfe beim Visum oder bei der Wohnungssuche können wir nicht bieten. Das Probetraining ist daher für Spieler, die schon in Berlin oder im Umland wohnen.',
     more: 'Mehr zur Mannschaft und zum Platz:',
     reply: 'Fragen? Antworte einfach auf diese E-Mail.',
     regards: 'Sportliche Grüße\nFC Treptow e.V.',
@@ -86,6 +87,7 @@ const confirmTexts = {
     anyTeam: 'We will figure out together which team suits you.',
     feedback: 'After a few sessions, the coach will let you know whether it’s a fit.',
     under18: 'Please note: we only have men’s teams (18 and over). We will still get back to you.',
+    amateur: 'Good to know: we’re a volunteer-run amateur club. We can’t offer paid contracts, visa support or help with housing, so trial training is for players who already live in Berlin or nearby.',
     more: 'More about the team and the ground:',
     reply: 'Questions? Just reply to this email.',
     regards: 'Best regards\nFC Treptow e.V.',
@@ -99,6 +101,7 @@ const confirmTexts = {
     anyTeam: 'Hangi takımın sana uygun olduğuna birlikte bakacağız.',
     feedback: 'Birkaç antrenmandan sonra antrenör uyum olup olmadığını sana bildirecek.',
     under18: 'Not: Sadece erkek takımlarımız var (18 yaş ve üstü). Yine de sana dönüş yapacağız.',
+    amateur: 'Bilmekte fayda var: Gönüllülerin yönettiği bir amatör kulübüz. Ücretli sözleşme, vize desteği ya da konut konusunda yardım sunamıyoruz. Bu yüzden deneme antrenmanı, zaten Berlin’de veya yakın çevresinde yaşayan oyuncular içindir.',
     more: 'Takım ve saha hakkında daha fazlası:',
     reply: 'Sorun mu var? Bu e-postayı yanıtlaman yeterli.',
     regards: 'Sportif selamlar\nFC Treptow e.V.',
@@ -112,6 +115,7 @@ const confirmTexts = {
     anyTeam: 'سنرى معًا أي فريق يناسبك.',
     feedback: 'بعد بضع حصص سيخبرك المدرب ما إذا كان الأمر مناسبًا.',
     under18: 'ملاحظة: لدينا فرق رجال فقط (من 18 عامًا). سنتواصل معك على أي حال.',
+    amateur: 'معلومة مهمة: نحن نادٍ للهواة يديره متطوعون. لا يمكننا تقديم عقود مدفوعة أو المساعدة في التأشيرة أو السكن، لذلك التدريب التجريبي مخصص للاعبين الذين يقيمون بالفعل في برلين أو بالقرب منها.',
     more: 'المزيد عن الفريق والملعب:',
     reply: 'لديك أسئلة؟ فقط رُد على هذه الرسالة.',
     regards: 'مع أطيب التحيات الرياضية\nFC Treptow e.V.',
@@ -125,6 +129,7 @@ const confirmTexts = {
     anyTeam: 'Veremos juntos qué equipo encaja contigo.',
     feedback: 'Tras unas cuantas sesiones, el entrenador te dirá si encajas.',
     under18: 'Ten en cuenta que solo tenemos equipos masculinos (a partir de 18 años). Aun así te contactaremos.',
+    amateur: 'Bueno saberlo: somos un club amateur gestionado por voluntarios. No ofrecemos contratos remunerados, ayuda con el visado ni con la vivienda, así que el entrenamiento de prueba es para jugadores que ya viven en Berlín o cerca.',
     more: 'Más sobre el equipo y el campo:',
     reply: '¿Preguntas? Responde a este correo.',
     regards: 'Saludos deportivos\nFC Treptow e.V.',
@@ -138,6 +143,7 @@ const confirmTexts = {
     anyTeam: 'Nous verrons ensemble quelle équipe vous correspond.',
     feedback: 'Après quelques séances, l’entraîneur vous dira si cela vous convient.',
     under18: 'À noter : nous n’avons que des équipes masculines (18 ans et plus). Nous vous recontacterons quand même.',
+    amateur: 'Bon à savoir : nous sommes un club amateur géré par des bénévoles. Nous ne proposons ni contrat rémunéré, ni aide pour le visa ou le logement : la séance d’essai s’adresse donc aux joueurs qui vivent déjà à Berlin ou à proximité.',
     more: 'En savoir plus sur l’équipe et le terrain :',
     reply: 'Des questions ? Répondez simplement à cet e-mail.',
     regards: 'Sportivement\nFC Treptow e.V.',
@@ -167,6 +173,8 @@ export function confirmMail(r, team, teamSlug, origin) {
   // Die Freizeit Kickers wählen nicht aus, deshalb dort kein Hinweis auf die Rückmeldung des Trainers
   if (teamSlug !== 'freizeit-kickers') lines.push(t.feedback, '');
   if (r.age < 18) lines.push(t.under18, '');
+  // Viele Anfragen suchen Verträge oder ein Visum; der Verein ist reiner Amateurfußball (AGENTS.md)
+  lines.push(t.amateur, '');
   lines.push(t.more, team ? `${origin}${prefix}/mannschaften/${teamSlug}` : `${origin}${prefix}/mannschaften`, '');
   lines.push(t.reply, '', t.regards, '', '--', t.footer);
   return { subject: t.subject, text: lines.join('\n') };
