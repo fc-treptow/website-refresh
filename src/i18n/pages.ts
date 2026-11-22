@@ -462,6 +462,7 @@ export const pages = {
         'Wenn es passt, stellst du den',
       ],
       regLinkLabel: 'Mitgliedsantrag in easyVerein',
+      noteTitle: 'Gut zu wissen', noteText: 'Wir sind ein ehrenamtlich geführter Amateurverein. Bezahlte Verträge, Hilfe beim Visum oder bei der Wohnungssuche können wir nicht bieten. Das Probetraining ist daher für Spieler, die schon in Berlin oder im Umland wohnen.',
     },
     en: {
       metaTitle: 'Men’s Football Trial Training Berlin | FC Treptow', metaDesc: 'Free trial training at FC Treptow in Berlin-Baumschulenweg (Treptow-Köpenick), on the artificial pitch at the Willi-Sänger sports ground. Sign up, train with us, the coach gives you feedback.',
@@ -481,6 +482,7 @@ export const pages = {
         'If it’s a good fit, you submit the',
       ],
       regLinkLabel: 'membership application in easyVerein',
+      noteTitle: 'Good to know', noteText: 'We’re a volunteer-run amateur club. We can’t offer paid contracts, visa support or help with housing, so trial training is for players who already live in Berlin or nearby.',
     },
     tr: {
       metaTitle: 'Berlin’de Futbol Deneme Antrenmanı | FC Treptow', metaDesc: 'Berlin-Baumschulenweg’de (Treptow-Köpenick) FC Treptow’da ücretsiz deneme antrenmanı, Willi-Sänger spor tesisinin suni çim sahasında. Kayıt ol, antrenmana katıl, antrenör sana geri bildirim verir.',
@@ -500,6 +502,7 @@ export const pages = {
         'Uyum sağlarsa, başvurunu yaparsın:',
       ],
       regLinkLabel: 'easyVerein’de üyelik başvurusu',
+      noteTitle: 'Bilmekte fayda var', noteText: 'Gönüllülerin yönettiği bir amatör kulübüz. Ücretli sözleşme, vize desteği ya da konut konusunda yardım sunamıyoruz. Bu yüzden deneme antrenmanı, zaten Berlin’de veya yakın çevresinde yaşayan oyuncular içindir.',
     },
     ar: {
       metaTitle: 'تدريب تجريبي لكرة القدم للرجال في برلين | FC Treptow', metaDesc: 'تدريب تجريبي مجاني في نادي إف سي تريبتاو في برلين-باومشولنفيغ (تريبتو-كوبينيك)، على الملعب الصناعي في منشأة فيلي زانغر الرياضية. سجّل، تدرّب معنا، ويعطيك المدرب رأيه.',
@@ -519,6 +522,7 @@ export const pages = {
         'إذا كان مناسبًا، تقدّم',
       ],
       regLinkLabel: 'طلب العضوية على easyVerein',
+      noteTitle: 'معلومة مهمة', noteText: 'نحن نادٍ للهواة يديره متطوعون. لا يمكننا تقديم عقود مدفوعة أو المساعدة في التأشيرة أو السكن، لذلك التدريب التجريبي مخصص للاعبين الذين يقيمون بالفعل في برلين أو بالقرب منها.',
     },
     es: {
       metaTitle: 'Prueba de fútbol masculino en Berlín | FC Treptow', metaDesc: 'Entrenamiento de prueba gratuito en el FC Treptow, en Berlín-Baumschulenweg (Treptow-Köpenick), en el césped artificial de la instalación Willi-Sänger. Apúntate, entrena con nosotros y el entrenador te da su opinión.',
@@ -538,6 +542,7 @@ export const pages = {
         'Si encajas bien, envías la',
       ],
       regLinkLabel: 'solicitud de socio en easyVerein',
+      noteTitle: 'Bueno saberlo', noteText: 'Somos un club amateur gestionado por voluntarios. No ofrecemos contratos remunerados, ayuda con el visado ni con la vivienda, así que el entrenamiento de prueba es para jugadores que ya viven en Berlín o cerca.',
     },
     fr: {
       metaTitle: 'Séance d’essai football masculin Berlin | FC Treptow', metaDesc: 'Séance d’essai gratuite au FC Treptow à Berlin-Baumschulenweg (Treptow-Köpenick), sur le synthétique du complexe Willi-Sänger. Inscris-toi, entraîne-toi avec nous, l’entraîneur te fait un retour.',
@@ -557,6 +562,7 @@ export const pages = {
         'Si le courant passe, vous déposez la',
       ],
       regLinkLabel: 'demande d’adhésion sur easyVerein',
+      noteTitle: 'Bon à savoir', noteText: 'Nous sommes un club amateur géré par des bénévoles. Nous ne proposons ni contrat rémunéré, ni aide pour le visa ou le logement : l’entraînement d’essai s’adresse donc aux joueurs qui vivent déjà à Berlin ou à proximité.',
     },
   },
 

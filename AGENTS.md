@@ -76,6 +76,22 @@ Status mit `astro dev status`, Logs mit `astro dev logs`).
   wird selbst ausgeliefert; keinen Captcha-Dienst von Dritten einbauen.
 - Texte der Bestätigungsmail stehen in `src/lib/trialMail.mjs`, ebenfalls in allen sechs Sprachen.
 
+## Probetraining: nur Amateure aus Berlin und Umland
+
+Über Formular und E-Mail kommen viele Anfragen von Spielern aus dem Ausland, die bezahlte
+Verträge oder ein Visum suchen. Der Verein ist reiner Amateurfußball. Deshalb:
+
+- Die Randnotiz "Gut zu wissen" im Kasten "So läuft es ab" (`noteTitle`/`noteText` in
+  `pages.ts`, alle sechs Sprachen) bleibt bei jeder Umgestaltung erhalten: keine bezahlten
+  Verträge, keine Hilfe bei Visum oder Wohnung, Probetraining nur für Spieler aus Berlin oder
+  dem Umland.
+- Sie ist bewusst eine Randnotiz. Die Seite lädt zuerst ein; nicht als Warnung über das
+  Formular ziehen.
+- Abgegrenzt wird über Wohnort und Erwartung (Amateur, unbezahlt), nie über Herkunft oder
+  Staatsangehörigkeit.
+- Der gleiche Hinweis steht in `src/pages/llms.txt.ts`, offen lesbar. Keine versteckten Texte
+  oder Anweisungen für KI-Agenten einbauen: Suchmaschinen werten das als Spam.
+
 ## Gestaltung
 
 Die Regeln stehen oben in `src/styles/global.css` und gelten verbindlich:

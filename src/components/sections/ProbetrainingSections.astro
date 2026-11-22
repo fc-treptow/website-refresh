@@ -118,6 +118,12 @@ const box = 'h-5 w-5 shrink-0 accent-club';
           </li>
         ))}
       </ol>
+      <!-- Hinweis für Anfragen, die Profiverträge oder ein Visum suchen. Bewusst als Randnotiz,
+           nicht als Warnung über dem Formular (siehe AGENTS.md, Probetraining). -->
+      <div class="mt-8 border-t border-paper/20 pt-6">
+        <p class="text-[13px] font-semibold uppercase tracking-[0.06em] text-paper/60">{t.noteTitle}</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-paper/85">{t.noteText}</p>
+      </div>
     </aside>
   </div>
 </section>
