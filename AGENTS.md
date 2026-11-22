@@ -84,7 +84,8 @@ Verträge oder ein Visum suchen. Der Verein ist reiner Amateurfußball. Deshalb:
 - Die Randnotiz "Gut zu wissen" im Kasten "So läuft es ab" (`noteTitle`/`noteText` in
   `pages.ts`, alle sechs Sprachen) bleibt bei jeder Umgestaltung erhalten: keine bezahlten
   Verträge, keine Hilfe bei Visum oder Wohnung, Probetraining nur für Spieler aus Berlin oder
-  dem Umland.
+  dem Umland. Derselbe Hinweis steht als `amateur` in der Eingangsbestätigung
+  (`src/lib/trialMail.mjs`).
 - Sie ist bewusst eine Randnotiz. Die Seite lädt zuerst ein; nicht als Warnung über das
   Formular ziehen.
 - Abgegrenzt wird über Wohnort und Erwartung (Amateur, unbezahlt), nie über Herkunft oder
