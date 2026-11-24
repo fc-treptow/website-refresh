@@ -181,6 +181,296 @@
       "permanent": true
     },
     {
+      "source": "/pokal",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/antrag-bfv-passiv",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/7er-herren-I/team1/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/7er-herren-i/team1/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/es/beitragsordnung",
+      "destination": "/es/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/es/mannschaften/herren1",
+      "destination": "/es/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/es/mannschaften/kopie-2-herren",
+      "destination": "/es/mannschaften/herren-3",
+      "permanent": true
+    },
+    {
+      "source": "/es/freizeit-kickers",
+      "destination": "/es/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/es/7er-herren-i/team1/fc-treptow",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es/7er-herren-ii/team2/fc-treptow",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es/pokal",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es/dokumente",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/satzung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/antrag-bfv-spielberechtigung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/antrag-zweitspielrecht-bfv",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/antrag-bfv-passiv",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/foto-einverstandniserklarung",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es/verein/über_uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/verein/%c3%bcber_uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/verein/uber-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/verein/über-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/verein/%c3%bcber-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/ehrenamt",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es/anfahrt",
+      "destination": "/es/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/es/datenschutzbestimmungen",
+      "destination": "/es/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/es/dsgvo",
+      "destination": "/es/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/es/medien",
+      "destination": "/es/news",
+      "permanent": true
+    },
+    {
+      "source": "/es/leer",
+      "destination": "/es",
+      "permanent": true
+    },
+    {
+      "source": "/it/beitragsordnung",
+      "destination": "/mitgliedschaft",
+      "permanent": true
+    },
+    {
+      "source": "/it/mannschaften/herren1",
+      "destination": "/mannschaften/herren-1",
+      "permanent": true
+    },
+    {
+      "source": "/it/mannschaften/kopie-2-herren",
+      "destination": "/mannschaften/herren-3",
+      "permanent": true
+    },
+    {
+      "source": "/it/freizeit-kickers",
+      "destination": "/mannschaften/freizeit-kickers",
+      "permanent": true
+    },
+    {
+      "source": "/it/7er-herren-i/team1/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/it/7er-herren-ii/team2/fc-treptow",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/it/pokal",
+      "destination": "/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/it/dokumente",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/satzung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/antrag-bfv-spielberechtigung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/kopie-antrag-bfv-spielberechtigung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/antrag-zweitspielrecht-bfv",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/antrag-bfv-passiv",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/foto-einverstandniserklarung",
+      "destination": "/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/it/verein/über_uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/verein/%c3%bcber_uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/verein/uber-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/verein/über-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/verein/%c3%bcber-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/ehrenamt",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/it/anfahrt",
+      "destination": "/kontakt",
+      "permanent": true
+    },
+    {
+      "source": "/it/datenschutzbestimmungen",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/it/dsgvo",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/it/medien",
+      "destination": "/news",
+      "permanent": true
+    },
+    {
+      "source": "/it/leer",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/it",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/it/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
       "source": "/en-gb/beitragsordnung",
       "destination": "/en/mitgliedschaft",
       "permanent": true
@@ -358,6 +648,21 @@
     {
       "source": "/en-gb",
       "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/pokal",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/antrag-bfv-passiv",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/7er-herren-i/team1/fc-treptow",
+      "destination": "/en/mannschaften",
       "permanent": true
     },
     {
@@ -546,6 +851,21 @@
       "permanent": true
     },
     {
+      "source": "/en-ca/pokal",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/antrag-bfv-passiv",
+      "destination": "/en/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/7er-herren-i/team1/fc-treptow",
+      "destination": "/en/mannschaften",
+      "permanent": true
+    },
+    {
       "source": "/en-ca/:path*",
       "destination": "/en",
       "permanent": true
@@ -728,6 +1048,21 @@
     {
       "source": "/es-ar",
       "destination": "/es",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/pokal",
+      "destination": "/es/mannschaften",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/antrag-bfv-passiv",
+      "destination": "/es/downloads",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/7er-herren-i/team1/fc-treptow",
+      "destination": "/es/mannschaften",
       "permanent": true
     },
     {
