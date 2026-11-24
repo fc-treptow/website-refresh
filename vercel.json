@@ -126,6 +126,11 @@
       "permanent": true
     },
     {
+      "source": "/verein/%C3%BCber-uns",
+      "destination": "/vereinschronik",
+      "permanent": true
+    },
+    {
       "source": "/ehrenamt",
       "destination": "/vereinschronik",
       "permanent": true
@@ -286,7 +291,7 @@
       "permanent": true
     },
     {
-      "source": "/es/verein/%c3%bcber_uns",
+      "source": "/es/verein/%C3%BCber_uns",
       "destination": "/es/vereinschronik",
       "permanent": true
     },
@@ -301,7 +306,7 @@
       "permanent": true
     },
     {
-      "source": "/es/verein/%c3%bcber-uns",
+      "source": "/es/verein/%C3%BCber-uns",
       "destination": "/es/vereinschronik",
       "permanent": true
     },
@@ -411,7 +416,7 @@
       "permanent": true
     },
     {
-      "source": "/it/verein/%c3%bcber_uns",
+      "source": "/it/verein/%C3%BCber_uns",
       "destination": "/vereinschronik",
       "permanent": true
     },
@@ -426,7 +431,7 @@
       "permanent": true
     },
     {
-      "source": "/it/verein/%c3%bcber-uns",
+      "source": "/it/verein/%C3%BCber-uns",
       "destination": "/vereinschronik",
       "permanent": true
     },
@@ -541,7 +546,7 @@
       "permanent": true
     },
     {
-      "source": "/en-gb/verein/%c3%bcber_uns",
+      "source": "/en-gb/verein/%C3%BCber_uns",
       "destination": "/en/vereinschronik",
       "permanent": true
     },
@@ -552,6 +557,11 @@
     },
     {
       "source": "/en-gb/verein/über-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-gb/verein/%C3%BCber-uns",
       "destination": "/en/vereinschronik",
       "permanent": true
     },
@@ -741,7 +751,7 @@
       "permanent": true
     },
     {
-      "source": "/en-ca/verein/%c3%bcber_uns",
+      "source": "/en-ca/verein/%C3%BCber_uns",
       "destination": "/en/vereinschronik",
       "permanent": true
     },
@@ -752,6 +762,11 @@
     },
     {
       "source": "/en-ca/verein/über-uns",
+      "destination": "/en/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/en-ca/verein/%C3%BCber-uns",
       "destination": "/en/vereinschronik",
       "permanent": true
     },
@@ -941,7 +956,7 @@
       "permanent": true
     },
     {
-      "source": "/es-ar/verein/%c3%bcber_uns",
+      "source": "/es-ar/verein/%C3%BCber_uns",
       "destination": "/es/vereinschronik",
       "permanent": true
     },
@@ -952,6 +967,11 @@
     },
     {
       "source": "/es-ar/verein/über-uns",
+      "destination": "/es/vereinschronik",
+      "permanent": true
+    },
+    {
+      "source": "/es-ar/verein/%C3%BCber-uns",
       "destination": "/es/vereinschronik",
       "permanent": true
     },
